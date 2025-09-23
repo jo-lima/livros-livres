@@ -1,3 +1,5 @@
+package Server.Registers.Usuarios;
+
 public class Usuario{
     String cpf;
     String nome;
@@ -10,7 +12,7 @@ public class Usuario{
         this.cpf      = cpf;
         this.nome     = nome;
         this.email    = email;
-        this.senha    = senha
+        this.senha    = senha;
         this.endereco = endereco;
         this.telefone = telefone;
     }

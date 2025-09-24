@@ -1,4 +1,4 @@
-package Server.Registers.Usuarios;
+package com.livros_livres.Server.registers.usuarios;
 
 public class Usuario{
     String cpf;

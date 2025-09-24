@@ -1,4 +1,4 @@
-package Server.Registers.Usuarios;
+package com.livros_livres.Server.registers.usuarios;
 
 public class Funcionario{ // Extends Usuario
     String matriculaString; // EXEMPLO DE COISA ÚNICA DA CLASSE

@@ -1,4 +1,4 @@
-package com.livros_livres.Server.private_controllers.colaboradores;
+package com.livros_livres.Server.controllers.Private;
 
 import com.livros_livres.Server.registers.usuarios.*;
 

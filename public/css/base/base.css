@@ -1,11 +1,12 @@
 *,
 *::after,
-*::before{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    font-family: monospace;
+body {
+  font-family: "IBM Plex Mono";
+  position: relative;
 }

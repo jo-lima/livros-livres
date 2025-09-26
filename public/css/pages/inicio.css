@@ -1,0 +1,16 @@
+h1{
+    text-align: center;
+    margin: 12px 0 24px 0;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 64px;
+}
+
+.search-form{
+    display: flex;
+    justify-content: center;
+}

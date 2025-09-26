@@ -1,11 +1,15 @@
 package com.livros_livres.Server.registers.usuarios;
 
-public class Cliente { // Extends Usuario
+public class Cliente extends Usuario {
 
-	String livroFavorito; // EXEMPLO DE COISA ÚNICA DA CLASSE
+	String livroFavorito;
 
-    public Cliente(String livroFavorito){
+    public void setLivroFavorito(String livroFavorito){
         this.livroFavorito = livroFavorito;
+    }
+
+    public String getLivroFavorito(){
+        return livroFavorito;
     }
 
 }

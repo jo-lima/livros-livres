@@ -1,0 +1,69 @@
+CREATE TABLE tbl_Autor(
+idAutor INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+nome VARCHAR(150) NOT NULL,
+descricao VARCHAR(180),
+citacao VARCHAR(180)
+);
+
+CREATE TABLE tbl_Livro(
+idLivro INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+ISBN VARCHAR(13) UNIQUE,
+Descricao VARCHAR(200),
+Estoque INT,
+Nome VARCHAR(150) NOT NULL,
+Data_publicacao DATETIME,
+Genero VARCHAR(80) NOT NULL,
+Paginas INT,
+Avaliacao TINYINT,
+Editora VARCHAR(100)
+);
+
+CREATE TABLE tbl_Usuario(
+idUsuario INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+CPF CHAR(11) UNIQUE NOT NULL,
+nome VARCHAR(80) NOT NULL,
+email VARCHAR(100) NOT NULL,
+senha VARCHAR(256) NOT NULL,
+endereco VARCHAR(100),
+telefone VARCHAR(11),
+token_verificacao VARCHAR(255),
+emailverificado TINYINT(1) NOT NULL DEFAULT 0
+);
+
+CREATE TABLE tbl_UsuarioEmprestimo(
+idEmprestimo INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+idLivro INT NOT NULL,
+idUsuario INT NOT NULL,
+DataPrevistaDevolucao DATE NOT NULL,
+DataDevolucao DATE,
+Data_Coleta DATE,
+Data_SolicitacaoEmprestimo DATETIME NOT NULL,
+Emprestimo_Ativo BOOLEAN DEFAULT 0,
+FOREIGN KEY(idLivro) REFERENCES tbl_Livro(idLivro) ON DELETE CASCADE,
+FOREIGN KEY(idUsuario) REFERENCES tbl_Usuario(idUsuario) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_LivroAutor(
+idLivro INT NOT NULL,
+idAutor INT NOT NULL,
+PRIMARY KEY(idLivro, idAutor),
+FOREIGN KEY(idLivro) REFERENCES tbl_Livro(idLivro) ON DELETE CASCADE,
+FOREIGN KEY(idAutor) REFERENCES tbl_Autor(idAutor) ON DELETE CASCADE
+);
+
+CREATE TABLE tbl_Avaliacao(
+idAvaliacao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+Nota INT,
+Comentario VARCHAR(200),
+idLivro INT NOT NULL,
+idUsuario INT NOT NULL ,
+FOREIGN KEY(idLivro) REFERENCES tbl_Livro(idLivro) ON DELETE CASCADE,
+FOREIGN KEY(idUsuario) REFERENCES tbl_Usuario(idUsuario) ON DELETE CASCADE,
+UNIQUE(idLivro, idUsuario)
+);
+
+CREATE TABLE tbl_funcionario(
+Matricula VARCHAR(10)PRIMARY KEY NOT NULL,
+CPF CHAR(11) NOT NULL UNIQUE,
+Senha VARCHAR(256) NOT NULL
+);

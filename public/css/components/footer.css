@@ -3,12 +3,12 @@
   display: flex;
   background-color: #b9c29b;
   padding: 64px 128px;
+  justify-content: space-between;
 }
 
 /* === PARTE DO LOGO === */
 .main-foter__logo-container {
-  flex-basis: 40%;
-  margin-right: 128px;
+  flex-basis: 35%;
 }
 
 .main-footer-logo {
@@ -53,4 +53,10 @@
 .main-footer-links-list a:hover,
 .main-footer-links-list a:active {
   color: rgb(86, 86, 157);
+}
+
+/* === PARTE DOS LINKS === */
+.main-footer__map {
+  aspect-ratio: 1/1;
+  width: 250px;
 }

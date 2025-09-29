@@ -1,6 +1,4 @@
-/* ------- */
-/* TEXTURA */
-/* ------- */
+/* ====== TEXTURA ====== */
 .paper-overlay {
   background-image: url("../../images/general/paper-texture.jpg");
   position: absolute;
@@ -10,12 +8,23 @@
   right: 0;
   background-repeat: repeat;
   mix-blend-mode: difference;
-  opacity: 0.17;
+  opacity: 0.27;
   pointer-events: none;
 }
 
-
-.container{
-  max-width: 1440px;
+/* ====== CONTAINER ====== */
+.container {
   margin: 0 auto;
+  max-width: 1440px;
+}
+
+/* ====== TEXTOS ====== */
+/* --- cores --- */
+.text-color--orange {
+  color: orange;
+}
+
+/* --- fontes --- */
+.font--secondary {
+  font-family: "Playfair Display";
 }

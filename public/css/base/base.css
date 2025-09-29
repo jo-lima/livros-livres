@@ -1,3 +1,4 @@
+/* ====== RESET ====== */
 *,
 *::after,
 *::before {
@@ -6,6 +7,7 @@
   box-sizing: border-box;
 }
 
+/* ====== BODY ====== */
 body {
   font-family: "IBM Plex Mono";
   position: relative;

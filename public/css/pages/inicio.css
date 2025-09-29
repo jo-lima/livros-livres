@@ -1,6 +1,6 @@
 /* ====== HEADER ====== */
 .main-header {
-  height:          100vh;
+  height: 100vh;
   background-size: cover;
   background-image: linear-gradient(
       to top,
@@ -8,33 +8,33 @@
       rgba(0, 0, 0, 0)
     ),
     url("/public/images/inicio/header/header-01.png");
-  display:         flex;
-  flex-direction:  column;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items:     center;
+  align-items: center;
 }
 
 .main-header__heading-container {
-  display:            flex;
-  flex-direction:     column;
-  width:              fit-content;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
   background-color: #fff;
 }
 
 .main-header__heading {
-  font-size:      190px;
-  font-weight:    bold;
+  font-size: 190px;
+  font-weight: bold;
   text-transform: uppercase;
-  line-height:    0.9;
+  line-height: 0.9;
 }
 
 /* ====== SLOGAN ====== */
 .main-header__slogan-container {
-  color:        #fff;
+  color: #fff;
   text-transform: uppercase;
-  text-align:     center;
-  line-height:    1;
-  margin-bottom:  12px;
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 12px;
 }
 
 .main-header__slogan--1 {
@@ -42,11 +42,52 @@
 }
 
 .main-header__slogan--2 {
-  font-size:   56px;
+  font-size: 56px;
   font-weight: 600;
 }
 
-/* ====== TEMPORÁRIO ====== */
-section {
-  height: 100vh;
+/* ====== AUTOR ====== */
+.section__author {
+  display: flex;
+}
+
+/* --- imagem --- */
+.author__image-container {
+  flex-basis: 50%;
+  overflow: hidden;
+}
+
+.author__image {
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.author__image:hover {
+  transform: scale(1.05);
+}
+
+/* --- frase --- */
+.author__quote-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.author__quote {
+  font-size: 84px;
+  color: #747474;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1.1;
+  width: 70%;
+  margin-bottom: 64px;
+}
+
+.author__name {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #000;
+  font-size: 18px;
 }

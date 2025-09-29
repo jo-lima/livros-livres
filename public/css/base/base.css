@@ -11,4 +11,6 @@
 body {
   font-family: "IBM Plex Mono";
   position: relative;
+  background-image: linear-gradient(to bottom, #e9edc9, #f3ffbc);
+  color: #747474;
 }

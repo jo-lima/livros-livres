@@ -1,0 +1,56 @@
+/* === CONTAINER === */
+.main-footer {
+  display: flex;
+  background-color: #b9c29b;
+  padding: 64px 128px;
+}
+
+/* === PARTE DO LOGO === */
+.main-foter__logo-container {
+  flex-basis: 40%;
+  margin-right: 128px;
+}
+
+.main-footer-logo {
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.main-footer__copyright {
+  font-size: 12px;
+}
+
+/* === PARTE DOS LINKS === */
+.main-footer-links {
+  display: flex;
+  font-size: 18px;
+  gap: 64px;
+}
+
+.main_footer_links-list-heading {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.main-footer-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin-left: 4px;
+}
+
+.main-footer-links-list a:link,
+.main-footer-links-list a:visited {
+  color: rgb(120, 120, 217);
+  font-size: 16px;
+}
+
+.main-footer-links-list a:hover,
+.main-footer-links-list a:active {
+  color: rgb(86, 86, 157);
+}

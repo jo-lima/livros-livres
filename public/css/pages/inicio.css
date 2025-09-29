@@ -60,6 +60,7 @@
 .author__image {
   width: 100%;
   transition: all 0.3s ease;
+  display: block;
 }
 
 .author__image:hover {

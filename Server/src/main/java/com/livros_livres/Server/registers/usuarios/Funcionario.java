@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 @Table(name="tbl_Funcionario")
 public class Funcionario extends Usuario{
 
+    // Table Columns
     @Id
     @Column(name="idFuncionario")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +20,7 @@ public class Funcionario extends Usuario{
     @Column(name="matricula")
     int matricula;
 
-
+    // Setters
     public void setIdFuncionario(int idFuncionario){
         this.idFuncionario = idFuncionario;
     }
@@ -27,7 +28,7 @@ public class Funcionario extends Usuario{
         this.matricula = matricula;
     }
 
-
+    // Getters
     public int getIdAutor(){
         return this.idFuncionario;
     }

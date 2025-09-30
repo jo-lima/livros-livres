@@ -7,13 +7,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name="tbl_Autor")
+@Entity // Class is an entity
+@Table(name="tbl_Autor") // Entity table name
 public class Autor {
 
-    @Id
-    @Column(name="idAutor")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // Table Columns
+    @Id // Variable that stores the PK for the column.
+    @Column(name="idAutor") // Name of column
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Annotation that generates the id's for us.
     private int idAutor;
 
     @Column(name="nome")
@@ -44,6 +45,7 @@ public class Autor {
         this.citacao = citacao;
     }
 
+    // Getters
     public int getIdAutor(){
         return this.idAutor;
     }

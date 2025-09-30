@@ -1,10 +1,10 @@
 /* Base */
-@import "../css/base/base.css";
-@import "../css/reusable/reusable.css";
+@import "/public/css/base/base.css";
+@import "/public/css/reusable/reusable.css";
 
 /* Componentes */
 @import "/public/css/components/footer.css";
 
 /* Páginas */
-@import "../css/pages/inicio.css";
-@import "../css/pages/acervo.css";
+@import "/public/css/pages/inicio.css";
+@import "/public/css/pages/acervo.css";

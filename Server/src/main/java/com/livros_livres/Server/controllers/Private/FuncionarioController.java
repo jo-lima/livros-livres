@@ -31,7 +31,7 @@ public class FuncionarioController {
 
 	@PostMapping("/novo")
 	public Funcionario novoFuncionario(@RequestBody Funcionario body){
-		return funcionarioService.criarNovoFuncionario(body);
+		return funcionarioService.salvarFuncionario(body);
 	}
 
 }

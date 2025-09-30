@@ -1,22 +1,19 @@
 package com.livros_livres.Server.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.livros_livres.Server.Repository.FuncionarioRepo;
 import com.livros_livres.Server.registers.usuarios.Funcionario;
 
+@Service
 public class FuncionarioService {
 
-    private Funcionario funcionario = new Funcionario();
+	@Autowired
+	private FuncionarioRepo funcionarioRepo;
 
-    public Funcionario criarNovoFuncionario(Funcionario dataFuncionario){
-        funcionario.setCpf(dataFuncionario.getCpf());
-        funcionario.setNome(dataFuncionario.getNome());
-        funcionario.setSenha(dataFuncionario.getSenha());
-        funcionario.setEndereco(dataFuncionario.getEndereco());
-        funcionario.setTelefone(dataFuncionario.getTelefone());
-        funcionario.setMatricula(dataFuncionario.getMatricula());
-
-        // Criar na base tb
-
-        return funcionario;
+    public Funcionario salvarFuncionario( Funcionario funcionarioData ){
+        return funcionarioRepo.save(funcionarioData);
     }
 
 }

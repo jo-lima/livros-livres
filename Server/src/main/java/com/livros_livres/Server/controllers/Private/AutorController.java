@@ -30,7 +30,7 @@ public class AutorController {
 
 	@PostMapping("/novo")
 	public Autor novoAutor(@RequestBody Autor body){
-		return autorService.criarNovoAutor(body);
+		return autorService.salvarAutor(body);
 	}
 
 }

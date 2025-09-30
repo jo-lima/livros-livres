@@ -1,7 +1,10 @@
 package com.livros_livres.Server.services;
 
+import org.springframework.stereotype.Service;
+
 import com.livros_livres.Server.registers.usuarios.Cliente;
 
+@Service
 public class ClienteService {
 
     private Cliente cliente = new Cliente();

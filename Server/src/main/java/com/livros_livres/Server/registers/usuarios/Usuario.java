@@ -1,11 +1,19 @@
 package com.livros_livres.Server.registers.usuarios;
 
+import jakarta.persistence.Column;
+
 abstract class Usuario{
+    @Column(name="cpf")
     String cpf;
+    @Column(name="nome")
     String nome;
+    @Column(name="email")
     String email;
+    @Column(name="senha")
     String senha;
+    @Column(name="endereco")
     String endereco;
+    @Column(name="telefone")
     String telefone;
 
     public void setCpf(String cpf){

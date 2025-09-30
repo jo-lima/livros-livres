@@ -12,7 +12,7 @@ public class AutorService {
 	@Autowired
 	private AutorRepo autorRepo;
 
-    public Autor criarNovoAutor( Autor autorData ){
+    public Autor salvarAutor( Autor autorData ){
         return autorRepo.save(autorData);
     }
 

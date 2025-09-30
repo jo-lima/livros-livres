@@ -1,6 +1,6 @@
 package com.livros_livres.Server.registers.usuarios;
 
-public class Usuario{
+abstract class Usuario{
     String cpf;
     String nome;
     String email;

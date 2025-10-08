@@ -1,50 +1,5 @@
-------- GERAL -------
--- VERIFICAR LIVROS QUE ESTÃO EMPRESTADOS
-SELECT L.Nome, U.Nome, UE.DataPrevistaDevolucao, UE.Data_Coleta, UE.Data_SolicitacaoEmprestimo
-FROM tbl_UsuarioEmprestimo UE
-INNER JOIN tbl_Usuario U
-ON U.idUsuario = UE.idUsuario
-INNER JOIN tbl_Livro L
-ON L.idLivro =  UE.idLivro
-WHERE UE.Emprestimo_Ativo = 1
+-- QUERYS - FUNCIONÁRIA
 
--- VERIFICAR LIVROS QUE ESTÃO PENDENTES DE COLETA NA BIBLIOTECA
-SELECT L.Nome, U.Nome, UE.DataPrevistaDevolucao, UE.Data_Coleta, UE.Data_SolicitacaoEmprestimo
-FROM tbl_UsuarioEmprestimo UE
-INNER JOIN tbl_Usuario U
-ON U.idUsuario = UE.idUsuario
-INNER JOIN tbl_Livro L
-ON L.idLivro =  UE.idLivro
-WHERE UE.Emprestimo_Ativo = 0
-
--- VERIFICAR LIVROS QUE FORAM DEVOLVIDOS
-SELECT L.Nome, U.Nome, UE.DataPrevistaDevolucao, UE.Data_Coleta, UE.Data_SolicitacaoEmprestimo
-FROM tbl_UsuarioEmprestimo UE
-INNER JOIN tbl_Usuario U
-ON U.idUsuario = UE.idUsuario
-INNER JOIN tbl_Livro L
-ON L.idLivro =  UE.idLivro
-WHERE UE.Emprestimo_Ativo = 0 AND UE.DataDevolucao IS NOT NULL
-
--- BUSCAR LIVROS DE UM AUTOR
-SELECT A.Nome, L.Nome
-FROM tbl_LivroAutor LA
-INNER JOIN tbl_Livro L
-ON L.idLivro = LA.idLivro
-INNER JOIN tbl_Autor A
-ON A.idAutor = LA.idAutor
-WHERE A.Nome LIKE ? ;
-
--- BUSCAR LIVRO
-SELECT A.Nome, L.Nome
-FROM tbl_LivroAutor LA
-INNER JOIN tbl_Livro L
-ON L.idLivro = LA.idLivro
-INNER JOIN tbl_Autor A
-ON A.idAutor = LA.idAutor
-WHERE L.Nome LIKE ? ;
-
-------- FUNCIONARIA -------
 -- VERIFICAR LIVROS QUE ESTÃO EMPRESTADOS - FUNCIONARIA
 SELECT L.Nome, U.Nome, UE.DataPrevistaDevolucao, UE.Data_Coleta, UE.Data_SolicitacaoEmprestimo
 FROM tbl_UsuarioEmprestimo UE
@@ -73,11 +28,11 @@ UPDATE tbl_Livro
 SET Estoque = Estoque + 1
 WHERE idLivro = ?;
 
--- ADICIONAR NOVO LIVRO - FUNCIONARIA
+-- ADICIONAR LIVRO - FUNCIONARIA
 INSERT INTO tbl_Livro(ISBN, Descricao, Nome, Data_publicacao, Genero, Paginas, Editora)
 VALUES(?,?,?,?,?,?,?)
 
-
+-- Necessário verificar a relação de IdAutor e IdLivro na tbl_LivroAutor
 -- BUSCAR LIVROS DE UM AUTOR
 SELECT A.Nome, L.Nome
 FROM tbl_LivroAutor LA
@@ -111,7 +66,57 @@ SET Data_Coleta = CURRENT_TIMESTAMP,
     Emprestimo_Ativo = 1
 WHERE idEmprestimo = ?;
 
-------- USUARIO -------
+
+-- MOSTRAR USUARIO POR ORDEM ALFABETICA
+SELECT UE. idEmprestimo, L.Nome, U.Nome, UE.DataPrevistaDevolucao, UE.Data_Coleta, UE.Data_SolicitacaoEmprestimo
+FROM tbl_UsuarioEmprestimo UE
+INNER JOIN tbl_Usuario U
+ON U.idUsuario = UE.idUsuario
+INNER JOIN tbl_Livro L
+ON L.idLivro =  UE.idLivro
+ORDER BY U.Nome ASC
+
+-- MOSTRAR USUARIO DATA DE EMPRESTIMO - Mais antiga pra mais recente
+SELECT UE. idEmprestimo, L.Nome, U.Nome, UE.DataPrevistaDevolucao, UE.Data_Coleta, UE.Data_SolicitacaoEmprestimo
+FROM tbl_UsuarioEmprestimo UE
+INNER JOIN tbl_Usuario U
+ON U.idUsuario = UE.idUsuario
+INNER JOIN tbl_Livro L
+ON L.idLivro =  UE.idLivro
+WHERE UE.Emprestimo_Ativo = 1
+ORDER BY DataPrevistaDevolucao ASC
+
+-- MOSTRAR USUARIO DATA DE EMPRESTIMO - Mais recente pra mais antiga 
+SELECT UE.idEmprestimo, L.Nome, U.Nome, UE.DataPrevistaDevolucao, UE.Data_Coleta, UE.Data_SolicitacaoEmprestimo
+FROM tbl_UsuarioEmprestimo UE
+INNER JOIN tbl_Usuario U
+ON U.idUsuario = UE.idUsuario
+INNER JOIN tbl_Livro L
+ON L.idLivro =  UE.idLivro
+WHERE UE.Emprestimo_Ativo = 1
+ORDER BY DataPrevistaDevolucao DESC
+
+-- BUSCAR USUARIO PELO CPF
+SELECT UE.idEmprestimo, L.Nome, U.Nome, UE.DataPrevistaDevolucao, UE.Data_Coleta, UE.Data_SolicitacaoEmprestimo
+FROM tbl_UsuarioEmprestimo UE
+INNER JOIN tbl_Usuario U
+ON U.idUsuario = UE.idUsuario
+INNER JOIN tbl_Livro L
+ON L.idLivro =  UE.idLivro
+WHERE U.CPF LIKE ?;
+
+-- BUSCAR USUARIO PELO NOME
+SELECT UE.idEmprestimo, L.Nome, U.Nome, UE.DataPrevistaDevolucao, UE.Data_Coleta, UE.Data_SolicitacaoEmprestimo
+FROM tbl_UsuarioEmprestimo UE
+INNER JOIN tbl_Usuario U
+ON U.idUsuario = UE.idUsuario
+INNER JOIN tbl_Livro L
+ON L.idLivro =  UE.idLivro
+WHERE U.Nome LIKE ?;
+
+
+-- QUERYS - CLIENTE
+
 -- BUSCAR POR GENERO - FILTRO
 SELECT A.Nome, L.Nome, L.Data_publicacao
 FROM tbl_LivroAutor LA
@@ -175,17 +180,20 @@ WHERE CPF = ?;
 SELECT * FROM tbl_usuario
 WHERE EMAIL = ?;
 
--- CADASTRO
-INSERT INTO tbl_Usuario(CPF, nome, email, senha, endereco, telefone)
+-- CADASTRO 
+INSERT INTO tbl_Usuario(CPF, nome, endereco, telefone)
+VALUES(?,?,?,?);
+
+INSERT INTO tbl_UsuarioLogin(email, senha)
 VALUES(?,?,?,?,?,?);
 
 -- ATUALIZAR SENHA
-UPDATE tbl_Usuario
+UPDATE tbl_UsuarioLogin
 SET senha = ?
 WHERE idUsuario = ?
 
 -- ATUALIZAR EMAIL
-UPDATE tbl_Usuario
+UPDATE tbl_UsuarioLogin
 SET email = ?
 WHERE idUsuario = ?
 
@@ -195,7 +203,8 @@ WHERE idUsuario = ?
 INSERT INTO tbl_Avaliacao(Nota, Comentario, idLivro, idUsuario)
 VALUES(?,?,?,?)
 
--- Realizar emprestimo
+-- Realizar empréstimo 
 -- Data de devolucao, Data_Coleta ficará inicialmente como nula
 INSERT INTO tbl_UsuarioEmprestimo(idLivro, idUsuario, DataPrevistaDevolucao, DataDevolucao, Data_Coleta, Data_SolicitacaoEmprestimo, Emprestimo_Ativo)
 VALUES(?,?,?,?,?,?, CURRENT_TIMESTAMP)
+

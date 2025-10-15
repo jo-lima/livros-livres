@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "ServerApplication",
+      "request": "launch",
+      "mainClass": "com.livros_livres.Server.ServerApplication",
+      "projectName": "Server",
+      "env": {
+        "ACTIVE_PROFILE": "dev", // dev
+        "DATABASE_PORT": "3306", // 3306
+        "DATABASE_NAME": "livroslivres", // livrosLivres
+        "DATABASE_USER": "root", // root
+        "DATABASE_PASSWORD": ""  // nenhuma
+      }
+    }
+  ]
+}

@@ -32,9 +32,10 @@ public class Autor {
 
     public Autor() {};
 
-    public Autor(String nome, String descricao, String citacao){
+    public Autor(String nome, String descricao, String citacao, Boolean ativo){
         this.nome=nome;
         this.descricao=descricao;
         this.citacao=citacao;
+        this.ativo=ativo;
     }
 }

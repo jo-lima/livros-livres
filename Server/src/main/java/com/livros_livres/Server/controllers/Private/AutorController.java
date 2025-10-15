@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.livros_livres.Server.registers.Server.RetornoApi;
 import com.livros_livres.Server.registers.livros.Autor;
 import com.livros_livres.Server.services.AutorService;
 
@@ -41,7 +42,7 @@ public class AutorController {
 	}
 
 	@PostMapping("/{id}/inativar")
-	public Autor inativarAutor(@PathVariable("id") String idParam){
+	public RetornoApi inativarAutor(@PathVariable("id") String idParam){
 		int idAutor = Integer.parseInt(idParam);
 		return autorService.inativarAutor(idAutor);
 	}

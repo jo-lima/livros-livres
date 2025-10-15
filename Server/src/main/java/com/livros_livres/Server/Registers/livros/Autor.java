@@ -1,4 +1,4 @@
-package com.livros_livres.Server.registers.livros;
+package com.livros_livres.Server.Registers.livros;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

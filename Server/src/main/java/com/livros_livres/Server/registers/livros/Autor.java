@@ -23,6 +23,8 @@ public class Autor {
     private String descricao;
     @Column(name="citacao")
     private String citacao;
+    @Column(name="ativo")
+    private Boolean ativo;
 
     public Autor() {};
 
@@ -44,6 +46,9 @@ public class Autor {
     public void setCitacao(String citacao){
         this.citacao = citacao;
     }
+    public void setAtivo(Boolean ativo){
+        this.ativo = ativo;
+    }
 
     // Getters
     public int getIdAutor(){
@@ -57,5 +62,8 @@ public class Autor {
     }
     public String getCitacao(){
         return this.citacao;
+    }
+    public Boolean getAtivo(){
+        return this.ativo;
     }
 }

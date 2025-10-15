@@ -31,12 +31,23 @@ public class AutorController {
 	}
 
 	@PostMapping("/novo")
-	public Autor novoAutor(@RequestBody Autor body){
-		return autorService.salvarAutor(body);
+	public RetornoApi novoAutor(@RequestBody Autor body){
+		return autorService.novoAutor(body);
+	}
+
+	@GetMapping("/{id}/busca")
+	public RetornoApi buscaAutor(@PathVariable("id") String idParam){
+		int idAutor = Integer.parseInt(idParam);
+		return autorService.buscaAutor(idAutor);
+	}
+
+	@GetMapping("/lista")
+	public RetornoApi listaAutores(@RequestBody Autor body){
+		return autorService.listaAutores(body);
 	}
 
 	@PostMapping("/{id}/atualizar")
-	public Autor atualizarAutor(@PathVariable("id") String idParam, @RequestBody Autor body){
+	public RetornoApi atualizarAutor(@PathVariable("id") String idParam, @RequestBody Autor body){
 		int idAutor = Integer.parseInt(idParam);
 		return autorService.atualizarAutor(idAutor, body);
 	}
@@ -48,13 +59,13 @@ public class AutorController {
 	}
 
 	@PostMapping("/{id}/ativar")
-	public Autor ativarAutor(@PathVariable("id") String idParam){
+	public RetornoApi ativarAutor(@PathVariable("id") String idParam){
 		int idAutor = Integer.parseInt(idParam);
 		return autorService.ativarAutor(idAutor);
 	}
 
 	@PostMapping("/{id}/deletar")
-	public Boolean deletarAutor(@PathVariable("id") String idParam){
+	public RetornoApi deletarAutor(@PathVariable("id") String idParam){
 		int idAutor = Integer.parseInt(idParam);
 		return autorService.deletarAutor(idAutor);
 	}

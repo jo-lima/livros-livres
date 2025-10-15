@@ -1,5 +1,6 @@
 package com.livros_livres.Server.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,36 +16,102 @@ public class AutorService {
     @Autowired // Automaticamente monta e importa a classe que faz a conexão da tabela do autor no bd
 	private AutorRepo autorRepo;
 
+    // Recupera os dados de um autor específico no banco.
+    public RetornoApi buscaAutor( Integer idAutor ){
+        Optional<Autor> buscaAutor;
+
+        buscaAutor = autorRepo.findById(idAutor);
+        if(!buscaAutor.isPresent()) {
+            return RetornoApi.errorNotFound("Nenhum autor encontrado para o id #" + idAutor.toString());
+        }
+
+        return RetornoApi.sucess("", buscaAutor);
+    }
+
+    // Recupera os dados de todos os autores no banco.
+    public RetornoApi listaAutores(){
+        List<Autor> buscaAutor;
+
+        buscaAutor = autorRepo.findAll();
+        if(buscaAutor.isEmpty()) {
+            return RetornoApi.errorNotFound("Nenhum autor encontrado.");
+        }
+
+        return RetornoApi.sucess("", buscaAutor);
+    }
+
+    // Recupera os dados de todos os autores no banco com os filtros do objeto de Autor
+    public RetornoApi listaAutores(Autor autorData){
+        List<Autor> listaAutor;
+
+        if (autorData==null) {
+            listaAutor = autorRepo.findAll();
+        }
+        else{
+            listaAutor = autorRepo.findAutoresBySearch(
+                autorData.getNome(),
+                autorData.getDescricao(),
+                autorData.getCitacao(),
+                autorData.getAtivo() == true ? 1 : 0 // no banco true é 1 e false é 0
+            );
+        }
+
+        if(listaAutor.isEmpty()) {
+            return RetornoApi.errorNotFound("Nenhum autor encontrado.");
+        }
+
+        return RetornoApi.sucess("", listaAutor);
+    }
+
     // Chama o método da classe repository que salva os dados de um Autor para o banco.
-    public Autor salvarAutor( Autor autorData ){
+    public RetornoApi novoAutor( Autor autorData ){
         autorData.setAtivo(true);
-        return autorRepo.save(autorData);
+        autorRepo.save(autorData);
+        return RetornoApi.sucess("Autor criado com sucesso!", autorData);
     }
 
     // Edita a coluna "ativo" de um autor para fazer sua inativação. (excluão lógica).
-    public Autor atualizarAutor( Integer idAutor, Autor autorData){
-        Optional<Autor> buscaAutor = autorRepo.findById(idAutor);
-        if(buscaAutor.isPresent()){
-            Autor autor = buscaAutor.get();
+    public RetornoApi atualizarAutor( Integer idAutor, Autor autorData){
+        Optional<Autor> buscaAutor;
+        Autor autor;
 
-            // adicionar if not empty
+        buscaAutor = autorRepo.findById(idAutor);
+        if(!buscaAutor.isPresent()) {
+            return RetornoApi.errorNotFound("Nenhum autor encontrado para o id #" + idAutor.toString());
+        }
+        if (autorData.getAtivo() != null) {
+            return RetornoApi.errorBadRequest("Campo ativo alterado apenas no endpoint de inativar ou ativar.");
+        }
+
+        autor = buscaAutor.get();
+
+        if (autorData.getNome() != null) {
             autor.setNome(autorData.getNome());
+        }
+        if (autorData.getDescricao() != null) {
             autor.setDescricao(autorData.getDescricao());
+        }
+        if (autorData.getCitacao() != null) {
             autor.setCitacao(autorData.getCitacao());
-            autor.setAtivo(autorData.getAtivo());
+        }
 
-            return autorRepo.save(autor);
-        }
-        else {
-            return null;
-        }
+        autorRepo.save(autor);
+
+        return RetornoApi.sucess("Autor atualizado com sucesso!", autor);
+
     }
 
     // Chama o método da classe repository que deleta um Autor no banco (excluão física).
-    // TODO: mudar o retorno para alguma classe do tipo "retorno/sucesso"
-    public Boolean deletarAutor( Integer idAutor ){
+    public RetornoApi deletarAutor( Integer idAutor ){
+        Optional<Autor> buscaAutor;
+
+        buscaAutor = autorRepo.findById(idAutor);
+        if(!buscaAutor.isPresent()) {
+            return RetornoApi.errorNotFound("Nenhum autor encontrado para o id #" + idAutor.toString());
+        }
+
         autorRepo.deleteById(idAutor);
-        return true; // adicionar validacao de erro
+        return RetornoApi.sucess("Autor excluído do sistema com sucesso.");
     }
 
     // Edita a coluna "ativo" de um autor para fazer sua inativação. (excluão lógica).
@@ -54,12 +121,10 @@ public class AutorService {
 
         buscaAutor= autorRepo.findById(idAutor);
 
-        // não encontrou autor
-        if(!buscaAutor.isPresent()) {
+        if(!buscaAutor.isPresent()) { // não encontrou autor
             return RetornoApi.errorNotFound("Nenhum autor encontrado para o id #" + idAutor.toString());
         }
-        // autor inativo
-        if(!buscaAutor.get().getAtivo()) {
+        if(!buscaAutor.get().getAtivo()) { // autor inativo
             return RetornoApi.errorBadRequest("Autor já inativo.");
         }
 
@@ -72,16 +137,22 @@ public class AutorService {
     }
 
     // Edita a coluna "ativo" de um autor para fazer sua ativação.
-    public Autor ativarAutor( Integer idAutor ){
-        Optional<Autor> buscaAutor = autorRepo.findById(idAutor);
-        if(buscaAutor.isPresent()){
-            Autor autor = buscaAutor.get();
-            autor.setAtivo(true);
-            return autorRepo.save(autor);
+    public RetornoApi ativarAutor( Integer idAutor ){
+        Optional<Autor> buscaAutor;
+        Autor autor;
+
+        buscaAutor = autorRepo.findById(idAutor);
+        if(!buscaAutor.isPresent()) { // não encontrou autor
+            return RetornoApi.errorNotFound("Nenhum autor encontrado para o id #" + idAutor.toString());
         }
-        else {
-            return null;
+        if(buscaAutor.get().getAtivo()) { // autor ativo
+            return RetornoApi.errorBadRequest("Autor já ativo.");
         }
+
+        autor = buscaAutor.get();
+        autor.setAtivo(true);
+        autorRepo.save(autor);
+        return RetornoApi.sucess("Autor ativado com sucesso!");
     }
 
 }

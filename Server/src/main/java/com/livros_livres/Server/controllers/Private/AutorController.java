@@ -35,7 +35,8 @@ public class AutorController {
 	}
 
 	@PostMapping("/{id}/deletar")
-	public Autor novoAutor(@PathVariable("id") String idAutor){
+	public Boolean novoAutor(@PathVariable("id") String idParam){
+		int idAutor = Integer.parseInt(idParam);
 		return autorService.deletarAutor(idAutor);
 	}
 

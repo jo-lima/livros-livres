@@ -42,7 +42,6 @@ public class AutorService {
     // Chama o método da classe repository que deleta um Autor no banco (excluão física).
     // TODO: mudar o retorno para alguma classe do tipo "retorno/sucesso"
     public Boolean deletarAutor( Integer idAutor ){
-
         autorRepo.deleteById(idAutor);
         return true; // adicionar validacao de erro
     }

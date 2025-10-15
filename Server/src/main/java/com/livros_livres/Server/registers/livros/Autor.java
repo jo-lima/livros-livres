@@ -6,7 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity // Class is an entity
 @Table(name="tbl_Autor") // Entity table name
 public class Autor {
@@ -32,38 +36,5 @@ public class Autor {
         this.nome=nome;
         this.descricao=descricao;
         this.citacao=citacao;
-    }
-
-    public void setIdAutor(int idAutor){
-        this.idAutor = idAutor;
-    }
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-    public void setDescricao(String descricao){
-        this.descricao = descricao;
-    }
-    public void setCitacao(String citacao){
-        this.citacao = citacao;
-    }
-    public void setAtivo(Boolean ativo){
-        this.ativo = ativo;
-    }
-
-    // Getters
-    public int getIdAutor(){
-        return this.idAutor;
-    }
-    public String getNome(){
-        return this.nome;
-    }
-    public String getDescricao(){
-        return this.descricao;
-    }
-    public String getCitacao(){
-        return this.citacao;
-    }
-    public Boolean getAtivo(){
-        return this.ativo;
     }
 }

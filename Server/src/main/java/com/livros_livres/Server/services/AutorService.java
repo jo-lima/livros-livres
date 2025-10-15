@@ -17,4 +17,9 @@ public class AutorService {
         return autorRepo.save(autorData);
     }
 
+    // Chama o método da classe repository que deleta um Autor no banco (excluão física).
+    public Autor deletarAutor( String idAutor ){
+        return autorRepo.
+    }
+
 }

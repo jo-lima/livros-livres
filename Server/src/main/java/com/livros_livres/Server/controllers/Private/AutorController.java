@@ -1,6 +1,7 @@
 package com.livros_livres.Server.controllers.Private;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,11 @@ public class AutorController {
 	@PostMapping("/novo")
 	public Autor novoAutor(@RequestBody Autor body){
 		return autorService.salvarAutor(body);
+	}
+
+	@PostMapping("/{id}/deletar")
+	public Autor novoAutor(@PathVariable("id") String idAutor){
+		return autorService.deletarAutor(idAutor);
 	}
 
 }

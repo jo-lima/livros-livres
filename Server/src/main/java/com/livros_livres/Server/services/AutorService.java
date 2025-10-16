@@ -43,16 +43,20 @@ public class AutorService {
     // Recupera os dados de todos os autores no banco com os filtros do objeto de Autor
     public RetornoApi listaAutores(Autor autorData){
         List<Autor> listaAutor;
+        String autorAtivo = null;
 
         if (autorData==null) {
             listaAutor = autorRepo.findAll();
         }
         else{
+            if(autorData.getAtivo() != null) {
+                autorAtivo = autorData.getAtivo() == true ? "1" : "0"; // no banco true é 1 e false é 0
+            }
             listaAutor = autorRepo.findAutoresBySearch(
                 autorData.getNome(),
-                autorData.getDescricao(),
                 autorData.getCitacao(),
-                autorData.getAtivo() == true ? 1 : 0 // no banco true é 1 e false é 0
+                autorData.getDescricao(),
+                autorAtivo
             );
         }
 

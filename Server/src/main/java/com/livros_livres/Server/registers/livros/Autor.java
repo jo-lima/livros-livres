@@ -30,7 +30,12 @@ public class Autor {
     @Column(name="ativo")
     private Boolean ativo;
 
-    public Autor() {};
+    public Autor() {
+        this.nome="";
+        this.descricao="";
+        this.citacao="";
+        this.ativo=true;
+    };
 
     public Autor(String nome, String descricao, String citacao, Boolean ativo){
         this.nome=nome;

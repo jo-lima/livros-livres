@@ -19,14 +19,14 @@ public interface AutorRepo extends JpaRepository<Autor, Integer> {
         value = "SELECT * FROM tbl_Autor \n" +
         "WHERE nome LIKE CONCAT('%', :nome, '%') \n" +
         "AND citacao LIKE CONCAT('%', :citacao, '%') \n" +
-        "AND descricao LIKE CONCAT('%', :descricao, '%')" +
-        "AND ativo = :ativo ",
+        "AND descricao LIKE CONCAT('%', :descricao, '%') \n" +
+        "AND (:ativo IS NULL OR ativo = :ativo)",
         nativeQuery = true
     )
     List<Autor> findAutoresBySearch(
         @Param("nome") String nome,
         @Param("citacao") String citacao,
         @Param("descricao") String descricao,
-        @Param("ativo") Integer ativo
-        );
+        @Param("ativo") String ativo
+    );
 }

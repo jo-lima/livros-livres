@@ -11,7 +11,6 @@ public class RetornoApi {
     private String message;
     private Object body;
 
-
     // constructors
     private RetornoApi() {};
 
@@ -48,6 +47,10 @@ public class RetornoApi {
 
     public static RetornoApi errorBadRequest(String message){
         return new RetornoApi(400, message);
+    }
+
+    public static RetornoApi errorNotFound(){
+        return new RetornoApi(404, "Not Found");
     }
 
     public static RetornoApi errorNotFound(String message){

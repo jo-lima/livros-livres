@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.livros_livres.Server.Registers.livros.Autor;
+import com.livros_livres.Server.registers.Server.RetornoApi;
+import com.livros_livres.Server.registers.livros.Autor;
 import com.livros_livres.Server.services.AutorService;
 
 @RestController
@@ -30,12 +31,41 @@ public class AutorController {
 	}
 
 	@PostMapping("/novo")
-	public Autor novoAutor(@RequestBody Autor body){
-		return autorService.salvarAutor(body);
+	public RetornoApi novoAutor(@RequestBody Autor body){
+		return autorService.novoAutor(body);
+	}
+
+	@GetMapping("/{id}/busca")
+	public RetornoApi buscaAutor(@PathVariable("id") String idParam){
+		int idAutor = Integer.parseInt(idParam);
+		return autorService.buscaAutor(idAutor);
+	}
+
+	@GetMapping("/lista")
+	public RetornoApi listaAutores(@RequestBody Autor body){
+		return autorService.listaAutores(body);
+	}
+
+	@PostMapping("/{id}/atualizar")
+	public RetornoApi atualizarAutor(@PathVariable("id") String idParam, @RequestBody Autor body){
+		int idAutor = Integer.parseInt(idParam);
+		return autorService.atualizarAutor(idAutor, body);
+	}
+
+	@PostMapping("/{id}/inativar")
+	public RetornoApi inativarAutor(@PathVariable("id") String idParam){
+		int idAutor = Integer.parseInt(idParam);
+		return autorService.inativarAutor(idAutor);
+	}
+
+	@PostMapping("/{id}/ativar")
+	public RetornoApi ativarAutor(@PathVariable("id") String idParam){
+		int idAutor = Integer.parseInt(idParam);
+		return autorService.ativarAutor(idAutor);
 	}
 
 	@PostMapping("/{id}/deletar")
-	public Boolean novoAutor(@PathVariable("id") String idParam){
+	public RetornoApi deletarAutor(@PathVariable("id") String idParam){
 		int idAutor = Integer.parseInt(idParam);
 		return autorService.deletarAutor(idAutor);
 	}

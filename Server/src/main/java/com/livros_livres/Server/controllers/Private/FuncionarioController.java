@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.livros_livres.Server.registers.usuarios.Funcionario;
+import com.livros_livres.Server.Registers.usuarios.Funcionario;
 import com.livros_livres.Server.services.FuncionarioService;
 
 @RestController

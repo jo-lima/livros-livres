@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.livros_livres.Server.registers.usuarios.Cliente;
+import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.services.ClienteService;
 
 @RestController // Define a classe como um controlador rest

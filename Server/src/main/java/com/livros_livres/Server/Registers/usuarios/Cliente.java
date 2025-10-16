@@ -1,4 +1,4 @@
-package com.livros_livres.Server.registers.usuarios;
+package com.livros_livres.Server.Registers.usuarios;
 
 public class Cliente extends Usuario {
 

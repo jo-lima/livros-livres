@@ -1,56 +1,60 @@
 /* Conteúdo */
 .book-content {
   display: flex;
-  height: 100vh;
+  gap: 24px;
+  width: 95%;
+  margin: 0 auto;
 }
 
 /* Imagem */
 
 .book-image-container {
-  flex-basis: 20%;
-  display: flex;
-  padding: 0 25px;
-  flex-direction: column;
+  flex: 1;
 }
 
 .book-image {
-  height: 500px;
   aspect-ratio: 1/1.5;
+  width: 95%;
+  margin: 0 auto;
   background-color: rgb(74, 194, 104);
-  margin-bottom: 16px;
 }
 /* nome data pub generto pagina descricao estque editora isbn */
 /* Detalhes  */ /* Completamente diferente de informações */
 .book-details {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+}
+
+.book-details__heading {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+
+.book-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .book-detail__icon {
 }
 
-.book-detail {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  text-align: center;
-}
 
 .book-detail__type {
-  font-size: 12px;
 }
 
 .book-detail__value {
-  font-weight: bold;
-  font-size: 12px;
 }
 
 /* Informações */
 .book-information-container {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-basis: 70%;
 }
 
 .book-title {
@@ -64,6 +68,7 @@
   display: flex;
   gap: 12px;
   align-items: center;
+  margin-bottom: 64px;
 }
 
 .book-author__image {
@@ -77,4 +82,7 @@
   /*  */
 }
 
-/*  */
+/* Descricao */
+.book-description {
+  margin-bottom: auto;
+}

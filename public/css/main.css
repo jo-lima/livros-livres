@@ -4,6 +4,7 @@
 
 /* Componentes */
 @import "/public/css/components/footer.css";
+@import "/public/css/components/nav.css";
 
 /* Páginas */
 @import "/public/css/pages/inicio.css";

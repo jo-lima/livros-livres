@@ -1,0 +1,24 @@
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 48px;
+  margin-bottom: 24px;
+}
+
+.main-nav a:link,
+.main-nav a:visited {
+  color: #000;
+}
+
+.library-filters__heading {
+  font-size: 28px;
+  font-weight: bold;
+}
+.library-filters__genre {
+}
+.library-filters__genre-check {
+}
+.library-filters__genre-label {
+}

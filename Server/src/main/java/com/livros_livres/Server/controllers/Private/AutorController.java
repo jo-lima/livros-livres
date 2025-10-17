@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.livros_livres.Server.registers.Server.RetornoApi;
-import com.livros_livres.Server.registers.livros.Autor;
+import com.livros_livres.Server.Registers.Server.RetornoApi;
+import com.livros_livres.Server.Registers.livros.Autor;
 import com.livros_livres.Server.services.AutorService;
 
 @RestController

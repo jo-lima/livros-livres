@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.livros_livres.Server.registers.Server.Authentication;
-import com.livros_livres.Server.registers.Server.RetornoApi;
-import com.livros_livres.Server.registers.Server.UsuariosLogados;
-import com.livros_livres.Server.registers.livros.Autor;
+import com.livros_livres.Server.Registers.Server.Authentication;
+import com.livros_livres.Server.Registers.Server.RetornoApi;
+import com.livros_livres.Server.Registers.Server.UsuariosLogados;
+import com.livros_livres.Server.Registers.livros.Autor;
 
 import lombok.Getter;
 import lombok.Setter;

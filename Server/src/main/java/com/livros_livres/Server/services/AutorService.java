@@ -6,10 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.livros.Autor;
 import com.livros_livres.Server.Repository.AutorRepo;
-import com.livros_livres.Server.registers.Server.RetornoApi;
-import com.livros_livres.Server.registers.livros.Autor;
 
 @Service // Classe de serviço
 public class AutorService {

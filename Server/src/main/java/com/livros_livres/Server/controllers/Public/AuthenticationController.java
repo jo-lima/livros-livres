@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.livros_livres.Server.registers.Server.Authentication;
-import com.livros_livres.Server.registers.Server.RetornoApi;
+import com.livros_livres.Server.Registers.Server.Authentication;
+import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.services.AuthenticationService;
 
 @RestController // Define a classe como um controlador rest

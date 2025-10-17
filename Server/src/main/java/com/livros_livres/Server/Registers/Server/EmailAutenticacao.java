@@ -1,4 +1,4 @@
-package com.livros_livres.Server.registers.Server;
+package com.livros_livres.Server.Registers.Server;
 
 import java.util.Date;
 

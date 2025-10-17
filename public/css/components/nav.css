@@ -11,14 +11,3 @@
 .main-nav a:visited {
   color: #000;
 }
-
-.library-filters__heading {
-  font-size: 28px;
-  font-weight: bold;
-}
-.library-filters__genre {
-}
-.library-filters__genre-check {
-}
-.library-filters__genre-label {
-}

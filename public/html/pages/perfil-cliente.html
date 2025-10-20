@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐕</text></svg>"
+    />
+    <link rel="stylesheet" href="/public/css/main.css" />
+    <title>Acervo</title>
+  </head>
+  <body>
+    <nav class="main-nav">
+      <a href="/public/html/index.html">inicio</a>
+      <a href="/public/html/index.html">acervo</a>
+      <a href="/public/html/index.html">entrar</a>
+    </nav>
+    <div class="profile-content">
+      <section class="profile-info-tab">
+        <div class="profile-info-tab__pfp"></div>
+        <section class="profile-info-tab__perfil-data">
+          <h2 class="perfil-data__title"></h1>
+          <p class="perfil-data__nome">Nome: Caio Polonio</p>
+          <p class="perfil-data__email">Email: caiopolonio@gmail.com</p>
+          <p class="perfil-data__senha">senha: *****</p>
+          <p class="perfil-data__data-nascimento">Data de Nascimento: dd/mm/aaaa</p>
+          <div class="perfil-data__editar-infos">
+            <button class="editar-infos__button">Editar</button>
+          </div>
+        </section>
+      </section>
+      <hr>
+      <section class="emprestimos-tab">
+        <section class="pendencias-list">
+          <h2 class="pendencias-list__title">Pendencias:</h2>
+          <div class="pendencias-list__pendencias">
+
+            <div class="pendencias__pendencia">
+              <p class="pendencia__livro_name">Livro TITULO LIVRO:</p>
+              <p class="pendencia__livro_data-coleta">dd/mm/aaaa</p>
+              <p class="pendencia__livro_data-devolucao">dd/mm/aaaa</p>
+              <div class="pendencia__detalhar-pendencia">
+                <button class="detalhar-pendencia__button">Detalhes</button>
+              </div>
+            </div>
+
+            <div class="pendencias__pendencia">
+              <p class="pendencia__livro_name">Livro TITULO LIVRO:</p>
+              <p class="pendencia__livro_data-coleta">dd/mm/aaaa</p>
+              <div class="pendencia__detalhar-pendencia">
+                <button class="detalhar-pendencia__button">Detalhes</button>
+              </div>
+            </div>
+
+            <div class="pendencias__fim-pendencias">
+              <p class="fim-pendencias-aviso">Sem mais pendencias :)</p>
+            </div>
+
+          </div>
+        </section>
+        <section class="pendencia-atual">
+          <div class="pendencia-atual__info-visual">
+            <h2 class="info-visual__titulo">Livro Atual:</h2>
+            <div class="info-visual__livro-capa">
+              <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+            </div>
+            <div class="info-visual__livro_identity">
+              <p class="livro_identity__titulo">Titulo Livro</p>
+              <p class="livro_identity__autor">Autor Livro</p>
+            </div>
+          </div>
+
+          <div class="pendencia-atual__info-descritiva">
+            <div class="info-descritiva__data">
+              <div class="data__data-limite">
+                <span class="data-limite_title">Data Limite Devolução:</span>
+                <span class="data-limite__info">dd/mm/aaaa</span>
+              </div>
+              <div class="data__data-limite">
+                <span class="data-limite__title">Dias até limite da devolução:</span>
+                <span class="data-limite__info">XX Dias</span>
+              </div>
+              <div class="data__data-coleta"></div>
+                <span class="data-coleta__title">Data Coleta:</span>
+                <span class="data-coleta__info">dd/mm/aaaa</span>
+              </div>
+
+            <p class="data__livro-descricao">Descrição: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi doloremque quasi perferendis amet assumenda consequatur quas, harum quaerat? Dignissimos dolorum magni quibusdam velit itaque aliquid eum quis atque minus consequuntur?</p>
+
+            <div class="info-descritiva__acoes">
+              <button class="acoes__prorrogar">Prorrogar</button>
+              <button class="acoes__cancelar">Cancelar Solicitação</button>
+            </div>
+          </div>
+
+        </section>
+      </section>
+      <hr>
+      <section class="historico">
+        <div class="historico__livro">
+          <div class="livro__info-visual">
+            <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+          </div>
+          <div class="livro__info-descritiva">
+            <p class="info-descritiva__titulo">Titulo Livro</p>
+            <p class="info-descritiva__autor">Nome Autor</p>
+            <p class="info-descritiva__emprestado-em">Emprestado em:</p>
+            <p class="info-descritiva__data-emprestado-em">dd/mm/aaaa</p>
+            <p class="info-descritiva__devolvido-em">Devolvido em:</p>
+            <p class="info-descritiva__data-devolvido-em">dd/mm/aaaa</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

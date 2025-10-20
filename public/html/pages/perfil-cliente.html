@@ -33,7 +33,7 @@
         <div class="profile-info-tab__pfp">
           <img src="/public/images/pfp.jpg" alt="#">
         </div>
-        <section class="profile-info-tab__perfil-data">
+        <div class="profile-info-tab__perfil-data">
           <h2 class="perfil-data__title"></h1>
           <p class="perfil-data__nome">Nome: Caio Polonio</p>
           <p class="perfil-data__email">Email: caiopolonio@gmail.com</p>
@@ -42,16 +42,17 @@
           <div class="perfil-data__editar-infos">
             <button class="editar-infos__button">Editar</button>
           </div>
-        </section>
+        </div>
       </section>
       <hr>
       <section class="emprestimos-tab">
-        <section class="pendencias-list">
+        <div class="emprestimos-tab__pendencias-list">
           <h2 class="pendencias-list__title">Pendencias:</h2>
           <div class="pendencias-list__pendencias">
 
             <div class="pendencias__pendencia">
               <p class="pendencia__livro_name">Livro TITULO LIVRO:</p>
+
               <p class="pendencia__livro_data-coleta">dd/mm/aaaa</p>
               <p class="pendencia__livro_data-devolucao">dd/mm/aaaa</p>
               <div class="pendencia__detalhar-pendencia">
@@ -59,6 +60,8 @@
               </div>
             </div>
 
+            <hr>
+
             <div class="pendencias__pendencia">
               <p class="pendencia__livro_name">Livro TITULO LIVRO:</p>
               <p class="pendencia__livro_data-coleta">dd/mm/aaaa</p>
@@ -67,13 +70,15 @@
               </div>
             </div>
 
+            <hr>
+
             <div class="pendencias__fim-pendencias">
               <p class="fim-pendencias-aviso">Sem mais pendencias :)</p>
             </div>
 
           </div>
-        </section>
-        <section class="pendencia-atual">
+        </div>
+        <div class="emprestimos-tab__pendencia-atual">
           <div class="pendencia-atual__info-visual">
             <h2 class="info-visual__titulo">Livro Atual:</h2>
             <div class="info-visual__livro-capa">
@@ -87,28 +92,32 @@
 
           <div class="pendencia-atual__info-descritiva">
             <div class="info-descritiva__data">
-              <div class="data__data-limite">
+
+              <div class="data__item">
                 <span class="data-limite_title">Data Limite Devolução:</span>
                 <span class="data-limite__info">dd/mm/aaaa</span>
               </div>
-              <div class="data__data-limite">
+
+              <div class="data__item">
                 <span class="data-limite__title">Dias até limite da devolução:</span>
                 <span class="data-limite__info">XX Dias</span>
               </div>
-              <div class="data__data-coleta"></div>
+
+              <div class="data__item">
                 <span class="data-coleta__title">Data Coleta:</span>
                 <span class="data-coleta__info">dd/mm/aaaa</span>
               </div>
-
-            <p class="data__livro-descricao">Descrição: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi doloremque quasi perferendis amet assumenda consequatur quas, harum quaerat? Dignissimos dolorum magni quibusdam velit itaque aliquid eum quis atque minus consequuntur?</p>
+              <p class="data__item">Descrição: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi doloremque quasi perferendis amet assumenda consequatur quas, harum quaerat? Dignissimos dolorum magni quibusdam velit itaque aliquid eum quis atque minus consequuntur?</p>
+            </div>
 
             <div class="info-descritiva__acoes">
               <button class="acoes__prorrogar">Prorrogar</button>
               <button class="acoes__cancelar">Cancelar Solicitação</button>
             </div>
+
           </div>
 
-        </section>
+        </div>
       </section>
       <hr>
       <section class="historico-tab">

@@ -3,30 +3,39 @@ hr {
     margin: 30px 0px;
 }
 
+/* debug */
+img {
+    max-width: 300px;
+}
+
 .profile-content {
-    margin: 0px 5%;
+    margin: 0px 10%;
 }
 
 /* PROFILE INFO TAB */
 .profile-info-tab {
     display: flex;
-    width: 100%;
 }
+
+/* ESQUERDA */
 .profile-info-tab__pfp {
+    flex: 1.5;
+    margin: auto;
     max-width: 100%;
-    flex: 1;
 }
 .profile-info-tab__pfp img {
     width: 100%;
     border-radius: 100%;
 }
 
+/* Direita */
 .profile-info-tab__perfil-data {
-    flex-grow: 3;
     margin: auto;
     margin-left: 25px;
     border: solid 1px black;
     padding: 15px 10px;
+    flex: 3;
+    flex-grow: 5;
 }
 .profile-info-tab__perfil-data p {
     margin-bottom: 15px;
@@ -47,5 +56,78 @@ hr {
     display: inline;
 }
 .editar-infos__button:hover {
+    cursor: pointer;
+}
+
+/* SESSAO PENDENCIAS */
+.emprestimos-tab {
+    display: flex;
+}
+
+/* LISTA DE PENDENCIAS */
+.pendencias-list__title {
+    margin-bottom: 7px;
+}
+.pendencias-list__pendencias {
+    background-color: #cacaca;
+    padding: 15px;
+    height: 95%;
+    flex: 1.5;
+    max-width: 100%;
+}
+
+.pendencia__detalhar-pendencia {
+    float: right;
+}
+.detalhar-pendencia__button {
+    padding: 1px 3px;
+    border: solid 1px black;
+    background-color: aqua;
+    display: inline;
+}
+.detalhar-pendencia__button:hover {
+    cursor: pointer;
+}
+
+/* PENDENCIA ATUAL */
+.emprestimos-tab__pendencia-atual {
+    display: flex;
+    margin-left: 50px;
+    flex: 3;
+    flex-grow: 5;
+}
+
+/* ESQUERDA */
+.pendencia-atual__info-visual {
+    flex: 1;
+}
+.info-visual__livro-capa img {
+    width: 100%;
+}
+.info-visual__livro_identity {
+    text-align: center;
+}
+
+/* DIREITA */
+.pendencia-atual__info-descritiva {
+    flex: 3;
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+.info-descritiva__data .data__item {
+    margin-bottom: 10px
+}
+
+.info-descritiva__acoes {
+    float: right;
+}
+.info-descritiva__acoes button {
+    padding: 5px 8px;
+    border: solid 1px black;
+    background-color: aqua;
+    display: inline;
+}
+.info-descritiva__acoes button:hover {
     cursor: pointer;
 }

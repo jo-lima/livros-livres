@@ -1,0 +1,51 @@
+
+hr {
+    margin: 30px 0px;
+}
+
+.profile-content {
+    margin: 0px 5%;
+}
+
+/* PROFILE INFO TAB */
+.profile-info-tab {
+    display: flex;
+    width: 100%;
+}
+.profile-info-tab__pfp {
+    max-width: 100%;
+    flex: 1;
+}
+.profile-info-tab__pfp img {
+    width: 100%;
+    border-radius: 100%;
+}
+
+.profile-info-tab__perfil-data {
+    flex-grow: 3;
+    margin: auto;
+    margin-left: 25px;
+    border: solid 1px black;
+    padding: 15px 10px;
+}
+.profile-info-tab__perfil-data p {
+    margin-bottom: 15px;
+}
+/* ultimo campo, pra deixar o editar do ladinho. */
+.perfil-data__data-nascimento {
+    margin: 0px;
+    display: inline;
+}
+
+.perfil-data__editar-infos {
+    float: right;
+}
+.editar-infos__button {
+    padding: 5px 8px;
+    border: solid 1px black;
+    background-color: aqua;
+    display: inline;
+}
+.editar-infos__button:hover {
+    cursor: pointer;
+}

@@ -34,7 +34,7 @@
           <img src="/public/images/pfp.jpg" alt="#">
         </div>
         <div class="profile-info-tab__perfil-data">
-          <h2 class="perfil-data__title"></h1>
+          <h2 class="perfil-data__title">Informações do Perfil:</h1>
           <p class="perfil-data__nome">Nome: Caio Polonio</p>
           <p class="perfil-data__email">Email: caiopolonio@gmail.com</p>
           <p class="perfil-data__senha">senha: *****</p>
@@ -46,92 +46,144 @@
       </section>
       <hr>
       <section class="emprestimos-tab">
-        <div class="emprestimos-tab__pendencias-list">
-          <h2 class="pendencias-list__title">Pendencias:</h2>
-          <div class="pendencias-list__pendencias">
-
-            <div class="pendencias__pendencia">
-              <p class="pendencia__livro_name">Livro TITULO LIVRO:</p>
-
-              <p class="pendencia__livro_data-coleta">dd/mm/aaaa</p>
-              <p class="pendencia__livro_data-devolucao">dd/mm/aaaa</p>
-              <div class="pendencia__detalhar-pendencia">
-                <button class="detalhar-pendencia__button">Detalhes</button>
-              </div>
-            </div>
-
-            <hr>
-
-            <div class="pendencias__pendencia">
-              <p class="pendencia__livro_name">Livro TITULO LIVRO:</p>
-              <p class="pendencia__livro_data-coleta">dd/mm/aaaa</p>
-              <div class="pendencia__detalhar-pendencia">
-                <button class="detalhar-pendencia__button">Detalhes</button>
-              </div>
-            </div>
-
-            <hr>
-
-            <div class="pendencias__fim-pendencias">
-              <p class="fim-pendencias-aviso">Sem mais pendencias :)</p>
-            </div>
-
-          </div>
+        <div class="emprestimos-tab__titles">
+          <h2 class="titles__pendencias-title">Pendencias:</h2>
+          <h2 class="titles__livro-atual-title">Livro Atual:</h2>
         </div>
-        <div class="emprestimos-tab__pendencia-atual">
-          <div class="pendencia-atual__info-visual">
-            <h2 class="info-visual__titulo">Livro Atual:</h2>
-            <div class="info-visual__livro-capa">
-              <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
-            </div>
-            <div class="info-visual__livro_identity">
-              <p class="livro_identity__titulo">Titulo Livro</p>
-              <p class="livro_identity__autor">Autor Livro</p>
+        <div class="emprestimos-tab__content">
+          <div class="content__pendencias-list">
+            <div class="pendencias-list__pendencias">
+              <div class="pendencias__pendencia">
+                <p class="pendencia__nome">Livro Pequeno Principe:</p>
+                <div class="pendencia__data-coleta pendencia__data">
+                  <p class="data-coleta__title">Data Coleta:</p>
+                  <p class="data-coleta__info">dd/mm/aaaa</p>
+                </div>
+                <div class="pendencia__data-devolucao pendencia__data">
+                  <p class="data-devolucao__title">Data de Devolução:</p>
+                  <p class="data-devolucao__info">dd/mm/aaaa</p>
+                </div>
+                <div class="pendencia__detalhar-pendencia">
+                  <button class="detalhar-pendencia__button">Detalhes</button>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="pendencias__pendencia">
+                <p class="pendencia__livro_name">Livro Pequeno Principe:</p>
+                <div class="pendencia__data-coleta pendencia__data">
+                  <p class="data-coleta__title">Data Coleta:</p>
+                  <p class="data-coleta__info">dd/mm/aaaa</p>
+                </div>
+                <div class="pendencia__detalhar-pendencia">
+                  <button class="detalhar-pendencia__button">Detalhes</button>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="pendencias__fim-pendencias">
+                <p class="fim-pendencias__aviso">Sem mais pendencias :^)</p>
+              </div>
+
             </div>
           </div>
-
-          <div class="pendencia-atual__info-descritiva">
-            <div class="info-descritiva__data">
-
-              <div class="data__item">
-                <span class="data-limite_title">Data Limite Devolução:</span>
-                <span class="data-limite__info">dd/mm/aaaa</span>
+          <div class="content__pendencia-atual">
+            <div class="pendencia-atual__info-visual">
+              <div class="info-visual__livro-capa">
+                <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
               </div>
-
-              <div class="data__item">
-                <span class="data-limite__title">Dias até limite da devolução:</span>
-                <span class="data-limite__info">XX Dias</span>
+              <div class="info-visual__livro_identity">
+                <p class="livro_identity__titulo">Titulo Livro</p>
+                <p class="livro_identity__autor">Autor Livro</p>
               </div>
-
-              <div class="data__item">
-                <span class="data-coleta__title">Data Coleta:</span>
-                <span class="data-coleta__info">dd/mm/aaaa</span>
-              </div>
-              <p class="data__item">Descrição: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi doloremque quasi perferendis amet assumenda consequatur quas, harum quaerat? Dignissimos dolorum magni quibusdam velit itaque aliquid eum quis atque minus consequuntur?</p>
             </div>
 
-            <div class="info-descritiva__acoes">
-              <button class="acoes__prorrogar">Prorrogar</button>
-              <button class="acoes__cancelar">Cancelar Solicitação</button>
+            <div class="pendencia-atual__info-descritiva">
+              <div class="info-descritiva__data">
+
+                <div class="data__data-limite data__item">
+                  <span class="data-limite_title">Data Limite Devolução:</span>
+                  <span class="data-limite__info item__info">dd/mm/aaaa</span>
+                </div>
+
+                <div class="data__data-limite data__item">
+                  <span class="data-limite__title">Dias até limite da devolução:</span>
+                  <span class="data-limite__info item__info">XX Dias</span>
+                </div>
+
+                <div class="data__data-coleta data__item">
+                  <span class="data-coleta__title">Data Coleta:</span>
+                  <span class="data-coleta__info item__info">dd/mm/aaaa</span>
+                </div>
+                <p class="data__item">Descrição: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi doloremque quasi perferendis amet assumenda consequatur quas, harum quaerat? Dignissimos dolorum magni quibusdam velit itaque aliquid eum quis atque minus consequuntur?</p>
+              </div>
+
+              <div class="info-descritiva__acoes">
+                <button class="acoes__prorrogar">Prorrogar</button>
+                <button class="acoes__cancelar">Cancelar Solicitação</button>
+              </div>
+
             </div>
 
           </div>
-
         </div>
       </section>
       <hr>
       <section class="historico-tab">
-        <div class="historico-tab__livro">
-          <div class="livro__info-visual">
-            <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+        <h2 class="historico-tab__title">Histórico:</h2>
+        <div class="hitorico-tab__livros-grid">
+          <div class="livros-grid__livro">
+            <div class="livro__info-visual">
+              <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+            </div>
+            <div class="livro__info-descritiva">
+              <p class="info-descritiva__titulo">Titulo Livro</p>
+              <p class="info-descritiva__autor">Nome Autor</p>
+              <div class="info-descritiva__emprestado-em info-descritiva__data">
+                <p class="emprestado-em__title">Emprestado em:</p>
+                <p class="emprestado-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+              <div class="info-descritiva__devolvido-em info-descritiva__data">
+                <p class="devolvido-em__title">Devolvido em:</p>
+                <p class="devolvido-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+            </div>
           </div>
-          <div class="livro__info-descritiva">
-            <p class="info-descritiva__titulo">Titulo Livro</p>
-            <p class="info-descritiva__autor">Nome Autor</p>
-            <p class="info-descritiva__emprestado-em">Emprestado em:</p>
-            <p class="info-descritiva__data-emprestado-em">dd/mm/aaaa</p>
-            <p class="info-descritiva__devolvido-em">Devolvido em:</p>
-            <p class="info-descritiva__data-devolvido-em">dd/mm/aaaa</p>
+          <div class="livros-grid__livro">
+            <div class="livro__info-visual">
+              <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+            </div>
+            <div class="livro__info-descritiva">
+              <p class="info-descritiva__titulo">Titulo Livro</p>
+              <p class="info-descritiva__autor">Nome Autor</p>
+              <div class="info-descritiva__emprestado-em info-descritiva__data">
+                <p class="emprestado-em__title">Emprestado em:</p>
+                <p class="emprestado-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+              <div class="info-descritiva__devolvido-em info-descritiva__data">
+                <p class="devolvido-em__title">Devolvido em:</p>
+                <p class="devolvido-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+            </div>
+          </div>
+          <div class="livros-grid__livro">
+            <div class="livro__info-visual">
+              <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+            </div>
+            <div class="livro__info-descritiva">
+              <p class="info-descritiva__titulo">Titulo Livro</p>
+              <p class="info-descritiva__autor">Nome Autor</p>
+              <div class="info-descritiva__emprestado-em info-descritiva__data">
+                <p class="emprestado-em__title">Emprestado em:</p>
+                <p class="emprestado-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+              <div class="info-descritiva__devolvido-em info-descritiva__data">
+                <p class="devolvido-em__title">Devolvido em:</p>
+                <p class="devolvido-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

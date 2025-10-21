@@ -1,38 +1,25 @@
 package com.livros_livres.Server.Registers.usuarios;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name="tbl_Funcionario")
-public class Funcionario extends Usuario{
+public class Funcionario extends Usuario {
 
-    // Table Columns
-    @Id
-    @Column(name="idFuncionario")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idFuncionario;
+    @Column(name="admin")
+    private Boolean admin;
 
-    @Column(name="matricula")
-    int matricula;
-
-    // Setters
-    public void setIdFuncionario(int idFuncionario){
-        this.idFuncionario = idFuncionario;
-    }
-    public void setMatricula(int matricula){
-        this.matricula = matricula;
+    public Funcionario() {
+        super();
+        this.admin = true;
     }
 
-    // Getters
-    public int getIdAutor(){
-        return this.idFuncionario;
-    }
-    public int getMatricula(){
-        return matricula;
+    public Funcionario(String nome, String email, String senha, Boolean admin) {
+        super(nome, email, senha);
+        this.admin = admin;
     }
 }

@@ -1,0 +1,76 @@
+
+html{
+    background-color: #000;
+}
+.register-user{
+    width:80%;
+    background-color: #FFF;
+    align-items: center;
+    margin: 10px auto;
+}
+.register-user__form{
+    align-items: center;
+    justify-content: center;   
+    margin: 10px;
+    padding: 50px;
+}
+.register-user__form h1{
+    text-align: center;
+    font-size: 20px ;
+    color: #2D4372;
+}
+.forms-fields-user p{ 
+    color: #000;
+    font-weight: bold;
+    font-size: 20px;
+}
+.forms-fields-user input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 25px;
+    box-sizing: border-box;
+    background-color: #F09618;
+    opacity: 49%;
+}
+.form-user-register{
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    width: 100%;
+    margin: 20px auto;
+    background-color: white;
+}
+
+.register-user__image{ 
+    flex-basis: 40%;
+    width: 100%;
+}
+
+.register-user__image img{
+width: 100%;
+}
+
+
+/*.form_user_register{
+    d
+}*/
+
+#btnLogin {
+    width: 40%;
+    max-width: 200px;
+    padding: 10px;
+    margin: 20px auto;
+    display: block;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.have-account{
+    font-size: 17px;
+    text-align: center;
+}

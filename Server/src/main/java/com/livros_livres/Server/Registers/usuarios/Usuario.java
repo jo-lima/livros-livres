@@ -1,57 +1,39 @@
 package com.livros_livres.Server.Registers.usuarios;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-abstract class Usuario{
-    @Column(name="cpf")
-    String cpf;
-    @Column(name="nome")
-    String nome;
-    @Column(name="email")
-    String email;
-    @Column(name="senha")
-    String senha;
-    @Column(name="endereco")
-    String endereco;
-    @Column(name="telefone")
-    String telefone;
+@Getter()
+@Setter()
+@MappedSuperclass
+public abstract class Usuario {
 
-    public void setCpf(String cpf){
+    @Column(name="Cpf")
+    private String cpf;
+
+    @Column(name="Nome")
+    private String nome;
+
+    @Column(name="Email", unique = true)
+    private String email;
+
+    @Column(name="Senha")
+    private String senha;
+
+    @Column(name="Ativo")
+    private Boolean ativo;
+
+    protected Usuario() {}
+
+    protected Usuario(
+            String cpf, String nome, String email,
+            String senha, Boolean ativo
+        ) {
         this.cpf = cpf;
-    }
-    public void setNome(String nome){
         this.nome = nome;
-    }
-    public void setEmail(String email){
         this.email = email;
-    }
-    public void setSenha(String senha){
         this.senha = senha;
+        this.ativo = ativo;
     }
-    public void setEndereco(String endereco){
-        this.endereco = endereco;
-    }
-    public void setTelefone(String telefone){
-        this.telefone = telefone;
-    }
-
-    public String getCpf(){
-        return cpf;
-    }
-    public String getNome(){
-        return nome;
-    }
-    public String getEmail(){
-        return email;
-    }
-    public String getSenha(){
-        return senha;
-    }
-    public String getEndereco(){
-        return endereco;
-    }
-    public String getTelefone(){
-        return telefone;
-    }
-
 }

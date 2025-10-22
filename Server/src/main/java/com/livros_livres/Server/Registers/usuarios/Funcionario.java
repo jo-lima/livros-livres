@@ -10,16 +10,21 @@ import lombok.Setter;
 @Table(name="tbl_Funcionario")
 public class Funcionario extends Usuario {
 
-    @Column(name="admin")
-    private Boolean admin;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="FuncionarioId")
+    private int funcionarioId;
 
-    public Funcionario() {
-        super();
-        this.admin = true;
-    }
+    @Column(name="Matricula")
+    private String matricula;
 
-    public Funcionario(String nome, String email, String senha, Boolean admin) {
-        super(nome, email, senha);
-        this.admin = admin;
+    public Funcionario() {}
+
+    public Funcionario(
+        String cpf, String nome, String email, String senha,
+        Boolean ativo, String matricula
+    ) {
+        super(cpf, nome, email, senha, ativo);
+        this.matricula = matricula;
     }
 }

@@ -15,7 +15,6 @@ public class ClienteService {
         cliente.setSenha(dataCliente.getSenha());
         cliente.setEndereco(dataCliente.getEndereco());
         cliente.setTelefone(dataCliente.getTelefone());
-        cliente.setLivroFavorito(dataCliente.getLivroFavorito());
 
         // Criar na base tb
 

@@ -4,34 +4,36 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Getter()
+@Setter()
 @MappedSuperclass
 public abstract class Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idUsuario")
-    private int idUsuario;
+    @Column(name="Cpf")
+    private String cpf;
 
-    @Column(name="nome")
+    @Column(name="Nome")
     private String nome;
 
-    @Column(name="email", unique = true)
+    @Column(name="Email", unique = true)
     private String email;
 
-    @Column(name="senha")
+    @Column(name="Senha")
     private String senha;
 
-    public Usuario() {
-        this.nome = "";
-        this.email = "";
-        this.senha = "";
-    }
+    @Column(name="Ativo")
+    private Boolean ativo;
 
-    public Usuario(String nome, String email, String senha) {
+    protected Usuario() {}
+
+    protected Usuario(
+            String cpf, String nome, String email,
+            String senha, Boolean ativo
+        ) {
+        this.cpf = cpf;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.ativo = ativo;
     }
 }

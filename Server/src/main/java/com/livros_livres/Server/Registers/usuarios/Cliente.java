@@ -13,14 +13,29 @@ import java.util.List;
 @Table(name="tbl_Cliente")
 public class Cliente extends Usuario {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="ClienteId")
+    private int clienteId;
+
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Emprestimo> emprestimos = new ArrayList<>();
+
+    @Column(name="Endereco")
+    private String endereco;
+    @Column(name="Telefone")
+    private String telefone;
 
     public Cliente() {
         super();
     }
 
-    public Cliente(String nome, String email, String senha) {
-        super(nome, email, senha);
+    public Cliente(
+        String cpf, String nome, String email, String senha,
+        Boolean ativo, String endereco, String telefone
+    ) {
+        super(cpf, nome, email, senha, ativo);
+        this.endereco = endereco;
+        this.telefone = telefone;
     }
 }

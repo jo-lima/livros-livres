@@ -19,28 +19,45 @@ public class Emprestimo {
     private int idEmprestimo;
 
     @ManyToOne
-    @JoinColumn(name="idCliente")
+    @JoinColumn(name="IdCliente")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name="idLivro")
+    @JoinColumn(name="IdLivro")
     private Livro livro;
 
-    @Column(name="dataEmprestimo")
-    private LocalDate dataEmprestimo;
+    @Column(name="Data_SolicitacaoEmprestimo")
+    private LocalDate dataSolicitacaoEmprestimo;
 
-    @Column(name="dataDevolucao")
+    @Column(name="Data_Coleta")
+    private LocalDate dataColeta;
+
+    @Column(name="Data_Devolucao")
     private LocalDate dataDevolucao;
 
-    public Emprestimo() {
-        this.dataEmprestimo = LocalDate.now();
-        this.dataDevolucao = LocalDate.now().plusDays(7);
-    }
+    @Column(name="Data_EstendidaDevolucao")
+    private LocalDate dataEstendidaDevolucao;
 
-    public Emprestimo(Cliente cliente, Livro livro) {
+    @Column(name="Data_PrevistaDevolucao")
+    private LocalDate dataPrevistaDevolucao;
+
+    @Column(name="Ativo")
+    private Boolean ativo;
+
+    public Emprestimo() {}
+
+    public Emprestimo(
+        Cliente cliente, Livro livro, LocalDate dataSolicitacaoEmprestimo,
+        LocalDate dataColeta, LocalDate dataDevolucao, LocalDate dataEstendidaDevolucao,
+        LocalDate dataPrevistaDevolucao, Boolean ativo
+        ) {
         this.cliente = cliente;
         this.livro = livro;
-        this.dataEmprestimo = LocalDate.now();
-        this.dataDevolucao = dataEmprestimo.plusDays(7);
+        this.dataSolicitacaoEmprestimo = dataSolicitacaoEmprestimo;
+        this.dataColeta = dataColeta;
+        this.dataDevolucao = dataDevolucao;
+        this.dataEstendidaDevolucao = dataEstendidaDevolucao;
+        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
+        this.ativo = ativo;
     }
 }

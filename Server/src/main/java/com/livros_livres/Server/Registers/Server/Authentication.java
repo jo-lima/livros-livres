@@ -6,7 +6,7 @@ public interface Authentication {
 
     public static final List<UsuariosLogados> usuariosLogados = null;
 
-    RetornoApi logarUsuario(String email, String senha);
+    RetornoApi logarUsuario(LoginRequest loginRequest);
     RetornoApi trocarSenha(String token, String email, String novaSenha);
 
     RetornoApi enviarCodigoValidarEmailUsuario(String email);

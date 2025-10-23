@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.livros_livres.Server.Registers.Server.Authentication;
+import com.livros_livres.Server.Registers.Server.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.services.AuthenticationService;
 
@@ -29,8 +30,8 @@ public class AuthenticationController {
 	// Endpoints
 
     @PostMapping("/login")
-    public RetornoApi loginUsuario(@RequestParam("email") String email, @RequestParam("senha") String senha) {
-        return authService.logarUsuario(email, senha);
+    public RetornoApi loginUsuario(@RequestBody LoginRequest loginRequest) {
+        return authService.logarUsuario(loginRequest);
     }
 
     @GetMapping("/login/listar") // ENDPOINT APENAS PARA DEBUG

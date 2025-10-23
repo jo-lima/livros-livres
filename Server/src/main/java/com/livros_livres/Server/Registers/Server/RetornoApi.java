@@ -65,4 +65,9 @@ public class RetornoApi {
         return new RetornoApi(500, "Ocorreu um erro interno não mapeado.");
     }
 
+    // Endpoint-specific methods.
+    public static RetornoApi errorLoginNotFound(){
+        return new RetornoApi(404, "Nenhum usuário encontrado para combinação de email e senha apresentados.");
+    }
+
 }

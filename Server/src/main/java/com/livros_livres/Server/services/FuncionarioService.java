@@ -1,5 +1,7 @@
 package com.livros_livres.Server.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,18 @@ public class FuncionarioService {
 
     public Funcionario salvarFuncionario( Funcionario funcionarioData ){
         return funcionarioRepo.save(funcionarioData);
+    }
+
+    public Funcionario buscaFuncionarioMatricula(String matricula) {
+        Optional<Funcionario> funcionario;
+
+        funcionario = funcionarioRepo.findByMatriculaIgnoreCase(matricula);
+
+        if(funcionario.isEmpty()) {
+            return null;
+        }
+
+        return funcionario.get();
     }
 
 }

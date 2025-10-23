@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.services.ClienteService;
 
@@ -31,8 +32,8 @@ public class ClienteController {
 	}
 
 	@PostMapping("/novo")
-	public Cliente novoCliente(@RequestBody Cliente body) {
-		return clienteServices.criarNovoCliente(body);
+	public RetornoApi novoCliente(@RequestBody Cliente body) {
+		return clienteServices.novoCliente(body);
 	}
 
 }

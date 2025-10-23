@@ -1,16 +1,20 @@
 package com.livros_livres.Server.services;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.livros_livres.Server.Registers.Server.Authentication;
+import com.livros_livres.Server.Registers.Server.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Server.UsuariosLogados;
-import com.livros_livres.Server.Registers.livros.Autor;
+import com.livros_livres.Server.Registers.usuarios.Cliente;
+import com.livros_livres.Server.Registers.usuarios.Funcionario;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,34 +24,78 @@ import lombok.Setter;
 @Setter
 public class AuthenticationService implements Authentication{
 
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
     private List<UsuariosLogados> usuariosLogados = new ArrayList<>();
 
     @Value("${livrosLivres.debug}") // Getting value from application.properties
     private boolean debug;
 
     @Autowired
-    private AutorService autorService; // TODO: change to clienteService later
+    private ClienteService clienteService;
+    @Autowired
+    private FuncionarioService funcionarioService;
 
     // Methods
-    public RetornoApi logarUsuario(String email, String senha) {
-        UsuariosLogados newUser = new UsuariosLogados();
-        Autor userData = new Autor(); // change to Cliente
-        Object buscaAutor; // change to Cliente type and name buscaCliente
 
-        userData.setNome(email);
-        userData.setDescricao(senha); // change to email and senha
+    private String tokenGenerator() {
+        String CHARSOPTIONS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$";
+        int TOKEN_SIZE = 64;
+        StringBuilder tokenBuilder = new StringBuilder(TOKEN_SIZE);
 
-        // Method will change drastically. Using just for testing.
-        // In real implementation, Cliente will have a method that returns a Cliente, and its search will be
-        // exclusive. In this example it is a search. (you can type only half of password and will find someone)
-        buscaAutor = autorService.listaAutores(userData).getBody();
-        if(buscaAutor == null) {
-            return RetornoApi.errorNotFound("Nenhum usuário encontrado para combinação de email e senha apresentados.");
+        for (int i = 0; i < TOKEN_SIZE; i++) {
+            int index = SECURE_RANDOM.nextInt(CHARSOPTIONS.length());
+            tokenBuilder.append(CHARSOPTIONS.charAt(index));
+        }
+        return tokenBuilder.toString();
+    }
+
+    private Boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" +
+                        "[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        return email.matches(emailRegex);
+    }
+
+    public RetornoApi logarUsuario(LoginRequest loginRequest) {
+        if (loginRequest == null || loginRequest.getSenha() == null || loginRequest.getUsuario() == null) {
+            return RetornoApi.errorLoginNotFound();
         }
 
-        newUser.setEmail(email);
-        newUser.setToken("1234"); // generate token randomly
-        newUser.setDataTokenGerado(java.time.LocalDateTime.now());
+        UsuariosLogados newUser; // Objeto que vai ser adicionado a array de usuarios logados
+        Boolean userFound = false;
+        Cliente buscaCliente = new Cliente();
+        Funcionario buscaFuncionario = new Funcionario();
+
+        // se é um cliente logando com email
+        if (isValidEmail(loginRequest.getUsuario()))
+        {
+            // procura por um cliente com esse email
+            buscaCliente = clienteService.buscaClienteEmail(loginRequest.getUsuario());
+            // confere se a senha ta certa
+            if(buscaCliente == null || !loginRequest.getSenha().equals(buscaCliente.getSenha())) {
+                return RetornoApi.errorLoginNotFound();
+            }
+            userFound = true;
+        }
+        // Se nao é com email, é funcionario com a matricula.
+        else {
+            buscaFuncionario = funcionarioService.buscaFuncionarioMatricula(loginRequest.getUsuario());
+            // confere se a senha ta certa
+            if( buscaFuncionario == null || !loginRequest.getSenha().equals(buscaFuncionario.getSenha())) {
+                return RetornoApi.errorLoginNotFound();
+            }
+            userFound = true;
+        }
+
+        if(userFound == false) {
+            return RetornoApi.errorLoginNotFound();
+        }
+
+        newUser = new UsuariosLogados(
+            loginRequest.getUsuario(),
+            this.tokenGenerator(),
+            java.time.LocalDateTime.now()
+        );
 
         this.usuariosLogados.add(newUser);
 

@@ -1,5 +1,7 @@
 package com.livros_livres.Server.Registers.Server;
 
+import java.util.Optional;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,19 +11,22 @@ public class RetornoApi {
 
     private int statusCode;
     private String message;
-    private Object body;
+    private Optional<Object> body;
 
     // constructors
-    private RetornoApi() {};
+    private RetornoApi() {
+        this.body=Optional.empty();
+    };
 
     private RetornoApi(Integer statusCode, String message, Object body){
         this.statusCode=statusCode;
         this.message=message;
-        this.body=body;
+        this.body=Optional.ofNullable(body);
     }
     private RetornoApi(Integer statusCode, String message){
         this.statusCode=statusCode;
         this.message=message;
+        this.body=Optional.empty();
     }
 
     // methods

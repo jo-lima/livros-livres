@@ -3,11 +3,11 @@
   display: flex;
 }
 
-.library-filters {
+.section__library-filters {
   padding: 0 32px;
 }
 
-.library-books {
+.section__library-books {
   flex: 1;
   padding-left: 24px;
 }

@@ -86,7 +86,7 @@
   margin-bottom: 64px;
 }
 
-.author__name {
+.current-author__name {
   text-transform: uppercase;
   font-weight: bold;
   color: #000;

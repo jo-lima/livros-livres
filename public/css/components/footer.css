@@ -7,11 +7,11 @@
 }
 
 /* === PARTE DO LOGO === */
-.main-foter__logo-container {
+.main-footer__logo-container {
   flex-basis: 35%;
 }
 
-.main-footer-logo {
+.main-footer__logo {
   font-size: 64px;
   font-weight: 800;
   line-height: 1;
@@ -24,19 +24,19 @@
 }
 
 /* === PARTE DOS LINKS === */
-.main-footer-links {
+.main-footer__links {
   display: flex;
   font-size: 18px;
   gap: 64px;
 }
 
-.main_footer_links-list-heading {
+.main_footer__links-list-heading {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 6px;
 }
 
-.main-footer-links-list {
+.main-footer__links-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -44,14 +44,14 @@
   margin-left: 4px;
 }
 
-.main-footer-links-list a:link,
-.main-footer-links-list a:visited {
+.main-footer__links-list a:link,
+.main-footer__links-list a:visited {
   color: rgb(120, 120, 217);
   font-size: 16px;
 }
 
-.main-footer-links-list a:hover,
-.main-footer-links-list a:active {
+.main-footer__links-list a:hover,
+.main-footer__links-list a:active {
   color: rgb(86, 86, 157);
 }
 

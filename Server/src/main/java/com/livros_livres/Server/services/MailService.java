@@ -20,21 +20,22 @@ public class MailService {
     private MailSender mailSender;
 
     public RetornoApi sendMail(String msg, String subject, String address) {
+        System.out.println("Iniciando envio de email.");
 
         SimpleMailMessage mailMsg = new SimpleMailMessage();
         mailMsg.setTo(address);
         mailMsg.setSubject(subject);
-        mailMsg.setText(
-            msg
-        );
+        mailMsg.setText(msg);
         try{
+            System.out.println("Email preparado, indo enviar.");
             this.mailSender.send(mailMsg);
         }
         catch(MailException ex) {
-            System.err.println(ex.getMessage());
-            return RetornoApi.errorInternal();
+            System.out.println("Erro ao enviar o email.");
+            return RetornoApi.error(400, "Ocorreu um erro ao enviar email.");
         }
 
-        return RetornoApi.sucess("Sucesso!");
+        System.out.println("Email enviado com sucesso!");
+        return RetornoApi.sucess("Email enviado com sucesso!");
     }
 }

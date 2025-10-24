@@ -1,4 +1,4 @@
-package com.livros_livres.Server.Registers.Server;
+package com.livros_livres.Server.Registers.RequestBody;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -42,11 +42,6 @@ public class AuthenticationController {
         return authService.logarUsuario(loginRequest);
     }
 
-    @PostMapping("/trocar-senha-cliente")
-	public RetornoApi trocarSenhaCliente(@RequestHeader("token") String token, @RequestBody Cliente body) {
-		return authService.trocarSenhaCliente(token, body.getEmail(), body.getSenha());
-	}
-
     @PostMapping("/enviar-validacao-email")
 	public RetornoApi enviarCodigoValidarEmailUsuario(@RequestBody AuthRequest body) {
 		return authService.enviarCodigoValidarEmailUsuario(body.getEmail());
@@ -65,6 +60,11 @@ public class AuthenticationController {
     @PostMapping("/verificar-troca-senha")
 	public RetornoApi validarEmailTrocaSenha(@RequestBody AuthRequest body) {
 		return authService.validarEmailTrocaSenha(body);
+	}
+
+    @PostMapping("/trocar-senha-cliente")
+	public RetornoApi trocarSenhaCliente(@RequestHeader("token") String token, @RequestBody Cliente body) {
+		return authService.trocarSenhaCliente(token, body.getEmail(), body.getSenha());
 	}
 
 	// DEBUG ENDPOINTS

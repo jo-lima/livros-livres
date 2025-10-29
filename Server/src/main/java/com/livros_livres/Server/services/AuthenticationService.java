@@ -143,6 +143,7 @@ public class AuthenticationService implements Authentication{
         return retornoEmail;
     }
 
+    // TODO: Change to buscaSolicitacaoAutenticacao
     public RetornoApi validarCodigoEnviadoEmailUsuario(AuthRequest requestData) {
         for (UsuariosAuth usuarioAuth : usuariosAuths) {
             if( usuarioAuth.getEmail().equals(requestData.getEmail()) &&
@@ -150,6 +151,10 @@ public class AuthenticationService implements Authentication{
             {
                 usuarioAuth.setVerificado(true);
                 usuarioAuth.setDataUserVerificado(LocalDateTime.now());
+                System.out.println("Solicitação de autenticação de email encontrada com sucesso!");
+
+                usuariosAuths.remove(usuarioAuth);
+                System.out.println("Solicitação de autenticação deletada do sistema.");
                 return RetornoApi.sucess("Email verificado com sucesso!");
             }
         }
@@ -157,7 +162,7 @@ public class AuthenticationService implements Authentication{
     }
 
     public RetornoApi enviarEmailTrocaSenha(String email) {
-        if (email == null || this.isValidEmail(email)) {
+        if (email == null || !this.isValidEmail(email)) {
             return RetornoApi.error(400, "Email inválido.");
         }
 
@@ -206,12 +211,12 @@ public class AuthenticationService implements Authentication{
         UsuariosLogados buscaUsuario = this.buscaUsuarioLogado(email, token);
 
         if (token == null || email == null || novaSenha == null) {return RetornoApi.errorBadRequest("Request invalida. Insira valores para token, email e senha.");}
-        if (buscaUsuario != null) { return RetornoApi.errorBadRequest("Usuário não logado.");}
+        if (buscaUsuario == null) { return RetornoApi.errorBadRequest("Usuário não logado.");}
 
         clienteAtual = clienteService.buscaClienteEmail(email);
         clienteAlterado = clienteService.alterarSenhaCliente(clienteAtual, novaSenha);
 
-        return RetornoApi.sucess("Cliente alterado com sucesso!", clienteAlterado);
+        return RetornoApi.sucess("Cliente alterado com sucesso!");
     }
 
     // METHODS FOR DEBUG ONLY

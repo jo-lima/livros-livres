@@ -5,7 +5,8 @@
   --text-color--gray--dark: #474747; /* que burla ein dog */
 
   /* Cores principais */
-  --text-color--green-light: #4ac268; /* temporário */
+  --text-color--green-regular: #4ac268; /* temporário */
+  --text-color--green-light: #c0e6c9;
 }
 
 /* Reset */

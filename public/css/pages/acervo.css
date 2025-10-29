@@ -13,10 +13,12 @@
 .library-filters__heading {
   font-size: 28px;
   font-weight: bold;
+  margin-bottom: 12px;
 }
 
 /* Filtro */
 .library-filters__genre {
+  margin-bottom: 6px;
 }
 
 .library-filters__genre-check {
@@ -40,7 +42,6 @@
   font-size: 18px;
   text-align: center;
   width: 100%;
-  margin: 0 auto;
   margin-bottom: 24px;
   padding: 8px 6px;
 }
@@ -59,7 +60,7 @@
   align-items: center;
   flex-direction: column;
   border: 1px solid #7474743d;
-  padding: 10px;
+  padding: 12px;
   border-radius: 12px;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.065);
   transition: all ease 0.2s;
@@ -74,29 +75,32 @@
 .library-books__book-image-link {
   width: 100%;
   aspect-ratio: 1/1.5;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .library-books__book-image {
-  width: 100%;
   height: 100%;
   background-color: var(--text-color--green-light);
 }
 
 /* Informações */
 .library-books__book-information-container {
+  width: 100%;
 }
 
 .library-books__book-title {
   color: var(--text-color--gray--dark);
   text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
 /* Autor */
 .library-books__book-author:link,
 .library-books__book-author:visited {
+  font-size: 14px;
   color: var(--text-color--gray--light);
-  text-decoration: none;
+  display: block;
+  margin-bottom: 6px;
   transition: all ease 0.2s;
 }
 

@@ -1,4 +1,4 @@
-/* ====== TEXTURA ====== */
+/* Textura */
 .paper-overlay {
   background-image: url("../../images/general/paper-texture.jpg");
   position: absolute;
@@ -12,18 +12,22 @@
   pointer-events: none;
 }
 
-/* ====== CONTAINER ====== */
+/* Container */
 .container {
   margin: 0 auto;
   max-width: 95%;
 }
 
-/* ====== TEXTOS ====== */
+/* Textos */
+.text--center {
+  text-align: center;
+}
+
 .text-color--orange {
   color: orange;
 }
 
-/* --- fontes --- */
+/* Fontes */
 .font--secondary {
   font-family: "Playfair Display";
 }

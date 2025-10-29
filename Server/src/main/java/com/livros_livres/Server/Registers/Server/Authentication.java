@@ -9,10 +9,10 @@ public interface Authentication {
 
     public static final List<UsuariosLogados> usuariosLogados = null;
 
-    RetornoApi logarUsuario(LoginRequest loginRequest);
+    RetornoApi logarUsuario(LoginRequest loginRequest, Integer userPerm);
     RetornoApi trocarSenhaCliente(String token, String email, String novaSenha);
 
-    RetornoApi criarSolicitacaoAutenticacao(String email);
+    UsuariosAuth criarSolicitacaoAutenticacao(String email);
     RetornoApi validaSolicitacaoAutenticacao(AuthRequest requestData);
 
     RetornoApi enviarEmailTrocaSenha(String email);

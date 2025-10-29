@@ -17,6 +17,7 @@ import com.livros_livres.Server.Registers.Server.UsuariosAuth;
 import com.livros_livres.Server.Registers.Server.UsuariosLogados;
 import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.Registers.usuarios.Funcionario;
+import com.livros_livres.Server.Registers.usuarios.Usuario;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -56,7 +57,7 @@ public class AuthenticationService implements Authentication{
         return tokenBuilder.toString();
     }
 
-    private Boolean isValidEmail(String email) {
+    public Boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" +
                         "[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return email.matches(emailRegex);
@@ -73,44 +74,12 @@ public class AuthenticationService implements Authentication{
         return null;
     }
 
-    // ----= Controler-Used Methods =----
-    public RetornoApi logarUsuario(LoginRequest loginRequest) {
-        if (loginRequest == null || loginRequest.getSenha() == null || loginRequest.getUsuario() == null) {
+    public RetornoApi logarUsuario(LoginRequest loginRequest, Integer userPerm) {
+        if (loginRequest == null || loginRequest.getSenha() == null || loginRequest.getUsuario() == null || userPerm == null) {
             return RetornoApi.errorLoginNotFound();
         }
 
         UsuariosLogados newUser; // Objeto que vai ser adicionado a array de usuarios logados
-        Integer userPerm = 0;
-        Boolean userFound = false;
-        Cliente buscaCliente = new Cliente();
-        Funcionario buscaFuncionario = new Funcionario();
-
-        // se é um cliente logando com email
-        if (isValidEmail(loginRequest.getUsuario()))
-        {
-            // procura por um cliente com esse email
-            buscaCliente = clienteService.buscaClienteEmail(loginRequest.getUsuario());
-            // confere se a senha ta certa
-            if(buscaCliente == null || !loginRequest.getSenha().equals(buscaCliente.getSenha())) {
-                return RetornoApi.errorLoginNotFound();
-            }
-            userPerm = 0;
-            userFound = true;
-        }
-        // Se nao é com email, é funcionario com a matricula.
-        else {
-            buscaFuncionario = funcionarioService.buscaFuncionarioMatricula(loginRequest.getUsuario());
-            // confere se a senha ta certa
-            if( buscaFuncionario == null || !loginRequest.getSenha().equals(buscaFuncionario.getSenha())) {
-                return RetornoApi.errorLoginNotFound();
-            }
-            userPerm = 1;
-            userFound = true;
-        }
-
-        if(userFound == false) {
-            return RetornoApi.errorLoginNotFound();
-        }
 
         newUser = new UsuariosLogados(
             loginRequest.getUsuario(),
@@ -125,7 +94,8 @@ public class AuthenticationService implements Authentication{
     }
 
     // Cria uma solicitacao de autenticacao no sistema para verificar a validade de um email.
-    public RetornoApi criarSolicitacaoAutenticacao(String email) {
+    // TODO: Remover esse metodo e substituir pelo abaixo.
+    public RetornoApi legacyCriarSolicitacaoAutenticacao(String email) {
         if (email == null || this.isValidEmail(email)) {
             return RetornoApi.error(400, "Email inválido.");
         }
@@ -146,6 +116,21 @@ public class AuthenticationService implements Authentication{
                                     "Seu código de verificação.", email);
 
         return retornoEmail;
+    }
+
+    public UsuariosAuth criarSolicitacaoAutenticacao(String email) {
+        UsuariosAuth newUser;
+        String tokenGenerated = this.tokenGenerator(8, false);
+
+        newUser = new UsuariosAuth(
+            email,
+            tokenGenerated,
+            java.time.LocalDateTime.now()
+        );
+
+        this.usuariosAuths.add(newUser);
+
+        return newUser;
     }
 
     // Procura por uma solicitação de autenticacao no sistema com os dados recebidos.
@@ -170,6 +155,10 @@ public class AuthenticationService implements Authentication{
     public RetornoApi enviarEmailTrocaSenha(String email) {
         if (email == null || !this.isValidEmail(email)) {
             return RetornoApi.error(400, "Email inválido.");
+        }
+
+        if (clienteService.buscaClienteEmail(email) == null) {
+            return RetornoApi.sucess("Tentativa de envio de email efetuada com sucesso!");
         }
 
         UsuariosAuth newUser;

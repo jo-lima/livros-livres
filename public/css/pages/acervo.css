@@ -52,6 +52,7 @@
   grid-template-columns: repeat(4, 1fr);
   column-gap: 36px;
   row-gap: 24px;
+  margin-bottom: 40px;
 }
 
 /* Livro */
@@ -112,4 +113,38 @@
 /* Ano */
 .library-books__book-year {
   font-size: 10px;
+}
+
+/* Paginação */
+.library-books__pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.library-books__page {
+  width: 32px;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all ease 0.2s;
+}
+
+.library-books__page:hover {
+  background-color: var(--text-color--gray--light);
+  color: #fff;
+}
+
+.library-books__page--active {
+  background-color: var(--text-color--green--regular);
+  color: #fff;
+}
+
+.library-books__page--active:hover {
+  background-color: var(--text-color--green--light);
+  color: var(--text-color--gray--dark);
 }

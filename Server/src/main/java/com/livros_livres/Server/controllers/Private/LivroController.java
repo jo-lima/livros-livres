@@ -33,25 +33,25 @@ public class LivroController{
         }
 
     @GetMapping("/lista")
-    public RetornoApi listaLivro(@RequestBody Livro body){
-            return livroService.listaLivro(body);
+    public RetornoApi listaLivros(@RequestBody Livro body){
+            return livroService.listaLivros(body);
         }
 
     @PostMapping("{id}/atualizar")
     public RetornoApi atualizarLivro(@PathVariable("id") String idParam, @RequestBody Livro body){
             int idLivro = Integer.parseInt(idParam);
-            return livroService.atualizarLivro(idLivro, body)
+            return livroService.atualizarLivro(idLivro, body);
         }
 
     @PostMapping("{id}/inativar")
     public RetornoApi inativarLivro(@PathVariable("id") String idParam){
-        int idAutor = Integer.parseInt(idParam);
+        int idLivro = Integer.parseInt(idParam);
         return livroService.inativarLivro(idLivro);
         }
-
-    @PostMapping("{id}/deletar")
+}
+    /*@PostMapping("{id}/deletar")
     public RetornoApi deletarLivro(@PathVariable("id") String idParam){
         int idLivro = Integer.parseInt(idParam);
         return livroService.deletarLivro(idLivro);
     }
-}
+*/

@@ -18,9 +18,9 @@ public class LivroService{
     public RetornoApi buscaLivro(Integer idLivro){
         Optional<Livro> buscaLivro;
 
-        buscaLivro = livroRepo.findbyId(idLivro);
+        buscaLivro = livroRepo.findById(idLivro);
         if(!buscaLivro.isPresent()){
-            return RetornoApi.errorNotFound("Nenhum livro encontrado")
+            return RetornoApi.errorNotFound("Nenhum livro encontrado");
         }
 
         return RetornoApi.sucess("", buscaLivro);
@@ -32,18 +32,22 @@ public class LivroService{
         buscaLivro = livroRepo.findAll();
 
         if(buscaLivro.isEmpty()){
-            return RetornoApi.errorNotFound("Nenhum livro encontrado")
+            return RetornoApi.errorNotFound("Nenhum livro encontrado");
         }
         return RetornoApi.sucess("", buscaLivro);
     }
 
     public RetornoApi listaLivros(Livro livroData){
         List<Livro> listaLivro;
-        
+        String livroAtivo = null;
+
         if(livroData==null){
             listaLivro = livroRepo.findAll();
         }
         else{
+            if(livroData.getAtivo() != null){
+                livroAtivo = livroData.getAtivo() == true ? "1" :  "0";
+            }
             listaLivro =livroRepo.findLivrosbySearch(
                 livroData.getautor(),
                 livroData.getNome(),
@@ -61,26 +65,26 @@ public class LivroService{
         return RetornoApi.sucess("", listaLivro);
     }
 
-    public RetornoAPi novoLivro(Livro livroData){
-        livroData.setAtiv(true);
+    public RetornoApi novoLivro(Livro livroData){
+        livroData.setAtivo(true);
         livroRepo.save(livroData);
-        return RetornoApi.sucess("Livro cadastrado com sucesso",livroData)
+        return RetornoApi.sucess("Livro cadastrado com sucesso",livroData);
     }
 
     public RetornoApi atualizarLivro(Integer idLivro, Livro livroData){
         Optional<Livro> buscaLivro;
         Livro livro;
 
-        buscaLivro = livrorepo.findById(idLivro);
+        buscaLivro = livroRepo.findById(idLivro);
 
         if(!buscaLivro.isPresent()){
-            return RetornoApi.errorNotFound("Nenhum livro encontrado.")
+            return RetornoApi.errorNotFound("Nenhum livro encontrado.");
         }
-        if(autorData,getAtivo() != null){
-            return RetornoApi.errorBadRequest("Campo ativo alterado apenas no endpoint de inativar ou ativar")
+        if(livroData.getAtivo() != null){
+            return RetornoApi.errorBadRequest("Campo ativo alterado apenas no endpoint de inativar ou ativar");
         }
 
-        livro = buscaLivro,get();
+        livro = buscaLivro.get();
 
         if(livroData.getNome() != null) {
             livro.setNome(livroData.getNome());
@@ -91,18 +95,18 @@ public class LivroService{
         if(livroData.getGenero() != null){
             livro.setGenero(livroData.getGenero());
         }
-        if(livroData.getPaginas()!= null){
+        /*if(livroData.getPaginas() != null){
             livro.setPaginas(livroData.getPaginas());
-        }
-        if(livroData.getIsbn()!= null){
+        }*/
+        if(livroData.getIsbn() != null){
             livro.setIsbn(livroData.getIsbn());
         }
         if(livroData.getDescricao()!= null){
             livro.setDescricao(livroData.getDescricao());
         }
-        if(livroData.getEstoque()!= null){
+        /*if(livroData.getEstoque() != null){
             livro.setEstoque(livroData.getEstoque());
-        }
+        }*/
         if(livroData.getEditora()!= null){
             livro.setEditora(livroData.getEditora());
         }
@@ -113,19 +117,20 @@ public class LivroService{
             livro.setAtivo(livroData.getAtivo());
         }
         livroRepo.save(livro);
-        return RetornoApi.sucess("Autor atualizado com sucesso!", livro)
+        return RetornoApi.sucess("Autor atualizado com sucesso!", livro);
     }
 
     public RetornoApi inativarLivro(Integer idLivro){
         Optional<Livro> buscaLivro;
+        Livro livro;
 
         buscaLivro = livroRepo.findById(idLivro);
 
-        if(!buscaLivro,isPresent()){
+        if(!buscaLivro.isPresent()){
             return RetornoApi.errorNotFound("Nenhum livro encontrado");
         }
-        if(!buscalivroo.get().getAtivo()){
-            return RetornoApi.errorBadRequest("Livro já inativo.")
+        if(!buscaLivro.get().getAtivo()){
+            return RetornoApi.errorBadRequest("Livro já inativo.");
         }
 
         livro = buscaLivro.get();
@@ -135,22 +140,22 @@ public class LivroService{
         return RetornoApi.sucess("Autor inativado com sucesso.!", livro);
     }
 
-    public RetornoAPi ativarLivro(Integer idLivro){
+    public RetornoApi ativarLivro(Integer idLivro){
         Optional<Livro> buscaLivro;
         Livro livro;
 
         buscaLivro = livroRepo.findbyId(idLivro);
         if(!buscaLivro.isPresent()){
-            return RetornoApi.errorNotFound("Nenhum livro encontrado")
+            return RetornoApi.errorNotFound("Nenhum livro encontrado");
         }
         if(!buscaLivro.get().getAtivo()){
-            return RetornoApi.errorBadRequest("livro já ativo!")
+            return RetornoApi.errorBadRequest("livro já ativo!");
         }
 
         livro = buscaLivro.get();
         livro.setAtivo(true);
         livroRepo.save(livro);
-        return RetornoAPi.sucess("Livro ativado com sucesso")
+        return RetornoApi.sucess("Livro ativado com sucesso");
     }
     
 }

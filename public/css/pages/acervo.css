@@ -28,7 +28,6 @@
 /* Acervo */
 .section__library-books {
   flex: 1;
-  padding: 0 32px;
 }
 
 .library-books__heading {
@@ -37,7 +36,7 @@
 
 /* Barra de pesquisa */
 .library-books__search {
-  color: #747474;
+  color: var(--text-color--gray--light);
   font-size: 18px;
   text-align: center;
   width: 100%;
@@ -81,7 +80,7 @@
 .library-books__book-image {
   width: 100%;
   height: 100%;
-  background-color: rgb(68, 211, 128);
+  background-color: var(--text-color--green-light);
 }
 
 /* Informações */
@@ -89,20 +88,21 @@
 }
 
 .library-books__book-title {
-  color: #000;
+  color: var(--text-color--gray--dark);
   text-transform: uppercase;
 }
 
 /* Autor */
 .library-books__book-author:link,
 .library-books__book-author:visited {
-  color: #747474;
+  color: var(--text-color--gray--light);
   text-decoration: none;
+  transition: all ease 0.2s;
 }
 
 .library-books__book-author:hover,
 .library-books__book-author:active {
-  text-decoration: underline currentColor;
+  color: var(--text-color--gray--dark);
 }
 
 /* Ano */

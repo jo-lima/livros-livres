@@ -15,7 +15,7 @@
   margin: 0 auto;
   width: 100%;
   aspect-ratio: 1/1.5;
-  background-color: rgb(74, 194, 104);
+  background-color: var(--text-color--green-light);
 }
 
 /* Informações */
@@ -41,18 +41,20 @@
 .book__author-image {
   aspect-ratio: 1/1;
   width: 36px;
-  background-color: blueviolet;
+  background-color: var(--text-color--green-light);
   border-radius: 100%;
 }
 
 .book__author-name:link,
 .book__author-name:visited {
-  color: inherit;
+  color: var(--text-color--gray--dark);
+  text-decoration: none;
+  transition: all ease 0.2s;
 }
 
 .book__author-name:hover,
 .book__author-name:active {
-  color: #5a5a5a;
+  color: var(--text-color--gray--light);
 }
 
 /* Descrição */

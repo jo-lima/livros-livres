@@ -1,4 +1,14 @@
-/* ====== RESET ====== */
+/* Root */
+:root {
+  /* Cinzas */
+  --text-color--gray--light: #747474;
+  --text-color--gray--dark: #474747; /* que burla ein dog */
+
+  /* Cores principais */
+  --text-color--green-light: #4ac268; /* temporário */
+}
+
+/* Reset */
 *,
 *::after,
 *::before {
@@ -7,10 +17,11 @@
   box-sizing: border-box;
 }
 
-/* ====== BODY ====== */
+/* Body */
 body {
   font-family: "IBM Plex Mono";
   position: relative;
   /* background-image: linear-gradient(to bottom, #e9edc9, #f3ffbc); */
-  color: #747474;
+  color: var(--text-color--gray--light);
+  line-height: 1;
 }

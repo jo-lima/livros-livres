@@ -65,9 +65,9 @@ public class AuthenticationService implements Authentication{
 
     private UsuariosLogados buscaUsuarioLogado(String user, String token) {
         if (user == null || token == null) return null;
-        for (UsuariosLogados user : usuariosLogados) {
-            if (user != null && user.equals(user.getUser()) && token.equals(user.getToken())) {
-                return user;
+        for (UsuariosLogados u : usuariosLogados) {
+            if (u != null && user.equals(u.getUser()) && token.equals(u.getToken())) {
+                return u;
             }
         }
         return null;

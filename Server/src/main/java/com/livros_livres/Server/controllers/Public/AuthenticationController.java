@@ -44,7 +44,7 @@ public class AuthenticationController {
 
     @PostMapping("/trocar-senha-cliente")
 	public RetornoApi trocarSenhaCliente(@RequestHeader("token") String token, @RequestBody Cliente body) {
-		return authService.trocarSenha(token, body.getEmail(), body.getSenha());
+		return authService.trocarSenhaCliente(token, body.getEmail(), body.getSenha());
 	}
 
     @PostMapping("/enviar-validacao-email")

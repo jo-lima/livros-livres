@@ -37,13 +37,12 @@ public class AuthenticationService implements Authentication{
     @Autowired
     private ClienteService clienteService;
     @Autowired
-    private FuncionarioService funcionarioService;
-    @Autowired
     private MailService mailService;
 
-    // Methods
-    // Helper Methods
-    private String tokenGenerator(Integer tokenSize, Boolean compleate) {
+    // ----= Methods =----
+    // ----= Helper Methods =----
+    // Universal secure token generator. (Should it be private insted? or in another class?)
+    public String tokenGenerator(Integer tokenSize, Boolean compleate) {
         String CHARSOPTIONS = compleate == true ?
                                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$" :
                                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -64,23 +63,24 @@ public class AuthenticationService implements Authentication{
     }
 
     // Busca pelos usuários logados no sistema.
-    private UsuariosLogados buscaUsuarioLogado(String user, String token) {
-        if (user == null || token == null) return null;
+    public UsuariosLogados buscaUsuarioLogado(String token) {
+        if (token == null) return null;
         for (UsuariosLogados u : usuariosLogados) {
-            if (u != null && user.equals(u.getUser()) && token.equals(u.getToken())) {
+            if (u != null && token.equals(u.getToken())) {
                 return u;
             }
         }
         return null;
     }
 
-    // Controler-Used Methods
+    // ----= Controler-Used Methods =----
     public RetornoApi logarUsuario(LoginRequest loginRequest) {
         if (loginRequest == null || loginRequest.getSenha() == null || loginRequest.getUsuario() == null) {
             return RetornoApi.errorLoginNotFound();
         }
 
         UsuariosLogados newUser; // Objeto que vai ser adicionado a array de usuarios logados
+        Integer userPerm = 0;
         Boolean userFound = false;
         Cliente buscaCliente = new Cliente();
         Funcionario buscaFuncionario = new Funcionario();
@@ -94,6 +94,7 @@ public class AuthenticationService implements Authentication{
             if(buscaCliente == null || !loginRequest.getSenha().equals(buscaCliente.getSenha())) {
                 return RetornoApi.errorLoginNotFound();
             }
+            userPerm = 0;
             userFound = true;
         }
         // Se nao é com email, é funcionario com a matricula.
@@ -103,6 +104,7 @@ public class AuthenticationService implements Authentication{
             if( buscaFuncionario == null || !loginRequest.getSenha().equals(buscaFuncionario.getSenha())) {
                 return RetornoApi.errorLoginNotFound();
             }
+            userPerm = 1;
             userFound = true;
         }
 
@@ -113,6 +115,7 @@ public class AuthenticationService implements Authentication{
         newUser = new UsuariosLogados(
             loginRequest.getUsuario(),
             this.tokenGenerator(32, true),
+            userPerm,
             java.time.LocalDateTime.now()
         );
 
@@ -212,7 +215,7 @@ public class AuthenticationService implements Authentication{
     public RetornoApi trocarSenhaCliente(String token, String email, String novaSenha) {
         Cliente clienteAtual;
         Cliente clienteAlterado;
-        UsuariosLogados buscaUsuario = this.buscaUsuarioLogado(email, token);
+        UsuariosLogados buscaUsuario = this.buscaUsuarioLogado(token);
 
         if (token == null || email == null || novaSenha == null) {return RetornoApi.errorBadRequest("Request invalida. Insira valores para token, email e senha.");}
         if (buscaUsuario == null) { return RetornoApi.errorBadRequest("Usuário não logado.");}
@@ -227,7 +230,7 @@ public class AuthenticationService implements Authentication{
     public RetornoApi trocarEmailCliente(String token, String email, String novoEmail) {
         Cliente clienteAtual;
         Cliente clienteAlterado;
-        UsuariosLogados buscaUsuario = this.buscaUsuarioLogado(email, token);
+        UsuariosLogados buscaUsuario = this.buscaUsuarioLogado(token);
 
         if (token == null || email == null || novoEmail == null) {return RetornoApi.errorBadRequest("Request invalida. Insira valores para token, email e novoEmail.");}
         if (buscaUsuario == null) { return RetornoApi.errorBadRequest("Usuário não logado.");}

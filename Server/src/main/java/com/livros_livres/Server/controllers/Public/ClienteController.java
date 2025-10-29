@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.services.ClienteService;
@@ -30,6 +31,14 @@ public class ClienteController {
 	public String helloCliente() {
 		return "Hello Cliente!";
 	}
+
+    /*
+    // DISABLE UNTIL MOVE ALL CLIENT METHODS FROM AUTH TO HERE.
+	@PostMapping("/login")
+	public RetornoApi loginUsuario(@RequestBody LoginRequest loginRequest) {
+		return clienteServices.loginCliente(loginRequest);
+	}
+	*/
 
 	@PostMapping("/novo")
 	public RetornoApi novoCliente(@RequestBody Cliente body) {

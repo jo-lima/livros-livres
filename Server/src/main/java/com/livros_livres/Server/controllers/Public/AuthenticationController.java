@@ -37,15 +37,9 @@ public class AuthenticationController {
 	}
 
 	// Endpoints
-
-    @PostMapping("/login")
-    public RetornoApi loginUsuario(@RequestBody LoginRequest loginRequest) {
-        return authService.logarUsuario(loginRequest);
-    }
-
     @PostMapping("/enviar-validacao-email")
 	public RetornoApi enviarCodigoValidarEmailUsuario(@RequestBody AuthRequest body) {
-		return authService.criarSolicitacaoAutenticacao(body.getEmail());
+		return authService.legacyCriarSolicitacaoAutenticacao(body.getEmail());
 	}
 
     @PostMapping("/verificar-validacao-email")

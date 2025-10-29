@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.Registers.usuarios.Funcionario;
@@ -33,6 +34,11 @@ public class FuncionarioController {
 	public String helloFuncionario(){
 		return "Hello Funcionário!";
 	}
+
+    @PostMapping("/login")
+    public RetornoApi loginUsuario(@RequestBody LoginRequest loginRequest) {
+        return funcionarioService.loginFuncionario(loginRequest);
+    }
 
 	@PostMapping("/novo")
 	public Funcionario novoFuncionario(@RequestHeader("token") String token, @RequestBody Funcionario body){

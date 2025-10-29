@@ -63,6 +63,7 @@ public class AuthenticationService implements Authentication{
         return email.matches(emailRegex);
     }
 
+    // Busca pelos usuários logados no sistema.
     private UsuariosLogados buscaUsuarioLogado(String user, String token) {
         if (user == null || token == null) return null;
         for (UsuariosLogados u : usuariosLogados) {
@@ -120,7 +121,8 @@ public class AuthenticationService implements Authentication{
         return RetornoApi.sucess("Usuário logado com sucesso!", newUser);
     }
 
-    public RetornoApi enviarCodigoValidarEmailUsuario(String email) {
+    // Cria uma solicitacao de autenticacao no sistema para verificar a validade de um email.
+    public RetornoApi criarSolicitacaoAutenticacao(String email) {
         if (email == null || this.isValidEmail(email)) {
             return RetornoApi.error(400, "Email inválido.");
         }
@@ -143,8 +145,10 @@ public class AuthenticationService implements Authentication{
         return retornoEmail;
     }
 
-    // TODO: Change to buscaSolicitacaoAutenticacao
-    public RetornoApi validarCodigoEnviadoEmailUsuario(AuthRequest requestData) {
+    // Procura por uma solicitação de autenticacao no sistema com os dados recebidos.
+    // (Para verificar a validade de um email)
+    // Caso encontre, marca o "verificado" dela como "true".
+    public RetornoApi validaSolicitacaoAutenticacao(AuthRequest requestData) {
         for (UsuariosAuth usuarioAuth : usuariosAuths) {
             if( usuarioAuth.getEmail().equals(requestData.getEmail()) &&
                 usuarioAuth.getAuthToken().equals(requestData.getCodigo().get()) )
@@ -153,7 +157,6 @@ public class AuthenticationService implements Authentication{
                 usuarioAuth.setDataUserVerificado(LocalDateTime.now());
                 System.out.println("Solicitação de autenticação de email encontrada com sucesso!");
 
-                usuariosAuths.remove(usuarioAuth);
                 System.out.println("Solicitação de autenticação deletada do sistema.");
                 return RetornoApi.sucess("Email verificado com sucesso!");
             }
@@ -188,7 +191,7 @@ public class AuthenticationService implements Authentication{
     public RetornoApi validarEmailTrocaSenha(AuthRequest requestData) {
         // chamando a outra função que faz a exata mesma coisa
         Cliente buscaCliente;
-        RetornoApi verificaAuth = validarCodigoEnviadoEmailUsuario(requestData); // valida o código apresentado
+        RetornoApi verificaAuth = validaSolicitacaoAutenticacao(requestData); // valida o código apresentado
         buscaCliente = clienteService.buscaClienteEmail(requestData.getEmail()); // procura por um cliente com esse email
 
         if (verificaAuth.getStatusCode() != 200) { return RetornoApi.errorInvalidCode(); }
@@ -205,6 +208,7 @@ public class AuthenticationService implements Authentication{
         return RetornoApi.sucess("Usuário autenticado e logado com sucesso!", newUser);
     }
 
+    // Troca a senha do usuario. Usuario precisa estar logado
     public RetornoApi trocarSenhaCliente(String token, String email, String novaSenha) {
         Cliente clienteAtual;
         Cliente clienteAlterado;
@@ -219,7 +223,7 @@ public class AuthenticationService implements Authentication{
         return RetornoApi.sucess("Cliente alterado com sucesso!");
     }
 
-    // METHODS FOR DEBUG ONLY
+    // METHODS FOR DEBUG ONLY:
     public RetornoApi listarLogins() {
         if(debug){
             return RetornoApi.sucess("", usuariosLogados);
@@ -227,7 +231,6 @@ public class AuthenticationService implements Authentication{
         return RetornoApi.errorNotFound();
     }
 
-    // METHODS FOR DEBUG ONLY
     public RetornoApi listarAuths() {
         if(debug){
             return RetornoApi.sucess("", usuariosAuths);

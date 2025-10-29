@@ -12,8 +12,8 @@ public interface Authentication {
     RetornoApi logarUsuario(LoginRequest loginRequest);
     RetornoApi trocarSenhaCliente(String token, String email, String novaSenha);
 
-    RetornoApi enviarCodigoValidarEmailUsuario(String email);
-    RetornoApi validarCodigoEnviadoEmailUsuario(AuthRequest requestData);
+    RetornoApi criarSolicitacaoAutenticacao(String email);
+    RetornoApi validaSolicitacaoAutenticacao(AuthRequest requestData);
 
     RetornoApi enviarEmailTrocaSenha(String email);
     RetornoApi validarEmailTrocaSenha(AuthRequest requestData);

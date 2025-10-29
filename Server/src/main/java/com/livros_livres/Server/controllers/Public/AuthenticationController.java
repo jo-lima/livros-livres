@@ -44,12 +44,12 @@ public class AuthenticationController {
 
     @PostMapping("/enviar-validacao-email")
 	public RetornoApi enviarCodigoValidarEmailUsuario(@RequestBody AuthRequest body) {
-		return authService.enviarCodigoValidarEmailUsuario(body.getEmail());
+		return authService.criarSolicitacaoAutenticacao(body.getEmail());
 	}
 
     @PostMapping("/verificar-validacao-email")
 	public RetornoApi validarCodigoEmailUsuario(@RequestBody AuthRequest body) {
-		return authService.validarCodigoEnviadoEmailUsuario(body);
+		return authService.validaSolicitacaoAutenticacao(body);
 	}
 
     @PostMapping("/enviar-troca-senha")

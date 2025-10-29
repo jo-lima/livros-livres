@@ -1,0 +1,82 @@
+/* Conteúdo */
+.library-content {
+  display: flex;
+}
+
+.library-filters {
+  padding: 0 32px;
+}
+
+.library-books {
+  flex: 1;
+  padding-left: 24px;
+}
+
+/* Filtros */
+.library-filters__heading {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.library-filters__genre {
+}
+
+.library-filters__genre-check {
+}
+
+.library-filters__genre-label {
+}
+
+/* Acervo */
+.library-books__heading {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.library-books__search {
+  color: #747474;
+  font-size: 18px;
+  text-align: center;
+  display: block;
+  width: 85%;
+  margin: 0 0 24px 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 6px;
+}
+
+/* Livro */
+.library-books__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 16px;
+}
+
+.library-books__book {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.library-books__book-image {
+  width: 300px;
+  aspect-ratio: 1/1.5;
+  margin-bottom: 6px;
+  background-color: rgb(68, 211, 128);
+}
+
+.library-books__book-information-container {
+  text-align: center;
+}
+
+.library-books__book-title {
+  color: #000;
+  text-transform: uppercase;
+}
+.library-books__book-author {
+  /*  */
+}
+
+.library-books__book-year {
+  font-size: 10px;
+}

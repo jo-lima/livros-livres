@@ -1,0 +1,88 @@
+/* Conteúdo */
+.book-content {
+  display: flex;
+  gap: 24px;
+  width: 95%;
+  margin: 0 auto;
+}
+
+/* Imagem */
+
+.book-image-container {
+  flex: 1;
+}
+
+.book-image {
+  aspect-ratio: 1/1.5;
+  width: 95%;
+  margin: 0 auto;
+  background-color: rgb(74, 194, 104);
+}
+/* nome data pub generto pagina descricao estque editora isbn */
+/* Detalhes  */ /* Completamente diferente de informações */
+.book-details {
+  display: flex;
+  justify-content: center;
+  gap: 64px;
+}
+
+.book-details__heading {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+
+.book-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-detail__icon {
+}
+
+
+.book-detail__type {
+}
+
+.book-detail__value {
+}
+
+/* Informações */
+.book-information-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-basis: 70%;
+}
+
+.book-title {
+  font-size: 36px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Autor */
+.book-author {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 64px;
+}
+
+.book-author__image {
+  aspect-ratio: 1/1;
+  width: 35px;
+  background-color: blueviolet;
+  border-radius: 100%;
+}
+
+.book-author__name {
+  /*  */
+}
+
+/* Descricao */
+.book-description {
+  margin-bottom: auto;
+}

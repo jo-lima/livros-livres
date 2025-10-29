@@ -1,5 +1,8 @@
 package com.livros_livres.Server.Registers.usuarios;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +21,7 @@ public abstract class Usuario {
     @Column(name="Email", unique = true)
     private String email;
 
+    @JsonIgnore
     @Column(name="Senha")
     private String senha;
 

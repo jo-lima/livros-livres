@@ -223,6 +223,21 @@ public class AuthenticationService implements Authentication{
         return RetornoApi.sucess("Cliente alterado com sucesso!");
     }
 
+    // Troca o email do usuario. Usuario precisa estar logado
+    public RetornoApi trocarEmailCliente(String token, String email, String novoEmail) {
+        Cliente clienteAtual;
+        Cliente clienteAlterado;
+        UsuariosLogados buscaUsuario = this.buscaUsuarioLogado(email, token);
+
+        if (token == null || email == null || novoEmail == null) {return RetornoApi.errorBadRequest("Request invalida. Insira valores para token, email e novoEmail.");}
+        if (buscaUsuario == null) { return RetornoApi.errorBadRequest("Usuário não logado.");}
+
+        clienteAtual = clienteService.buscaClienteEmail(email);
+        clienteAlterado = clienteService.alterarEmailCliente(clienteAtual, novoEmail);
+
+        return RetornoApi.sucess("Cliente alterado com sucesso!", clienteAlterado);
+    }
+
     // METHODS FOR DEBUG ONLY:
     public RetornoApi listarLogins() {
         if(debug){

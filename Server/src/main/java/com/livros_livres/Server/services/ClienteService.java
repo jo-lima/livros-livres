@@ -47,4 +47,15 @@ public class ClienteService {
 
         return cliente;
     }
+
+    // Troca o email de um cliente.
+    public Cliente alterarEmailCliente(Cliente cliente, String novoEmail) {
+        if(cliente == null || novoEmail == null) { return null; }
+
+        cliente.setEmail(novoEmail);
+        clienteRepo.save(cliente);
+
+        return cliente;
+    }
+
 }

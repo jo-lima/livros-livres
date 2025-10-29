@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
+import com.livros_livres.Server.Registers.RequestBody.ChangeMailRequest;
 import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.Authentication;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
@@ -65,6 +66,11 @@ public class AuthenticationController {
     @PostMapping("/trocar-senha-cliente")
 	public RetornoApi trocarSenhaCliente(@RequestHeader("token") String token, @RequestBody Cliente body) {
 		return authService.trocarSenhaCliente(token, body.getEmail(), body.getSenha());
+	}
+
+    @PostMapping("/trocar-email-cliente")
+	public RetornoApi trocarEmailCliente(@RequestHeader("token") String token, @RequestBody ChangeMailRequest body) {
+		return authService.trocarEmailCliente(token, body.getEmail(), body.getNovoEmail());
 	}
 
 	// DEBUG ENDPOINTS

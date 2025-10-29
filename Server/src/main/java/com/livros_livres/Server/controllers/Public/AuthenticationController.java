@@ -1,19 +1,18 @@
 package com.livros_livres.Server.controllers.Public;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
 import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.Authentication;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
+import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.services.AuthenticationService;
 import com.livros_livres.Server.services.MailService;
 
@@ -43,9 +42,9 @@ public class AuthenticationController {
         return authService.logarUsuario(loginRequest);
     }
 
-    @PostMapping("/trocar-senha")
-	public RetornoApi trocaSenhaUsuario(@RequestBody LoginRequest body) {
-		return RetornoApi.errorForbidden();
+    @PostMapping("/trocar-senha-cliente")
+	public RetornoApi trocarSenhaCliente(@RequestHeader("token") String token, @RequestBody Cliente body) {
+		return authService.trocarSenha(token, body.getEmail(), body.getSenha());
 	}
 
     @PostMapping("/enviar-validacao-email")
@@ -59,13 +58,13 @@ public class AuthenticationController {
 	}
 
     @PostMapping("/enviar-troca-senha")
-	public RetornoApi enviarEmailTrocaSenha(@RequestBody Authentication body) {
-		return RetornoApi.errorForbidden();
+	public RetornoApi enviarEmailTrocaSenha(@RequestBody AuthRequest body) {
+		return authService.enviarEmailTrocaSenha(body.getEmail());
 	}
 
     @PostMapping("/verificar-troca-senha")
-	public RetornoApi validarEmailTrocaSenha(@RequestBody Authentication body) {
-		return RetornoApi.errorForbidden();
+	public RetornoApi validarEmailTrocaSenha(@RequestBody AuthRequest body) {
+		return authService.validarEmailTrocaSenha(body);
 	}
 
 	// DEBUG ENDPOINTS

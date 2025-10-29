@@ -25,7 +25,7 @@ public class ClienteService {
         return RetornoApi.sucess("Cliente criado com sucesso!", clienteData);
     }
 
-    // Pesquisa por clientes com a combinacao inserida de email/senha.
+    // Pesquisa por clientes com a combinacao inserida de email.
     public Cliente buscaClienteEmail(String email) {
         Optional<Cliente> cliente;
 
@@ -36,5 +36,15 @@ public class ClienteService {
         }
 
         return cliente.get();
+    }
+
+    // Troca a senha de um cliente.
+    public Cliente alterarSenhaCliente(Cliente cliente, String novaSenha) {
+        if(cliente == null || novaSenha == null) { return null; }
+
+        cliente.setSenha(novaSenha);
+        clienteRepo.save(cliente);
+
+        return cliente;
     }
 }

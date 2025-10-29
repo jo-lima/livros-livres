@@ -42,6 +42,7 @@ public class AuthenticationService implements Authentication{
     private MailService mailService;
 
     // Methods
+    // Helper Methods
     private String tokenGenerator(Integer tokenSize, Boolean compleate) {
         String CHARSOPTIONS = compleate == true ?
                                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$" :
@@ -62,6 +63,17 @@ public class AuthenticationService implements Authentication{
         return email.matches(emailRegex);
     }
 
+    private UsuariosLogados buscaUsuarioLogado(String user, String token) {
+        if (user == null || token == null) return null;
+        for (UsuariosLogados user : usuariosLogados) {
+            if (user != null && user.equals(user.getUser()) && token.equals(user.getToken())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    // Controler-Used Methods
     public RetornoApi logarUsuario(LoginRequest loginRequest) {
         if (loginRequest == null || loginRequest.getSenha() == null || loginRequest.getUsuario() == null) {
             return RetornoApi.errorLoginNotFound();
@@ -108,11 +120,11 @@ public class AuthenticationService implements Authentication{
         return RetornoApi.sucess("Usuário logado com sucesso!", newUser);
     }
 
-    public RetornoApi trocarSenha(String token, String email, String novaSenha) {
-        return RetornoApi.errorInternal();
-    }
-
     public RetornoApi enviarCodigoValidarEmailUsuario(String email) {
+        if (email == null || this.isValidEmail(email)) {
+            return RetornoApi.error(400, "Email inválido.");
+        }
+
         UsuariosAuth newUser;
         RetornoApi retornoEmail = null;
         String tokenGenerated = this.tokenGenerator(8, false);
@@ -145,11 +157,61 @@ public class AuthenticationService implements Authentication{
     }
 
     public RetornoApi enviarEmailTrocaSenha(String email) {
-        return RetornoApi.errorInternal();
+        if (email == null || this.isValidEmail(email)) {
+            return RetornoApi.error(400, "Email inválido.");
+        }
+
+        UsuariosAuth newUser;
+        RetornoApi retornoEmail = null;
+        String tokenGenerated = this.tokenGenerator(10, false);
+
+        newUser = new UsuariosAuth(
+            email,
+            tokenGenerated,
+            java.time.LocalDateTime.now()
+        );
+
+        this.usuariosAuths.add(newUser);
+
+        retornoEmail = mailService.sendMail("Olá! Você enviou uma solicitação para efetuar uma <strong>troca de senha.</strong>\n" +
+                                            "Seu código verificador é: " + tokenGenerated,
+                                    "Esqueceu sua senha do LivrosLivres?", email);
+
+        return retornoEmail;
     }
 
-    public RetornoApi validarEmailTrocaSenha(String email, String codigo) {
-        return RetornoApi.errorInternal();
+    public RetornoApi validarEmailTrocaSenha(AuthRequest requestData) {
+        // chamando a outra função que faz a exata mesma coisa
+        Cliente buscaCliente;
+        RetornoApi verificaAuth = validarCodigoEnviadoEmailUsuario(requestData); // valida o código apresentado
+        buscaCliente = clienteService.buscaClienteEmail(requestData.getEmail()); // procura por um cliente com esse email
+
+        if (verificaAuth.getStatusCode() != 200) { return RetornoApi.errorInvalidCode(); }
+        if(buscaCliente == null) { return RetornoApi.errorInvalidCode(); }
+
+        UsuariosLogados newUser = new UsuariosLogados(
+            requestData.getEmail(),
+            this.tokenGenerator(32, true),
+            java.time.LocalDateTime.now()
+        );
+
+        this.usuariosLogados.add(newUser);
+
+        return RetornoApi.sucess("Usuário autenticado e logado com sucesso!", newUser);
+    }
+
+    public RetornoApi trocarSenhaCliente(String token, String email, String novaSenha) {
+        Cliente clienteAtual;
+        Cliente clienteAlterado;
+        UsuariosLogados buscaUsuario = this.buscaUsuarioLogado(email, token);
+
+        if (token == null || email == null || novaSenha == null) {return RetornoApi.errorBadRequest("Request invalida. Insira valores para token, email e senha.");}
+        if (buscaUsuario != null) { return RetornoApi.errorBadRequest("Usuário não logado.");}
+
+        clienteAtual = clienteService.buscaClienteEmail(email);
+        clienteAlterado = clienteService.alterarSenhaCliente(clienteAtual, novaSenha);
+
+        return RetornoApi.sucess("Cliente alterado com sucesso!", clienteAlterado);
     }
 
     // METHODS FOR DEBUG ONLY

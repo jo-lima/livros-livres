@@ -32,10 +32,10 @@ public class MailService {
         }
         catch(MailException ex) {
             System.out.println("Erro ao enviar o email.");
-            return RetornoApi.error(400, "Ocorreu um erro ao enviar email.");
+            return RetornoApi.error(500, "Ocorreu um erro no sistema ao enviar email.");
         }
 
         System.out.println("Email enviado com sucesso!");
-        return RetornoApi.sucess("Email enviado com sucesso!");
+        return RetornoApi.sucess("Tentativa de envio de email efetuada com sucesso!");
     }
 }

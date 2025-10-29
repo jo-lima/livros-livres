@@ -2,6 +2,8 @@ package com.livros_livres.Server.Registers.Server;
 
 import java.util.Optional;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +11,13 @@ import lombok.Setter;
 @Setter
 public class RetornoApi {
 
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
     private int statusCode;
+
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
     private String message;
+
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
     private Optional<Object> body;
 
     // constructors
@@ -73,6 +80,9 @@ public class RetornoApi {
     // Endpoint-specific methods.
     public static RetornoApi errorLoginNotFound(){
         return new RetornoApi(404, "Nenhum usuário encontrado para combinação de email e senha apresentados.");
+    }
+    public static RetornoApi errorInvalidCode(){
+        return new RetornoApi(404, "Código de verificação apresentado inválido.");
     }
 
 }

@@ -7,7 +7,12 @@
   margin-bottom: 24px;
 }
 
-.main-nav a:link,
-.main-nav a:visited {
-  color: #000;
+.main-nav__link:link,
+.main-nav__link:visited {
+  color: var(--text-color--gray--dark);
+}
+
+.main-nav__link.main-nav__link--active:link,
+.main-nav__link.main-nav__link--active:visited {
+  color: var(--text-color--green--regular); /* Mudar */
 }

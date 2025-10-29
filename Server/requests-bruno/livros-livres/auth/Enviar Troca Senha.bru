@@ -1,0 +1,21 @@
+meta {
+  name: Enviar Troca Senha
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:6969/auth/enviar-troca-senha
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"gamerbruno6669@gmail.com"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

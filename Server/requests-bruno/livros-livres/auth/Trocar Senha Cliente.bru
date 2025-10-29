@@ -1,0 +1,26 @@
+meta {
+  name: Trocar Senha Cliente
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:6969/auth/trocar-senha-cliente
+  body: json
+  auth: inherit
+}
+
+headers {
+  token: YhkXx6y1TSrd$m!IomVc7WT!WT#!5tbp
+}
+
+body:json {
+  {
+    "email":"gamerbruno6669@gmail.com",
+    "senha":"asdasd"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

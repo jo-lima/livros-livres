@@ -1,0 +1,21 @@
+meta {
+  name: Test mail
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:6969/auth/test-mail
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"gamerbruno888@gmail.com"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

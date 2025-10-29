@@ -1,0 +1,21 @@
+meta {
+  name: Enviar Valicadao Email
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:6969/auth/enviar-validacao-email
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"gamerbruno888@gmail.com"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

@@ -4,7 +4,10 @@
 
 /* Componentes */
 @import "/public/css/components/footer.css";
+@import "/public/css/components/nav.css";
 
 /* Páginas */
 @import "/public/css/pages/inicio.css";
 @import "/public/css/pages/acervo.css";
+@import "/public/css/pages/livro.css";
+@import "/public/css/pages/perfil-cliente.css";

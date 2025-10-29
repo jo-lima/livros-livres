@@ -3,6 +3,7 @@
   display: flex;
   gap: 32px;
   width: 95%;
+  margin-bottom: 64px;
 }
 
 /* Imagem */
@@ -34,7 +35,7 @@
   display: flex;
   gap: 12px;
   align-items: center;
-  margin-bottom: 64px;
+  margin-bottom: 32px;
 }
 
 .book__author-image {

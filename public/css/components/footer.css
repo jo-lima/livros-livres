@@ -1,12 +1,15 @@
-/* === CONTAINER === */
+/* Container */
 .main-footer {
-  display: flex;
-  background-color: #b9c29b;
-  padding: 64px 128px;
-  justify-content: space-between;
+  background-color: #e6eccf;
 }
 
-/* === PARTE DO LOGO === */
+.main-footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 64px 0px;
+}
+
+/* Logo */
 .main-footer__logo-container {
   flex-basis: 35%;
 }
@@ -14,16 +17,16 @@
 .main-footer__logo {
   font-size: 64px;
   font-weight: 800;
-  line-height: 1;
+  line-height: 0.9;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
 }
 
 .main-footer__copyright {
   font-size: 12px;
 }
 
-/* === PARTE DOS LINKS === */
+/* Área dos links */
 .main-footer__links {
   display: flex;
   font-size: 18px;
@@ -55,8 +58,8 @@
   color: rgb(86, 86, 157);
 }
 
-/* === PARTE DOS LINKS === */
+/* Mapa */
 .main-footer__map {
   aspect-ratio: 1/1;
-  width: 250px;
+  width: 180px;
 }

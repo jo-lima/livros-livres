@@ -15,7 +15,7 @@ public class Funcionario extends Usuario {
     @Column(name="FuncionarioId")
     private int funcionarioId;
 
-    @Column(name="Matricula", nullable=false)
+    @Column(name="Matricula", nullable=false, unique=true)
     private String matricula;
 
     public Funcionario() {}

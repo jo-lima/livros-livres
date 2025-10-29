@@ -4,12 +4,14 @@
 }
 
 .section__library-filters {
-  padding: 0 32px;
+  /* padding: 0 32px; */
+  background-color: red;
 }
 
 .section__library-books {
   flex: 1;
   padding-left: 24px;
+  background-color: blue;
 }
 
 /* Filtros */
@@ -48,8 +50,10 @@
 /* Livro */
 .library-books__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 69px;
   row-gap: 16px;
+  padding-right: 100px;
 }
 
 .library-books__book {
@@ -59,7 +63,7 @@
 }
 
 .library-books__book-image {
-  width: 300px;
+  width: 100%;
   aspect-ratio: 1/1.5;
   margin-bottom: 6px;
   background-color: rgb(68, 211, 128);

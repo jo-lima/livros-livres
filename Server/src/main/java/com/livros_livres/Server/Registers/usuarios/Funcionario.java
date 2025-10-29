@@ -15,16 +15,16 @@ public class Funcionario extends Usuario {
     @Column(name="FuncionarioId")
     private int funcionarioId;
 
-    @Column(name="Matricula")
+    @Column(name="Matricula", nullable=false)
     private String matricula;
 
     public Funcionario() {}
 
     public Funcionario(
-        String cpf, String nome, String email, String senha,
+        String cpf, String nome, String senha,
         Boolean ativo, String matricula
     ) {
-        super(cpf, nome, email, senha, ativo);
+        super(cpf, nome, senha, ativo);
         this.matricula = matricula;
     }
 }

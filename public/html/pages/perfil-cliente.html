@@ -59,6 +59,7 @@
     <section class="section__loans">
       <div class="container loans__container">
         <div class="loans__pendencies">
+          <h2 class="loans__heading">Pendências</h2>
           <div class="pendency">
             <p class="pendency__book-title">Pequeno Principe</p>
             <div class="pendency__date-container">
@@ -88,60 +89,203 @@
         </div>
 
         <div class="loans__current-book">
-          <div class="current-book__book">
-            <div class="current-book__book-cover">
-              <img src="/public/images/acervo/pequeno-principe.jpg" alt="#" />
+          <h2 class="loans__heading">Livro Atual</h2>
+          <div class="loans__current-book-container">
+            <div class="current-book__book">
+              <div class="current-book__book-cover">
+                <img src="/public/images/acervo/pequeno-principe.jpg" alt="#" />
+              </div>
+              <div class="current-book__book-info">
+                <a
+                  href="/public/html/pages/livro.html"
+                  class="current-book__book-title"
+                  >Pequeno Príncipe</a
+                >
+                <a href="#" class="current-book__book-author">Luca Maia</a>
+              </div>
             </div>
-            <div class="current-book__book-info">
-              <a
-                href="/public/html/pages/livro.html"
-                class="current-book__book-title"
-                >Pequeno Príncipe</a
-              >
-              <a href="#" class="current-book__book-author">Luca Maia</a>
+            <div class="current-book__details">
+              <div class="current-book__info">
+                <div class="current-book__info-item">
+                  <p class="current-book__info-label">Data Limite Devolução:</p>
+                  <p class="current-book__info-value">dd/mm/aaaa</p>
+                </div>
+                <div class="current-book__info-item">
+                  <p class="current-book__info-label">
+                    Dias até limite da devolução:
+                  </p>
+                  <p class="current-book__info-value">XX Dias</p>
+                </div>
+                <div class="current-book__info-item">
+                  <p class="current-book__info-label">Data Coleta:</p>
+                  <p class="current-book__info-value">dd/mm/aaaa</p>
+                </div>
+                <div class="current-book__info-item">
+                  <p class="current-book__info-label">Descrição:</p>
+                  <p class="current-book__info-value">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    Animi doloremque quasi perferendis amet assumenda
+                    consequatur quas, harum quaerat? Dignissimos dolorum magni
+                    quibusdam velit itaque aliquid eum quis atque minus
+                    consequuntur?
+                  </p>
+                </div>
+              </div>
+              <div class="current-book__buttons">
+                <button
+                  class="current-book__button button current-book__button--extend"
+                >
+                  Prorrogar
+                </button>
+                <button
+                  class="current-book__button button current-book__button--cancel"
+                >
+                  Cancelar Solicitação
+                </button>
+              </div>
             </div>
           </div>
-
-          <div class="current-book__details">
-            <div class="current-book__info">
-              <div class="current-book__info-item">
-                <p class="current-book__info-label">Data Limite Devolução:</p>
-                <p class="current-book__info-value">dd/mm/aaaa</p>
-              </div>
-
-              <div class="current-book__info-item">
-                <p class="current-book__info-label">
-                  Dias até limite da devolução:
-                </p>
-                <p class="current-book__info-value">XX Dias</p>
-              </div>
-
-              <div class="current-book__info-item">
-                <p class="current-book__info-label">Data Coleta:</p>
-                <p class="current-book__info-value">dd/mm/aaaa</p>
-              </div>
-              <div class="current-book__info-item">
-                <p class="current-book__info-label">Descrição:</p>
-                <p class="current-book__info-value">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Animi doloremque quasi perferendis amet assumenda consequatur
-                  quas, harum quaerat? Dignissimos dolorum magni quibusdam velit
-                  itaque aliquid eum quis atque minus consequuntur?
-                </p>
-              </div>
+        </div>
+      </div>
+    </section>
+    <section class="section__history">
+      <h2 class="history__heading text--center">Histórico</h2>
+      <div class="container history__container">
+        <div class="history__book">
+          <div class="history__book-image-container">
+            <img
+              src="/public/images/acervo/pequeno-principe.jpg"
+              alt=""
+              class="history__book-image"
+            />
+          </div>
+          <div class="history__book-info">
+            <a href="/public/html/pages/livro.html" class="history__book-title"
+              >Pequeno Príncipe</a
+            >
+            <a href="#" class="history__book-author">Luca Maia</a>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
             </div>
-
-            <div class="current-book__buttons">
-              <button
-                class="current-book__button button current-book__button--extend"
-              >
-                Prorrogar
-              </button>
-              <button
-                class="current-book__button button current-book__button--cancel"
-              >
-                Cancelar Solicitação
-              </button>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+          </div>
+        </div>
+        <div class="history__book">
+          <div class="history__book-image-container">
+            <img
+              src="/public/images/acervo/pequeno-principe.jpg"
+              alt=""
+              class="history__book-image"
+            />
+          </div>
+          <div class="history__book-info">
+            <a href="/public/html/pages/livro.html" class="history__book-title"
+              >Pequeno Príncipe</a
+            >
+            <a href="#" class="history__book-author">Luca Maia</a>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+          </div>
+        </div>
+        <div class="history__book">
+          <div class="history__book-image-container">
+            <img
+              src="/public/images/acervo/pequeno-principe.jpg"
+              alt=""
+              class="history__book-image"
+            />
+          </div>
+          <div class="history__book-info">
+            <a href="/public/html/pages/livro.html" class="history__book-title"
+              >Pequeno Príncipe</a
+            >
+            <a href="#" class="history__book-author">Luca Maia</a>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+          </div>
+        </div>
+        <div class="history__book">
+          <div class="history__book-image-container">
+            <img
+              src="/public/images/acervo/pequeno-principe.jpg"
+              alt=""
+              class="history__book-image"
+            />
+          </div>
+          <div class="history__book-info">
+            <a href="/public/html/pages/livro.html" class="history__book-title"
+              >Pequeno Príncipe</a
+            >
+            <a href="#" class="history__book-author">Luca Maia</a>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+          </div>
+        </div>
+        <div class="history__book">
+          <div class="history__book-image-container">
+            <img
+              src="/public/images/acervo/pequeno-principe.jpg"
+              alt=""
+              class="history__book-image"
+            />
+          </div>
+          <div class="history__book-info">
+            <a href="/public/html/pages/livro.html" class="history__book-title"
+              >Pequeno Príncipe</a
+            >
+            <a href="#" class="history__book-author">Luca Maia</a>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+          </div>
+        </div>
+        <div class="history__book">
+          <div class="history__book-image-container">
+            <img
+              src="/public/images/acervo/pequeno-principe.jpg"
+              alt=""
+              class="history__book-image"
+            />
+          </div>
+          <div class="history__book-info">
+            <a href="/public/html/pages/livro.html" class="history__book-title"
+              >Pequeno Príncipe</a
+            >
+            <a href="#" class="history__book-author">Luca Maia</a>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
+            </div>
+            <div class="history_date">
+              <p class="history__label">Emprestado em:</p>
+              <p class="history__value">dd/mm/aaaa</p>
             </div>
           </div>
         </div>

@@ -34,24 +34,31 @@ public class LivroController{
 
     @GetMapping("/lista")
     public RetornoApi listaLivros(@RequestBody Livro body){
-            return livroService.listaLivros(body);
+        return livroService.listaLivros(body);
         }
 
-    @PostMapping("{id}/atualizar")
+    @PostMapping("/{id}/atualizar")
     public RetornoApi atualizarLivro(@PathVariable("id") String idParam, @RequestBody Livro body){
-            int idLivro = Integer.parseInt(idParam);
-            return livroService.atualizarLivro(idLivro, body);
-        }
+        int idLivro = Integer.parseInt(idParam);
+        return livroService.atualizarLivro(idLivro, body);
+    }
 
-    @PostMapping("{id}/inativar")
+    @PostMapping("/{id}/inativar")
     public RetornoApi inativarLivro(@PathVariable("id") String idParam){
         int idLivro = Integer.parseInt(idParam);
         return livroService.inativarLivro(idLivro);
-        }
+    }
+    
+    @PostMapping("/{id}/ativar")
+    public RetornoApi ativarLivro(@PathVariable("id") String idParam){
+        int idLivro = Integer.parseInt(idParam);
+        return livroService.ativarLivro(idLivro);
+    }
 }
-    /*@PostMapping("{id}/deletar")
+    /*O campo ativo não é suficiente? Deletar o livro deletaria os emprestimos dele? 
+    @PostMapping("{id}/deletar")
     public RetornoApi deletarLivro(@PathVariable("id") String idParam){
         int idLivro = Integer.parseInt(idParam);
         return livroService.deletarLivro(idLivro);
     }
-*/
+    */

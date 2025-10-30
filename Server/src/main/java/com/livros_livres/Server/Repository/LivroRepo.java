@@ -14,12 +14,8 @@ public interface LivroRepo extends JpaRepository<Livro, Integer>{
 
     @Query(
         value = "SELECT L.* FROM tbl_livros L " +
-                "INNER JOIN tbl_LivroAutor LA " +
-                "ON L.idLivro = LA.idLivro " +
-                "INNER JOIN tbl_Autor A " +
-                "ON A.idAutor = LA.idAutor \n" +
     "WHERE L.nome LIKE CONCAT ('%', :nome, '%') \n" +
-    "AND A.nome LIKE CONCAT ('%', :nome, '%') \n" +
+    //"AND A.nome LIKE CONCAT ('%', :nome, '%') \n"
     "AND L.genero LIKE CONCAT ('%', :genero, '%') \n" +
     "AND L.paginas LIKE CONCAT ('%', :paginas, '%') \n" +
     "AND L.isbn LIKE CONCAT ('%', :isbn, '%') \n" +

@@ -1,51 +1,3 @@
-/* PENDENCIA ATUAL */
-
-/* TAB DE HISTÓRICO */
-.historico-tab__title {
-  margin-bottom: 15px;
-}
-
-.hitorico-tab__livros-grid {
-  display: grid;
-  row-gap: 25px;
-  grid-template-columns: repeat(2, 1fr);
-}
-.livros-grid__livro {
-  display: flex;
-  max-width: 100%;
-}
-.livro__info-visual {
-  width: 50%;
-}
-.livro__info-visual img {
-  width: 100%;
-  min-width: 150px;
-}
-
-.livro__info-descritiva {
-  width: 100%;
-  margin-left: 25px;
-}
-.info-descritiva__data {
-  margin-top: 15px;
-}
-.info-descritiva__info {
-  font-weight: bold;
-}
-
-.info-descritiva__titulo {
-  font-size: x-large;
-  font-weight: bold;
-  margin-bottom: 0 !important;
-}
-
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-/*  */
-
 /* Informações do perfil */
 .section__profile-info {
   margin-bottom: 64px;
@@ -54,7 +6,7 @@
 .profile-info__container {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 64px;
 }
 
 /* Foto de perfil */
@@ -75,6 +27,11 @@
 
 .profile-data__heading {
   font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.profile-data__fields {
+  margin-bottom: 24px;
 }
 
 .profile-data__field {
@@ -82,20 +39,24 @@
 }
 
 .profile-data__edit-button {
+  background-color: var(--text-color--green--regular);
+  border: none;
+  padding: 8px 16px;
 }
 
 /* Empréstimos */
 .section__loans {
+  height: 450px; /* quero ver alguem reclamar >:( */
 }
 
 .loans__container {
   display: flex;
-  gap: 96px;
+  gap: 104px;
 }
 
 /* Lista de pendências */
 .loans__pendencies {
-  flex-basis: 35%;
+  flex-basis: 15%;
 }
 
 .pendency {
@@ -122,15 +83,6 @@
   font-style: italic;
 }
 
-.pendency__date-container {
-}
-
-.pendency__date-heading {
-}
-
-.pendency__date {
-}
-
 .pendency__details-button {
   background-color: var(--text-color--green--regular);
   border: none;
@@ -143,6 +95,7 @@
 /* Livro atual */
 .loans__current-book {
   display: flex;
+  flex: 1;
   gap: 48px;
 }
 
@@ -150,12 +103,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-basis: 100%;
+  flex-basis: 50%;
 }
 
 .current-book__book-cover {
   margin-bottom: 8px;
-  width: 100%;
 }
 
 .current-book__book-cover img {
@@ -171,7 +123,7 @@
   text-transform: uppercase;
   display: block;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 18px;
   text-decoration: none;
   color: var(--text-color--gray--dark);
   margin-bottom: 4px;
@@ -180,11 +132,13 @@
 .current-book__book-author:link,
 .current-book__book-author:visited {
   text-decoration: none;
+  font-size: 14px;
   color: var(--text-color--gray--light);
 }
 
 /* Dados do livro atual */
 .current-book__details {
+  padding-top: 12px;
 }
 
 .current-book__info {

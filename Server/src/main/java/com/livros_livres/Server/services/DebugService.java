@@ -25,4 +25,16 @@ public class DebugService {
         System.out.println("LIVROS-LIVRES LOG: (%s) # '%s'".formatted(formattedDate, message));
     }
 
+    public static void log(String message, Object objetct){
+        LocalDateTime currentDate = LocalDateTime.now();
+        String formattedDate = String.format("%02d/%02d - %02d:%02d:%02d",
+            currentDate.getDayOfMonth(),
+            currentDate.getMonthValue(),
+            currentDate.getHour(),
+            currentDate.getMinute(),
+            currentDate.getSecond());
+
+        System.out.println("LIVROS-LIVRES LOG: (%s) # '%s'".formatted(formattedDate, message) + objetct);
+    }
+
 }

@@ -38,41 +38,49 @@ public class ClienteController {
 
 	@PostMapping("/novo")
 	public RetornoApi novoCliente(@RequestBody Cliente body) {
+		DebugService.log("Chamado endpoint novoCliente");
 		return clienteServices.novoCliente(body);
 	}
 
 	@PostMapping("/login")
 	public RetornoApi loginUsuario(@RequestBody LoginRequest loginRequest) {
+		DebugService.log("Chamado endpoint loginUsuario");
 		return clienteServices.loginCliente(loginRequest);
 	}
 
 	@PostMapping("/enviar-validacao-email")
 	public RetornoApi enviarEmailValidarEmail(@RequestBody AuthRequest authRequest) {
+		DebugService.log("Chamado endpoint enviarEmailValidarEmail");
 		return clienteServices.enviarEmailValidarEmail(authRequest.getEmail());
 	}
 
 	@PostMapping("/verificar-validacao-email")
 	public RetornoApi validarTokenValidarEmail(@RequestBody AuthRequest authRequest) {
+		DebugService.log("Chamado endpoint validarTokenValidarEmail");
 		return clienteServices.validarTokenValidarEmail(authRequest);
 	}
 
 	@PostMapping("/enviar-email-esqueci-senha")
 	public RetornoApi enviarEmailEsqueciSenha(@RequestBody AuthRequest authRequest) {
+		DebugService.log("Chamado endpoint enviarEmailEsqueciSenha");
 		return clienteServices.enviarEmailEsqueciSenha(authRequest.getEmail());
 	}
 
 	@PostMapping("/validar-token-troca-senha")
 	public RetornoApi validarTokenTrocaSenha(@RequestBody AuthRequest authRequest) {
+		DebugService.log("Chamado endpoint validarTokenTrocaSenha");
 		return clienteServices.validarTokenTrocaSenha(authRequest);
 	}
 
 	@PostMapping("/alterar-senha")
 	public RetornoApi alterarSenha(@RequestHeader("token") String token, @RequestBody Cliente clienteData) {
+		DebugService.log("Chamado endpoint alterarSenha");
 		return clienteServices.trocarSenhaCliente(token, clienteData.getSenha());
 	}
 
 	@PostMapping("/alterar-email")
 	public RetornoApi alterarEmail(@RequestHeader("token") String token, @RequestBody Cliente clienteData) {
+		DebugService.log("Chamado endpoint alterarEmail");
 		return clienteServices.trocarEmailCliente(token, clienteData.getEmail());
 	}
 

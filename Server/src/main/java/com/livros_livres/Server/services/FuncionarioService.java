@@ -44,6 +44,7 @@ public class FuncionarioService {
     public RetornoApi loginFuncionario(LoginRequest loginRequest) {
         Funcionario buscaFuncionario;
         Integer userPerm = 1;
+        UsuariosLogados loggedInUser;
 
         buscaFuncionario = this.buscaFuncionarioMatricula(loginRequest.getUsuario());
 
@@ -52,7 +53,12 @@ public class FuncionarioService {
             return RetornoApi.errorLoginNotFound();
         }
 
-        return authService.logarUsuario(loginRequest, userPerm);
+        // Tenta adicionar o funcionário à lista de usuarios logados
+        loggedInUser = authService.logarUsuario(loginRequest.getUsuario(), userPerm);
+        // Caso não tenha sido adicionado, retorna que nao encontrou combinacao email x senha.
+        if (loggedInUser == null) { return RetornoApi.errorLoginNotFound();}
+
+        return RetornoApi.sucess("Usuário autenticado e logado com sucesso!", loggedInUser);
     }
 
     public RetornoApi criaNovoCliente(String token, Cliente clienteData) {

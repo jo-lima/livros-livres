@@ -31,3 +31,10 @@
 .font--secondary {
   font-family: "Playfair Display";
 }
+
+/* Botão */
+.button {
+  display: inline-block;
+  font-family: inherit;
+  cursor: pointer;
+}

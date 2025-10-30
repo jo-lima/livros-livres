@@ -1,215 +1,221 @@
-hr {
-    margin: 30px 0px;
-    background-color: none;
-    border: solid 0.1px white;
-}
-
-.profile-content {
-    padding: 20px 10%;
-    background-color: #CCD6AE;
-}
-
-/* PROFILE INFO TAB */
-.profile-info-tab {
-    display: flex;
-}
-
-/* ESQUERDA */
-.profile-info-tab__pfp {
-    /* Tamanho */
-    flex-basis: 30%;
-    margin: auto;
-    max-width: 100%;
-    border: solid 3px black;
-    border-radius: 100%;
-    aspect-ratio: 1/1;
-    width: 100%;
-    position: relative;
-
-    /* Imagem */
-    background-image: url('/public/images/perfil-cliente/porra-cara-nao-sei-velho.jpg');
-    background-size: cover;
-}
-
-/* Direita */
-.profile-info-tab__perfil-data {
-    flex: 3;
-    flex-grow: 5;
-    padding: 10px 20px;
-    margin: auto;
-    margin-left: 25px;
-    background-color: #FAEDCD;
-    border: solid 5px #E9EDC9;
-    border-radius: 5px;
-}
-
-.perfil-data__title {
-    margin-bottom: 7px;
-}
-
-.profile-info-tab__perfil-data p {
-    margin-bottom: 15px;
-}
-
-/* ultimo campo, pra deixar o editar do ladinho. */
-.perfil-data__data-nascimento {
-    margin: 0px;
-    display: inline;
-}
-
-.perfil-data__editar-infos {
-    float: right;
-}
-.editar-infos__button {
-    padding: 5px 8px;
-    border: solid 1px black;
-    background-color: aqua;
-    display: inline;
-}
-.editar-infos__button:hover {
-    cursor: pointer;
-}
-
-/* SESSAO PENDENCIAS */
-.emprestimos-tab {
-    display: grid;
-}
-.emprestimos-tab__titles {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    margin-bottom: 10px;
-}
-.titles__livro-atual-title {
-    padding-left: 30px;
-}
-
-.emprestimos-tab__content {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-}
-
-
-/* LISTA DE PENDENCIAS */
-.pendencias-list__title {
-    margin-bottom: 7px;
-}
-.pendencias-list__pendencias {
-    background-color: #D4A373;
-    color: black;
-    padding: 15px;
-    height: 95%;
-    flex: 1.5;
-    max-width: 100%;
-}
-
-.pendencia__data {
-    margin-top: 15px;
-}
-
-.pendencia__detalhar-pendencia {
-    float: right;
-}
-.detalhar-pendencia__button {
-    background-color: #CCD6AE;
-    border: solid 2px #267dff;
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 1px 3px;
-    display: inline;
-}
-.detalhar-pendencia__button:hover {
-    cursor: pointer;
-}
-
-.pendencias__fim-pendencias {
-    margin: 25px;
-}
-.fim-pendencias__aviso {
-    text-align: center;
-}
-
 /* PENDENCIA ATUAL */
-.content__pendencia-atual {
-    display: flex;
-    margin-left: 30px;
-    flex: 3;
-    flex-grow: 5;
-}
-
-/* ESQUERDA */
-.pendencia-atual__info-visual {
-    flex: 1;
-}
-.info-visual__livro-capa img {
-    width: 100%;
-    min-width: 150px;
-}
-.info-visual__livro_identity {
-    text-align: center;
-}
-
-/* DIREITA */
-.pendencia-atual__info-descritiva {
-    flex: 3;
-    margin-top: 30px;
-    margin-left: 50px;
-}
-
-.info-descritiva__data .data__item {
-    margin-bottom: 10px
-}
-.item__info {
-    font-weight: bold;
-}
-
-.info-descritiva__acoes {
-    float: right;
-}
-.info-descritiva__acoes button {
-    padding: 5px 8px;
-    border: solid 1px black;
-    background-color: aqua;
-    display: inline;
-}
-.info-descritiva__acoes button:hover {
-    cursor: pointer;
-}
 
 /* TAB DE HISTÓRICO */
 .historico-tab__title {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .hitorico-tab__livros-grid {
-    display: grid;
-    row-gap: 25px;
-    grid-template-columns: repeat(2, 1fr);
+  display: grid;
+  row-gap: 25px;
+  grid-template-columns: repeat(2, 1fr);
 }
 .livros-grid__livro {
-    display: flex;
-    max-width: 100%;
+  display: flex;
+  max-width: 100%;
 }
 .livro__info-visual {
-    width: 50%;
+  width: 50%;
 }
-.livro__info-visual img{
-    width: 100%;
-    min-width: 150px;
+.livro__info-visual img {
+  width: 100%;
+  min-width: 150px;
 }
 
 .livro__info-descritiva {
-    width: 100%;
-    margin-left: 25px;
+  width: 100%;
+  margin-left: 25px;
 }
 .info-descritiva__data {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 .info-descritiva__info {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .info-descritiva__titulo {
-    font-size: x-large;
-    font-weight: bold;
-    margin-bottom: 0!important;
+  font-size: x-large;
+  font-weight: bold;
+  margin-bottom: 0 !important;
+}
+
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+
+/* Informações do perfil */
+.section__profile-info {
+  margin-bottom: 64px;
+}
+
+.profile-info__container {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+/* Foto de perfil */
+.profile-info__profile-picture {
+  /* Tamanho */
+  flex-basis: 20%;
+  border-radius: 100%;
+  aspect-ratio: 1/1;
+
+  /* Imagem */
+  background-image: url("/public/images/perfil-cliente/porra-cara-nao-sei-velho.jpg");
+  background-size: cover;
+}
+
+/* Dados */
+.profile-data__container {
+}
+
+.profile-data__heading {
+  font-size: 48px;
+}
+
+.profile-data__field {
+  margin-bottom: 6px;
+}
+
+.profile-data__edit-button {
+}
+
+/* Empréstimos */
+.section__loans {
+}
+
+.loans__container {
+  display: flex;
+  gap: 96px;
+}
+
+/* Lista de pendências */
+.loans__pendencies {
+  flex-basis: 35%;
+}
+
+.pendency {
+  margin-bottom: 36px;
+}
+
+.pendency__book-title {
+  text-transform: uppercase;
+  color: var(--text-color--gray--dark);
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.pendency__date-container {
+  margin-bottom: 12px;
+}
+
+.pendency__date-heading {
+  margin-bottom: 4px;
+}
+
+.pendency__date {
+  font-style: italic;
+}
+
+.pendency__date-container {
+}
+
+.pendency__date-heading {
+}
+
+.pendency__date {
+}
+
+.pendency__details-button {
+  background-color: var(--text-color--green--regular);
+  border: none;
+  padding: 4px 8px;
+}
+
+.pendency__message {
+}
+
+/* Livro atual */
+.loans__current-book {
+  display: flex;
+  gap: 48px;
+}
+
+.current-book__book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-basis: 100%;
+}
+
+.current-book__book-cover {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.current-book__book-cover img {
+  width: 100%;
+}
+
+.current-book__book-info {
+  text-align: center;
+}
+
+.current-book__book-title:link,
+.current-book__book-title:visited {
+  text-transform: uppercase;
+  display: block;
+  font-weight: bold;
+  font-size: 24px;
+  text-decoration: none;
+  color: var(--text-color--gray--dark);
+  margin-bottom: 4px;
+}
+
+.current-book__book-author:link,
+.current-book__book-author:visited {
+  text-decoration: none;
+  color: var(--text-color--gray--light);
+}
+
+/* Dados do livro atual */
+.current-book__details {
+}
+
+.current-book__info {
+}
+
+.current-book__info-item {
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.current-book__info-label {
+  font-weight: bold;
+}
+
+.current-book__info-value {
+}
+
+/* Botões */
+.current-book__buttons {
+  margin-top: 32px;
+}
+
+.current-book__button {
+  padding: 8px 16px;
+  border: none;
+}
+
+.current-book__button--extend {
+  background-color: var(--text-color--green--regular);
+}
+
+.current-book__button--cancel {
+  background-color: rgb(212, 117, 117);
 }

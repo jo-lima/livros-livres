@@ -10,14 +10,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
-import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.Authentication;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Server.UsuariosAuth;
 import com.livros_livres.Server.Registers.Server.UsuariosLogados;
-import com.livros_livres.Server.Registers.usuarios.Cliente;
-import com.livros_livres.Server.Registers.usuarios.Funcionario;
-import com.livros_livres.Server.Registers.usuarios.Usuario;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,13 +32,11 @@ public class AuthenticationService implements Authentication{
     private boolean debug;
 
     @Autowired
-    private ClienteService clienteService;
-    @Autowired
     private MailService mailService;
 
     // ----= Methods =----
     // ----= Helper Methods =----
-    // Universal secure token generator. (Should it be private insted? or in another class?)
+    // Universal secure token generator.
     public String tokenGenerator(Integer tokenSize, Boolean compleate) {
         String CHARSOPTIONS = compleate == true ?
                                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$" :
@@ -63,7 +57,17 @@ public class AuthenticationService implements Authentication{
         return email.matches(emailRegex);
     }
 
-    // Busca pelos usuários logados no sistema.
+    public UsuariosAuth buscaEmailAutenticado(String email) {
+        if (email == null) return null;
+        for (UsuariosAuth u : usuariosAuths) {
+            if (u != null && email.equals(u.getEmail()) && u.getVerificado().equals(true)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    // Busca e retorna por um usuario logado no sistema.
     public UsuariosLogados buscaUsuarioLogado(String token) {
         if (token == null) return null;
         for (UsuariosLogados u : usuariosLogados) {
@@ -74,15 +78,15 @@ public class AuthenticationService implements Authentication{
         return null;
     }
 
-    public RetornoApi logarUsuario(LoginRequest loginRequest, Integer userPerm) {
-        if (loginRequest == null || loginRequest.getSenha() == null || loginRequest.getUsuario() == null || userPerm == null) {
-            return RetornoApi.errorLoginNotFound();
+    public UsuariosLogados logarUsuario(String user, Integer userPerm) {
+        if (user == null || userPerm == null) {
+            return null;
         }
 
         UsuariosLogados newUser; // Objeto que vai ser adicionado a array de usuarios logados
 
         newUser = new UsuariosLogados(
-            loginRequest.getUsuario(),
+            user,
             this.tokenGenerator(32, true),
             userPerm,
             java.time.LocalDateTime.now()
@@ -90,34 +94,21 @@ public class AuthenticationService implements Authentication{
 
         this.usuariosLogados.add(newUser);
 
-        return RetornoApi.sucess("Usuário logado com sucesso!", newUser);
+        return newUser;
+    }
+
+    // Deleta todos os logins do usuario de um email/matricula X. Usado no caso de uma alteração do mesmo.
+    public Boolean deletarLoginsEmailUsuario(String user) {
+        if (user == null) {
+            return false;
+        }
+
+        // Evita ConcurrentModificationException ao remover enquanto itera
+        boolean removed = usuariosLogados.removeIf(u -> u != null && user.equals(u.getUser()));
+        return removed;
     }
 
     // Cria uma solicitacao de autenticacao no sistema para verificar a validade de um email.
-    // TODO: Remover esse metodo e substituir pelo abaixo.
-    public RetornoApi legacyCriarSolicitacaoAutenticacao(String email) {
-        if (email == null || this.isValidEmail(email)) {
-            return RetornoApi.error(400, "Email inválido.");
-        }
-
-        UsuariosAuth newUser;
-        RetornoApi retornoEmail = null;
-        String tokenGenerated = this.tokenGenerator(8, false);
-
-        newUser = new UsuariosAuth(
-            email,
-            tokenGenerated,
-            java.time.LocalDateTime.now()
-        );
-
-        this.usuariosAuths.add(newUser);
-
-        retornoEmail = mailService.sendMail("Olá! Seu código verificador é: " + tokenGenerated,
-                                    "Seu código de verificação.", email);
-
-        return retornoEmail;
-    }
-
     public UsuariosAuth criarSolicitacaoAutenticacao(String email) {
         UsuariosAuth newUser;
         String tokenGenerated = this.tokenGenerator(8, false);
@@ -133,101 +124,35 @@ public class AuthenticationService implements Authentication{
         return newUser;
     }
 
-    // Procura por uma solicitação de autenticacao no sistema com os dados recebidos.
-    // (Para verificar a validade de um email)
+    // Deleta uma solicitacao de autenticacao, para quando o usuario ja esta logado, por exemplo.
+    public boolean deletaSolicitacaoAutenticacao(UsuariosAuth userAuth) {
+        try {
+            this.usuariosAuths.remove(userAuth);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // Procura por uma solicitação de autenticacao no sistema com email e token.
     // Caso encontre, marca o "verificado" dela como "true".
-    public RetornoApi validaSolicitacaoAutenticacao(AuthRequest requestData) {
+    public UsuariosAuth verificaSolicitacaoAutenticacao(AuthRequest requestData) {
+        // pra cada solicitacao de autenticacao...
         for (UsuariosAuth usuarioAuth : usuariosAuths) {
+            // caso email e token estejam iguais os passados
             if( usuarioAuth.getEmail().equals(requestData.getEmail()) &&
                 usuarioAuth.getAuthToken().equals(requestData.getCodigo().get()) )
             {
+                // atualiza a solicitacao como "autenticada".
                 usuarioAuth.setVerificado(true);
                 usuarioAuth.setDataUserVerificado(LocalDateTime.now());
                 System.out.println("Solicitação de autenticação de email encontrada com sucesso!");
 
                 System.out.println("Solicitação de autenticação deletada do sistema.");
-                return RetornoApi.sucess("Email verificado com sucesso!");
+                return usuarioAuth;
             }
         }
-        return RetornoApi.errorNotFound("Código inválido.");
-    }
-
-    public RetornoApi enviarEmailTrocaSenha(String email) {
-        if (email == null || !this.isValidEmail(email)) {
-            return RetornoApi.error(400, "Email inválido.");
-        }
-
-        if (clienteService.buscaClienteEmail(email) == null) {
-            return RetornoApi.sucess("Tentativa de envio de email efetuada com sucesso!");
-        }
-
-        UsuariosAuth newUser;
-        RetornoApi retornoEmail = null;
-        String tokenGenerated = this.tokenGenerator(10, false);
-
-        newUser = new UsuariosAuth(
-            email,
-            tokenGenerated,
-            java.time.LocalDateTime.now()
-        );
-
-        this.usuariosAuths.add(newUser);
-
-        retornoEmail = mailService.sendMail("Olá! Você enviou uma solicitação para efetuar uma <strong>troca de senha.</strong>\n" +
-                                            "Seu código verificador é: " + tokenGenerated,
-                                    "Esqueceu sua senha do LivrosLivres?", email);
-
-        return retornoEmail;
-    }
-
-    public RetornoApi validarEmailTrocaSenha(AuthRequest requestData) {
-        // chamando a outra função que faz a exata mesma coisa
-        Cliente buscaCliente;
-        RetornoApi verificaAuth = validaSolicitacaoAutenticacao(requestData); // valida o código apresentado
-        buscaCliente = clienteService.buscaClienteEmail(requestData.getEmail()); // procura por um cliente com esse email
-
-        if (verificaAuth.getStatusCode() != 200) { return RetornoApi.errorInvalidCode(); }
-        if(buscaCliente == null) { return RetornoApi.errorInvalidCode(); }
-
-        UsuariosLogados newUser = new UsuariosLogados(
-            requestData.getEmail(),
-            this.tokenGenerator(32, true),
-            java.time.LocalDateTime.now()
-        );
-
-        this.usuariosLogados.add(newUser);
-
-        return RetornoApi.sucess("Usuário autenticado e logado com sucesso!", newUser);
-    }
-
-    // Troca a senha do usuario. Usuario precisa estar logado
-    public RetornoApi trocarSenhaCliente(String token, String email, String novaSenha) {
-        Cliente clienteAtual;
-        Cliente clienteAlterado;
-        UsuariosLogados buscaUsuario = this.buscaUsuarioLogado(token);
-
-        if (token == null || email == null || novaSenha == null) {return RetornoApi.errorBadRequest("Request invalida. Insira valores para token, email e senha.");}
-        if (buscaUsuario == null) { return RetornoApi.errorBadRequest("Usuário não logado.");}
-
-        clienteAtual = clienteService.buscaClienteEmail(email);
-        clienteAlterado = clienteService.alterarSenhaCliente(clienteAtual, novaSenha);
-
-        return RetornoApi.sucess("Cliente alterado com sucesso!");
-    }
-
-    // Troca o email do usuario. Usuario precisa estar logado
-    public RetornoApi trocarEmailCliente(String token, String email, String novoEmail) {
-        Cliente clienteAtual;
-        Cliente clienteAlterado;
-        UsuariosLogados buscaUsuario = this.buscaUsuarioLogado(token);
-
-        if (token == null || email == null || novoEmail == null) {return RetornoApi.errorBadRequest("Request invalida. Insira valores para token, email e novoEmail.");}
-        if (buscaUsuario == null) { return RetornoApi.errorBadRequest("Usuário não logado.");}
-
-        clienteAtual = clienteService.buscaClienteEmail(email);
-        clienteAlterado = clienteService.alterarEmailCliente(clienteAtual, novoEmail);
-
-        return RetornoApi.sucess("Cliente alterado com sucesso!", clienteAlterado);
+        return null;
     }
 
     // METHODS FOR DEBUG ONLY:

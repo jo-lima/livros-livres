@@ -36,37 +36,6 @@ public class AuthenticationController {
 		this.mailService = mailService;
 	}
 
-	// Endpoints
-    @PostMapping("/enviar-validacao-email")
-	public RetornoApi enviarCodigoValidarEmailUsuario(@RequestBody AuthRequest body) {
-		return authService.legacyCriarSolicitacaoAutenticacao(body.getEmail());
-	}
-
-    @PostMapping("/verificar-validacao-email")
-	public RetornoApi validarCodigoEmailUsuario(@RequestBody AuthRequest body) {
-		return authService.validaSolicitacaoAutenticacao(body);
-	}
-
-    @PostMapping("/enviar-troca-senha")
-	public RetornoApi enviarEmailTrocaSenha(@RequestBody AuthRequest body) {
-		return authService.enviarEmailTrocaSenha(body.getEmail());
-	}
-
-    @PostMapping("/verificar-troca-senha")
-	public RetornoApi validarEmailTrocaSenha(@RequestBody AuthRequest body) {
-		return authService.validarEmailTrocaSenha(body);
-	}
-
-    @PostMapping("/trocar-senha-cliente")
-	public RetornoApi trocarSenhaCliente(@RequestHeader("token") String token, @RequestBody Cliente body) {
-		return authService.trocarSenhaCliente(token, body.getEmail(), body.getSenha());
-	}
-
-    @PostMapping("/trocar-email-cliente")
-	public RetornoApi trocarEmailCliente(@RequestHeader("token") String token, @RequestBody ChangeMailRequest body) {
-		return authService.trocarEmailCliente(token, body.getEmail(), body.getNovoEmail());
-	}
-
 	// DEBUG ENDPOINTS
 	// lista todos os emails verificados
 	@PostMapping("/test-mail")

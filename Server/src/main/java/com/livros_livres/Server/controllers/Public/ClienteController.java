@@ -12,6 +12,7 @@ import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.services.ClienteService;
+import com.livros_livres.Server.services.DebugService;
 
 @RestController // Define a classe como um controlador rest
 @RequestMapping("/cliente") // raíz dos endpoints dessa classe
@@ -31,6 +32,7 @@ public class ClienteController {
 	// Endpoints
 	@GetMapping("")
 	public String helloCliente() {
+		DebugService.log("Hello cliente!");
 		return "Hello Cliente!";
 	}
 

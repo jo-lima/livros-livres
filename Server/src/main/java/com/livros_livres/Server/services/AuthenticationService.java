@@ -146,9 +146,9 @@ public class AuthenticationService implements Authentication{
                 // atualiza a solicitacao como "autenticada".
                 usuarioAuth.setVerificado(true);
                 usuarioAuth.setDataUserVerificado(LocalDateTime.now());
-                System.out.println("Solicitação de autenticação de email encontrada com sucesso!");
+                DebugService.log("Solicitação de autenticação de email encontrada com sucesso!");
 
-                System.out.println("Solicitação de autenticação deletada do sistema.");
+                DebugService.log("Solicitação de autenticação deletada do sistema.");
                 return usuarioAuth;
             }
         }

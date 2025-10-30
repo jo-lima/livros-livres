@@ -13,21 +13,23 @@ import com.livros_livres.Server.Repository.ClienteRepo;
 @Service
 public class ClienteService {
 
-    private Cliente cliente = new Cliente();
+    //private Cliente cliente = new Cliente();
     
     @Autowired
     private ClienteRepo clienteRepo;
 
-    public Cliente criarNovoCliente(Cliente dataCliente){
-        cliente.setCpf(dataCliente.getCpf());
+    public RetornoApi criarNovoCliente(Cliente clienteData){
+        clienteData.setAtivo(true);
+        clienteRepo.save(clienteData);
+        /*cliente.setCpf(dataCliente.getCpf());
         cliente.setNome(dataCliente.getNome());
         cliente.setSenha(dataCliente.getSenha());
         cliente.setEndereco(dataCliente.getEndereco());
         cliente.setTelefone(dataCliente.getTelefone());
-
+        */
         // Criar na base tb
 
-        return cliente;
+        return RetornoApi.sucess("Cliente criado com sucesso", clienteData);
     }
 
     public RetornoApi buscaCliente(Integer idCliente){

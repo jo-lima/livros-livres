@@ -34,7 +34,7 @@ public class ClienteController {
 	}
 
 	@PostMapping("/novo")
-	public Cliente novoCliente(@RequestBody Cliente body) {
+	public RetornoApi criarNovoCliente(@RequestBody Cliente body) {
 		return clienteServices.criarNovoCliente(body);
 	}
 	@GetMapping("/{id}/busca")

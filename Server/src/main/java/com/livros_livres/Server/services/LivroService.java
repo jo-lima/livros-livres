@@ -52,10 +52,11 @@ public class LivroService{
                 //livroData.getAutor(),
                 livroData.getNome(),
                 livroData.getGenero(),
-                livroData.getEditora(),
-                livroData.getDataPublicacao(),
+                livroData.getPaginas(),
                 livroData.getIsbn(),
                 livroData.getDescricao(),
+                livroData.getEditora(),
+                livroData.getDataPublicacao(),
                 livroAtivo
             );
         }

@@ -1,5 +1,6 @@
 package com.livros_livres.Server.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,7 +22,7 @@ public interface LivroRepo extends JpaRepository<Livro, Integer>{
     "AND L.isbn LIKE CONCAT ('%', :isbn, '%') \n" +
     "AND L.descricao LIKE CONCAT ('%', :descricao, '%') \n" +
     "AND L.editora LIKE CONCAT ('%', :editora, '%') \n" +
-    "AND L.datapublicacao LIKE CONCAT ('%', :datapublicacao, '%') \n" +
+    "AND L.data_publicacao LIKE CONCAT ('%', :data_publicacao, '%') \n" +
     "AND (:ativo IS NULL OR L.ativo = :ativo)",
         nativeQuery = true
     )
@@ -33,7 +34,7 @@ public interface LivroRepo extends JpaRepository<Livro, Integer>{
         @Param("isbn") String isbn,
         @Param("descricao") String descricao,
         @Param("editora") String editora,
-        @Param("datapublicacao") String datapublicacao,
+        @Param("data_publicacao") LocalDate datapublicacao,
         @Param("ativo") String ativo
     );
 }

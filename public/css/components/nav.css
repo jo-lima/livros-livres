@@ -1,0 +1,13 @@
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 48px;
+  margin-bottom: 24px;
+}
+
+.main-nav a:link,
+.main-nav a:visited {
+  color: #000;
+}

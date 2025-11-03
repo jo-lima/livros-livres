@@ -48,17 +48,10 @@ public class LivroController{
         int idLivro = Integer.parseInt(idParam);
         return livroService.inativarLivro(idLivro);
     }
-    
+
     @PostMapping("/{id}/ativar")
     public RetornoApi ativarLivro(@PathVariable("id") String idParam){
         int idLivro = Integer.parseInt(idParam);
         return livroService.ativarLivro(idLivro);
     }
 }
-    /*O campo ativo não é suficiente? Deletar o livro deletaria os emprestimos dele? 
-    @PostMapping("{id}/deletar")
-    public RetornoApi deletarLivro(@PathVariable("id") String idParam){
-        int idLivro = Integer.parseInt(idParam);
-        return livroService.deletarLivro(idLivro);
-    }
-    */

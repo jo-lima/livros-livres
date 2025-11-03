@@ -1,5 +1,6 @@
 package com.livros_livres.Server.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,27 +14,26 @@ import com.livros_livres.Server.Registers.livros.Livro;
 public interface LivroRepo extends JpaRepository<Livro, Integer>{
 
     @Query(
-        value = "SELECT L.* FROM tbl_livros L " +
-    "WHERE L.nome LIKE CONCAT ('%', :nome, '%') \n" +
-    //"AND A.nome LIKE CONCAT ('%', :nome, '%') \n"
-    "AND L.genero LIKE CONCAT ('%', :genero, '%') \n" +
-    "AND L.paginas LIKE CONCAT ('%', :paginas, '%') \n" +
-    "AND L.isbn LIKE CONCAT ('%', :isbn, '%') \n" +
-    "AND L.descricao LIKE CONCAT ('%', :descricao, '%') \n" +
-    "AND L.editora LIKE CONCAT ('%', :editora, '%') \n" +
-    "AND L.datapublicacao LIKE CONCAT ('%', :datapublicacao, '%') \n" +
-    "AND (:ativo IS NULL OR L.ativo = :ativo)",
+        value =
+        "SELECT * FROM tbl_Livro l " +
+        "WHERE (:nome IS NULL OR :nome = '' OR LOWER(l.Nome) LIKE CONCAT('%', LOWER(:nome), '%')) " +
+        "AND (:genero IS NULL OR :genero = '' OR LOWER(l.Genero) LIKE CONCAT('%', LOWER(:genero), '%')) " +
+        // "AND (:paginas IS NULL OR l.Paginas = :paginas) " +
+        "AND (:isbn IS NULL OR :isbn = '' OR LOWER(l.Isbn) LIKE CONCAT('%', LOWER(:isbn), '%')) " +
+        "AND (:descricao IS NULL OR :descricao = '' OR LOWER(l.Descricao) LIKE CONCAT('%', LOWER(:descricao), '%')) " +
+        "AND (:editora IS NULL OR :editora = '' OR LOWER(l.Editora) LIKE CONCAT('%', LOWER(:editora), '%')) " +
+        "AND (:dataPublicacao IS NULL OR l.DataPublicacao = :dataPublicacao) " +
+        "AND (:ativo IS NULL OR l.Ativo = :ativo)",
         nativeQuery = true
     )
-
     List<Livro> findLivrosBySearch(
         @Param("nome") String nome,
         @Param("genero") String genero,
-        @Param("paginas") String paginas,
+        @Param("paginas") Integer paginas,
         @Param("isbn") String isbn,
         @Param("descricao") String descricao,
         @Param("editora") String editora,
-        @Param("datapublicacao") String datapublicacao,
+        @Param("dataPublicacao") LocalDate dataPublicacao,
         @Param("ativo") String ativo
     );
 }

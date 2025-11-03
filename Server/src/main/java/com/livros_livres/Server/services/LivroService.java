@@ -10,7 +10,7 @@ import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.livros.Livro;
 import com.livros_livres.Server.Repository.LivroRepo;
 
-@Service 
+@Service
 public class LivroService{
     @Autowired
     private LivroRepo livroRepo;
@@ -22,7 +22,7 @@ public class LivroService{
         if(!buscaLivro.isPresent()){
             return RetornoApi.errorNotFound("Nenhum livro encontrado");
         }
-        
+
         return RetornoApi.sucess("", buscaLivro);
     }
 
@@ -41,21 +41,22 @@ public class LivroService{
         List<Livro> listaLivro;
         String livroAtivo = null;
 
-        if(livroData==null){
+        if(livroData == null){
             listaLivro = livroRepo.findAll();
         }
         else{
             if(livroData.getAtivo() != null){
                 livroAtivo = livroData.getAtivo() == true ? "1" :  "0";
             }
-            listaLivro =livroRepo.findLivrosBySearch(
+            listaLivro = livroRepo.findLivrosBySearch(
                 //livroData.getAutor(),
                 livroData.getNome(),
                 livroData.getGenero(),
-                livroData.getEditora(),
-                livroData.getDataPublicacao(),
+                livroData.getPaginas(),
                 livroData.getIsbn(),
                 livroData.getDescricao(),
+                livroData.getEditora(),
+                livroData.getDataPublicacao(),
                 livroAtivo
             );
         }
@@ -68,6 +69,17 @@ public class LivroService{
 
     public RetornoApi novoLivro(Livro livroData){
         livroData.setAtivo(true);
+        // get autor by id (change into another request type?)
+        // paginas cannot be <= 1
+        if (
+            livroData.getNome() == null ||
+            livroData.getGenero() == null ||
+            livroData.getPaginas() <= 0 ||
+            livroData.getIsbn() == null
+        ) {
+            return RetornoApi.errorBadRequest("Insira os valores requeridos para criação do livro.");
+        }
+
         livroRepo.save(livroData);
         return RetornoApi.sucess("Livro cadastrado com sucesso",livroData);
     }
@@ -117,7 +129,7 @@ public class LivroService{
         if(livroData.getAtivo()!= null){
             livro.setAtivo(livroData.getAtivo());
         }
-        //Verificar como colocar o autor, colocar pelo ID ou nome? 
+        //Verificar como colocar o autor, colocar pelo ID ou nome?
         livroRepo.save(livro);
         return RetornoApi.sucess("Autor atualizado com sucesso!", livro);
     }
@@ -159,5 +171,5 @@ public class LivroService{
         livroRepo.save(livro);
         return RetornoApi.sucess("Livro ativado com sucesso");
     }
-    
+
 }

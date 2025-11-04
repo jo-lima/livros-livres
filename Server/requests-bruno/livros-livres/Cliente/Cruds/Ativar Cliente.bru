@@ -1,20 +1,24 @@
 meta {
-  name: Novo Cliente
+  name: Ativar Cliente
   type: http
-  seq: 1
+  seq: 4
 }
 
 post {
-  url: http://localhost:6969/cliente/novo
-  body: json
+  url: http://localhost:6969/cliente/:id/ativar
+  body: none
   auth: inherit
+}
+
+params:path {
+  id: 1
 }
 
 body:json {
   {
       "cpf": "123.123.123-21",
       "nome": "Nome Teste Silva",
-      "email": "caio@caio.caio",
+      "email": "livroslivresanddogs@gmail.com",
       "senha": "lovelivros",
       "endereco": null,
       "telefone": null

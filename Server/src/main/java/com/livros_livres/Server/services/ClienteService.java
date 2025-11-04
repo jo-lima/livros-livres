@@ -51,6 +51,147 @@ public class ClienteService {
         return cliente;
     }
 
+    public RetornoApi buscaCliente(Integer idCliente){
+        Optional<Cliente> buscaCliente;
+
+        buscaCliente = clienteRepo.findById(idCliente);
+        if(!buscaCliente.isPresent()){
+            return RetornoApi.errorNotFound("Nenhum cliente encontrado");
+        }
+        return RetornoApi.sucess("",buscaCliente);
+    }
+
+    public RetornoApi listaClientes(){
+        List<Cliente> buscaCliente;
+
+        buscaCliente = clienteRepo.findAll();
+        if(buscaCliente.isEmpty()){
+            return RetornoApi.errorNotFound("Nenhum autor encontrado.");
+        }
+
+        return RetornoApi.sucess("",buscaCliente);
+    }
+
+    public RetornoApi listaClientes(Cliente clienteData){
+        List<Cliente> listaCliente;
+        String clienteAtivo = null;
+
+        if(clienteData==null){
+            listaCliente = clienteRepo.findAll();
+        }
+        else{
+            if(clienteData.getAtivo() != null){
+                clienteAtivo = clienteData.getAtivo() == true ? "1" : "0";
+            }
+            listaCliente = clienteRepo.findClientesBySearch(
+                clienteData.getCpf(),
+                clienteData.getNome(),
+                clienteData.getSenha(),
+                clienteData.getEndereco(),
+                clienteData.getTelefone(),
+                clienteAtivo
+            );
+        }
+        if(listaCliente.isEmpty()){
+            return RetornoApi.errorNotFound("Nenhum cliente encontrado.");
+        }
+        return RetornoApi.sucess("",listaCliente);
+    }
+
+    public RetornoApi atualizarCliente(Integer idCliente, Cliente clienteData){
+        Optional<Cliente> buscaCliente;
+        Cliente cliente;
+
+        buscaCliente = clienteRepo.findById(idCliente);
+
+        if(!buscaCliente.isPresent()){
+            return RetornoApi.errorNotFound("Nenhum aturo encontrado");
+        }
+        if(clienteData.getAtivo() != null){
+            return RetornoApi.errorBadRequest("Campo ativo alterado apenas no endpoint de inativar ou ativar.");
+        }
+
+        cliente = buscaCliente.get();
+
+        if(clienteData.getNome() != null){
+            cliente.setNome(clienteData.getNome());
+        }
+
+        if(clienteData.getTelefone() != null){
+            cliente.setTelefone(clienteData.getTelefone());
+        }
+
+        if(clienteData.getCpf() != null){
+            cliente.setCpf(clienteData.getCpf());
+        }
+
+        if(clienteData.getEndereco() != null){
+            cliente.setEndereco(clienteData.getEndereco());
+        }
+
+        if(clienteData.getSenha() != null){
+            cliente.setSenha(clienteData.getSenha());
+        }
+
+        clienteRepo.save(cliente);
+
+        return RetornoApi.sucess("Cliente atualizado com sucesso", cliente);
+    }
+
+    public RetornoApi deletarCliente(Integer idCliente){
+        Optional<Cliente> buscaCliente;
+
+        buscaCliente = clienteRepo.findById(idCliente);
+
+        if(!buscaCliente.isPresent()){
+            return RetornoApi.errorNotFound("Nenhum cliente encontrado");
+        }
+
+        clienteRepo.deleteById(idCliente);
+
+        return RetornoApi.sucess("Cliente excluido com sucesso");
+    }
+
+    public RetornoApi inativarCliente(Integer idCliente){
+        Optional<Cliente> buscaCliente;
+        Cliente cliente;
+
+        buscaCliente = clienteRepo.findById(idCliente);
+
+        if(!buscaCliente.isPresent()){
+            return RetornoApi.errorNotFound("Nenhum cliente encontrado");
+        }
+        if(!buscaCliente.get().getAtivo()){
+            return RetornoApi.errorBadRequest("Cliente já inativo.");
+        }
+
+        cliente = buscaCliente.get();
+        cliente.setAtivo(false);
+
+        clienteRepo.save(cliente);
+
+        return RetornoApi.sucess("Cliente inativado!", cliente);
+    }
+
+    public RetornoApi ativarCliente(Integer idCliente){
+        Optional<Cliente> buscaCliente;
+        Cliente cliente;
+
+        buscaCliente = clienteRepo.findById(idCliente);
+
+        if(!buscaCliente.isPresent()){
+            return RetornoApi.errorNotFound("Nenhum cliente encontrado");
+        }
+        if(buscaCliente.get().getAtivo()){
+            return RetornoApi.errorBadRequest("Cliente já ativo");
+        }
+
+        cliente = buscaCliente.get();
+        cliente.setAtivo(true);
+        clienteRepo.save(cliente);
+        return RetornoApi.sucess("Cliente ativado com sucesso!");
+    }
+
     // Troca o email de um cliente.
     private Cliente alterarEmailCliente(Cliente cliente, String novoEmail) {
         if(cliente == null || novoEmail == null) { return null; }

@@ -1,0 +1,19 @@
+meta {
+  name: Ativar Livro
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:6969/livro/:id/ativar
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+settings {
+  encodeUrl: true
+}

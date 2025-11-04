@@ -1,0 +1,30 @@
+meta {
+  name: Lista Livros
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:6969/livro/lista
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "idLivro": null,
+    "nome": "diario",
+    "genero": null,
+    "paginas": null,
+    "isbn": null,
+    "descricao": null,
+    "estoque": null,
+    "editora": null,
+    "dataPublicacao": null,
+    "ativo": null
+  }
+}
+
+settings {
+  encodeUrl: true
+}

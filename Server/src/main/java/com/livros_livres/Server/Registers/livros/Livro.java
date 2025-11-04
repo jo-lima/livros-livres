@@ -15,11 +15,11 @@ public class Livro {
     // idLivro, autor, nome, genero, paginas, isbn, descricao, estoque, editora, dataPublicacao, ativo
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="LivroId")
+    @Column(name="idLivro")
     private int idLivro;
 
     @ManyToOne
-    @JoinColumn(name="AutorId")
+    @JoinColumn(name="idAutor")
     private Autor autor;
 
     @Column(name="Nome")

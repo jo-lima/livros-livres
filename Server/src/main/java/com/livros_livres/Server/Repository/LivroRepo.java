@@ -30,7 +30,7 @@ public interface LivroRepo extends JpaRepository<Livro, Integer>{
     List<Livro> findLivrosBySearch(
         @Param("nome") String nome,
         @Param("genero") String genero,
-        @Param("paginas") String paginas,
+        @Param("paginas") Integer paginas,
         @Param("isbn") String isbn,
         @Param("descricao") String descricao,
         @Param("editora") String editora,

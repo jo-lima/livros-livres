@@ -15,14 +15,16 @@ public interface ClienteRepo extends JpaRepository<Cliente,Integer>{
     @Query(
         value = "SELECT * FROM tbl_Usuario \n" +
         "WHERE nome LIKE CONCAT('%', :nome, '%') \n" +
-        /*"AND senha LIKE CONCAT('%', :senha, '%') \n" + */
+        //"AND senha LIKE CONCAT('%', :senha, '%') \n" + */
         "AND endereco LIKE CONCAT('%', :endereco, '%') \n" +
         "AND telefone LIKE CONCAT('%', :telefone, '%') \n" +
         "AND (:ativo IS NULL OR ativo = :ativo)",
         nativeQuery = true
     )
-    List<Cliente> findClientesbySearch(
+    List<Cliente> findClientesBySearch(
+        @Param("cpf") String cpf,
         @Param("nome") String nome,
+        @Param("senha") String senha,
         @Param("endereco") String endereco,
         @Param("telefone") String telefone,
         @Param("ativo") String ativo

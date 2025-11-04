@@ -11,7 +11,6 @@ import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.Registers.usuarios.Funcionario;
-import com.livros_livres.Server.services.ClienteService;
 import com.livros_livres.Server.services.DebugService;
 import com.livros_livres.Server.services.FuncionarioService;
 
@@ -23,7 +22,6 @@ public class FuncionarioController {
 
 	// @Autowired // Cria a classe construtora automaticamente.
 	private FuncionarioService funcionarioService;
-	private ClienteService clienteService;
 
 	// Classe construtora
 	public FuncionarioController( FuncionarioService funcionarioService)

@@ -1,6 +1,5 @@
 package com.livros_livres.Server.services;
 
-import java.lang.foreign.Linker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +11,7 @@ import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Server.UsuariosAuth;
 import com.livros_livres.Server.Registers.Server.UsuariosLogados;
-import com.livros_livres.Server.Registers.livros.Autor;
 import com.livros_livres.Server.Registers.usuarios.Cliente;
-import com.livros_livres.Server.Registers.usuarios.Funcionario;
-import com.livros_livres.Server.Repository.AutorRepo;
 import com.livros_livres.Server.Repository.ClienteRepo;
 
 @Service
@@ -28,8 +24,18 @@ public class ClienteService {
     @Autowired
 	private MailService mailService;
 
+    // Troca a senha de um cliente.
+    private Cliente alterarSenhaCliente(Cliente cliente, String novaSenha) {
+            if(cliente == null || novaSenha == null) { return null; }
+
+            cliente.setSenha(novaSenha);
+            clienteRepo.save(cliente);
+
+            return cliente;
+        }
+
     // Pesquisa por clientes com a combinacao inserida de email.
-    private Cliente buscaClienteEmail(String email) {
+    public Cliente buscaClienteEmail(String email) {
         Optional<Cliente> cliente;
 
         cliente = clienteRepo.findByEmailIgnoreCase(email);
@@ -41,14 +47,14 @@ public class ClienteService {
         return cliente.get();
     }
 
-    // Troca a senha de um cliente.
-    private Cliente alterarSenhaCliente(Cliente cliente, String novaSenha) {
-        if(cliente == null || novaSenha == null) { return null; }
+    public Cliente buscaClienteById(Integer idCliente){
+        Optional<Cliente> buscaCliente;
 
-        cliente.setSenha(novaSenha);
-        clienteRepo.save(cliente);
-
-        return cliente;
+        buscaCliente = clienteRepo.findById(idCliente);
+        if(!buscaCliente.isPresent()){
+            return null;
+        }
+        return buscaCliente.get();
     }
 
     public RetornoApi buscaCliente(Integer idCliente){

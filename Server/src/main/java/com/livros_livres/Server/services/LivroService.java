@@ -15,6 +15,17 @@ public class LivroService{
     @Autowired
     private LivroRepo livroRepo;
 
+    public Livro buscaLivroById(Integer idLivro){
+        Optional<Livro> buscaLivro;
+
+        buscaLivro = livroRepo.findById(idLivro);
+        if(!buscaLivro.isPresent()){
+            return null;
+        }
+
+        return buscaLivro.get();
+    }
+
     public RetornoApi buscaLivro(Integer idLivro){
         Optional<Livro> buscaLivro;
 

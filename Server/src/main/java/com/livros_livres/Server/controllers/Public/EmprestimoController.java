@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.livros_livres.Server.Registers.RequestBody.PedidoEmprestimoRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.emprestimos.Emprestimo;
 import com.livros_livres.Server.services.EmprestimoService;
@@ -20,38 +21,28 @@ public class EmprestimoController {
 	private EmprestimoService emprestimoService;
 
 	// Classe construtora
-	public EmprestimoController( EmprestimoService emprestimoService )
+	EmprestimoController( EmprestimoService emprestimoService )
 	{
 		this.emprestimoService = emprestimoService;
 	}
 
 	// ENDPOINTS
 	@PostMapping("/criar-pedido")
-    // token = proprio user ou func
-    // body = clientId, bookId, Data Prevista Devolucao
-	public RetornoApi criarPedido(@RequestHeader String token, @RequestBody Emprestimo body) {
+	public RetornoApi criarPedido(@RequestHeader String token, @RequestBody PedidoEmprestimoRequest body) {
 		return emprestimoService.test();
     }
 
 	@PostMapping("/aceitar-pedido")
-    // token = func only
-    // body = only emprestimo Id
-    // quando o cliente ja coletou o livro na livraria
 	public RetornoApi aceitarPedido(@RequestHeader String token, @RequestBody Emprestimo body) {
 		return emprestimoService.test();
     }
 
 	@PostMapping("/criar-empréstimo")
-    // token = funcionario
-    // body = id cliente, id livro, data prevista devolucao
-    // Cria um pedido e já aceita automaticamente.
 	public RetornoApi criarEmprestimo(@RequestHeader String token, @RequestBody Emprestimo body) {
 		return emprestimoService.test();
     }
 
 	@PostMapping("/cancelar-pedido")
-    // token = funcionario ou do proprio cliente.
-    // body = id solicitacao
 	public RetornoApi cancelarPedido(@RequestHeader String token, @RequestBody Emprestimo body) {
 		return emprestimoService.test();
     }

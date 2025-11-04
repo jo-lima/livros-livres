@@ -27,8 +27,8 @@ public class Emprestimo {
     @JoinColumn(name="idUsuario")
     private Cliente cliente;
 
-    @Column(name="Ativo", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private Boolean ativo = false;
+    @Column(name="Ativo", nullable = false)
+    private Boolean ativo;
 
     @Column(name="Data_SolicitacaoEmprestimo")
     private LocalDate dataSolicitacaoEmprestimo;

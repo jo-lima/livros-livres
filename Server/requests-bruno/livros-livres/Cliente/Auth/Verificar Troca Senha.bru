@@ -1,11 +1,11 @@
 meta {
-  name: Verificar Valicadao Email
+  name: Verificar Troca Senha
   type: http
-  seq: 7
+  seq: 6
 }
 
 post {
-  url: http://localhost:6969/cliente/verificar-validacao-email
+  url: http://localhost:6969/cliente/validar-token-troca-senha
   body: json
   auth: inherit
 }
@@ -13,7 +13,7 @@ post {
 body:json {
   {
     "email":"livroslivresanddogs@gmail.com",
-    "codigo":"OE50LBIB"
+    "codigo":"YE0QOKVX"
   }
 }
 

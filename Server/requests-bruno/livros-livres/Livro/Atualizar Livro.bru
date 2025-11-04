@@ -1,0 +1,33 @@
+meta {
+  name: Atualizar Livro
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:6969/livro/:id/atualizar
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+body:json {
+  {
+      "nome": "DIARIO DE UM ZUMBI",
+      "genero": null,
+      "paginas": null,
+      "isbn": null,
+      "descricao": null,
+      "estoque": null,
+      "editora": null,
+      "dataPublicacao": null,
+      "ativo": null
+  }
+}
+
+settings {
+  encodeUrl: true
+}

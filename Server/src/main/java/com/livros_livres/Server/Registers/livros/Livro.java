@@ -22,16 +22,16 @@ public class Livro {
     @JoinColumn(name="idAutor")
     private Autor autor;
 
-    @Column(name="Nome")
+    @Column(name="Nome", nullable=false)
     private String nome;
 
     @Column(name="Genero")
     private String genero;
 
-    @Column(name="Paginas")
+    @Column(name="Paginas", nullable=false)
     private int paginas;
 
-    @Column(name="ISBN")
+    @Column(name="ISBN", nullable=false)
     private String isbn;
 
     @Column(name="Descricao")

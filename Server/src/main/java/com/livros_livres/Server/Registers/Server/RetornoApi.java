@@ -1,5 +1,9 @@
 package com.livros_livres.Server.Registers.Server;
 
+import java.util.Optional;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,21 +11,29 @@ import lombok.Setter;
 @Setter
 public class RetornoApi {
 
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
     private int statusCode;
+
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
     private String message;
-    private Object body;
+
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    private Optional<Object> body;
 
     // constructors
-    private RetornoApi() {};
+    private RetornoApi() {
+        this.body=Optional.empty();
+    };
 
     private RetornoApi(Integer statusCode, String message, Object body){
         this.statusCode=statusCode;
         this.message=message;
-        this.body=body;
+        this.body=Optional.ofNullable(body);
     }
     private RetornoApi(Integer statusCode, String message){
         this.statusCode=statusCode;
         this.message=message;
+        this.body=Optional.empty();
     }
 
     // methods
@@ -63,6 +75,14 @@ public class RetornoApi {
 
     public static RetornoApi errorInternal(){
         return new RetornoApi(500, "Ocorreu um erro interno não mapeado.");
+    }
+
+    // Endpoint-specific methods.
+    public static RetornoApi errorLoginNotFound(){
+        return new RetornoApi(404, "Nenhum usuário encontrado para combinação de email e senha apresentados.");
+    }
+    public static RetornoApi errorInvalidCode(){
+        return new RetornoApi(404, "Código de verificação apresentado inválido.");
     }
 
 }

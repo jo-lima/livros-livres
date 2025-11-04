@@ -1,0 +1,29 @@
+meta {
+  name: Novo Funcionario
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:6969/funcionario/novo
+  body: json
+  auth: inherit
+}
+
+headers {
+  token: 
+}
+
+body:json {
+  {
+    "cpf": "123.123.123-12",
+    "nome": "Pedrinho da Funcao",
+    "senha": "cabrasbe",
+    "matricula": "1232",
+    "ativo": true
+  }
+}
+
+settings {
+  encodeUrl: true
+}

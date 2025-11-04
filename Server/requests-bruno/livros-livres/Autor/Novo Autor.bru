@@ -1,0 +1,23 @@
+meta {
+  name: Novo Autor
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:6969/autor/novo
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nome": "Caralho Calabreso",
+    "descricao": "Descricao calabresa",
+    "citacao": "Sempre imaginei que o paraiso fosse uma especie de calabresa"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

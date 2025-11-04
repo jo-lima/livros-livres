@@ -1,0 +1,19 @@
+meta {
+  name: Inativar Livro
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:6969/livro/:id/inativar
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+settings {
+  encodeUrl: true
+}

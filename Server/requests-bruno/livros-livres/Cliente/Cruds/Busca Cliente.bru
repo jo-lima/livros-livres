@@ -1,0 +1,30 @@
+meta {
+  name: Busca Cliente
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:6969/cliente/:id/busca
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+body:json {
+  {
+      "cpf": "123.123.123-21",
+      "nome": "Nome Teste Silva",
+      "email": "livroslivresanddogs@gmail.com",
+      "senha": "lovelivros",
+      "endereco": null,
+      "telefone": null
+  }
+}
+
+settings {
+  encodeUrl: true
+}

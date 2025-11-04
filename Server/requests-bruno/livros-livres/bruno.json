@@ -1,0 +1,15 @@
+{
+  "version": "1",
+  "name": "livros-livres",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ],
+  "size": 0.00027179718017578125,
+  "filesCount": 1,
+  "presets": {
+    "requestType": "http",
+    "requestUrl": "http://localhost:6969/"
+  }
+}

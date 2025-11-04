@@ -1,0 +1,21 @@
+meta {
+  name: Test mail
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:6969/auth/test-mail
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"livroslivresanddogs@gmail.com"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

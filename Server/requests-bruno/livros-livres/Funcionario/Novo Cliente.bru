@@ -1,0 +1,29 @@
+meta {
+  name: Novo Cliente
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:6969/funcionario/novo-cliente
+  body: json
+  auth: inherit
+}
+
+headers {
+  token: 
+}
+
+body:json {
+  {
+      "cpf": "123.123.123-21",
+      "nome": "Livros Livres oficial",
+      "email": "livroslivresanddogs@gmail.com",
+      "endereco": null,
+      "telefone": null
+  }
+}
+
+settings {
+  encodeUrl: true
+}

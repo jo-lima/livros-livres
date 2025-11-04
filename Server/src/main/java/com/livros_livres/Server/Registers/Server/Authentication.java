@@ -2,16 +2,15 @@ package com.livros_livres.Server.Registers.Server;
 
 import java.util.List;
 
+import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
+import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
+
 public interface Authentication {
 
     public static final List<UsuariosLogados> usuariosLogados = null;
 
-    RetornoApi logarUsuario(String email, String senha);
-    RetornoApi trocarSenha(String token, String email, String novaSenha);
+    UsuariosLogados logarUsuario(String user, Integer userPerm);
 
-    RetornoApi enviarCodigoValidarEmailUsuario(String email);
-    RetornoApi validarCodigoEnviadoEmailUsuario(String email, String codigo);
-
-    RetornoApi enviarEmailTrocaSenha(String email);
-    RetornoApi validarEmailTrocaSenha(String email, String codigo);
+    UsuariosAuth criarSolicitacaoAutenticacao(String email);
+    UsuariosAuth verificaSolicitacaoAutenticacao(AuthRequest requestData);
 }

@@ -1,0 +1,22 @@
+meta {
+  name: Login Funcionario
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:6969/funcionario/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "usuario":"1232",
+    "senha":"cabrasbe"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Atualizar Autor
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:6969/autor/4/atualizar
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "nome": "JESUS CRISTO!!",
+    "descricao": "Descricao foda",
+    "citacao": "Sempre imaginei que o paraiso fosse uma especie de mcdonalds"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

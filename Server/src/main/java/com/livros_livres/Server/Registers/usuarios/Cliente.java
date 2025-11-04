@@ -25,6 +25,8 @@ public class Cliente extends Usuario {
     private String endereco;
     @Column(name="Telefone")
     private String telefone;
+    @Column(name="Email", unique = true, nullable=false)
+    private String email;
 
     public Cliente() {
         super();
@@ -34,8 +36,9 @@ public class Cliente extends Usuario {
         String cpf, String nome, String email, String senha,
         Boolean ativo, String endereco, String telefone
     ) {
-        super(cpf, nome, email, senha, ativo);
+        super(cpf, nome, senha, ativo);
         this.endereco = endereco;
         this.telefone = telefone;
+        this.email = email;
     }
 }

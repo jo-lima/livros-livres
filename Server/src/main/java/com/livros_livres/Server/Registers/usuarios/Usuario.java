@@ -1,5 +1,8 @@
 package com.livros_livres.Server.Registers.usuarios;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,27 +15,23 @@ public abstract class Usuario {
     @Column(name="Cpf")
     private String cpf;
 
-    @Column(name="Nome")
+    @Column(name="Nome", nullable=false)
     private String nome;
 
-    @Column(name="Email", unique = true)
-    private String email;
-
-    @Column(name="Senha")
+    @Column(name="Senha", nullable=false)
     private String senha;
 
-    @Column(name="Ativo")
+    @Column(name="Ativo", nullable=false)
     private Boolean ativo;
 
     protected Usuario() {}
 
     protected Usuario(
-            String cpf, String nome, String email,
+            String cpf, String nome,
             String senha, Boolean ativo
         ) {
         this.cpf = cpf;
         this.nome = nome;
-        this.email = email;
         this.senha = senha;
         this.ativo = ativo;
     }

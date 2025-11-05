@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.livros_livres.Server.Registers.Server.RetornoApi;
+import com.livros_livres.Server.Registers.Server.UsuariosLogados;
 import com.livros_livres.Server.Registers.livros.Livro;
 import com.livros_livres.Server.Repository.LivroRepo;
 
@@ -14,6 +15,8 @@ import com.livros_livres.Server.Repository.LivroRepo;
 public class LivroService{
     @Autowired
     private LivroRepo livroRepo;
+    @Autowired
+    private AuthenticationService authService;
 
     public RetornoApi buscaLivro(Integer idLivro){
         Optional<Livro> buscaLivro;
@@ -67,8 +70,14 @@ public class LivroService{
         return RetornoApi.sucess("", listaLivro);
     }
 
-    public RetornoApi novoLivro(Livro livroData){
+    public RetornoApi novoLivro(String token, Livro livroData){
         livroData.setAtivo(true);
+
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        if(usuarioLogado.getUserPerm() != 1){
+            return RetornoApi.errorForbidden();
+        }
+
         // get autor by id (change into another request type?)
         // paginas cannot be <= 1
         if (
@@ -84,9 +93,14 @@ public class LivroService{
         return RetornoApi.sucess("Livro cadastrado com sucesso",livroData);
     }
 
-    public RetornoApi atualizarLivro(Integer idLivro, Livro livroData){
+    public RetornoApi atualizarLivro(String token, Integer idLivro, Livro livroData){
         Optional<Livro> buscaLivro;
         Livro livro;
+        
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        if(usuarioLogado.getUserPerm() != 1){
+            return RetornoApi.errorForbidden();
+        }
 
         buscaLivro = livroRepo.findById(idLivro);
 
@@ -136,7 +150,7 @@ public class LivroService{
 
     public RetornoApi inativarLivro(Integer idLivro){
         Optional<Livro> buscaLivro;
-        Livro livro;
+        Livro livro;        
 
         buscaLivro = livroRepo.findById(idLivro);
 

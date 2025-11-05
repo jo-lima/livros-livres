@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.livros_livres.Server.Registers.Server.RetornoApi;
+import com.livros_livres.Server.Registers.Server.UsuariosLogados;
 import com.livros_livres.Server.Registers.livros.Autor;
 import com.livros_livres.Server.Repository.AutorRepo;
 
@@ -15,6 +16,8 @@ public class AutorService {
 
     @Autowired // Automaticamente monta e importa a classe que faz a conexão da tabela do autor no bd
 	private AutorRepo autorRepo;
+    @Autowired
+    private AuthenticationService authService;
 
     // Recupera os dados de um autor específico no banco.
     public RetornoApi buscaAutor( Integer idAutor ){
@@ -68,16 +71,26 @@ public class AutorService {
     }
 
     // Chama o método da classe repository que salva os dados de um Autor para o banco.
-    public RetornoApi novoAutor( Autor autorData ){
+    public RetornoApi novoAutor(String token, Autor autorData ){
+
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        if(usuarioLogado.getUserPerm() != 1){
+            return RetornoApi.errorForbidden();
+        }
         autorData.setAtivo(true);
         autorRepo.save(autorData);
         return RetornoApi.sucess("Autor criado com sucesso!", autorData);
     }
 
     // Edita a coluna "ativo" de um autor para fazer sua inativação. (excluão lógica).
-    public RetornoApi atualizarAutor( Integer idAutor, Autor autorData){
+    public RetornoApi atualizarAutor(String token, Integer idAutor, Autor autorData){
         Optional<Autor> buscaAutor;
         Autor autor;
+        
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        if(usuarioLogado.getUserPerm() != 1){
+            return RetornoApi.errorForbidden();
+        }
 
         buscaAutor = autorRepo.findById(idAutor);
         if(!buscaAutor.isPresent()) {

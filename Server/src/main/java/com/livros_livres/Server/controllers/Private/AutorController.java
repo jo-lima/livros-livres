@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,9 +34,9 @@ public class AutorController {
 	}
 
 	@PostMapping("/novo")
-	public RetornoApi novoAutor(@RequestBody Autor body){
+	public RetornoApi novoAutor(@RequestHeader("token") String token, @RequestBody Autor body){
 		DebugService.log("Chamado endpoint novoAutor");
-		return autorService.novoAutor(body);
+		return autorService.novoAutor(token, body);
 	}
 
 	@GetMapping("/{id}/busca")
@@ -52,10 +53,10 @@ public class AutorController {
 	}
 
 	@PostMapping("/{id}/atualizar")
-	public RetornoApi atualizarAutor(@PathVariable("id") String idParam, @RequestBody Autor body){
+	public RetornoApi atualizarAutor(@RequestHeader("token") String token,@PathVariable("id") String idParam, @RequestBody Autor body){
 		DebugService.log("Chamado endpoint atualizarAutor");
 		int idAutor = Integer.parseInt(idParam);
-		return autorService.atualizarAutor(idAutor, body);
+		return autorService.atualizarAutor(token, idAutor, body);
 	}
 
 	@PostMapping("/{id}/inativar")

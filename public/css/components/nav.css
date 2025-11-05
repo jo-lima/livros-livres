@@ -15,6 +15,12 @@
   font-weight: 500;
   text-decoration: none;
   text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.main-nav__link:hover,
+.main-nav__link:active {
+  color: var(--text-color--green--regular); /* Mudar */
 }
 
 .main-nav__link.main-nav__link--active {

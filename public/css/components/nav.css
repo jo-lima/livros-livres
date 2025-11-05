@@ -1,18 +1,22 @@
+/* Nav */
 .main-nav {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
   gap: 24px;
-  padding: 24px 48px;
-  margin-bottom: 24px;
+  padding: 18px 36px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid #eee;
 }
 
+/* Links */
 .main-nav__link:link,
 .main-nav__link:visited {
   color: var(--text-color--gray--dark);
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-.main-nav__link.main-nav__link--active:link,
-.main-nav__link.main-nav__link--active:visited {
+.main-nav__link.main-nav__link--active {
   color: var(--text-color--green--regular); /* Mudar */
 }

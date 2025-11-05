@@ -32,9 +32,8 @@
   font-family: "Playfair Display";
 }
 
-/* Botão */
+/* Botões */
 .button {
   display: inline-block;
-  font-family: inherit;
   cursor: pointer;
 }

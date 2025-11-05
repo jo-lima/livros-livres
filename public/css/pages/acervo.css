@@ -11,9 +11,11 @@
 }
 
 .library-filters__heading {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: bold;
   margin-bottom: 12px;
+  text-transform: uppercase;
+  color: var(--text-color--gray--dark);
 }
 
 /* Filtro */
@@ -33,7 +35,10 @@
 }
 
 .library-books__heading {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  color: var(--text-color--gray--dark);
+  font-size: 48px;
 }
 
 /* Barra de pesquisa */

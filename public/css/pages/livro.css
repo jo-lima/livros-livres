@@ -8,6 +8,7 @@
 /* Imagem */
 .book__image-container {
   flex: 1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .book__image {
@@ -21,10 +22,11 @@
 }
 
 .book__title {
-  font-size: 48px;
+  font-size: 64px;
   margin-bottom: 12px;
   text-transform: uppercase;
   font-weight: bold;
+  color: var(--text-color--gray--dark);
 }
 
 /* Autor */

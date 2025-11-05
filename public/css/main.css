@@ -1,6 +1,6 @@
 /* Base */
 @import "/public/css/base/base.css";
-@import "/public/css/reusable/reusable.css";
+@import "/public/css/base/reusable.css";
 
 /* Componentes */
 @import "/public/css/components/footer.css";

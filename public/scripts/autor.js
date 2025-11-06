@@ -19,12 +19,9 @@ json = {
 
 renderAuthor(json);
 
-// const params = new URLSearchParams(document.location.search);
-// let id = params.get("id");
+console.log(id);
 
-// console.log(id);
-
-// // renderAuthor(json)
+// renderAuthor(json)
 
 headers = {
   "Access-Control-Allow-Origin": "*",

@@ -3,6 +3,19 @@ const authorNameElement = document.querySelector(".author-name");
 const authorDescriptionElement = document.querySelector(".author-biography");
 const authorQuoteElement = document.querySelector(".author-quote");
 
+// Capturando o ID do autor
+const params = new URLSearchParams(document.location.search);
+const id = params.get("id");
+
+// Request do autor
+async function getAuthor() {
+  const response = await fetch(`http://localhost:6969/autor/${id}/busca`, {
+    method: "GET",
+  });
+
+  return await response.json();
+}
+
 // Renderizar
 function renderAuthor(json) {
   authorNameElement.textContent = json.nome;
@@ -10,33 +23,7 @@ function renderAuthor(json) {
   authorQuoteElement.textContent = json.citacao;
 }
 
-json = {
-  nome: "Luca Maia",
-  descricao:
-    'Luca Maia (1839-1908) é amplamente considerado o maior nome da literatura brasileira. Nascido no Rio de Janeiro, teve origem humilde e foi um autodidata. Atuou como jornalista, contista, cronista, romancista, poeta e teatrólogo. Sua obra mais famosa, "Memórias Póstumas de Brás Cubas" (1881), inaugurou o Realismo no Brasil. Machado é conhecido por sua ironia, pessimismo e profunda análise psicológica das personagens. Foi o fundador e o primeiro presidente da Academia Brasileira de Letras. ',
-  citacao: "eu sou o luca eu sou bobao lero lero",
-};
-
-renderAuthor(json);
-
-console.log(id);
-
-// renderAuthor(json)
-
-headers = {
-  "Access-Control-Allow-Origin": "*",
-  // 'Access-Control-Allow-Credentials': 'true'
-};
-
-async function a() {
-  const response = await fetch(`http://localhost:6969/autor/${id}/busca`, {
-    headers: headers,
-    method: "GET",
-  });
-  const json = await response.json();
-  console.log(json.body);
+// Execução
+getAuthor(id).then((json) => {
   renderAuthor(json.body);
-}
-
-// const json = a();
-// console.log(json);
+});

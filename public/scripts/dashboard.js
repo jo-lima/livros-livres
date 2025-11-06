@@ -1,6 +1,14 @@
-// Tabela
+// Elementos
 const booksTableElement = document.querySelector(
   ".dashboard__books-table tbody"
+);
+
+const booksAmountElement = document.querySelector(
+  ".dashboard__card--books-amount"
+);
+
+const booksStockElement = document.querySelector(
+  ".dashboard__card--books-stock"
 );
 
 // Listando todos os livros
@@ -28,13 +36,15 @@ async function listAllBooks() {
     headers: headers,
   });
 
-  const json = await response.json();
-  return json;
+  return await response.json();
 }
 
 // Renderizando os livros
 async function renderBooks(bookArray) {
+  // Limpa a grid antes de renderizar
   booksTableElement.innerHTML = "";
+
+  // Loopa pelos livros
   bookArray.forEach((book) => {
     bookHtml = `
       <tr>
@@ -55,19 +65,13 @@ async function renderBooks(bookArray) {
 
 // Atualizando os cards
 async function updateCards(booksArray) {
-  const booksAmountElement = document.querySelector(
-    ".dashboard__card--books-amount"
-  );
-  const booksStockElement = document.querySelector(
-    ".dashboard__card--books-stock"
-  );
-
   booksAmountElement.textContent = booksArray.length;
   booksStockElement.textContent = booksArray.reduce((acc, book) => {
-    return acc + book.estoque;
+    return acc + book.estoque; // Soma todos os book.estoque em um só valor
   }, 0);
 }
 
+// Execução
 listAllBooks().then((json) => {
   updateCards(json.body);
   renderBooks(json.body);

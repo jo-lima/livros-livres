@@ -46,7 +46,7 @@ async function renderBooks(bookArray) {
         <td>${book.estoque}</td>
         <td>${book.editora}</td>
         <td>${book.dataPublicacao}</td>
-        <td>${book.ativo}</td>
+        <td>${book.ativo == true ? "Ativo" : "Inativo"}</td>
       </tr>`;
 
     booksTableElement.insertAdjacentHTML("beforeend", bookHtml);

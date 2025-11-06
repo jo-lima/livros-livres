@@ -1,7 +1,21 @@
-.dashboard__container {
+/* Container */
+.dashboard__body {
   display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
+.dashboard__container {
+  display: flex;
+  flex: 1;
+}
+
+/* Sobrescrevendo a margem da nav */
+.main-nav.dashboard__nav {
+  margin-bottom: 0;
+}
+
+/* Abas */
 .dashboard__tabs {
   border-right: 2px solid #eee;
   display: flex;
@@ -19,8 +33,11 @@
   padding: 14px 0;
 }
 
+/* Conteúdo */
 .dashboard__content {
-  padding: 0 48px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
 }
 
 .dashboard__heading {
@@ -35,6 +52,7 @@
   margin-bottom: 16px;
 }
 
+/* Cards */
 .dashboard__cards {
   display: flex;
   gap: 24px;
@@ -56,8 +74,15 @@
   line-height: 1.2;
   margin-bottom: 12px;
 }
+
 .dashboard__card-value {
   font-size: 36px;
+}
+
+/* Tabela */
+.dashboard__books-table-container {
+  flex: 1;
+  overflow: scroll;
 }
 
 .dashboard__books-table {
@@ -66,6 +91,9 @@
   min-width: 400px;
   font-weight: 400;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+  display: block;
+  max-height: 1px; /* não tenho ideia do pq isso funciona mas vamo nesse :D*/
+  line-height: 1.2;
 }
 
 .dashboard__books-table th {
@@ -81,7 +109,7 @@
 
 .dashboard__books-table th,
 .dashboard__books-table td {
-  padding: 24px 12px;
+  padding: 18px 12px;
   padding-right: 40px;
 }
 

@@ -4,16 +4,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
-import com.livros_livres.Server.Registers.RequestBody.ChangeMailRequest;
-import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
-import com.livros_livres.Server.Registers.Server.Authentication;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.services.AuthenticationService;
 import com.livros_livres.Server.services.MailService;
 

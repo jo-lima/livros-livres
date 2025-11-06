@@ -45,7 +45,7 @@ public class AutorController {
 		return autorService.buscaAutor(idAutor);
 	}
 
-	@GetMapping("/lista")
+	@PostMapping("/lista")
 	public RetornoApi listaAutores(@RequestBody Autor body){
 		DebugService.log("Chamado endpoint listaAutores");
 		return autorService.listaAutores(body);

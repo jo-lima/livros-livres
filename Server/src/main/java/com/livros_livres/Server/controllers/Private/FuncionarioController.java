@@ -11,7 +11,6 @@ import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.usuarios.Cliente;
 import com.livros_livres.Server.Registers.usuarios.Funcionario;
-import com.livros_livres.Server.services.ClienteService;
 import com.livros_livres.Server.services.DebugService;
 import com.livros_livres.Server.services.FuncionarioService;
 
@@ -23,7 +22,6 @@ public class FuncionarioController {
 
 	// @Autowired // Cria a classe construtora automaticamente.
 	private FuncionarioService funcionarioService;
-	private ClienteService clienteService;
 
 	// Classe construtora
 	public FuncionarioController( FuncionarioService funcionarioService)
@@ -39,19 +37,19 @@ public class FuncionarioController {
 
     @PostMapping("/login")
     public RetornoApi loginUsuario(@RequestBody LoginRequest loginRequest) {
-		DebugService.log("Chamado endpoint loginUsuario");
+		DebugService.log("Chamado endpoint loginUsuario (Funcionario)");
         return funcionarioService.loginFuncionario(loginRequest);
     }
 
 	@PostMapping("/novo")
 	public Funcionario novoFuncionario(@RequestHeader("token") String token, @RequestBody Funcionario body){
-		DebugService.log("Hello novoFuncionario!");
+		DebugService.log("Chamado endpoint novoFuncionario!");
 		return funcionarioService.salvarFuncionario(body);
 	}
 
 	@PostMapping("/novo-cliente")
 	public RetornoApi novoCliente(@RequestHeader("token") String token, @RequestBody Cliente body){
-		DebugService.log("Hello novoCliente!");
+		DebugService.log("Chamado endpoint novoCliente (Funcionario)");
 		return funcionarioService.criaNovoCliente(token, body);
 	}
 

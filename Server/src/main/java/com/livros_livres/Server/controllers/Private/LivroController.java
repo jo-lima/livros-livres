@@ -32,7 +32,7 @@ public class LivroController{
         return livroService.buscaLivro(idLivro);
         }
 
-    @GetMapping("/lista")
+    @PostMapping("/lista")
     public RetornoApi listaLivros(@RequestBody Livro body){
         return livroService.listaLivros(body);
         }

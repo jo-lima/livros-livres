@@ -1,0 +1,90 @@
+.dashboard__container {
+  display: flex;
+}
+
+.dashboard__tabs {
+  border-right: 2px solid #eee;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 9%;
+}
+
+.dashboard__tab:link,
+.dashboard__tab:visited {
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  color: var(--text-color--gray--dark);
+  padding: 14px 0;
+}
+
+.dashboard__content {
+  padding: 0 48px;
+}
+
+.dashboard__heading {
+  text-transform: uppercase;
+  color: var(--text-color--gray--dark);
+  font-size: 46px;
+  margin-bottom: 24px;
+}
+
+.dashboard__subheading {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.dashboard__cards {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.dashboard__card {
+  border: 1px solid #eee;
+  width: 200px;
+  aspect-ratio: 1.5/1;
+  padding: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard__card-label {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.dashboard__card-value {
+  font-size: 36px;
+}
+
+.dashboard__books-table {
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 400px;
+  font-weight: 400;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.dashboard__books-table th {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.dashboard__books-table thead tr {
+  background-color: var(--text-color--green--regular);
+  color: #fff;
+  text-align: left;
+}
+
+.dashboard__books-table th,
+.dashboard__books-table td {
+  padding: 24px 12px;
+  padding-right: 40px;
+}
+
+.dashboard__books-table tbody tr:nth-child(even) {
+  background-color: #eee;
+}

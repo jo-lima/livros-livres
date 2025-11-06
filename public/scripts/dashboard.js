@@ -12,19 +12,6 @@ const booksStockElement = document.querySelector(
 );
 
 // Listando todos os livros
-body = {
-  idLivro: null,
-  nome: null,
-  genero: null,
-  paginas: null,
-  isbn: null,
-  descricao: null,
-  estoque: null,
-  editora: null,
-  dataPublicacao: null,
-  ativo: null,
-};
-
 headers = {
   "Content-Type": "application/json",
 };
@@ -32,7 +19,7 @@ headers = {
 async function listAllBooks() {
   const response = await fetch(`http://localhost:6969/livro/lista`, {
     method: "POST",
-    body: JSON.stringify(body),
+    body: "{}", // Lista todos os livros
     headers: headers,
   });
 

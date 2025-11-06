@@ -37,6 +37,7 @@ function renderBook(json) {
   }
 }
 
+// Execução
 getBook(id).then((json) => {
   renderBook(json.body);
 });

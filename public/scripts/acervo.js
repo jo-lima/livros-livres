@@ -1,24 +1,21 @@
 // Elementos
 const booksGrid = document.querySelector(".library-books__grid");
 
-// Body da request
-body = {
-  idLivro: null,
-  nome: null,
-  genero: null,
-  paginas: null,
-  isbn: null,
-  descricao: null,
-  estoque: null,
-  editora: null,
-  dataPublicacao: null,
-  ativo: null,
-};
-
 // Headers
 headers = {
   "Content-Type": "application/json",
 };
+
+// Request do livro
+async function listAllBooks() {
+  const response = await fetch(`http://localhost:6969/livro/lista`, {
+    method: "POST",
+    body: "{}", // Lista por todos os livros
+    headers: headers,
+  });
+
+  return await response.json();
+}
 
 // Renderizar livros
 function renderBooks(json) {
@@ -51,15 +48,7 @@ function renderBooks(json) {
   });
 }
 
-async function listBooks() {
-  const response = await fetch(`http://localhost:6969/livro/lista`, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: headers,
-  });
-  const json = await response.json();
-  console.log(json.body);
+// Execução
+listAllBooks().then((json) => {
   renderBooks(json.body);
-}
-
-listBooks();
+});

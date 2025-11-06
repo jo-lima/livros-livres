@@ -205,8 +205,8 @@ public class ClienteService {
     public RetornoApi novoCliente( Cliente clienteData ){
         clienteData.setAtivo(true);
 
-        if(authService.buscaEmailAutenticado(clienteData.getEmail()) == null) {return RetornoApi.errorBadRequest("Email não verificado!");}
         if(buscaClienteEmail(clienteData.getEmail()) != null) {return RetornoApi.errorBadRequest("Email já cadastrado no sistema!");}
+        if(authService.buscaEmailAutenticado(clienteData.getEmail()) == null) {return RetornoApi.errorBadRequest("Email não verificado!");}
 
         clienteRepo.save(clienteData);
         return RetornoApi.sucess("Cliente criado com sucesso!", clienteData);

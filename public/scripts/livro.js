@@ -22,6 +22,8 @@ function renderBook(json) {
   bookAuthorElement.textContent = json.autor.nome;
   bookDescriptionElement.textContent = json.descricao;
 
+  bookAuthorElement.setAttribute("href", `autor.html?id=${json.autor.idAutor}`);
+
   // Detalhes
   const details = [
     ["genre", json.genero],

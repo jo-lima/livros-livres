@@ -1,10 +1,5 @@
 package com.livros_livres.Server.Registers.livros;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -16,6 +16,17 @@ public class AutorService {
     @Autowired // Automaticamente monta e importa a classe que faz a conexão da tabela do autor no bd
 	private AutorRepo autorRepo;
 
+    public Autor buscaAutorById( Integer idAutor ){
+        Optional<Autor> buscaAutor;
+
+        buscaAutor = autorRepo.findById(idAutor);
+        if(!buscaAutor.isPresent()) {
+            return null;
+        }
+
+        return buscaAutor.get();
+    }
+
     // Recupera os dados de um autor específico no banco.
     public RetornoApi buscaAutor( Integer idAutor ){
         Optional<Autor> buscaAutor;

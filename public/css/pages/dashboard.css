@@ -78,6 +78,7 @@
   aspect-ratio: 1.5/1;
   padding: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid var(--text-color--green--regular);
 }
 
 .dashboard__card-label {
@@ -129,4 +130,10 @@
 
 .dashboard__books-table tbody tr:nth-child(even) {
   background-color: #eee;
+}
+
+.dashboard__books-table a:link,
+.dashboard__books-table a:visited {
+  color: inherit;
+  text-decoration: none;
 }

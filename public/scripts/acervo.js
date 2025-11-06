@@ -29,13 +29,19 @@ function renderBooks(json) {
   json.forEach((book) => {
     bookHtml = `
     <div class="library-books__book">
-        <a href="./livro.html?id=${book.idLivro}" class="library-books__book-image-link">
+        <a href="./livro.html?id=${
+          book.idLivro
+        }" class="library-books__book-image-link">
             <div class="library-books__book-image"></div>
         </a>
         <div class="library-books__book-information-container text--center">
             <p class="library-books__book-title">${book.nome}</p>
-            <a href="autor.html" class="library-books__book-author">${book.descricao}</a>
-            <p class="library-books__book-year">${book.dataPublicacao}</p>
+            <a href="autor.html" class="library-books__book-author">${
+              book.descricao
+            }</a>
+            <p class="library-books__book-year">${
+              book.dataPublicacao.split("-")[0]
+            }</p>
         </div>
     </div>
     `;

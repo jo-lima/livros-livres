@@ -8,8 +8,17 @@ let id = params.get("id");
 
 function renderBook(json) {
   bookNameElement.textContent = json.nome;
-  bookAuthorElement.textContent = json.autor;
+  bookAuthorElement.textContent = json.autor.nome;
   bookDescriptionElement.textContent = json.descricao;
+
+  // Detalhes
+  document.querySelector(".book__detail--genre").textContent = json.genero;
+  document.querySelector(".book__detail--pages").textContent = json.paginas;
+  document.querySelector(".book__detail--isbn").textContent = json.isbn;
+  document.querySelector(".book__detail--publisher").textContent = json.editora;
+  document.querySelector(".book__detail--date").textContent =
+    json.dataPublicacao;
+  json.dataLancamento;
 }
 
 async function a() {

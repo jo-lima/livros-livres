@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.livros_livres.Server.Registers.RequestBody.LivroRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.livros.Livro;
 import com.livros_livres.Server.services.LivroService;
@@ -22,9 +23,9 @@ public class LivroController{
     }
 
     @PostMapping("/novo")
-    public RetornoApi novoLivro(@RequestBody Livro body){
+    public RetornoApi novoLivro(@RequestBody LivroRequest body){
             return livroService.novoLivro(body);
-        }
+    }
 
     @GetMapping("/{id}/busca")
     public RetornoApi buscaLivro(@PathVariable("id") String idParam){
@@ -35,7 +36,7 @@ public class LivroController{
     @PostMapping("/lista")
     public RetornoApi listaLivros(@RequestBody Livro body){
         return livroService.listaLivros(body);
-        }
+    }
 
     @PostMapping("/{id}/atualizar")
     public RetornoApi atualizarLivro(@PathVariable("id") String idParam, @RequestBody Livro body){

@@ -1,9 +1,8 @@
 package com.livros_livres.Server.Registers.livros;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,6 +30,7 @@ public class Autor {
 
     // @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
     @OneToMany(mappedBy="autor")
+    @JsonIgnoreProperties("autor")
     private Collection<Livro> livros;
 
     @Column(name="Ativo")

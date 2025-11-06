@@ -3,6 +3,8 @@ package com.livros_livres.Server.Registers.livros;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +22,7 @@ public class Livro {
 
     @ManyToOne
     @JoinColumn(name="idAutor")
+    @JsonIgnoreProperties({"livros", "autor"})
     private Autor autor;
 
     @Column(name="Nome", nullable=false)

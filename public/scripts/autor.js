@@ -26,20 +26,20 @@ renderAuthor(json);
 
 // // renderAuthor(json)
 
-// headers = {
-//   "Access-Control-Allow-Origin": "*",
-//   // 'Access-Control-Allow-Credentials': 'true'
-// };
+headers = {
+  "Access-Control-Allow-Origin": "*",
+  // 'Access-Control-Allow-Credentials': 'true'
+};
 
-// async function a() {
-//   const response = await fetch(`http://localhost:6969/autor/${id}/busca`, {
-//     headers: headers,
-//     method: "GET",
-//   });
-//   const json = await response.json();
-//   console.log(json.body);
-//   renderAuthor(json.body);
-// }
+async function a() {
+  const response = await fetch(`http://localhost:6969/autor/${id}/busca`, {
+    headers: headers,
+    method: "GET",
+  });
+  const json = await response.json();
+  console.log(json.body);
+  renderAuthor(json.body);
+}
 
 // const json = a();
 // console.log(json);

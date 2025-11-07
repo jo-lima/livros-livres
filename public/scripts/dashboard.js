@@ -35,10 +35,8 @@ async function renderBooks(bookArray) {
   bookArray.forEach((book) => {
     bookHtml = `
       <tr>
-        <td><a href="livro.html?id=${book.idLivro}">${book.nome}</a></td>
-        <td><a href="autor.html?id=${book.autor.idAutor}">${
-      book.autor.nome
-    }</a></td>
+        <td>${book.nome}</td>
+        <td>${book.autor.nome}</td>
         <td>${book.genero}</td>
         <td>${book.paginas}</td>
         <td>${book.isbn}</td>

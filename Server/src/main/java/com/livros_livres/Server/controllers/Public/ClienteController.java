@@ -99,23 +99,25 @@ public class ClienteController {
 		return clienteServices.listaClientes(body);
 	}
 	@PostMapping("/{id}/atualizar")
-	public RetornoApi atualizarCliente(@PathVariable("id") String idParam, @RequestBody Cliente body){
+	public RetornoApi atualizarCliente(@RequestHeader("token") String token,@PathVariable("id") String idParam, @RequestBody Cliente body){
 		int idCliente = Integer.parseInt(idParam);
-		return clienteServices.atualizarCliente(idCliente, body);
+		return clienteServices.atualizarCliente(token, idCliente, body);
 	}
 	@PostMapping("/{id}/inativar")
-	public RetornoApi inativarCliente(@PathVariable("id") String idParam){
+	public RetornoApi inativarCliente(@RequestHeader("token") String token,@PathVariable("id") String idParam){
 		int idCliente = Integer.parseInt(idParam);
-		return clienteServices.inativarCliente(idCliente);
+		return clienteServices.inativarCliente(token, idCliente);
 	}
 	@PostMapping("/{id}/ativar")
-	public RetornoApi ativarCliente(@PathVariable("id") String idParam){
+	public RetornoApi ativarCliente(@RequestHeader("token") String token, @PathVariable("id") String idParam){
 		int idCliente = Integer.parseInt(idParam);
-		return clienteServices.ativarCliente(idCliente);
+		return clienteServices.ativarCliente(token, idCliente);
 	}
+
+	//analisar
 	@PostMapping("/{id}/deletar")
-	public RetornoApi deletarCliente(@PathVariable("id") String idParam){
+	public RetornoApi deletarCliente(@RequestHeader("token") String token, @PathVariable("id") String idParam){
 		int idCliente = Integer.parseInt(idParam);
-		return clienteServices.deletarCliente(idCliente);
+		return clienteServices.deletarCliente(token, idCliente);
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.livros_livres.Server.services.VariaveisHtml;
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
 import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
@@ -42,7 +43,7 @@ public class ClienteService {
     }
 
     // Troca a senha de um cliente.
-    private Cliente alterarSenhaCliente(Cliente cliente, String novaSenha) {
+    private Cliente alterarSenhaCliente(String token, Cliente cliente, String novaSenha) {
         if(cliente == null || novaSenha == null) { return null; }
 
         cliente.setSenha(novaSenha);
@@ -98,9 +99,16 @@ public class ClienteService {
         return RetornoApi.sucess("",listaCliente);
     }
 
-    public RetornoApi atualizarCliente(Integer idCliente, Cliente clienteData){
+    public RetornoApi atualizarCliente(String token, Integer idCliente, Cliente clienteData){
         Optional<Cliente> buscaCliente;
         Cliente cliente;
+
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        if(usuarioLogado == null || (usuarioLogado.getUserPerm() == 0 &&
+        clienteData.getEmail() != usuarioLogado.getUser()))
+        {
+            return RetornoApi.errorForbidden();
+        }
 
         buscaCliente = clienteRepo.findById(idCliente);
 
@@ -138,8 +146,12 @@ public class ClienteService {
         return RetornoApi.sucess("Cliente atualizado com sucesso", cliente);
     }
 
-    public RetornoApi deletarCliente(Integer idCliente){
+    public RetornoApi deletarCliente(String token, Integer idCliente){
         Optional<Cliente> buscaCliente;
+
+        UsuariosLogados buscaUsuario = authService.buscaUsuarioLogado(token);
+        if (token == null) {return RetornoApi.errorBadRequest("Request invalida. Insira valores para token, email e senha.");}
+        if (buscaUsuario == null) { return RetornoApi.errorForbidden();}
 
         buscaCliente = clienteRepo.findById(idCliente);
 
@@ -152,9 +164,14 @@ public class ClienteService {
         return RetornoApi.sucess("Cliente excluido com sucesso");
     }
 
-    public RetornoApi inativarCliente(Integer idCliente){
+    public RetornoApi inativarCliente(String token, Integer idCliente){
         Optional<Cliente> buscaCliente;
         Cliente cliente;
+
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        if(usuarioLogado.getUserPerm() != 1){
+            return RetornoApi.errorForbidden();
+        }
 
         buscaCliente = clienteRepo.findById(idCliente);
 
@@ -173,9 +190,14 @@ public class ClienteService {
         return RetornoApi.sucess("Cliente inativado!", cliente);
     }
 
-    public RetornoApi ativarCliente(Integer idCliente){
+    public RetornoApi ativarCliente(String token, Integer idCliente){
         Optional<Cliente> buscaCliente;
         Cliente cliente;
+
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        if(usuarioLogado.getUserPerm() != 1){
+            return RetornoApi.errorForbidden();
+        }
 
         buscaCliente = clienteRepo.findById(idCliente);
 
@@ -196,13 +218,14 @@ public class ClienteService {
     private Cliente alterarEmailCliente(Cliente cliente, String novoEmail) {
         if(cliente == null || novoEmail == null) { return null; }
 
+        
         cliente.setEmail(novoEmail);
         clienteRepo.save(cliente);
 
         return cliente;
     }
 
-    public RetornoApi novoCliente( Cliente clienteData ){
+    public RetornoApi novoCliente(Cliente clienteData ){
         clienteData.setAtivo(true);
 
         if(authService.buscaEmailAutenticado(clienteData.getEmail()) == null) {return RetornoApi.errorBadRequest("Email não verificado!");}
@@ -247,13 +270,10 @@ public class ClienteService {
 
         // Adiciona email na lista de emails a serem autenticados.
         newUser = authService.criarSolicitacaoAutenticacao(email);
-
-        retornoEmail = mailService.sendMail("Olá! Verifique seu email para o Livros Livres! " +
-                                            "Seu código verificador é: " + newUser.getAuthToken(),
-                                    "Verificação de email Livros Livres", email);
-
+        String htmlCodigo = VariaveisHtml.html_validarToken(newUser.getAuthToken());
+    retornoEmail =mailService.sendMail(htmlCodigo, "Verificação de email", email);
         return retornoEmail;
-    }
+}
 
     // Procura pela combinacao de token x email e marca o email como "autenticado" caso tenha encontrado.
     public RetornoApi validarTokenValidarEmail(AuthRequest requestData) {
@@ -283,9 +303,9 @@ public class ClienteService {
         // Adiciona email na lista de emails a serem autenticados.
         newUser = authService.criarSolicitacaoAutenticacao(email);
 
-        retornoEmail = mailService.sendMail("Olá! Você enviou uma solicitação para efetuar uma <strong>troca de senha.</strong>\n" +
-                                            "Seu código verificador é: " + newUser.getAuthToken(),
-                                    "Esqueceu sua senha do LivrosLivres?", email);
+        String htmlesqueciSenha = VariaveisHtml.html_esqueciSenha(newUser.getAuthToken());
+
+        retornoEmail = mailService.sendMail(htmlesqueciSenha,"Esqueceu sua senha do LivrosLivres?", email);
 
         return retornoEmail;
     }
@@ -323,7 +343,7 @@ public class ClienteService {
         if (buscaUsuario == null) { return RetornoApi.errorForbidden();}
 
         clienteAtual = this.buscaClienteEmail(buscaUsuario.getUser());
-        clienteAlterado = this.alterarSenhaCliente(clienteAtual, novaSenha);
+        clienteAlterado = this.alterarSenhaCliente(token, clienteAtual, novaSenha);
 
         if (clienteAlterado == null) {return RetornoApi.errorInternal();}
 

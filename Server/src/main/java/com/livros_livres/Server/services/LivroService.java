@@ -148,9 +148,14 @@ public class LivroService{
         return RetornoApi.sucess("Autor atualizado com sucesso!", livro);
     }
 
-    public RetornoApi inativarLivro(Integer idLivro){
+    public RetornoApi inativarLivro(String token, Integer idLivro){
         Optional<Livro> buscaLivro;
         Livro livro;        
+
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        if(usuarioLogado.getUserPerm() != 1){
+            return RetornoApi.errorForbidden();
+        }
 
         buscaLivro = livroRepo.findById(idLivro);
 
@@ -168,9 +173,14 @@ public class LivroService{
         return RetornoApi.sucess("Autor inativado com sucesso.!", livro);
     }
 
-    public RetornoApi ativarLivro(Integer idLivro){
+    public RetornoApi ativarLivro(String token, Integer idLivro){
         Optional<Livro> buscaLivro;
         Livro livro;
+
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        if(usuarioLogado.getUserPerm() != 1){
+            return RetornoApi.errorForbidden();
+        }
 
         buscaLivro = livroRepo.findById(idLivro);
         if(!buscaLivro.isPresent()){

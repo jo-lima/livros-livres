@@ -46,14 +46,14 @@ public class LivroController{
     }
 
     @PostMapping("/{id}/inativar")
-    public RetornoApi inativarLivro(@PathVariable("id") String idParam){
+    public RetornoApi inativarLivro(@RequestHeader("token") String token, @PathVariable("id") String idParam){
         int idLivro = Integer.parseInt(idParam);
-        return livroService.inativarLivro(idLivro);
+        return livroService.inativarLivro(token, idLivro);
     }
 
     @PostMapping("/{id}/ativar")
-    public RetornoApi ativarLivro(@PathVariable("id") String idParam){
+    public RetornoApi ativarLivro(@RequestHeader("token") String token, @PathVariable("id") String idParam){
         int idLivro = Integer.parseInt(idParam);
-        return livroService.ativarLivro(idLivro);
+        return livroService.ativarLivro(token, idLivro);
     }
 }

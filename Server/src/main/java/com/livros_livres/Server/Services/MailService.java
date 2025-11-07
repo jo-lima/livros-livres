@@ -1,4 +1,4 @@
-package com.livros_livres.Server.services;
+package com.livros_livres.Server.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;

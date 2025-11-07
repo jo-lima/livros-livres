@@ -1,4 +1,4 @@
-package com.livros_livres.Server.controllers.Private;
+package com.livros_livres.Server.Controllers.Private;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.livros_livres.Server.Registers.Livros.Livro;
 import com.livros_livres.Server.Registers.RequestBody.LivroRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.Registers.livros.Livro;
-import com.livros_livres.Server.services.LivroService;
+import com.livros_livres.Server.Services.LivroService;
 
 @RestController
 @RequestMapping("/livro")

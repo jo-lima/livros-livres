@@ -1,4 +1,4 @@
-package com.livros_livres.Server.Registers.usuarios;
+package com.livros_livres.Server.Registers.Usuarios;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

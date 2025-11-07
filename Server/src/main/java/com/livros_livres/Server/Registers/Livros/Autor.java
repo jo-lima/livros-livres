@@ -1,4 +1,4 @@
-package com.livros_livres.Server.Registers.livros;
+package com.livros_livres.Server.Registers.Livros;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package com.livros_livres.Server.controllers.Public;
+package com.livros_livres.Server.Controllers.Public;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
 import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.Registers.usuarios.Cliente;
-import com.livros_livres.Server.services.ClienteService;
-import com.livros_livres.Server.services.DebugService;
+import com.livros_livres.Server.Registers.Usuarios.Cliente;
+import com.livros_livres.Server.Services.ClienteService;
+import com.livros_livres.Server.Services.DebugService;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 
 

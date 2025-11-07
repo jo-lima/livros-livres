@@ -2,6 +2,7 @@
 const bookNameElement = document.querySelector(".book__title");
 const bookAuthorElement = document.querySelector(".book__author-name");
 const bookDescriptionElement = document.querySelector(".book__description");
+const loadingOverlayElement = document.querySelector(".loading-overlay");
 
 // Capturando o ID do livro
 const params = new URLSearchParams(document.location.search);
@@ -37,6 +38,10 @@ function renderBook(json) {
     document.querySelector(`.book__detail--${detail[0]}`).textContent =
       detail[1];
   }
+
+  setTimeout(() => {
+    loadingOverlayElement.classList.add("hidden");
+  }, 400);
 }
 
 // Execução

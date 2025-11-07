@@ -33,7 +33,7 @@ async function renderBooks(bookArray) {
 
   // Loopa pelos livros
   bookArray.forEach((book) => {
-    bookHtml = `  
+    bookHtml = `
       <tr>
         <td><a href="livro.html?id=${book.idLivro}">${book.nome}</a></td>
         <td><a href="autor.html?id=${book.autor.idAutor}">${

@@ -2,6 +2,7 @@
 const authorNameElement = document.querySelector(".author-name");
 const authorDescriptionElement = document.querySelector(".author-biography");
 const authorQuoteElement = document.querySelector(".author-quote");
+const loadingOverlayElement = document.querySelector(".loading-overlay");
 
 // Capturando o ID do autor
 const params = new URLSearchParams(document.location.search);
@@ -21,6 +22,10 @@ function renderAuthor(json) {
   authorNameElement.textContent = json.nome;
   authorDescriptionElement.textContent = json.descricao;
   authorQuoteElement.textContent = json.citacao;
+
+  setTimeout(() => {
+    loadingOverlayElement.classList.add("hidden");
+  }, 300);
 }
 
 // Execução

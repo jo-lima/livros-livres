@@ -48,22 +48,16 @@ public class EmprestimoController {
     }
 
 	@PostMapping("/finalizar-emprestimo")
-    // token = funcionario.
-    // body = id solicitacao
 	public RetornoApi finalizarEmprestimo(@RequestHeader String token, @RequestBody Emprestimo body) {
 		return emprestimoService.test();
     }
 
 	@PostMapping("/editar-emprestimo")
-    // token = funcionario.
-    // body = objeto completo do emprestimo
 	public RetornoApi editarEmprestimo(@RequestHeader String token, @RequestBody Emprestimo body) {
 		return emprestimoService.test();
     }
 
 	@PostMapping("/adiar-emprestimo")
-    // token = funcionario ou proprio cliente.
-    // body = nova data devolucao (regras pra definicao da mesma no front-end, talvez limite razoavel aqui)
 	public RetornoApi adiarEmprestimo(@RequestHeader String token, @RequestBody Emprestimo body) {
 		return emprestimoService.test();
     }
@@ -77,7 +71,14 @@ public class EmprestimoController {
 
 	@GetMapping("/listar-emprestimos/{id}")
     // token = funcionario ou proprio cliente.
+	// id == clienteId
 	public RetornoApi listarEmprestimos(@RequestHeader String token, @PathVariable("id") String idParam){
+		return emprestimoService.test();
+    }
+
+	@GetMapping("/{id}/busca")
+    // token = funcionario ou proprio cliente.
+	public RetornoApi buscaEmprestimo(@RequestHeader String token, @PathVariable("id") String idParam){
 		return emprestimoService.test();
     }
 

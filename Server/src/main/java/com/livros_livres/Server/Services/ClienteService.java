@@ -14,6 +14,8 @@ import com.livros_livres.Server.Registers.Server.UsuariosLogados;
 import com.livros_livres.Server.Registers.Usuarios.Cliente;
 import com.livros_livres.Server.Repository.ClienteRepo;
 
+import io.micrometer.common.lang.NonNull;
+
 @Service
 public class ClienteService {
 

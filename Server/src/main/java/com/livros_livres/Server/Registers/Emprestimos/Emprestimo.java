@@ -45,6 +45,10 @@ public class Emprestimo {
     @Column(name="Data_Devolucao")
     private LocalDate dataDevolucao;
 
+    @Column(name="Status")
+    @Enumerated(EnumType.STRING)
+    private EmprestimoStatus status;
+
 
     public Emprestimo() {}
 

@@ -44,6 +44,26 @@ public class EmprestimoService {
         return buscaEmprestimo.get();
     };
 
+    // TODO: Use this method of search in every classes
+    public RetornoApi buscaEmprestimo(String token, Integer idEmprestimo) {
+        // TODO: Method to check this.
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        Emprestimo emprestimo = this.buscarEmprestimoById(idEmprestimo);
+
+        if (usuarioLogado == null) {return RetornoApi.errorForbidden();}
+        if(emprestimo == null) {return RetornoApi.errorBadRequest("Empréstimo não encontrado para o ID fornecido.");}
+
+        Cliente clienteEmprestimo = clienteService.buscaClienteEmail(usuarioLogado.getUser());
+
+        boolean isAdmin = usuarioLogado.getUserPerm() == 1;
+        boolean isOwner = usuarioLogado.getUserPerm() == 0 &&
+                          usuarioLogado.getUser().equals(clienteEmprestimo.getEmail());
+
+        if (!isAdmin && !isOwner) {return RetornoApi.errorForbidden();}
+
+        return RetornoApi.sucess("Empréstimo encontrado com sucesso.", emprestimo);
+    }
+
     public RetornoApi criarPedido(String token, PedidoEmprestimoRequest pedidoEmprestimo) {
         UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
         if(usuarioLogado == null || usuarioLogado.getUserPerm() != 0 ){return RetornoApi.errorForbidden();}
@@ -194,25 +214,6 @@ public class EmprestimoService {
         emprestimoCriado = emprestimoRepo.save(emprestimo);
 
         return RetornoApi.sucess("Data do empréstimo adiada com sucesso.", emprestimoCriado);
-    }
-
-    public RetornoApi buscaEmprestimo(String token, Integer idEmprestimo) {
-        // TODO: Method to check this.
-        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
-        Emprestimo emprestimo = this.buscarEmprestimoById(idEmprestimo);
-
-        if (usuarioLogado == null) {return RetornoApi.errorForbidden();}
-        if(emprestimo == null) {return RetornoApi.errorBadRequest("Empréstimo não encontrado para o ID fornecido.");}
-
-        Cliente clienteEmprestimo = clienteService.buscaClienteEmail(usuarioLogado.getUser());
-
-        boolean isAdmin = usuarioLogado.getUserPerm() == 1;
-        boolean isOwner = usuarioLogado.getUserPerm() == 0 &&
-                          usuarioLogado.getUser().equals(clienteEmprestimo.getEmail());
-
-        if (!isAdmin && !isOwner) {return RetornoApi.errorForbidden();}
-
-        return RetornoApi.sucess("Empréstimo encontrado com sucesso.", emprestimo);
     }
 
 }

@@ -44,8 +44,6 @@ public class EmprestimoService {
         return buscaEmprestimo.get();
     };
 
-    public RetornoApi buscarEmprestimo(){return null;};
-
     public RetornoApi criarPedido(String token, PedidoEmprestimoRequest pedidoEmprestimo) {
         UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
         if(usuarioLogado == null || usuarioLogado.getUserPerm() != 0 ){return RetornoApi.errorForbidden();}
@@ -214,9 +212,7 @@ public class EmprestimoService {
 
         if (!isAdmin && !isOwner) {return RetornoApi.errorForbidden();}
 
-        Emprestimo buscaEmprestimo = buscarEmprestimoById(idEmprestimo);
-
-        return RetornoApi.sucess("Empréstimo encontrado com sucesso.", buscaEmprestimo);
+        return RetornoApi.sucess("Empréstimo encontrado com sucesso.", emprestimo);
     }
 
 }

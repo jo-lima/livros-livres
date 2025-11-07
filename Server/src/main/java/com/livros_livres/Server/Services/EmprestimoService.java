@@ -1,18 +1,17 @@
-package com.livros_livres.Server.services;
+package com.livros_livres.Server.Services;
 
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.livros_livres.Server.Registers.RequestBody.PedidoEmprestimoRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Server.UsuariosLogados;
+import com.livros_livres.Server.Registers.Emprestimos.Emprestimo;
+import com.livros_livres.Server.Registers.Livros.Livro;
+import com.livros_livres.Server.Registers.Usuarios.Cliente;
 import com.livros_livres.Server.Repository.EmprestimoRepo;
-import com.livros_livres.Server.Registers.emprestimos.Emprestimo;
-import com.livros_livres.Server.Registers.livros.Livro;
-import com.livros_livres.Server.Registers.usuarios.Cliente;
 
 @Service
 public class EmprestimoService {

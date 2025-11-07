@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.livros_livres.Server.Registers.livros.Livro;
+import com.livros_livres.Server.Registers.Livros.Livro;
 
 @Repository
 public interface LivroRepo extends JpaRepository<Livro, Integer>{

@@ -1,4 +1,4 @@
-package com.livros_livres.Server.controllers.Private;
+package com.livros_livres.Server.Controllers.Private;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.livros_livres.Server.Registers.Livros.Livro;
+import com.livros_livres.Server.Registers.RequestBody.LivroRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.Registers.livros.Livro;
-import com.livros_livres.Server.services.LivroService;
+import com.livros_livres.Server.Services.LivroService;
 
 @RestController
 @RequestMapping("/livro")
@@ -22,9 +23,9 @@ public class LivroController{
     }
 
     @PostMapping("/novo")
-    public RetornoApi novoLivro(@RequestBody Livro body){
+    public RetornoApi novoLivro(@RequestBody LivroRequest body){
             return livroService.novoLivro(body);
-        }
+    }
 
     @GetMapping("/{id}/busca")
     public RetornoApi buscaLivro(@PathVariable("id") String idParam){
@@ -32,10 +33,10 @@ public class LivroController{
         return livroService.buscaLivro(idLivro);
         }
 
-    @GetMapping("/lista")
+    @PostMapping("/lista")
     public RetornoApi listaLivros(@RequestBody Livro body){
         return livroService.listaLivros(body);
-        }
+    }
 
     @PostMapping("/{id}/atualizar")
     public RetornoApi atualizarLivro(@PathVariable("id") String idParam, @RequestBody Livro body){

@@ -1,9 +1,9 @@
-package com.livros_livres.Server.Registers.emprestimos;
+package com.livros_livres.Server.Registers.Emprestimos;
 
 import java.time.LocalDate;
 
-import com.livros_livres.Server.Registers.livros.Livro;
-import com.livros_livres.Server.Registers.usuarios.Cliente;
+import com.livros_livres.Server.Registers.Livros.Livro;
+import com.livros_livres.Server.Registers.Usuarios.Cliente;
 
 import jakarta.persistence.*;
 import lombok.Getter;

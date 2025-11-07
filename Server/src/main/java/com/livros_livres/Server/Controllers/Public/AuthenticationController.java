@@ -1,4 +1,4 @@
-package com.livros_livres.Server.controllers.Public;
+package com.livros_livres.Server.Controllers.Public;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.services.AuthenticationService;
-import com.livros_livres.Server.services.MailService;
+import com.livros_livres.Server.Services.AuthenticationService;
+import com.livros_livres.Server.Services.MailService;
 
 @RestController // Define a classe como um controlador rest
 @RequestMapping("/auth") // raíz dos endpoints dessa classe

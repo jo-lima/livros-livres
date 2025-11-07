@@ -1,4 +1,4 @@
-package com.livros_livres.Server.services;
+package com.livros_livres.Server.Services;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Server.UsuariosAuth;
 import com.livros_livres.Server.Registers.Server.UsuariosLogados;
-import com.livros_livres.Server.Registers.usuarios.Cliente;
+import com.livros_livres.Server.Registers.Usuarios.Cliente;
 import com.livros_livres.Server.Repository.ClienteRepo;
 
 @Service
@@ -211,8 +211,8 @@ public class ClienteService {
     public RetornoApi novoCliente( Cliente clienteData ){
         clienteData.setAtivo(true);
 
-        if(authService.buscaEmailAutenticado(clienteData.getEmail()) == null) {return RetornoApi.errorBadRequest("Email não verificado!");}
         if(buscaClienteEmail(clienteData.getEmail()) != null) {return RetornoApi.errorBadRequest("Email já cadastrado no sistema!");}
+        if(authService.buscaEmailAutenticado(clienteData.getEmail()) == null) {return RetornoApi.errorBadRequest("Email não verificado!");}
 
         clienteRepo.save(clienteData);
         return RetornoApi.sucess("Cliente criado com sucesso!", clienteData);

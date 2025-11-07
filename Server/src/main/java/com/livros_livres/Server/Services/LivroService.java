@@ -1,4 +1,4 @@
-package com.livros_livres.Server.services;
+package com.livros_livres.Server.Services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,14 +6,17 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.livros_livres.Server.Registers.Livros.Livro;
+import com.livros_livres.Server.Registers.RequestBody.LivroRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.Registers.livros.Livro;
 import com.livros_livres.Server.Repository.LivroRepo;
 
 @Service
 public class LivroService{
     @Autowired
     private LivroRepo livroRepo;
+    @Autowired
+    private AutorService autorService;
 
     public Livro buscaLivroById(Integer idLivro){
         Optional<Livro> buscaLivro;
@@ -78,8 +81,8 @@ public class LivroService{
         return RetornoApi.sucess("", listaLivro);
     }
 
-    public RetornoApi novoLivro(Livro livroData){
-        livroData.setAtivo(true);
+    public RetornoApi novoLivro(LivroRequest livroData){
+        Livro novoLivro = new Livro();
         // get autor by id (change into another request type?)
         // paginas cannot be <= 1
         if (
@@ -91,7 +94,20 @@ public class LivroService{
             return RetornoApi.errorBadRequest("Insira os valores requeridos para criação do livro.");
         }
 
-        livroRepo.save(livroData);
+        novoLivro.setAutor(autorService.buscaAutorById(livroData.getAutorId()));
+        novoLivro.setAtivo(true);
+
+        novoLivro.setNome(livroData.getNome());
+        novoLivro.setGenero(livroData.getGenero());
+        novoLivro.setPaginas(livroData.getPaginas());
+        novoLivro.setIsbn(livroData.getIsbn());
+        novoLivro.setDescricao(livroData.getDescricao());
+        novoLivro.setEstoque(livroData.getEstoque());
+        novoLivro.setEditora(livroData.getEditora());
+        novoLivro.setDataPublicacao(livroData.getDataPublicacao());
+
+
+        livroRepo.save(novoLivro);
         return RetornoApi.sucess("Livro cadastrado com sucesso",livroData);
     }
 

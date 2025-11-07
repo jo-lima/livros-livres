@@ -1,4 +1,4 @@
-package com.livros_livres.Server.controllers.Public;
+package com.livros_livres.Server.Controllers.Public;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.livros_livres.Server.Registers.RequestBody.PedidoEmprestimoRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.Registers.emprestimos.Emprestimo;
-import com.livros_livres.Server.services.EmprestimoService;
+import com.livros_livres.Server.Registers.Emprestimos.Emprestimo;
+import com.livros_livres.Server.Services.EmprestimoService;
 
 @RestController // Define a classe como um controlador rest
 @RequestMapping("/emprestimo") // raíz dos endpoints dessa classe

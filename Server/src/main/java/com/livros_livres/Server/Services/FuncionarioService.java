@@ -1,4 +1,4 @@
-package com.livros_livres.Server.services;
+package com.livros_livres.Server.Services;
 
 import java.util.Optional;
 
@@ -9,8 +9,8 @@ import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Server.UsuariosAuth;
 import com.livros_livres.Server.Registers.Server.UsuariosLogados;
-import com.livros_livres.Server.Registers.usuarios.Cliente;
-import com.livros_livres.Server.Registers.usuarios.Funcionario;
+import com.livros_livres.Server.Registers.Usuarios.Cliente;
+import com.livros_livres.Server.Registers.Usuarios.Funcionario;
 import com.livros_livres.Server.Repository.FuncionarioRepo;
 
 @Service

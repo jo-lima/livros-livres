@@ -1,4 +1,4 @@
-package com.livros_livres.Server.services;
+package com.livros_livres.Server.Services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.livros_livres.Server.Registers.Livros.Autor;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.Registers.livros.Autor;
 import com.livros_livres.Server.Repository.AutorRepo;
 
 @Service // Classe de serviço
@@ -15,6 +15,17 @@ public class AutorService {
 
     @Autowired // Automaticamente monta e importa a classe que faz a conexão da tabela do autor no bd
 	private AutorRepo autorRepo;
+
+    public Autor buscaAutorById( Integer idAutor ){
+        Optional<Autor> buscaAutor;
+
+        buscaAutor = autorRepo.findById(idAutor);
+        if(!buscaAutor.isPresent()) {
+            return null;
+        }
+
+        return buscaAutor.get();
+    }
 
     // Recupera os dados de um autor específico no banco.
     public RetornoApi buscaAutor( Integer idAutor ){

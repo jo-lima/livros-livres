@@ -1,9 +1,4 @@
-package com.livros_livres.Server.Registers.livros;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+package com.livros_livres.Server.Registers.Livros;
 
 import jakarta.persistence.*;
 import lombok.Getter;

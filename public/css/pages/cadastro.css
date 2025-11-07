@@ -5,7 +5,7 @@ html{
 }
 
 
-.div__password-page{
+.div-page__register-user{
     min-height: 100vh;
     width: 100%;
     display: flex;
@@ -15,18 +15,18 @@ html{
     justify-content: center;
 }
 
-.main__password-content{
+.main__register-user{
     width: 100%;
     max-width: 572px;
     height: 100vh;
     max-height: 682px;
-    background-color: var(--text-color--green--light);
+    background-color: rgb(192, 230, 201, 0.80);
     border-radius: 32px;
     box-shadow: rgba(0, 0, 0, 0.16) 10px 10px 10px;
     padding: 32px;
 }
 
-.section__password-content{
+.section__register-user{
     width: 100%;
     height: 100%;
     max-width: 600px;
@@ -37,31 +37,21 @@ html{
     align-items: center
 }
 
-.h1__password-tittle{
-    margin-top: 64px;
+.h1__register-user{
+    margin-top: 30px;
     text-align: center;
     font-size: 26px;
     font-weight: 700;
     color: var(--text-color--gray--dark)
 }
 
-.h3__password-tittle{
-  margin-top: 16px;
-  text-align: center;
-  font-size: 15px;
-  line-height: 24px;
-  font-weight: 300;
-  color: var(--text-color--gray--dark)
-
-}
-
-.div__password-email{
+.div-box__password-email{
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.form__password-email{
+.form-box__register-user{
     width: 100%;
     height: 41px;
     border-radius: 10px;
@@ -72,14 +62,14 @@ html{
 
 }
 
-.header__password-email{
+.header__register-user{
   width: 100%;
   margin-top: 12px;
   margin-bottom: 12px;
   color: black;
 }
 
-.button__password-email{
+.button__register-user{
   width: 100%;
   min-height:30px;
   font-size: 12px;

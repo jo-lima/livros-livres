@@ -1,4 +1,4 @@
-package com.livros_livres.Server.controllers.Private;
+package com.livros_livres.Server.Controllers.Private;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.Registers.usuarios.Cliente;
-import com.livros_livres.Server.Registers.usuarios.Funcionario;
-import com.livros_livres.Server.services.DebugService;
-import com.livros_livres.Server.services.FuncionarioService;
+import com.livros_livres.Server.Registers.Usuarios.Cliente;
+import com.livros_livres.Server.Registers.Usuarios.Funcionario;
+import com.livros_livres.Server.Services.DebugService;
+import com.livros_livres.Server.Services.FuncionarioService;
 
 @RestController
 @RequestMapping("/funcionario")

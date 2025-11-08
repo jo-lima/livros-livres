@@ -1,4 +1,4 @@
-package com.livros_livres.Server.services;
+package com.livros_livres.Server.Services;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -55,6 +55,43 @@ public class AuthenticationService implements Authentication{
         String emailRegex = "^[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" +
                         "[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         return email.matches(emailRegex);
+    }
+
+    // Check if user is admin or same client as sent mail
+    public Boolean checkRestrictedPerm(String token, String mail){
+        UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
+
+        if (usuarioLogado == null) {return false;}
+
+        boolean isAdmin = usuarioLogado.getUserPerm() == 1;
+        boolean isOwner = usuarioLogado.getUserPerm() == 0 &&
+                          usuarioLogado.getUser().equals(mail);
+
+        if (!isAdmin && !isOwner) {return false;}
+
+        return true;
+    }
+
+    // Check only if user is adm
+    public Boolean checkAdminPerm(String token){
+        UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
+
+        if (usuarioLogado == null) {return false;}
+
+        boolean isAdmin = usuarioLogado.getUserPerm() == 1;
+
+        if (!isAdmin) {return false;}
+
+        return true;
+    }
+
+    // Check if user is only logged in
+    public Boolean checkLoginPerm(String token){
+        UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
+
+        if (usuarioLogado == null) {return false;}
+
+        return true;
     }
 
     public UsuariosAuth buscaEmailAutenticado(String email) {

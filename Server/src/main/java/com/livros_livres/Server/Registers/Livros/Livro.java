@@ -1,4 +1,4 @@
-package com.livros_livres.Server.Registers.livros;
+package com.livros_livres.Server.Registers.Livros;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -34,7 +34,7 @@ public class Livro {
     @Column(name="Paginas", nullable=false)
     private int paginas;
 
-    @Column(name="ISBN", nullable=false)
+    @Column(name="ISBN", nullable=false, unique=true)
     private String isbn;
 
     @Column(name="Descricao")

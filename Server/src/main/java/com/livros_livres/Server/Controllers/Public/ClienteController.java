@@ -1,4 +1,4 @@
-package com.livros_livres.Server.controllers.Public;
+package com.livros_livres.Server.Controllers.Public;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +16,6 @@ import com.livros_livres.Server.Services.ClienteService;
 import com.livros_livres.Server.Services.DebugService;
 
 import io.micrometer.common.lang.Nullable;
-
-import com.livros_livres.Server.Registers.Server.RetornoApi;
 
 
 @RestController // Define a classe como um controlador rest

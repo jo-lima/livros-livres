@@ -1,11 +1,13 @@
-package com.livros_livres.Server.Registers.usuarios;
+package com.livros_livres.Server.Registers.Usuarios;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import com.livros_livres.Server.Registers.emprestimos.Emprestimo;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import com.livros_livres.Server.Registers.Emprestimos.Emprestimo;
 
 @Getter
 @Setter

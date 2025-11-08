@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
 import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
-import com.livros_livres.Server.Registers.usuarios.Cliente;
-import com.livros_livres.Server.services.ClienteService;
-import com.livros_livres.Server.services.DebugService;
+import com.livros_livres.Server.Registers.Usuarios.Cliente;
+import com.livros_livres.Server.Services.ClienteService;
+import com.livros_livres.Server.Services.DebugService;
+
+import io.micrometer.common.lang.Nullable;
+
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 
 
@@ -95,7 +98,7 @@ public class ClienteController {
 		return clienteServices.buscaCliente(idCliente);
 	}
 	@GetMapping("/lista")
-	public RetornoApi listaCliente(@RequestBody Cliente body){
+	public RetornoApi listaCliente(@Nullable @RequestBody Cliente body){
 		return clienteServices.listaClientes(body);
 	}
 	@PostMapping("/{id}/atualizar")

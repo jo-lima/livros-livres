@@ -12,6 +12,8 @@ import com.livros_livres.Server.Registers.livros.Autor;
 import com.livros_livres.Server.services.AutorService;
 import com.livros_livres.Server.services.DebugService;
 
+import io.micrometer.common.lang.Nullable;
+
 @RestController
 @RequestMapping("/autor")
 public class AutorController {
@@ -46,7 +48,7 @@ public class AutorController {
 	}
 
 	@PostMapping("/lista")
-	public RetornoApi listaAutores(@RequestBody Autor body){
+	public RetornoApi listaAutores(@Nullable @RequestBody Autor body){
 		DebugService.log("Chamado endpoint listaAutores");
 		return autorService.listaAutores(body);
 	}

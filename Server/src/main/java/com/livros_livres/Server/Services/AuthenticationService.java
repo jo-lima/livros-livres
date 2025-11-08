@@ -58,7 +58,7 @@ public class AuthenticationService implements Authentication{
     }
 
     // Check if user is admin or same client as sent mail
-    public Boolean checkUserPerm(String token, String mail){
+    public Boolean checkRestrictedPerm(String token, String mail){
         UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
 
         if (usuarioLogado == null) {return false;}
@@ -72,7 +72,7 @@ public class AuthenticationService implements Authentication{
         return true;
     }
 
-    // Check if user is adm
+    // Check only if user is adm
     public Boolean checkAdminPerm(String token){
         UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
 
@@ -85,8 +85,8 @@ public class AuthenticationService implements Authentication{
         return true;
     }
 
-    // Check if user is logged in
-    public Boolean checkClientPerm(String token){
+    // Check if user is only logged in
+    public Boolean checkLoginPerm(String token){
         UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
 
         if (usuarioLogado == null) {return false;}

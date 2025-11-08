@@ -33,8 +33,6 @@ public class EmprestimoService {
         return RetornoApi.errorForbidden();
     }
 
-    private 
-
     public Emprestimo buscarEmprestimoById(Integer idEmprestimo){
         Optional<Emprestimo> buscaEmprestimo;
 
@@ -46,27 +44,24 @@ public class EmprestimoService {
         return buscaEmprestimo.get();
     };
 
-    // TODO: Use this method of search in every classes
     public RetornoApi buscaEmprestimo(String token, Integer idEmprestimo) {
-        // TODO: Method to check this.
+        // -- VALIDATIONS --
         UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        String clienteEmprestimoMail = clienteService.buscaClienteEmail(usuarioLogado.getUser()).getEmail();
+
+        if (usuarioLogado == null || idEmprestimo == null) {return RetornoApi.errorForbidden();}
+        if(!authService.checkRestrictedPerm(token, clienteEmprestimoMail)){return RetornoApi.errorForbidden();}
+
+        // -- METHOD LOGIC --
         Emprestimo emprestimo = this.buscarEmprestimoById(idEmprestimo);
 
-        if (usuarioLogado == null) {return RetornoApi.errorForbidden();}
         if(emprestimo == null) {return RetornoApi.errorBadRequest("Empréstimo não encontrado para o ID fornecido.");}
-
-        Cliente clienteEmprestimo = clienteService.buscaClienteEmail(usuarioLogado.getUser());
-
-        boolean isAdmin = usuarioLogado.getUserPerm() == 1;
-        boolean isOwner = usuarioLogado.getUserPerm() == 0 &&
-                          usuarioLogado.getUser().equals(clienteEmprestimo.getEmail());
-
-        if (!isAdmin && !isOwner) {return RetornoApi.errorForbidden();}
 
         return RetornoApi.sucess("Empréstimo encontrado com sucesso.", emprestimo);
     }
 
     public RetornoApi criarPedido(String token, PedidoEmprestimoRequest pedidoEmprestimo) {
+        // -- VALIDATIONS --
         UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
         if(usuarioLogado == null || usuarioLogado.getUserPerm() != 0 ){return RetornoApi.errorForbidden();}
 
@@ -77,6 +72,7 @@ public class EmprestimoService {
         if(cliente.getClienteId() != pedidoEmprestimo.getClienteId()) {return RetornoApi.errorForbidden();}
         if(livroPedido.getEstoque() <= 0 || livroPedido.getAtivo() != true) {return RetornoApi.errorBadRequest("Este livro não possui disponibilidade no estoque!");}
 
+        // -- METHOD LOGIC --
         Emprestimo newEmprestimo = new Emprestimo();
         Emprestimo emprestimoCriado;
 
@@ -192,11 +188,16 @@ public class EmprestimoService {
     }
 
     public RetornoApi adiarEmprestimo(String token, Integer idEmprestimo, Emprestimo emprestimoData) {
+        // -- VALIDATIONS --
+        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        String clienteEmprestimoMail = clienteService.buscaClienteEmail(usuarioLogado.getUser()).getEmail();
+
+        if (usuarioLogado == null || idEmprestimo == null) {return RetornoApi.errorForbidden();}
+        if(!authService.checkRestrictedPerm(token, clienteEmprestimoMail)){return RetornoApi.errorForbidden();}
+
         Emprestimo emprestimo = this.buscarEmprestimoById(idEmprestimo);
 
         if(emprestimo == null) {return RetornoApi.errorBadRequest("Empréstimo não encontrado para o ID fornecido.");}
-
-        if(!authService.checkUserPerm(token, emprestimo.getCliente().getEmail())) {return RetornoApi.errorForbidden;}
 
         boolean canDefer = emprestimo.getStatus() == EmprestimoStatus.ACEITO ||
                            emprestimo.getStatus() == EmprestimoStatus.CRIADO ||
@@ -204,9 +205,11 @@ public class EmprestimoService {
 
         if(!canDefer) { return RetornoApi.errorBadRequest("Empréstimo não pode ser adiado.");}
 
+        // -- METHOD LOGIC --
         Emprestimo emprestimoCriado;
 
         emprestimo.setStatus(EmprestimoStatus.ADIADO);
+        emprestimo.setDataEstendidaDevolucao(emprestimoData.getDataEstendidaDevolucao());
         emprestimoCriado = emprestimoRepo.save(emprestimo);
 
         return RetornoApi.sucess("Data do empréstimo adiada com sucesso.", emprestimoCriado);

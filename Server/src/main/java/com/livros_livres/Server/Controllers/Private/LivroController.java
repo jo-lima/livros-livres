@@ -5,12 +5,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.livros_livres.Server.Registers.Livros.Livro;
 import com.livros_livres.Server.Registers.RequestBody.LivroRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Services.LivroService;
+
+import io.micrometer.common.lang.Nullable;
 
 @RestController
 @RequestMapping("/livro")
@@ -54,5 +57,17 @@ public class LivroController{
     public RetornoApi ativarLivro(@PathVariable("id") String idParam){
         int idLivro = Integer.parseInt(idParam);
         return livroService.ativarLivro(idLivro);
+    }
+
+    @PostMapping("/estoque/{id}/adicionar")
+    public RetornoApi adicionarLivroEstoque(@PathVariable("id") String idParam, @RequestParam Integer quantidade){
+        int idLivro = Integer.parseInt(idParam);
+        return livroService.adicionarLivroEstoque(idLivro, quantidade);
+    }
+
+    @PostMapping("/estoque/{id}/remover")
+    public RetornoApi removerLivroEstoque(@PathVariable("id") String idParam, @Nullable @RequestParam Integer quantidade){
+        int idLivro = Integer.parseInt(idParam);
+        return livroService.adicionarLivroEstoque(idLivro, quantidade);
     }
 }

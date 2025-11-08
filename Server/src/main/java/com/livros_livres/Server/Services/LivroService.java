@@ -135,18 +135,18 @@ public class LivroService{
         if(livroData.getGenero() != null){
             livro.setGenero(livroData.getGenero());
         }
-        /*if(livroData.getPaginas() != null){
+        if(livroData.getPaginas() != 0){
             livro.setPaginas(livroData.getPaginas());
-        }*/
+        }
         if(livroData.getIsbn() != null){
             livro.setIsbn(livroData.getIsbn());
         }
         if(livroData.getDescricao()!= null){
             livro.setDescricao(livroData.getDescricao());
         }
-        /*if(livroData.getEstoque() != null){
+        if(livroData.getEstoque() != 0){
             livro.setEstoque(livroData.getEstoque());
-        }*/
+        }
         if(livroData.getEditora()!= null){
             livro.setEditora(livroData.getEditora());
         }
@@ -156,9 +156,49 @@ public class LivroService{
         if(livroData.getAtivo()!= null){
             livro.setAtivo(livroData.getAtivo());
         }
-        //Verificar como colocar o autor, colocar pelo ID ou nome?
+        // TODO: Atualizar autor
         livroRepo.save(livro);
         return RetornoApi.sucess("Autor atualizado com sucesso!", livro);
+    }
+
+    public RetornoApi adicionarLivroEstoque(Integer idLivro, Integer quantidade){
+        Optional<Livro> buscaLivro;
+        Livro livro;
+
+        buscaLivro = livroRepo.findById(idLivro);
+
+        if(!buscaLivro.isPresent() && quantidade != 0){
+            return RetornoApi.errorNotFound("Nenhum livro encontrado.");
+        }
+
+        if(quantidade == 0){quantidade = 1;}
+
+        livro = buscaLivro.get();
+
+        livro.setEstoque(livro.getEstoque()+quantidade);
+        livroRepo.save(livro);
+
+        return RetornoApi.sucess("Adicionado um a quantidade de livros no estoque.", livro);
+    }
+
+    public RetornoApi removerLivroEstoque(Integer idLivro, Integer quantidade){
+        Optional<Livro> buscaLivro;
+        Livro livro;
+
+        buscaLivro = livroRepo.findById(idLivro);
+
+        if(!buscaLivro.isPresent()){
+            return RetornoApi.errorNotFound("Nenhum livro encontrado.");
+        }
+
+        if(quantidade == 0){quantidade = 1;}
+
+        livro = buscaLivro.get();
+
+        livro.setEstoque(livro.getEstoque()-quantidade);
+        livroRepo.save(livro);
+
+        return RetornoApi.sucess("Removido um a quantidade de livros no estoque.", livro);
     }
 
     public RetornoApi inativarLivro(Integer idLivro){

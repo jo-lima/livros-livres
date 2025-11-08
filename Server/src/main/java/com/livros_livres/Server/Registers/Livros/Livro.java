@@ -34,7 +34,7 @@ public class Livro {
     @Column(name="Paginas", nullable=false)
     private int paginas;
 
-    @Column(name="ISBN", nullable=false)
+    @Column(name="ISBN", nullable=false, unique=true)
     private String isbn;
 
     @Column(name="Descricao")

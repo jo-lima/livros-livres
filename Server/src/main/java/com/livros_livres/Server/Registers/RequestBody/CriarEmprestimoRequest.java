@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PedidoEmprestimoRequest {
+public class CriarEmprestimoRequest {
 
     private Integer livroId;
     private Integer clienteId;

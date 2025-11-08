@@ -1,14 +1,13 @@
 package com.livros_livres.Server.Services;
 
-import java.lang.foreign.Linker.Option;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
-import com.livros_livres.Server.Registers.RequestBody.PedidoEmprestimoRequest;
+import com.livros_livres.Server.Registers.RequestBody.CriarEmprestimoRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Server.UsuariosLogados;
 import com.livros_livres.Server.Registers.Emprestimos.Emprestimo;
@@ -44,23 +43,62 @@ public class EmprestimoService {
         return buscaEmprestimo.get();
     };
 
+    // TODO: Change all searches to reuse buscarById.
     public RetornoApi buscaEmprestimo(String token, Integer idEmprestimo) {
         // -- VALIDATIONS --
-        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
-        String clienteEmprestimoMail = clienteService.buscaClienteEmail(usuarioLogado.getUser()).getEmail();
-
-        if (usuarioLogado == null || idEmprestimo == null) {return RetornoApi.errorForbidden();}
-        if(!authService.checkRestrictedPerm(token, clienteEmprestimoMail)){return RetornoApi.errorForbidden();}
-
-        // -- METHOD LOGIC --
         Emprestimo emprestimo = this.buscarEmprestimoById(idEmprestimo);
-
         if(emprestimo == null) {return RetornoApi.errorBadRequest("Empréstimo não encontrado para o ID fornecido.");}
+
+        String clienteEmprestimoMail = buscarEmprestimoById(idEmprestimo).getCliente().getEmail();
+
+        if (idEmprestimo == null) {return RetornoApi.errorForbidden();}
+        if(!authService.checkRestrictedPerm(token, clienteEmprestimoMail)){return RetornoApi.errorForbidden();}
 
         return RetornoApi.sucess("Empréstimo encontrado com sucesso.", emprestimo);
     }
 
-    public RetornoApi criarPedido(String token, PedidoEmprestimoRequest pedidoEmprestimo) {
+    public RetornoApi listaEmprestimo(String token, Emprestimo emprestimoData) {
+        // -- VALIDATIONS --
+        if(authService.checkAdminPerm(token)){return RetornoApi.errorForbidden();}
+
+        // -- METHOD LOGIC --
+        List<Emprestimo> buscaEmprestimo;
+
+        buscaEmprestimo = emprestimoRepo.findEmprestimoBySearch(
+            emprestimoData.getStatus(),
+            emprestimoData.getCliente().getClienteId(),
+            emprestimoData.getLivro().getIdLivro()
+            );
+        if(buscaEmprestimo.isEmpty()) {
+            return RetornoApi.errorNotFound("Nenhum empréstimo encontrado.");
+        }
+
+        return RetornoApi.sucess("Empréstimos encontrados.", buscaEmprestimo);
+    }
+
+    public RetornoApi listaEmprestimoCliente(String token, Integer idCliente) {
+        // -- VALIDATIONS --
+        if(idCliente == null){return RetornoApi.errorBadRequest("Insira o id do cliente.");}
+
+        String clienteSearchMail = clienteService.buscaClienteById(idCliente).getEmail();
+        if(!authService.checkRestrictedPerm(token, clienteSearchMail)){return RetornoApi.errorForbidden();}
+
+        // -- METHOD LOGIC --
+        List<Emprestimo> buscaEmprestimo;
+
+        buscaEmprestimo = emprestimoRepo.findEmprestimoBySearch(
+            null,
+            idCliente,
+            null
+            );
+        if(buscaEmprestimo.isEmpty()) {
+            return RetornoApi.errorNotFound("Nenhum empréstimo encontrado.");
+        }
+
+        return RetornoApi.sucess("Empréstimos encontrados.", buscaEmprestimo);
+    }
+
+    public RetornoApi criarPedido(String token, CriarEmprestimoRequest pedidoEmprestimo) {
         // -- VALIDATIONS --
         UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
         if(usuarioLogado == null || usuarioLogado.getUserPerm() != 0 ){return RetornoApi.errorForbidden();}
@@ -96,12 +134,12 @@ public class EmprestimoService {
         emprestimoCriado = emprestimoRepo.save(emprestimo);
 
         // Confere se qntd livro >= 0
-        // TODO: livroService.removeEstoque(emprestimo.getLivro(), 1);
+        livroService.removerLivroEstoque(emprestimo.getLivro().getIdLivro());
 
         return RetornoApi.sucess("Pedido aceito e empréstimo criado com sucesso!", emprestimoCriado);
     }
 
-    public RetornoApi criarEmprestimo(String token, PedidoEmprestimoRequest pedidoEmprestimo) {
+    public RetornoApi criarEmprestimo(String token, CriarEmprestimoRequest pedidoEmprestimo) {
         UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
         if(usuarioLogado == null || usuarioLogado.getUserPerm() != 1 ){return RetornoApi.errorForbidden();}
 
@@ -120,44 +158,46 @@ public class EmprestimoService {
 
         emprestimoCriado = emprestimoRepo.save(newEmprestimo);
 
-        // TODO: livroService.removeEstoque(emprestimo.getLivro(), 1);
+        livroService.removerLivroEstoque(newEmprestimo.getLivro().getIdLivro());
 
         return RetornoApi.sucess("Empréstimo criado com sucesso!", emprestimoCriado);
     }
 
-    public RetornoApi cancelarEmprestimo(String token, Emprestimo emprestimo) {
+    public RetornoApi cancelarEmprestimo(String token, Integer idEmprestimo) {
         UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        Emprestimo buscaEmprestimo = buscarEmprestimoById(idEmprestimo);
         if(usuarioLogado == null || usuarioLogado.getUserPerm() == null ){return RetornoApi.errorForbidden();}
-        if(emprestimo.getDataColeta() != null) {return RetornoApi.errorBadRequest("Pedido de empréstimo já concluído! Para finalizar o empréstimo é necessário contatar um funcionário.");}
+        if(buscaEmprestimo.getDataColeta() != null) {return RetornoApi.errorBadRequest("Pedido de empréstimo já concluído! Para finalizar o empréstimo é necessário contatar um funcionário.");}
 
         Emprestimo emprestimoCriado;
 
-        emprestimo.setDataColeta(null);
-        emprestimo.setDataDevolucao(LocalDate.now());
-        emprestimo.setStatus(EmprestimoStatus.CANCELADO);
+        buscaEmprestimo.setDataColeta(null);
+        buscaEmprestimo.setDataDevolucao(LocalDate.now());
+        buscaEmprestimo.setStatus(EmprestimoStatus.CANCELADO);
 
-        emprestimoCriado = emprestimoRepo.save(emprestimo);
+        emprestimoCriado = emprestimoRepo.save(buscaEmprestimo);
 
         return RetornoApi.sucess("Pedido de empréstimo cancelad com sucesso.", emprestimoCriado);
     }
 
-    public RetornoApi finalizarEmprestimo(String token, Emprestimo emprestimo) {
+    public RetornoApi finalizarEmprestimo(String token, Integer idEmprestimo) {
         UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
+        Emprestimo buscaEmprestimo = buscarEmprestimoById(idEmprestimo);
         if(usuarioLogado == null || usuarioLogado.getUserPerm() != 1 ){return RetornoApi.errorForbidden();}
 
         Emprestimo emprestimoCriado;
         EmprestimoStatus emprestimoStatus = (
-            emprestimo.getDataPrevistaDevolucao().isBefore(LocalDate.now().plusDays(1)) ||
-            emprestimo.getDataEstendidaDevolucao().isBefore(LocalDate.now().plusDays(1))
+            buscaEmprestimo.getDataPrevistaDevolucao().isBefore(LocalDate.now().plusDays(1)) ||
+            buscaEmprestimo.getDataEstendidaDevolucao().isBefore(LocalDate.now().plusDays(1))
             ) ? EmprestimoStatus.FINALIZADO : EmprestimoStatus.FINALIZADO_ATRASADO;
         // ^ Emprestimo finalizado com atraso caso tenha sido entregue antes do dia estipulado/extendido
 
-        emprestimo.setDataDevolucao(LocalDate.now());
-        emprestimo.setStatus(emprestimoStatus);
+        buscaEmprestimo.setDataDevolucao(LocalDate.now());
+        buscaEmprestimo.setStatus(emprestimoStatus);
 
-        emprestimoCriado = emprestimoRepo.save(emprestimo);
+        emprestimoCriado = emprestimoRepo.save(buscaEmprestimo);
 
-        // TODO: livroService.adicionaEstoque(emprestimo.getLivro(), 1);
+        livroService.adicionarLivroEstoque(buscaEmprestimo.getLivro().getIdLivro());
 
         return RetornoApi.sucess("Empréstimo finalizado com sucesso!", emprestimoCriado);
     }

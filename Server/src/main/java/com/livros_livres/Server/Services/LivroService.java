@@ -180,6 +180,9 @@ public class LivroService{
 
         return RetornoApi.sucess("Adicionado um a quantidade de livros no estoque.", livro);
     }
+    public RetornoApi adicionarLivroEstoque(Integer idLivro) {
+        return removerLivroEstoque(idLivro, 1);
+    }
 
     public RetornoApi removerLivroEstoque(Integer idLivro, Integer quantidade){
         Optional<Livro> buscaLivro;
@@ -191,8 +194,6 @@ public class LivroService{
             return RetornoApi.errorNotFound("Nenhum livro encontrado.");
         }
 
-        if(quantidade == 0){quantidade = 1;}
-
         livro = buscaLivro.get();
 
         livro.setEstoque(livro.getEstoque()-quantidade);
@@ -200,6 +201,10 @@ public class LivroService{
 
         return RetornoApi.sucess("Removido um a quantidade de livros no estoque.", livro);
     }
+    public RetornoApi removerLivroEstoque(Integer idLivro) {
+        return removerLivroEstoque(idLivro, 1);
+    }
+
 
     public RetornoApi inativarLivro(Integer idLivro){
         Optional<Livro> buscaLivro;

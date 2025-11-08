@@ -14,7 +14,6 @@ import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Usuarios.Cliente;
 import com.livros_livres.Server.Services.ClienteService;
 import com.livros_livres.Server.Services.DebugService;
-import com.livros_livres.Server.Registers.Server.RetornoApi;
 
 
 @RestController // Define a classe como um controlador rest

@@ -33,6 +33,8 @@ public class EmprestimoService {
         return RetornoApi.errorForbidden();
     }
 
+    private 
+
     public Emprestimo buscarEmprestimoById(Integer idEmprestimo){
         Optional<Emprestimo> buscaEmprestimo;
 
@@ -190,22 +192,16 @@ public class EmprestimoService {
     }
 
     public RetornoApi adiarEmprestimo(String token, Integer idEmprestimo, Emprestimo emprestimoData) {
-        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
         Emprestimo emprestimo = this.buscarEmprestimoById(idEmprestimo);
 
-        if (usuarioLogado == null) {return RetornoApi.errorForbidden();}
         if(emprestimo == null) {return RetornoApi.errorBadRequest("Empréstimo não encontrado para o ID fornecido.");}
 
-        Cliente clienteEmprestimo = clienteService.buscaClienteEmail(usuarioLogado.getUser());
+        if(!authService.checkUserPerm(token, emprestimo.getCliente().getEmail())) {return RetornoApi.errorForbidden;}
 
-        boolean isAdmin = usuarioLogado.getUserPerm() == 1;
-        boolean isOwner = usuarioLogado.getUserPerm() == 0 &&
-                          usuarioLogado.getUser().equals(clienteEmprestimo.getEmail());
         boolean canDefer = emprestimo.getStatus() == EmprestimoStatus.ACEITO ||
                            emprestimo.getStatus() == EmprestimoStatus.CRIADO ||
                            emprestimo.getDataEstendidaDevolucao() == null;
 
-        if (!isAdmin && !isOwner) {return RetornoApi.errorForbidden();}
         if(!canDefer) { return RetornoApi.errorBadRequest("Empréstimo não pode ser adiado.");}
 
         Emprestimo emprestimoCriado;

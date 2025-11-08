@@ -57,6 +57,43 @@ public class AuthenticationService implements Authentication{
         return email.matches(emailRegex);
     }
 
+    // Check if user is admin or same client as sent mail
+    public Boolean checkUserPerm(String token, String mail){
+        UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
+
+        if (usuarioLogado == null) {return false;}
+
+        boolean isAdmin = usuarioLogado.getUserPerm() == 1;
+        boolean isOwner = usuarioLogado.getUserPerm() == 0 &&
+                          usuarioLogado.getUser().equals(mail);
+
+        if (!isAdmin && !isOwner) {return false;}
+
+        return true;
+    }
+
+    // Check if user is adm
+    public Boolean checkAdminPerm(String token){
+        UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
+
+        if (usuarioLogado == null) {return false;}
+
+        boolean isAdmin = usuarioLogado.getUserPerm() == 1;
+
+        if (!isAdmin) {return false;}
+
+        return true;
+    }
+
+    // Check if user is logged in
+    public Boolean checkClientPerm(String token){
+        UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
+
+        if (usuarioLogado == null) {return false;}
+
+        return true;
+    }
+
     public UsuariosAuth buscaEmailAutenticado(String email) {
         if (email == null) return null;
         for (UsuariosAuth u : usuariosAuths) {

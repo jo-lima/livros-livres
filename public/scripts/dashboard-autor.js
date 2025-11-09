@@ -140,6 +140,49 @@ async function listRenderAuthors() {
   });
 }
 
+// Editar autor
+async function editAuthor(id, data) {
+  const response = await fetch(`http://localhost:6969/autor/${id}/atualizar`, {
+    method: "POST",
+    body: JSON.stringify(data), // Formulário do autor
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return await response.json();
+}
+
+const editAuthorForm = document.querySelector("#edit-author-form");
+document
+  .querySelector("#edit-author-submit")
+  .addEventListener("click", async function (event) {
+    // Evitando o submit do form
+    event.preventDefault();
+
+    // Capturando campos do formulário
+    const authorData = new FormData(editAuthorForm);
+    const data = {};
+
+    authorData.forEach((value, key) => (data[key] = value));
+    const response = await editAuthor(
+      document.querySelector("#edit-author-submit").dataset.idAuthor,
+      data
+    );
+
+    displayMessage(response);
+
+    // Limpando formulário
+    const inputs = editAuthorForm.querySelectorAll("input, textarea");
+    inputs.forEach((input) => (input.value = ""));
+
+    // Fechar pop-up
+    hidePopUp();
+
+    // Atualizando a listagem
+    listRenderAuthors();
+  });
+
 authorsTableElement.addEventListener("click", async function (event) {
   target = event.target.closest(".dashboard__action-button");
 
@@ -165,15 +208,34 @@ authorsTableElement.addEventListener("click", async function (event) {
     );
 
     json = await response.json();
+
+    displayMessage(json);
+
+    listRenderAuthors();
   }
 
   // Editar autor
   if (target.classList.contains("edit-author-button")) {
+    const response = await fetch(
+      `http://localhost:6969/autor/${row.dataset.id}/busca`
+    );
+
+    const json = await response.json();
+
+    // Exibir formulário com os valores preenchidos
+    document.querySelector(".dashboard__popup-input--name").value =
+      json.body.nome;
+    document.querySelector(".dashboard__popup-input--quote").value =
+      json.body.citacao;
+
+    document.querySelector(".dashboard__popup-input--description").value =
+      json.body.descricao;
+
+    document.querySelector("#edit-author-submit").dataset.idAuthor =
+      row.dataset.id;
+
     showPopUp(".dashboard__popup--edit-author");
   }
-
-  listRenderAuthors();
-  displayMessage(json);
 });
 
 listRenderAuthors();

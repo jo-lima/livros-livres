@@ -128,23 +128,34 @@
           </svg>
         </div>
         <p class="dashboard__popup-heading font--secondary">Editar autor</p>
-        <form class="dashboard__popup-form" id="new-author-form">
+        <form class="dashboard__popup-form" id="edit-author-form">
           <div>
             <label class="dashboard__popup-label">Nome do autor</label>
-            <input class="dashboard__popup-input" type="text" name="nome" />
+            <input
+              class="dashboard__popup-input dashboard__popup-input--name"
+              type="text"
+              name="nome"
+            />
           </div>
           <div>
             <label class="dashboard__popup-label">Citação</label>
-            <input class="dashboard__popup-input" type="text" name="citacao" />
+            <input
+              class="dashboard__popup-input dashboard__popup-input--quote"
+              type="text"
+              name="citacao"
+            />
           </div>
           <div>
             <label class="dashboard__popup-label">Descrição</label>
-            <textarea name="descricao"></textarea>
+            <textarea
+              name="descricao"
+              class="dashboard__popup-input--description"
+            ></textarea>
           </div>
           <button
             type="submit"
             class="button dashboard__popup-submit"
-            id="new-author-submit"
+            id="edit-author-submit"
           >
             Enviar
           </button>

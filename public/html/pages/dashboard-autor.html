@@ -43,12 +43,15 @@
               0
             </p>
           </div>
-          <div class="dashboard__card text--center">
-            <p class="dashboard__card-label">Livros em estoque</p>
-            <p class="dashboard__card-value">0</p>
+        </div>
+        <div class="dashboard__buttons-container">
+          <h2 class="dashboard__subheading">Autores cadastrados</h2>
+          <div class="dashboard__buttons">
+            <button class="button dashboard__button" id="new-author-button">
+              Novo autor
+            </button>
           </div>
         </div>
-        <h2 class="dashboard__subheading">Autores cadastrados</h2>
         <div class="dashboard__table-container">
           <table class="dashboard__table--authors dashboard__table">
             <thead>
@@ -62,6 +65,37 @@
             </thead>
             <tbody></tbody>
           </table>
+        </div>
+      </div>
+      <div class="dashboard__popup-container hidden">
+        <div class="dashboard__popup">
+          <p class="dashboard__popup-heading font--secondary">Novo autor</p>
+          <form
+            action="http://localhost:6969/autor/novo"
+            method="POST"
+            class="dashboard__popup-form"
+            id="new-author-form"
+          >
+            <div>
+              <label>Nome do autor</label>
+              <input type="text" name="nome" />
+            </div>
+            <div>
+              <label>Citação</label>
+              <input type="text" name="citacao" />
+            </div>
+            <div>
+              <label>Descrição</label>
+              <textarea name="descricao"></textarea>
+            </div>
+            <button
+              type="submit"
+              class="dashboard__popup-submit"
+              id="new-author-submit"
+            >
+              Enviar
+            </button>
+          </form>
         </div>
       </div>
     </section>

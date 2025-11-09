@@ -12,7 +12,7 @@ const booksStockElement = document.querySelector(
 );
 
 // Listando todos os livros
-headers = {
+const headers = {
   "Content-Type": "application/json",
 };
 
@@ -33,7 +33,7 @@ async function renderBooks(bookArray) {
 
   // Loopa pelos livros
   bookArray.forEach((book) => {
-    bookHtml = `
+    const bookHtml = `
       <tr>
         <td>${book.nome}</td>
         <td>${book.autor.nome}</td>

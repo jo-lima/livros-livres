@@ -2,7 +2,7 @@
 const booksGrid = document.querySelector(".library-books__grid");
 
 // Headers
-headers = {
+const headers = {
   "Content-Type": "application/json",
 };
 
@@ -24,7 +24,7 @@ function renderBooks(json) {
 
   // Loopa a array de livros
   json.forEach((book) => {
-    bookHtml = `
+    const bookHtml = `
     <div class="library-books__book">
         <a href="./livro.html?id=${
           book.idLivro

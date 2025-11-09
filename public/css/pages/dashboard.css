@@ -52,6 +52,7 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .dashboard__heading {
@@ -63,7 +64,6 @@
 
 .dashboard__subheading {
   font-size: 32px;
-  margin-bottom: 16px;
 }
 
 /* Cards */
@@ -104,11 +104,10 @@
 .dashboard__table {
   border-collapse: collapse;
   font-size: 14px;
-  min-width: 400px;
   font-weight: 400;
-  display: block;
   max-height: 1px; /* não tenho ideia do pq isso funciona mas vamo nessa :D*/
   line-height: 1.2;
+  width: 100%;
 }
 
 /* Cabeçalho */
@@ -138,4 +137,48 @@
 
 .dashboard__table tbody tr:nth-child(even):hover {
   background-color: #ebebeb;
+}
+
+/* Botões */
+.dashboard__buttons-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  justify-content: space-between;
+}
+.dashboard__buttons {
+  border: none;
+}
+
+.dashboard__button {
+  background-color: var(--text-color--green--regular);
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+}
+
+/* Pop-up */
+.dashboard__popup-container {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.dashboard__popup {
+  text-align: center;
+  background-color: #fff;
+  width: 650px;
+  height: 250px;
+  border-radius: 6px;
+  padding: 24px;
+}
+
+.dashboard__popup-heading {
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--text-color--gray--dark);
 }

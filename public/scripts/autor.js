@@ -19,10 +19,12 @@ async function getAuthor() {
 
 // Renderizar
 function renderAuthor(json) {
+  // Atualizando os campos do autor
   authorNameElement.textContent = json.nome;
   authorDescriptionElement.textContent = json.descricao;
   authorQuoteElement.textContent = json.citacao;
 
+  // Esconder tela de loading
   setTimeout(() => {
     loadingOverlayElement.classList.add("hidden");
   }, 300);

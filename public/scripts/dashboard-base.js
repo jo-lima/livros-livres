@@ -13,6 +13,18 @@ class DashboardBase {
     this.setUpListeners();
   }
 
+  async sendPostRequest(url, body) {
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return await response.json();
+  }
+
   // Requests
   async createAuthor(body) {
     const default_body = {
@@ -21,15 +33,10 @@ class DashboardBase {
       citacao: "",
     };
 
-    const response = await fetch(`http://${this.SERVER_URL}/autor/novo`, {
-      method: "POST",
-      body: JSON.stringify({ ...default_body, ...body }), // Formulário do autor
-      headers: {
-        "Content-Type": "application/json",
-      },
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/novo`, {
+      ...default_body,
+      ...body,
     });
-
-    return await response.json();
   }
 
   // Editar autor
@@ -40,18 +47,13 @@ class DashboardBase {
       citacao: "",
     };
 
-    const response = await fetch(
+    return await this.sendPostRequest(
       `http://${this.SERVER_URL}/autor/${id}/atualizar`,
       {
-        method: "POST",
-        body: JSON.stringify({ ...default_body, ...body }), // Formulário do autor
-        headers: {
-          "Content-Type": "application/json",
-        },
+        ...default_body,
+        ...body,
       }
     );
-
-    return await response.json();
   }
 
   async changeAuthorStatus(id, status) {

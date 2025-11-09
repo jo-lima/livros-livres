@@ -1,158 +1,20 @@
-// // Abrir pop-up
-//
-
-// // Formulário
-// const newAuthorForm = document.querySelector("#new-author-form");
-
-// document
-//   .querySelector("#new-author-submit")
-//   .addEventListener("click", async function (event) {
-//     // Evitando o submit do formulário
-//     event.preventDefault();
-
-//     // Capturando campos do formulário
-//     const authorData = new FormData(newAuthorForm);
-//     const data = {};
-
-//     authorData.forEach((value, key) => (data[key] = value));
-//     const response = await createAuthor(data);
-
-//     displayMessage(response);
-
-//     // Limpando formulário
-//     const inputs = newAuthorForm.querySelectorAll("input, textarea");
-//     inputs.forEach((input) => (input.value = ""));
-
-//     // Fechar pop-up
-//     hidePopUp();
-
-//     // Atualizando a listagem
-//     listRenderAuthors();
-//   });
-
-// // Editar autor
-// async function editAuthor(id, data) {
-//   const response = await fetch(`http://localhost:6969/autor/${id}/atualizar`, {
-//     method: "POST",
-//     body: JSON.stringify(data), // Formulário do autor
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-
-//   return await response.json();
-// }
-
-// // Formulário
-// const editAuthorForm = document.querySelector("#edit-author-form");
-// const editAuthorSubmit = document.querySelector("#edit-author-submit");
-
-// editAuthorSubmit.addEventListener("click", async function (event) {
-//   // Evitando o submit do formulário
-//   event.preventDefault();
-
-//   // Capturando campos do formulário
-//   const authorData = new FormData(editAuthorForm);
-//   const data = {};
-
-//   authorData.forEach((value, key) => (data[key] = value));
-//   const response = await editAuthor(editAuthorSubmit.dataset.idAuthor, data);
-
-//   displayMessage(response);
-
-//   // Limpando formulário
-//   const inputs = editAuthorForm.querySelectorAll("input, textarea");
-//   inputs.forEach((input) => (input.value = ""));
-
-//   // Fechar pop-up
-//   hidePopUp();
-
-//   // Atualizando a listagem
-//   listRenderAuthors();
-// });
-
-// // Coluna de ações
-// authorsTableElement.addEventListener("click", async function (event) {
-//   target = event.target.closest(".dashboard__action-button");
-
-//   if (target == null) return;
-
-//   let json;
-//   const row = target.closest("tr");
-
-//   // Inativar autor
-//   if (
-//     target.classList.contains("disable-author-button") ||
-//     target.classList.contains("enable-author-button")
-//   ) {
-//     const response = await fetch(
-//       `http://localhost:6969/autor/${row.dataset.id}/${
-//         target.classList.contains("disable-author-button")
-//           ? "inativar"
-//           : "ativar"
-//       }`,
-//       {
-//         method: "POST",
-//       }
-//     );
-
-//     json = await response.json();
-
-//     displayMessage(json);
-
-//     listRenderAuthors();
-//   }
-
-//   // Exibir formulário para editar autor
-//   if (target.classList.contains("edit-author-button")) {
-//     const response = await fetch(
-//       `http://localhost:6969/autor/${row.dataset.id}/busca`
-//     );
-
-//     const json = await response.json();
-
-//     // Exibir formulário com os valores preenchidos
-//     document.querySelector(".dashboard__popup-input--name").value =
-//       json.body.nome;
-//     document.querySelector(".dashboard__popup-input--quote").value =
-//       json.body.citacao;
-
-//     document.querySelector(".dashboard__popup-input--description").value =
-//       json.body.descricao;
-
-//     // Linkando o ID do autor da linha com o botão de submit - ta meio feio gente desculpa :c
-//     editAuthorSubmit.dataset.idAuthor = row.dataset.id;
-
-//     showPopUp(".dashboard__popup--edit-author");
-//   }
-// });
-
-// // Execução
-// async function listRenderAuthors() {
-//   listAllAuthors().then((json) => {
-//     updateCards(json);
-//     renderAuthors(json);
-//   });
-// }
-
-// listRenderAuthors();
-
 class DashboardAutor extends DashboardBase {
   constructor() {
     super();
+
+    // Execução
+    this.initialize();
 
     // Elementos
     this.authorsTableElement = document.querySelector(
       ".dashboard__table--authors tbody"
     );
-
     this.newAuthorForm = document.querySelector("#new-author-form");
+    this.editAuthorForm = document.querySelector("#edit-author-form");
+    this.editAuthorSubmit = document.querySelector("#edit-author-submit");
 
     // Setup dos EventListeners
-    this.setUpListeners();
-
-    // Execução
-    this.initialize();
+    this.setUpAuthorListeners();
   }
 
   renderAllAuthors(authorsData) {
@@ -215,21 +77,121 @@ class DashboardAutor extends DashboardBase {
       authorsData.body.length;
   }
 
-  setUpListeners() {
+  async setUpAuthorListeners() {
     // Abrir pop-up da criação de autor
     document
       .querySelector("#new-author-button")
       .addEventListener("click", () => {
         this.showPopUp(".dashboard__popup--new-author");
       });
+
+    // Formulário da criação de autor
+    document
+      .querySelector("#new-author-submit")
+      .addEventListener("click", async (event) => {
+        // Previnindo submit do formulário
+        event.preventDefault();
+
+        // Capturando campos do formulário
+        const body = this.formDataObject(this.newAuthorForm);
+
+        // Criando o autor
+        const response = await this.createAuthor(body);
+
+        this.displayMessage(response);
+
+        // Limpando formulário
+        this.cleanForm(this.newAuthorForm);
+
+        // Fechar pop-up
+        this.hidePopUp();
+
+        // Atualizando a listagem
+        this.listRenderAuthors();
+      });
+
+    // Formulário da edição de autor
+    this.editAuthorSubmit.addEventListener("click", async (event) => {
+      // Previnindo submit do formulário
+      event.preventDefault();
+
+      // Capturando campos do formulário
+      const body = this.formDataObject(this.editAuthorForm);
+
+      const response = await this.editAuthor(
+        this.editAuthorSubmit.dataset.idAuthor,
+        body
+      );
+
+      this.displayMessage(response);
+
+      // Limpando formulário
+      this.cleanForm(this.editAuthorForm);
+
+      // Fechar pop-up
+      this.hidePopUp();
+
+      // Atualizando a listagem
+      this.listRenderAuthors();
+    });
+
+    // Coluna de ações
+    this.authorsTableElement.addEventListener("click", async (event) => {
+      const target = event.target.closest(".dashboard__action-button");
+
+      if (target == null) return;
+
+      const row = target.closest("tr");
+
+      // Inativar/Ativar autor
+      if (
+        target.classList.contains("disable-author-button") ||
+        target.classList.contains("enable-author-button")
+      ) {
+        let json;
+
+        if (target.classList.contains("disable-author-button")) {
+          json = await this.disableAuthor(row.dataset.id);
+        } else {
+          json = await this.enableAuthor(row.dataset.id);
+        }
+
+        this.displayMessage(json);
+
+        this.listRenderAuthors();
+      }
+
+      // Exibir formulário para editar autor
+      if (target.classList.contains("edit-author-button")) {
+        const response = await this.getAuthor(row.dataset.id);
+
+        // Exibir formulário com os valores preenchidos
+        document.querySelector(".dashboard__popup-input--name").value =
+          response.body.nome;
+        document.querySelector(".dashboard__popup-input--quote").value =
+          response.body.citacao;
+
+        document.querySelector(".dashboard__popup-input--description").value =
+          response.body.descricao;
+
+        // Linkando o ID do autor da linha com o botão de submit - ta meio feio gente desculpa :c
+        this.editAuthorSubmit.dataset.idAuthor = row.dataset.id;
+
+        this.showPopUp(".dashboard__popup--edit-author");
+      }
+    });
   }
 
-  async initialize() {
-    // Renderizando autores
+  // Renderizando autores
+  async listRenderAuthors() {
     await this.getAllAuthors().then((json) => {
       this.renderAllAuthors(json);
       this.updateCards(json);
     });
+  }
+
+  async initialize() {
+    await this.listRenderAuthors();
   }
 }
 

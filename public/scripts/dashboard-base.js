@@ -15,8 +15,7 @@ class DashboardBase {
 
   // Requests
   async createAuthor(body) {
-    // Valor padrão
-    default_body = {
+    const default_body = {
       nome: "",
       descricao: "",
       citacao: "",
@@ -24,13 +23,54 @@ class DashboardBase {
 
     const response = await fetch(`http://${this.SERVER_URL}/autor/novo`, {
       method: "POST",
-      body: JSON.stringify(Object.assign(default_body, body)), // Formulário do autor
+      body: JSON.stringify({ ...default_body, ...body }), // Formulário do autor
       headers: {
         "Content-Type": "application/json",
       },
     });
 
     return await response.json();
+  }
+
+  // Editar autor
+  async editAuthor(id, body) {
+    const default_body = {
+      nome: "",
+      descricao: "",
+      citacao: "",
+    };
+
+    const response = await fetch(
+      `http://${this.SERVER_URL}/autor/${id}/atualizar`,
+      {
+        method: "POST",
+        body: JSON.stringify({ ...default_body, ...body }), // Formulário do autor
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return await response.json();
+  }
+
+  async changeAuthorStatus(id, status) {
+    const response = await fetch(
+      `http://${this.SERVER_URL}/autor/${id}/${status}`,
+      {
+        method: "POST",
+      }
+    );
+
+    return await response.json();
+  }
+
+  async disableAuthor(id) {
+    return await this.changeAuthorStatus(id, "inativar");
+  }
+
+  async enableAuthor(id) {
+    return await this.changeAuthorStatus(id, "ativar");
   }
 
   async getAllAuthors() {
@@ -101,6 +141,18 @@ class DashboardBase {
     const popUps = document.querySelectorAll(".dashboard__popup");
     popUps.forEach((popUp) => popUp.classList.add("hidden"));
     this.popUpOverlay.classList.add("hidden");
+  }
+
+  // Métodos úteis
+  cleanForm(form) {
+    const inputs = form.querySelectorAll("input, textarea, select");
+    inputs.forEach((input) => (input.value = ""));
+  }
+
+  formDataObject(form) {
+    const data = {};
+    new FormData(form).forEach((value, key) => (data[key] = value));
+    return data;
   }
 
   // Setup dos EventListeners

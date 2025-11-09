@@ -17,14 +17,21 @@ popUpElement.addEventListener("click", function (event) {
 
 // Mensagem de status
 const messageElement = document.querySelector(".dashboard__message");
+let messageTimer;
 
 function displayMessage(json) {
   messageElement.textContent = json.message;
   messageElement.style.backgroundColor =
     json.statusCode == 200 ? "var(--text-color--green--regular)" : "red";
-  messageElement.classList.remove("dashboard__message--hidden");
 
-  setTimeout(() => {
+  if (messageElement.classList.contains("dashboard__message--hidden")) {
+    messageElement.classList.remove("dashboard__message--hidden");
+  }
+
+  // Para o timeout anterior
+  messageTimer && clearTimeout(messageTimer);
+
+  messageTimer = setTimeout(() => {
     messageElement.classList.add("dashboard__message--hidden");
   }, 4000);
 }

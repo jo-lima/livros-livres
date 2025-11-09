@@ -23,12 +23,15 @@ const authorsTableElement = document.querySelector(
   ".dashboard__table--authors tbody"
 );
 
-async function renderAuthors(authorsArray) {
+async function renderAuthors(authorsData) {
+  // TODO - Lidar
+  if (authorsData.statusCode == 404) return;
+
   // Limpa a grid antes de renderizar
   authorsTableElement.innerHTML = "";
 
   // Loopa pelos autores
-  authorsArray.forEach((author) => {
+  authorsData.body.forEach((author) => {
     const authorHtml = `
         <tr>
             <td>${author.idAutor}</td>
@@ -43,10 +46,13 @@ async function renderAuthors(authorsArray) {
 }
 
 // Atualizando os cards
-function updateCards(authorsArray) {
+function updateCards(authorsData) {
+  // TODO - Lidar
+  if (authorsData.statusCode == 404) return;
+
   // Autores registrados
   document.querySelector(".dashboard__card--authors-amount").textContent =
-    authorsArray.length;
+    authorsData.body.length;
 }
 
 // Criando autor
@@ -99,8 +105,8 @@ document
 // Execução
 async function listRenderAuthors() {
   listAllAuthors().then((json) => {
-    updateCards(json.body);
-    renderAuthors(json.body);
+    updateCards(json);
+    renderAuthors(json);
   });
 }
 

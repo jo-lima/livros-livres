@@ -16,12 +16,15 @@ const booksTableElement = document.querySelector(
   ".dashboard__table--books tbody"
 );
 
-async function renderBooks(bookArray) {
+async function renderBooks(booksData) {
+  // TODO - Lidar
+  if (booksData.statusCode == 404) return;
+
   // Limpa a grid antes de renderizar
   booksTableElement.innerHTML = "";
 
   // Loopa pelos livros
-  bookArray.forEach((book) => {
+  booksData.body.forEach((book) => {
     let buttonHtml;
 
     if (book.ativo == true) {
@@ -59,14 +62,17 @@ async function renderBooks(bookArray) {
 }
 
 // Atualizando os cards
-async function updateCards(booksArray) {
+async function updateCards(booksData) {
+  // TODO - Lidar
+  if (booksData.statusCode == 404) return;
+
   // Livros disponíveis
   document.querySelector(".dashboard__card--books-amount").textContent =
-    booksArray.length;
+    booksData.body.length;
 
   // Livros em estoque
   document.querySelector(".dashboard__card--books-stock").textContent =
-    booksArray.reduce((acc, book) => {
+    booksData.body.reduce((acc, book) => {
       return acc + book.estoque; // Soma todos os book.estoque em um só valor
     }, 0);
 }
@@ -74,8 +80,8 @@ async function updateCards(booksArray) {
 // Renderizar e atualizar os cards
 async function listRenderBooks() {
   listAllBooks().then((json) => {
-    updateCards(json.body);
-    renderBooks(json.body);
+    updateCards(json);
+    renderBooks(json);
   });
 }
 

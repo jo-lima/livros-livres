@@ -19,7 +19,10 @@ class DashboardAutor extends DashboardBase {
 
   renderAllAuthors(authorsData) {
     // TODO - Lidar
-    if (authorsData.statusCode == 404) return;
+    if (authorsData.statusCode == 404) {
+      this.displayMessage(authorsData);
+      return;
+    }
 
     // Limpa a grid antes de renderizar
     this.authorsTableElement.innerHTML = "";
@@ -30,18 +33,18 @@ class DashboardAutor extends DashboardBase {
 
       if (author.ativo) {
         buttonHtml = `
-      <button class="disable-author-button dashboard__action-button">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" />
-        </svg>
-      </button>`;
+          <button class="disable-author-button dashboard__action-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" />
+            </svg>
+          </button>`;
       } else {
         buttonHtml = `
-      <button class="enable-author-button dashboard__action-button">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
-      </button>`;
+          <button class="enable-author-button dashboard__action-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </button>`;
       }
 
       const authorHtml = `
@@ -70,7 +73,10 @@ class DashboardAutor extends DashboardBase {
   // Atualizando os cards
   updateCards(authorsData) {
     // TODO - Lidar
-    if (authorsData.statusCode == 404) return;
+    if (authorsData.statusCode == 404) {
+      this.displayMessage(authorsData);
+      return;
+    }
 
     // Autores registrados
     document.querySelector(".dashboard__card--authors-amount").textContent =
@@ -141,7 +147,7 @@ class DashboardAutor extends DashboardBase {
 
       if (target == null) return;
 
-      const row = target.closest("tr");
+      const rowId = target.closest("tr").dataset.id;
 
       // Inativar/Ativar autor
       if (
@@ -151,9 +157,9 @@ class DashboardAutor extends DashboardBase {
         let json;
 
         if (target.classList.contains("disable-author-button")) {
-          json = await this.disableAuthor(row.dataset.id);
+          json = await this.disableAuthor(rowId);
         } else {
-          json = await this.enableAuthor(row.dataset.id);
+          json = await this.enableAuthor(rowId);
         }
 
         this.displayMessage(json);
@@ -163,11 +169,12 @@ class DashboardAutor extends DashboardBase {
 
       // Exibir formulário para editar autor
       if (target.classList.contains("edit-author-button")) {
-        const response = await this.getAuthor(row.dataset.id);
+        const response = await this.getAuthor(rowId);
 
         // Exibir formulário com os valores preenchidos
         document.querySelector(".dashboard__popup-input--name").value =
           response.body.nome;
+
         document.querySelector(".dashboard__popup-input--quote").value =
           response.body.citacao;
 
@@ -175,14 +182,14 @@ class DashboardAutor extends DashboardBase {
           response.body.descricao;
 
         // Linkando o ID do autor da linha com o botão de submit - ta meio feio gente desculpa :c
-        this.editAuthorSubmit.dataset.idAuthor = row.dataset.id;
+        this.editAuthorSubmit.dataset.idAuthor = rowId;
 
         this.showPopUp(".dashboard__popup--edit-author");
       }
     });
   }
 
-  // Renderizando autores
+  // Listando e renderizando autores
   async listRenderAuthors() {
     await this.getAllAuthors().then((json) => {
       this.renderAllAuthors(json);

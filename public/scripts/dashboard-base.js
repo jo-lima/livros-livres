@@ -14,6 +14,25 @@ class DashboardBase {
   }
 
   // Requests
+  async createAuthor(body) {
+    // Valor padrão
+    default_body = {
+      nome: "",
+      descricao: "",
+      citacao: "",
+    };
+
+    const response = await fetch(`http://${this.SERVER_URL}/autor/novo`, {
+      method: "POST",
+      body: JSON.stringify(Object.assign(default_body, body)), // Formulário do autor
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return await response.json();
+  }
+
   async getAllAuthors() {
     const response = await fetch(`http://${this.SERVER_URL}/autor/lista`, {
       method: "POST",
@@ -95,7 +114,9 @@ class DashboardBase {
     // Fechar pop-up no botão 'X'
     document
       .querySelectorAll(".dashboard__popup-close")
-      .forEach((button) => button.addEventListener("click", this.hidePopUp));
+      .forEach((button) =>
+        button.addEventListener("click", () => this.hidePopUp())
+      );
 
     // ================ AREA DE DEBUG================
     // this.xd.addEventListener("click", () => this.getBook(1));

@@ -15,12 +15,13 @@ popUpElement.addEventListener("click", function (event) {
   hidePopUp();
 });
 
-//
+// Mensagem de status
 const messageElement = document.querySelector(".dashboard__message");
+
 function displayMessage(json) {
   messageElement.textContent = json.message;
   messageElement.style.backgroundColor =
-    json.statusCode == 200 ? "green" : "red";
+    json.statusCode == 200 ? "var(--text-color--green--regular)" : "red";
   messageElement.classList.remove("dashboard__message--hidden");
 
   setTimeout(() => {

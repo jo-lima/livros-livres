@@ -230,6 +230,12 @@
 }
 
 /* Ações */
+.dashboard__action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .dashboard__action-button {
   width: 24px;
   background: none;

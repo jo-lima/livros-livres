@@ -1,6 +1,6 @@
 // Elementos
 const booksTableElement = document.querySelector(
-  ".dashboard__books-table tbody"
+  ".dashboard__table--books tbody"
 );
 
 const booksAmountElement = document.querySelector(

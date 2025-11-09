@@ -34,6 +34,7 @@
   padding: 14px 0;
   font-weight: 500;
   transition: all 0.2s ease;
+  text-align: center;
 }
 
 .dashboard__tab:hover,
@@ -94,13 +95,13 @@
 }
 
 /* Tabela */
-.dashboard__books-table-container {
+.dashboard__table-container {
   flex: 1;
   overflow: scroll;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
 }
 
-.dashboard__books-table {
+.dashboard__table {
   border-collapse: collapse;
   font-size: 14px;
   min-width: 400px;
@@ -111,7 +112,7 @@
 }
 
 /* Cabeçalho */
-.dashboard__books-table thead {
+.dashboard__table thead {
   background-color: var(--text-color--green--regular);
   font-weight: bold;
   font-size: 16px;
@@ -120,21 +121,21 @@
   text-align: left;
 }
 
-.dashboard__books-table th,
-.dashboard__books-table td {
+.dashboard__table th,
+.dashboard__table td {
   padding: 16px 10px;
   padding-right: 42px;
 }
 
 /* Outros estilos */
-.dashboard__books-table tbody tr:nth-child(even) {
+.dashboard__table tbody tr:nth-child(even) {
   background-color: #eee;
 }
 
-.dashboard__books-table tbody tr:nth-child(odd):hover {
+.dashboard__table tbody tr:nth-child(odd):hover {
   background-color: #f8f8f8;
 }
 
-.dashboard__books-table tbody tr:nth-child(even):hover {
+.dashboard__table tbody tr:nth-child(even):hover {
   background-color: #ebebeb;
 }

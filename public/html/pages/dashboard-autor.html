@@ -20,7 +20,7 @@
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐕</text></svg>"
     />
     <link rel="stylesheet" href="/public/css/main.css" />
-    <title>Acervo</title>
+    <title>Dashboard | Autores</title>
   </head>
   <body class="dashboard__body">
     <nav class="main-nav dashboard__nav">
@@ -30,39 +30,33 @@
     </nav>
     <section class="dashboard__container">
       <nav class="dashboard__tabs">
-        <a href="#" class="dashboard__tab dashboard__tab--active text--center">Livros</a>
-        <a href="#" class="dashboard__tab text--center">Autores</a>
+        <a href="dashboard-livro.html" class="dashboard__tab">Livros</a>
+        <a href="#" class="dashboard__tab dashboard__tab--active">Autores</a>
       </nav>
       <div class="dashboard__content">
-        <h1 class="font--secondary dashboard__heading">Livros</h1>
+        <h1 class="font--secondary dashboard__heading">Autores</h1>
         <h2 class="dashboard__subheading">Informações gerais</h2>
         <div class="dashboard__cards">
           <div class="dashboard__card text--center">
-            <p class="dashboard__card-label">Livros disponíveis</p>
-            <p class="dashboard__card-value dashboard__card--books-amount">
-              6811
+            <p class="dashboard__card-label">Autores cadastrados</p>
+            <p class="dashboard__card-value dashboard__card--authors-amount">
+              0
             </p>
           </div>
           <div class="dashboard__card text--center">
             <p class="dashboard__card-label">Livros em estoque</p>
-            <p class="dashboard__card-value dashboard__card--books-stock">
-              585
-            </p>
+            <p class="dashboard__card-value">0</p>
           </div>
         </div>
-        <h2 class="dashboard__subheading">Livros no acervo</h2>
-        <div class="dashboard__books-table-container">
-          <table class="dashboard__books-table">
+        <h2 class="dashboard__subheading">Autores cadastrados</h2>
+        <div class="dashboard__table-container">
+          <table class="dashboard__table--authors dashboard__table">
             <thead>
               <tr>
-                <th>Título</th>
-                <th>Autor</th>
-                <th>Gênero</th>
-                <th>Páginas</th>
-                <th>ISBN</th>
-                <th>Estoque</th>
-                <th>Editora</th>
-                <th>Data de publicação</th>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Citação</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -71,6 +65,6 @@
         </div>
       </div>
     </section>
-    <script src="../../scripts/dashboard.js"></script>
+    <script src="../../scripts/dashboard-autor.js"></script>
   </body>
 </html>

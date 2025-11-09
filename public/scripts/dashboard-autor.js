@@ -99,7 +99,9 @@ async function createAuthor(data) {
 // Abrir pop-up
 document
   .querySelector("#new-author-button")
-  .addEventListener("click", showPopUp);
+  .addEventListener("click", function () {
+    showPopUp(".dashboard__popup--new-author");
+  });
 
 // Formulário
 const newAuthorForm = document.querySelector("#new-author-form");
@@ -144,14 +146,13 @@ authorsTableElement.addEventListener("click", async function (event) {
   if (target == null) return;
 
   let json;
+  const row = target.closest("tr");
 
   // Inativar autor
   if (
     target.classList.contains("disable-author-button") ||
     target.classList.contains("enable-author-button")
   ) {
-    const row = target.closest("tr");
-
     const response = await fetch(
       `http://localhost:6969/autor/${row.dataset.id}/${
         target.classList.contains("disable-author-button")
@@ -164,6 +165,11 @@ authorsTableElement.addEventListener("click", async function (event) {
     );
 
     json = await response.json();
+  }
+
+  // Editar autor
+  if (target.classList.contains("edit-author-button")) {
+    showPopUp(".dashboard__popup--edit-author");
   }
 
   listRenderAuthors();

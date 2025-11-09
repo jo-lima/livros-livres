@@ -160,22 +160,25 @@
 }
 
 /* Pop-up */
-.dashboard__popup-container {
+.dashboard__popup-overlay {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+  z-index: 8;
 }
 
 .dashboard__popup {
+  /* Estilo */
   text-align: center;
   background-color: #fff;
   border-radius: 6px;
   padding: 28px 32px;
-  position: relative;
+  /* Posição */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
 }
 
 .dashboard__popup-heading {

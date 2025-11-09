@@ -13,6 +13,7 @@ class DashboardBase {
     this.setUpListeners();
   }
 
+  // Requests
   async sendPostRequest(url, body) {
     const response = await fetch(url, {
       method: "POST",
@@ -25,7 +26,7 @@ class DashboardBase {
     return await response.json();
   }
 
-  // Requests
+  // Autor
   async createAuthor(body) {
     const default_body = {
       nome: "",
@@ -56,6 +57,7 @@ class DashboardBase {
     );
   }
 
+  // Ativar/Desativar autor
   async changeAuthorStatus(id, status) {
     const response = await fetch(
       `http://${this.SERVER_URL}/autor/${id}/${status}`,
@@ -98,16 +100,12 @@ class DashboardBase {
     return await response.json();
   }
 
+  // Livros
   async getAllBooks() {
-    const response = await fetch(`http://${this.SERVER_URL}/livro/lista`, {
-      method: "POST",
-      body: "{}",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    return await response.json();
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/livro/lista`,
+      {}
+    );
   }
 
   async getBook(id) {
@@ -171,11 +169,5 @@ class DashboardBase {
       .forEach((button) =>
         button.addEventListener("click", () => this.hidePopUp())
       );
-
-    // ================ AREA DE DEBUG================
-    // this.xd.addEventListener("click", () => this.getBook(1));
-    // ================================
   }
 }
-
-a = new DashboardBase();

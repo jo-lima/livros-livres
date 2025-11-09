@@ -67,7 +67,7 @@ document
   .querySelector("#new-author-button")
   .addEventListener("click", showPopUp);
 
-// Criando autor
+// Formulário
 const newAuthorForm = document.querySelector("#new-author-form");
 
 document
@@ -91,10 +91,17 @@ document
 
     // Fechar pop-up
     hidePopUp();
+
+    // Atualizando a listagem
+    listRenderAuthors();
   });
 
 // Execução
-listAllAuthors().then((json) => {
-  updateCards(json.body);
-  renderAuthors(json.body);
-});
+async function listRenderAuthors() {
+  listAllAuthors().then((json) => {
+    updateCards(json.body);
+    renderAuthors(json.body);
+  });
+}
+
+listRenderAuthors();

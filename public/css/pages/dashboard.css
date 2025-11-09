@@ -71,6 +71,7 @@
   display: flex;
   gap: 24px;
   margin-bottom: 36px;
+  margin-top: 16px;
 }
 
 .dashboard__card {

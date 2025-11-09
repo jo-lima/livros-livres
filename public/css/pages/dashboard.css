@@ -180,7 +180,7 @@
   text-transform: uppercase;
   font-weight: bold;
   color: var(--text-color--gray--dark);
-  margin-bottom: 12px;
+  margin-bottom: 32px;
 }
 
 .dashboard__popup-label {

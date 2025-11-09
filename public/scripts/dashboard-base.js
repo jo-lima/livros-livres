@@ -1,44 +1,106 @@
-// Pop-up
-const popUpOverlay = document.querySelector(".dashboard__popup-overlay");
+class DashboardBase {
+  SERVER_URL = "localhost:6969";
 
-function hidePopUp() {
-  const popUps = document.querySelectorAll(".dashboard__popup");
-  popUps.forEach((popUp) => popUp.classList.add("hidden"));
-  popUpOverlay.classList.add("hidden");
-}
-function showPopUp(popUpClass) {
-  document.querySelector(popUpClass).classList.remove("hidden");
-  popUpOverlay.classList.remove("hidden");
-}
+  constructor() {
+    // Pop-up
+    this.popUpOverlay = document.querySelector(".dashboard__popup-overlay");
 
-// Fechar pop-up no botão 'X'
-document
-  .querySelectorAll(".dashboard__popup-close")
-  .forEach((button) => button.addEventListener("click", hidePopUp));
+    // Mensagem
+    this.messageElement = document.querySelector(".dashboard__message");
+    this.messageTimer;
 
-// Fechar pop-up no espaço de fora
-popUpOverlay.addEventListener("click", function (event) {
-  if (!event.target.classList.contains("dashboard__popup-overlay")) return;
-  hidePopUp();
-});
-
-// Mensagem de status
-const messageElement = document.querySelector(".dashboard__message");
-let messageTimer;
-
-function displayMessage(json) {
-  messageElement.textContent = json.message;
-  messageElement.style.backgroundColor =
-    json.statusCode == 200 ? "var(--text-color--green--regular)" : "red";
-
-  if (messageElement.classList.contains("dashboard__message--hidden")) {
-    messageElement.classList.remove("dashboard__message--hidden");
+    // Setup dos EventListeners
+    this.setUpListeners();
   }
 
-  // Para o timeout anterior
-  messageTimer && clearTimeout(messageTimer);
+  // Requests
+  async getAllAuthors() {
+    const response = await fetch(`http://${this.SERVER_URL}/autor/lista`, {
+      method: "POST",
+      body: JSON.stringify({
+        nome: "",
+        descricao: "",
+        citacao: "",
+        ativo: null,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-  messageTimer = setTimeout(() => {
-    messageElement.classList.add("dashboard__message--hidden");
-  }, 4000);
+    return await response.json();
+  }
+
+  async getAuthor(id) {
+    const response = await fetch(`http://${this.SERVER_URL}/autor/${id}/busca`);
+
+    return await response.json();
+  }
+
+  async getAllBooks() {
+    const response = await fetch(`http://${this.SERVER_URL}/livro/lista`, {
+      method: "POST",
+      body: "{}",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return await response.json();
+  }
+
+  async getBook(id) {
+    const response = await fetch(`http://${this.SERVER_URL}/livro/${id}/busca`);
+
+    return await response.json();
+  }
+
+  // Mensagem
+  displayMessage(json) {
+    this.messageElement.textContent = json.message;
+    this.messageElement.style.backgroundColor =
+      json.statusCode == 200 ? "var(--text-color--green--regular)" : "red";
+
+    if (this.messageElement.classList.contains("dashboard__message--hidden"))
+      this.messageElement.classList.remove("dashboard__message--hidden");
+
+    // Para o timeout anterior
+    this.messageTimer && clearTimeout(this.messageTimer);
+
+    this.messageTimer = setTimeout(() => {
+      this.messageElement.classList.add("dashboard__message--hidden");
+    }, 4000);
+  }
+
+  // Pop-Up
+  showPopUp(popUpClass) {
+    document.querySelector(popUpClass).classList.remove("hidden");
+    this.popUpOverlay.classList.remove("hidden");
+  }
+
+  hidePopUp() {
+    const popUps = document.querySelectorAll(".dashboard__popup");
+    popUps.forEach((popUp) => popUp.classList.add("hidden"));
+    this.popUpOverlay.classList.add("hidden");
+  }
+
+  // Setup dos EventListeners
+  setUpListeners() {
+    // Fechar pop-up no espaço de fora
+    this.popUpOverlay.addEventListener("click", (event) => {
+      if (!event.target.classList.contains("dashboard__popup-overlay")) return;
+      this.hidePopUp();
+    });
+
+    // Fechar pop-up no botão 'X'
+    document
+      .querySelectorAll(".dashboard__popup-close")
+      .forEach((button) => button.addEventListener("click", this.hidePopUp));
+
+    // ================ AREA DE DEBUG================
+    // this.xd.addEventListener("click", () => this.getBook(1));
+    // ================================
+  }
 }
+
+a = new DashboardBase();

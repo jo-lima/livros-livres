@@ -109,7 +109,7 @@ const newAuthorForm = document.querySelector("#new-author-form");
 document
   .querySelector("#new-author-submit")
   .addEventListener("click", async function (event) {
-    // Evitando o submit do form
+    // Evitando o submit do formulário
     event.preventDefault();
 
     // Capturando campos do formulário
@@ -132,14 +132,6 @@ document
     listRenderAuthors();
   });
 
-// Execução
-async function listRenderAuthors() {
-  listAllAuthors().then((json) => {
-    updateCards(json);
-    renderAuthors(json);
-  });
-}
-
 // Editar autor
 async function editAuthor(id, data) {
   const response = await fetch(`http://localhost:6969/autor/${id}/atualizar`, {
@@ -153,36 +145,35 @@ async function editAuthor(id, data) {
   return await response.json();
 }
 
+// Formulário
 const editAuthorForm = document.querySelector("#edit-author-form");
-document
-  .querySelector("#edit-author-submit")
-  .addEventListener("click", async function (event) {
-    // Evitando o submit do form
-    event.preventDefault();
+const editAuthorSubmit = document.querySelector("#edit-author-submit");
 
-    // Capturando campos do formulário
-    const authorData = new FormData(editAuthorForm);
-    const data = {};
+editAuthorSubmit.addEventListener("click", async function (event) {
+  // Evitando o submit do formulário
+  event.preventDefault();
 
-    authorData.forEach((value, key) => (data[key] = value));
-    const response = await editAuthor(
-      document.querySelector("#edit-author-submit").dataset.idAuthor,
-      data
-    );
+  // Capturando campos do formulário
+  const authorData = new FormData(editAuthorForm);
+  const data = {};
 
-    displayMessage(response);
+  authorData.forEach((value, key) => (data[key] = value));
+  const response = await editAuthor(editAuthorSubmit.dataset.idAuthor, data);
 
-    // Limpando formulário
-    const inputs = editAuthorForm.querySelectorAll("input, textarea");
-    inputs.forEach((input) => (input.value = ""));
+  displayMessage(response);
 
-    // Fechar pop-up
-    hidePopUp();
+  // Limpando formulário
+  const inputs = editAuthorForm.querySelectorAll("input, textarea");
+  inputs.forEach((input) => (input.value = ""));
 
-    // Atualizando a listagem
-    listRenderAuthors();
-  });
+  // Fechar pop-up
+  hidePopUp();
 
+  // Atualizando a listagem
+  listRenderAuthors();
+});
+
+// Coluna de ações
 authorsTableElement.addEventListener("click", async function (event) {
   target = event.target.closest(".dashboard__action-button");
 
@@ -214,7 +205,7 @@ authorsTableElement.addEventListener("click", async function (event) {
     listRenderAuthors();
   }
 
-  // Editar autor
+  // Exibir formulário para editar autor
   if (target.classList.contains("edit-author-button")) {
     const response = await fetch(
       `http://localhost:6969/autor/${row.dataset.id}/busca`
@@ -231,11 +222,19 @@ authorsTableElement.addEventListener("click", async function (event) {
     document.querySelector(".dashboard__popup-input--description").value =
       json.body.descricao;
 
-    document.querySelector("#edit-author-submit").dataset.idAuthor =
-      row.dataset.id;
+    // Linkando o ID do autor da linha com o botão de submit - ta meio feio gente desculpa :c
+    editAuthorSubmit.dataset.idAuthor = row.dataset.id;
 
     showPopUp(".dashboard__popup--edit-author");
   }
 });
+
+// Execução
+async function listRenderAuthors() {
+  listAllAuthors().then((json) => {
+    updateCards(json);
+    renderAuthors(json);
+  });
+}
 
 listRenderAuthors();

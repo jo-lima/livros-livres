@@ -32,13 +32,32 @@ async function renderAuthors(authorsData) {
 
   // Loopa pelos autores
   authorsData.body.forEach((author) => {
+    let buttonHtml;
+
+    if (author.ativo) {
+      buttonHtml = `
+      <button class="disable-author-button dashboard__action-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" />
+        </svg>
+      </button>`;
+    } else {
+      buttonHtml = `
+      <button class="enable-author-button dashboard__action-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+      </button>`;
+    }
+
     const authorHtml = `
-        <tr>
+        <tr data-id="${author.idAutor}">
             <td>${author.idAutor}</td>
             <td>${author.nome}</td>
             <td>${author.descricao}</td>
             <td>${author.citacao}</td>
             <td>${author.ativo == true ? "Ativo" : "Inativo"}</td>
+            <td>${buttonHtml}</td>
         </tr>`;
 
     authorsTableElement.insertAdjacentHTML("beforeend", authorHtml);
@@ -109,5 +128,37 @@ async function listRenderAuthors() {
     renderAuthors(json);
   });
 }
+
+authorsTableElement.addEventListener("click", async function (event) {
+  target = event.target.closest(".dashboard__action-button");
+
+  if (target == null) return;
+
+  let json;
+
+  // Inativar autor
+  if (
+    target.classList.contains("disable-author-button") ||
+    target.classList.contains("enable-author-button")
+  ) {
+    const row = target.closest("tr");
+
+    const response = await fetch(
+      `http://localhost:6969/autor/${row.dataset.id}/${
+        target.classList.contains("disable-author-button")
+          ? "inativar"
+          : "ativar"
+      }`,
+      {
+        method: "POST",
+      }
+    );
+
+    json = await response.json();
+  }
+
+  listRenderAuthors();
+  displayMessage(json);
+});
 
 listRenderAuthors();

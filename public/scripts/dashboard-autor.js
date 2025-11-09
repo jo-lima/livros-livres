@@ -83,7 +83,7 @@ document
     authorData.forEach((value, key) => (data[key] = value));
     const response = await createAuthor(data);
 
-    console.log(response);
+    displayMessage(response);
 
     // Limpando formulário
     const inputs = newAuthorForm.querySelectorAll("input, textarea");

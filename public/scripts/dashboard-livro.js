@@ -23,7 +23,7 @@ async function renderBooks(bookArray) {
   // Loopa pelos livros
   bookArray.forEach((book) => {
     const bookHtml = `
-      <tr>
+      <tr data-id="${book.idLivro}">
         <td>${book.nome}</td>
         <td>${book.autor.nome}</td>
         <td>${book.genero}</td>
@@ -33,6 +33,7 @@ async function renderBooks(bookArray) {
         <td>${book.editora}</td>
         <td>${book.dataPublicacao}</td>
         <td>${book.ativo == true ? "Ativo" : "Inativo"}</td>
+        <td><button class="disable-book-button">inativar</button></td>
       </tr>`;
 
     booksTableElement.insertAdjacentHTML("beforeend", bookHtml);
@@ -125,7 +126,7 @@ document
     bookData.forEach((value, key) => (data[key] = value));
     const response = await createBook(data);
 
-    console.log(response);
+    displayMessage(response);
 
     // Limpando formulário
     const inputs = newBookForm.querySelectorAll("input, textarea, select");
@@ -137,6 +138,29 @@ document
     // Atualizando a listagem
     listRenderBooks();
   });
+
+// Ações
+booksTableElement.addEventListener("click", async function (event) {
+  target = event.target;
+  let json;
+
+  // Inativar livro
+  if (target.classList.contains("disable-book-button")) {
+    const row = target.closest("tr");
+
+    const response = await fetch(
+      `http://localhost:6969/livro/${row.dataset.id}/inativar`,
+      {
+        method: "POST",
+      }
+    );
+
+    json = await response.json();
+  }
+
+  listRenderBooks();
+  displayMessage(json);
+});
 
 // Execução
 listRenderBooks();

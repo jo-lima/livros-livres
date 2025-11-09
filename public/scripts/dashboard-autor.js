@@ -70,8 +70,22 @@ async function createAuthor(data) {
   return await response.json();
 }
 
-newAuthorButton.addEventListener("click", function (e) {
+// Abrir pop-up
+newAuthorButton.addEventListener("click", function () {
   popUpElement.classList.remove("hidden");
+});
+
+// Fechar pop-up
+const closePopUpButton = document.querySelector(".dashboard__popup-close");
+
+closePopUpButton.addEventListener("click", function () {
+  popUpElement.classList.add("hidden");
+});
+
+popUpElement.addEventListener("click", function (e) {
+  if (!e.target.classList.contains("dashboard__popup-container")) return;
+
+  popUpElement.classList.add("hidden");
 });
 
 newAuthorSubmitButton.addEventListener("click", async function (event) {

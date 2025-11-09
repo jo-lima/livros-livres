@@ -69,6 +69,22 @@
       </div>
       <div class="dashboard__popup-container hidden">
         <div class="dashboard__popup">
+          <div class="dashboard__popup-close">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </div>
           <p class="dashboard__popup-heading font--secondary">Novo autor</p>
           <form
             action="http://localhost:6969/autor/novo"
@@ -77,20 +93,24 @@
             id="new-author-form"
           >
             <div>
-              <label>Nome do autor</label>
-              <input type="text" name="nome" />
+              <label class="dashboard__popup-label">Nome do autor</label>
+              <input class="dashboard__popup-input" type="text" name="nome" />
             </div>
             <div>
-              <label>Citação</label>
-              <input type="text" name="citacao" />
+              <label class="dashboard__popup-label">Citação</label>
+              <input
+                class="dashboard__popup-input"
+                type="text"
+                name="citacao"
+              />
             </div>
             <div>
-              <label>Descrição</label>
+              <label class="dashboard__popup-label">Descrição</label>
               <textarea name="descricao"></textarea>
             </div>
             <button
               type="submit"
-              class="dashboard__popup-submit"
+              class="button dashboard__popup-submit"
               id="new-author-submit"
             >
               Enviar

@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.livros_livres.Server.Registers.Emprestimos.Emprestimo;
 
 @Getter
@@ -21,6 +22,7 @@ public class Cliente extends Usuario {
     private int clienteId;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"cliente"})
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
     @Column(name="Endereco")

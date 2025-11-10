@@ -59,6 +59,8 @@ public class AuthenticationService implements Authentication{
 
     // Check if user is admin or same client as sent mail
     public Boolean checkRestrictedPerm(String token, String mail){
+        DebugService.log("Conferindo se usuario logado tem privilégios restritos...\n"+
+                         "(É um administrador ou é dono da informação.)");
         UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
 
         if (usuarioLogado == null) {return false;}
@@ -74,6 +76,7 @@ public class AuthenticationService implements Authentication{
 
     // Check only if user is adm
     public Boolean checkAdminPerm(String token){
+        DebugService.log("Conferindo se usuario logado tem privilégios de administrador...");
         UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
 
         if (usuarioLogado == null) {return false;}
@@ -87,6 +90,7 @@ public class AuthenticationService implements Authentication{
 
     // Check if user is only logged in
     public Boolean checkLoginPerm(String token){
+        DebugService.log("Conferindo está logado...");
         UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
 
         if (usuarioLogado == null) {return false;}

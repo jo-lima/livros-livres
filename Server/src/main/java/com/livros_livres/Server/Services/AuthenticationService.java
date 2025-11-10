@@ -14,6 +14,7 @@ import com.livros_livres.Server.Registers.Server.Authentication;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Server.UsuariosAuth;
 import com.livros_livres.Server.Registers.Server.UsuariosLogados;
+import com.livros_livres.Server.Services.DebugService;
 
 import lombok.Getter;
 import lombok.Setter;

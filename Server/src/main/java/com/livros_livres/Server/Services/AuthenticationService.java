@@ -193,6 +193,22 @@ public class AuthenticationService implements Authentication{
     }
 
     // METHODS FOR DEBUG ONLY:
+    public void _addDebugAuth() {
+        if(!debug){RetornoApi.errorNotFound();}
+        UsuariosLogados newUser; // Objeto que vai ser adicionado a array de usuarios logados
+
+        DebugService.log("Added a test authenticated user.");
+
+        newUser = new UsuariosLogados(
+            "debug",
+            "debug",
+            1,
+            java.time.LocalDateTime.now()
+        );
+
+        this.usuariosLogados.add(newUser);
+    }
+
     public RetornoApi listarLogins() {
         if(debug){
             return RetornoApi.sucess("", usuariosLogados);

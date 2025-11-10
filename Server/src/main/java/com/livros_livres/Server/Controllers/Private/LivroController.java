@@ -37,7 +37,7 @@ public class LivroController{
         }
 
     @PostMapping("/lista")
-    public RetornoApi listaLivros(@RequestBody Livro body){
+    public RetornoApi listaLivros(@Nullable @RequestBody Livro body){
         return livroService.listaLivros(body);
     }
 

@@ -14,7 +14,8 @@ import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Usuarios.Cliente;
 import com.livros_livres.Server.Services.ClienteService;
 import com.livros_livres.Server.Services.DebugService;
-import com.livros_livres.Server.Registers.Server.RetornoApi;
+
+import io.micrometer.common.lang.Nullable;
 
 
 @RestController // Define a classe como um controlador rest
@@ -95,7 +96,7 @@ public class ClienteController {
 		return clienteServices.buscaCliente(idCliente);
 	}
 	@GetMapping("/lista")
-	public RetornoApi listaCliente(@RequestBody Cliente body){
+	public RetornoApi listaCliente(@Nullable @RequestBody Cliente body){
 		return clienteServices.listaClientes(body);
 	}
 	@PostMapping("/{id}/atualizar")

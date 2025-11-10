@@ -1,0 +1,27 @@
+meta {
+  name: Criar Emprestimo
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:6969/emprestimo/criar-emprestimo
+  body: json
+  auth: inherit
+}
+
+headers {
+  token: debug
+}
+
+body:json {
+  {
+    "livroId":2,
+    "clienteId":3,
+    "dataPrevistaDevolucao":"2026-12-02"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

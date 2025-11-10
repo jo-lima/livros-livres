@@ -1,0 +1,30 @@
+meta {
+  name: Finalizar Emprestimo
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:6969/emprestimo/:id/finalizar
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 12
+}
+
+headers {
+  token: debug
+}
+
+body:json {
+  {
+    "livroId":1,
+    "clienteId":3
+  }
+}
+
+settings {
+  encodeUrl: true
+}

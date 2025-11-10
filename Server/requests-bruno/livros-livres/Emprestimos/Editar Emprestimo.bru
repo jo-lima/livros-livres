@@ -1,0 +1,42 @@
+meta {
+  name: Editar Emprestimo
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:6969/emprestimo/:id/editar
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 6
+}
+
+headers {
+  token: vF1OMuRiIB!FGCINDmc3MdAxnItneQij
+}
+
+body:json {
+  {
+      "idEmprestimo": null,
+      "livro": {
+        "idLivro": null
+      },
+      "cliente": {
+        "clienteId": null
+      },
+      "ativo": null,
+      "dataSolicitacaoEmprestimo": null,
+      "dataColeta": null,
+      "dataPrevistaDevolucao": null,
+      "dataEstendidaDevolucao": null,
+      "dataDevolucao": null,
+      "status": null
+    }
+}
+
+settings {
+  encodeUrl: true
+}

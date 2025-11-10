@@ -1,0 +1,30 @@
+meta {
+  name: Busca Emprestimo
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://localhost:6969/emprestimo/:id/busca
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+headers {
+  token: debug
+}
+
+body:json {
+  {
+    "livroId":1,
+    "clienteId":3
+  }
+}
+
+settings {
+  encodeUrl: true
+}

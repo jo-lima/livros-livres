@@ -2,6 +2,7 @@ package com.livros_livres.Server.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +13,8 @@ import com.livros_livres.Server.Registers.Livros.Livro;
 
 @Repository
 public interface LivroRepo extends JpaRepository<Livro, Integer>{
+
+    Optional<Livro> findOneByIsbn(String isbn);
 
     @Query(
         value =

@@ -1,37 +1,3 @@
-// // Ações
-// booksTableElement.addEventListener("click", async function (event) {
-//   target = event.target.closest(".dashboard__action-button");
-
-//   if (target == null) return;
-
-//   let json;
-
-//   // Inativar livro
-//   if (
-//     target.classList.contains("disable-book-button") ||
-//     target.classList.contains("enable-book-button")
-//   ) {
-//     const row = target.closest("tr");
-
-//     const response = await fetch(
-//       `http://localhost:6969/livro/${row.dataset.id}/${
-//         target.classList.contains("disable-book-button") ? "inativar" : "ativar"
-//       }`,
-//       {
-//         method: "POST",
-//       }
-//     );
-
-//     json = await response.json();
-//   }
-
-//   listRenderBooks();
-//   displayMessage(json);
-// });
-
-// // Execução
-// listRenderBooks();
-
 class DashboardLivro extends DashboardBase {
   constructor() {
     super();
@@ -169,6 +135,34 @@ class DashboardLivro extends DashboardBase {
         // Atualizando a listagem
         this.listRenderBooks();
       });
+
+    // Ações
+    this.booksTableElement.addEventListener("click", async (event) => {
+      const target = event.target.closest(".dashboard__action-button");
+
+      if (target == null) return;
+
+      const rowId = target.closest("tr").dataset.id;
+
+      let json;
+
+      // Inativar livro
+      if (
+        target.classList.contains("disable-book-button") ||
+        target.classList.contains("enable-book-button")
+      ) {
+        console.log(rowId);
+
+        if (target.classList.contains("disable-book-button")) {
+          json = await this.disableBook(rowId);
+        } else {
+          json = await this.enableBook(rowId);
+        }
+
+        this.listRenderBooks();
+        this.displayMessage(json);
+      }
+    });
   }
 
   initialize() {

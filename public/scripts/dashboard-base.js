@@ -115,6 +115,26 @@ class DashboardBase {
     );
   }
 
+  // Ativar/Desativar autor
+  async changeBookStatus(id, status) {
+    const response = await fetch(
+      `http://${this.SERVER_URL}/livro/${id}/${status}`,
+      {
+        method: "POST",
+      }
+    );
+
+    return await response.json();
+  }
+
+  async disableBook(id) {
+    return await this.changeBookStatus(id, "inativar");
+  }
+
+  async enableBook(id) {
+    return await this.changeBookStatus(id, "ativar");
+  }
+
   async getBook(id) {
     const response = await fetch(`http://${this.SERVER_URL}/livro/${id}/busca`);
 

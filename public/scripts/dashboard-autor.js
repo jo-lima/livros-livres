@@ -12,9 +12,6 @@ class DashboardAutor extends DashboardBase {
     this.newAuthorForm = document.querySelector("#new-author-form");
     this.editAuthorForm = document.querySelector("#edit-author-form");
     this.editAuthorSubmit = document.querySelector("#edit-author-submit");
-
-    // Setup dos EventListeners
-    this.setUpAuthorListeners();
   }
 
   renderAllAuthors(authorsData) {
@@ -199,6 +196,7 @@ class DashboardAutor extends DashboardBase {
 
   async initialize() {
     await this.listRenderAuthors();
+    await this.setUpAuthorListeners();
   }
 }
 

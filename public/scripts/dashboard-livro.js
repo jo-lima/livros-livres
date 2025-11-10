@@ -3,10 +3,7 @@ class DashboardLivro extends DashboardBase {
     super();
 
     // Elementos
-    this.booksTableElement = document.querySelector(
-      ".dashboard__table--books tbody"
-    );
-
+    this.booksTableElement = document.querySelector(".dashboard__table--books tbody");
     this.authorsListElement = document.querySelector("#authors-list");
     this.newBookForm = document.querySelector("#new-book-form");
 
@@ -25,7 +22,7 @@ class DashboardLivro extends DashboardBase {
     this.booksTableElement.innerHTML = "";
 
     // Loopa pelos livros
-    booksData.body.forEach((book) => {
+    booksData.body.forEach(book => {
       let buttonHtml;
 
       if (book.ativo) {
@@ -71,26 +68,68 @@ class DashboardLivro extends DashboardBase {
     }
 
     // Livros disponíveis
-    document.querySelector(".dashboard__card--books-amount").textContent =
-      booksData.body.length;
+    document.querySelector(".dashboard__card--books-amount").textContent = booksData.body.length;
 
-    // Livros em estoque
-    document.querySelector(".dashboard__card--books-stock").textContent =
-      booksData.body.reduce((acc, book) => {
-        return acc + book.estoque; // Soma todos os book.estoque em um só valor
-      }, 0);
+    // Livros em estoque - Soma todos os book.estoque em um só valor
+    document.querySelector(".dashboard__card--books-stock").textContent = booksData.body.reduce((acc, book) => acc + book.estoque, 0);
   }
 
   // Populando lista de autores
-
   renderAuthorsList(authorsData) {
     this.authorsListElement.innerHTML = "";
 
-    authorsData.forEach((author) => {
+    authorsData.forEach(author => {
       const authorHtml = `<option value="${author.idAutor}">${author.nome}</option>`;
 
       this.authorsListElement.insertAdjacentHTML("beforeend", authorHtml);
     });
+  }
+
+  // Enviar formulário da criação de livro
+  async submitNewBookForm(event) {
+    // Evitando o submit do form
+    event.preventDefault();
+
+    // Capturando campos do formulário
+    const body = this.formDataObject(this.newBookForm);
+
+    const response = await this.createBook(body);
+
+    this.displayMessage(response);
+
+    // Limpando formulário
+    this.cleanForm(this.newBookForm)
+
+    // Fechar pop-up
+    this.hidePopUp();
+
+    // Atualizando a listagem
+    this.listRenderBooks();
+  }
+
+  // Ações
+  async handleBookActions(event) {
+    const target = event.target.closest(".dashboard__action-button");
+
+    if (target == null) return;
+
+    const rowId = target.closest("tr").dataset.id;
+
+    let json;
+
+    // Inativar/Ativar livro
+    if (target.classList.contains("disable-book-button") || target.classList.contains("enable-book-button")) {
+      json = target.classList.contains("disable-book-button") ? await this.disableBook(rowId) : await this.enableBook(rowId)
+
+      this.listRenderBooks();
+      this.displayMessage(json);
+    }
+  }
+
+  async setUpBookListeners() {
+    document.querySelector("#new-book-button").addEventListener("click", () => this.showPopUp(".dashboard__popup--new-book"));
+    document.querySelector("#new-book-submit").addEventListener("click", async (event) => this.submitNewBookForm(event));
+    this.booksTableElement.addEventListener("click", async (event) => this.handleBookActions(event));
   }
 
   // Renderizar e atualizar os cards
@@ -101,76 +140,9 @@ class DashboardLivro extends DashboardBase {
     });
   }
 
-  async setUpBookListeners() {
-    // Abrir pop-up
-    document
-      .querySelector("#new-book-button")
-      .addEventListener("click", () =>
-        this.showPopUp(".dashboard__popup--new-book")
-      );
-
-    // Formulário
-    document
-      .querySelector("#new-book-submit")
-      .addEventListener("click", async (event) => {
-        // Evitando o submit do form
-        event.preventDefault();
-
-        // Capturando campos do formulário
-        const body = this.formDataObject(this.newBookForm);
-
-        const response = await this.createBook(body);
-
-        this.displayMessage(response);
-
-        // Limpando formulário
-        const inputs = this.newBookForm.querySelectorAll(
-          "input, textarea, select"
-        );
-        inputs.forEach((input) => (input.value = ""));
-
-        // Fechar pop-up
-        this.hidePopUp();
-
-        // Atualizando a listagem
-        this.listRenderBooks();
-      });
-
-    // Ações
-    this.booksTableElement.addEventListener("click", async (event) => {
-      const target = event.target.closest(".dashboard__action-button");
-
-      if (target == null) return;
-
-      const rowId = target.closest("tr").dataset.id;
-
-      let json;
-
-      // Inativar livro
-      if (
-        target.classList.contains("disable-book-button") ||
-        target.classList.contains("enable-book-button")
-      ) {
-        console.log(rowId);
-
-        if (target.classList.contains("disable-book-button")) {
-          json = await this.disableBook(rowId);
-        } else {
-          json = await this.enableBook(rowId);
-        }
-
-        this.listRenderBooks();
-        this.displayMessage(json);
-      }
-    });
-  }
-
   initialize() {
     this.listRenderBooks();
-    this.getAllAuthors().then((json) => {
-      this.renderAuthorsList(json.body);
-    });
-
+    this.getAllAuthors().then(json => this.renderAuthorsList(json.body));
     this.setUpBookListeners();
   }
 }

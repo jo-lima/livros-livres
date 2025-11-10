@@ -1,0 +1,21 @@
+meta {
+  name: Enviar Troca Senha
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:6969/cliente/enviar-email-esqueci-senha
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"livroslivresanddogs@gmail.com"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

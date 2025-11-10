@@ -1,11 +1,11 @@
 meta {
-  name: Busca Autor
+  name: Ativar Livro
   type: http
-  seq: 7
+  seq: 4
 }
 
-get {
-  url: autorhttp://localhost:6969/autor/:id/busca
+post {
+  url: http://localhost:6969/livro/:id/ativar
   body: none
   auth: inherit
 }

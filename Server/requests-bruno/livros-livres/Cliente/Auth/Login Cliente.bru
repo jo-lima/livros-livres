@@ -1,0 +1,22 @@
+meta {
+  name: Login Cliente
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:6969/cliente/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "usuario":"livroslivresanddogs@gmail.com",
+    "senha":"1234"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

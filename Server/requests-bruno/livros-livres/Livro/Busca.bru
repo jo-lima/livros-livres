@@ -1,17 +1,17 @@
 meta {
-  name: Busca Autor
+  name: Busca
   type: http
-  seq: 7
+  seq: 5
 }
 
 get {
-  url: autorhttp://localhost:6969/autor/:id/busca
+  url: http://localhost:6969/livro/:id/busca
   body: none
   auth: inherit
 }
 
 params:path {
-  id: 1
+  id: 2
 }
 
 settings {

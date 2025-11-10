@@ -1,0 +1,25 @@
+meta {
+  name: Trocar Senha Cliente
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:6969/cliente/alterar-senha
+  body: json
+  auth: inherit
+}
+
+headers {
+  token: stK1EOlqLmM#TBFpbE9Buu#3j@KhYh!g
+}
+
+body:json {
+  {
+    "senha":"1234"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

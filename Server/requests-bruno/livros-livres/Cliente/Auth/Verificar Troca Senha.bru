@@ -1,0 +1,22 @@
+meta {
+  name: Verificar Troca Senha
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:6969/cliente/validar-token-troca-senha
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"livroslivresanddogs@gmail.com",
+    "codigo":"YE0QOKVX"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

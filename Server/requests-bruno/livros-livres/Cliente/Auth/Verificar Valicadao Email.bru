@@ -1,0 +1,22 @@
+meta {
+  name: Verificar Valicadao Email
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:6969/cliente/verificar-validacao-email
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"livroslivresanddogs@gmail.com",
+    "codigo":"KYL65FJF"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

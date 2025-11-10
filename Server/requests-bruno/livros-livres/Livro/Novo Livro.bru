@@ -1,0 +1,30 @@
+meta {
+  name: Novo Livro
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:6969/livro/novo
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "nome": "Diario de um Zumbi",
+      "autorId":1,
+      "genero": "null",
+      "paginas": 155,
+      "isbn": "1234",
+      "descricao": null,
+      "estoque": 0,
+      "editora": null,
+      "dataPublicacao": null,
+      "ativo": true
+  }
+}
+
+settings {
+  encodeUrl: true
+}

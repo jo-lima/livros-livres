@@ -1,0 +1,26 @@
+meta {
+  name: Lista Clientes
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:6969/cliente/lista
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "cpf": null,
+      "nome": null,
+      "email": null,
+      "senha": null,
+      "endereco": null,
+      "telefone": null
+  }
+}
+
+settings {
+  encodeUrl: true
+}

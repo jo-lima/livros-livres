@@ -1,0 +1,25 @@
+meta {
+  name: Trocar Email Cliente
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:6969/cliente/alterar-email
+  body: json
+  auth: inherit
+}
+
+headers {
+  token: kGZBC1W3jGbSU6jZWO1C8dfmCAhSr2OB
+}
+
+body:json {
+  {
+    "email":"livroslivresanddogs@gmail.com"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

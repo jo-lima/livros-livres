@@ -101,6 +101,13 @@ class DashboardBase {
   }
 
   // Livros
+  async createBook(body) {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/livro/novo`,
+      body
+    );
+  }
+
   async getAllBooks() {
     return await this.sendPostRequest(
       `http://${this.SERVER_URL}/livro/lista`,

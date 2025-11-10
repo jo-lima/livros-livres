@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,9 +36,9 @@ public class AutorController {
 	}
 
 	@PostMapping("/novo")
-	public RetornoApi novoAutor(@RequestBody Autor body){
+	public RetornoApi novoAutor(@Nullable @RequestHeader("token") String token, @RequestBody Autor body){
 		DebugService.log("Chamado endpoint novoAutor");
-		return autorService.novoAutor(body);
+		return autorService.novoAutor(token, body);
 	}
 
 	@GetMapping("/{id}/busca")
@@ -54,31 +55,31 @@ public class AutorController {
 	}
 
 	@PostMapping("/{id}/atualizar")
-	public RetornoApi atualizarAutor(@PathVariable("id") String idParam, @RequestBody Autor body){
+	public RetornoApi atualizarAutor(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam, @RequestBody Autor body){
 		DebugService.log("Chamado endpoint atualizarAutor");
 		int idAutor = Integer.parseInt(idParam);
-		return autorService.atualizarAutor(idAutor, body);
+		return autorService.atualizarAutor(token, idAutor, body);
 	}
 
 	@PostMapping("/{id}/inativar")
-	public RetornoApi inativarAutor(@PathVariable("id") String idParam){
+	public RetornoApi inativarAutor(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam){
 		DebugService.log("Chamado endpoint inativarAutor");
 		int idAutor = Integer.parseInt(idParam);
-		return autorService.inativarAutor(idAutor);
+		return autorService.inativarAutor(token, idAutor);
 	}
 
 	@PostMapping("/{id}/ativar")
-	public RetornoApi ativarAutor(@PathVariable("id") String idParam){
+	public RetornoApi ativarAutor(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam){
 		DebugService.log("Chamado endpoint ativarAutor");
 		int idAutor = Integer.parseInt(idParam);
-		return autorService.ativarAutor(idAutor);
+		return autorService.ativarAutor(token, idAutor);
 	}
 
 	@PostMapping("/{id}/deletar")
-	public RetornoApi deletarAutor(@PathVariable("id") String idParam){
+	public RetornoApi deletarAutor(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam){
 		DebugService.log("Chamado endpoint deletarAutor");
 		int idAutor = Integer.parseInt(idParam);
-		return autorService.deletarAutor(idAutor);
+		return autorService.deletarAutor(token, idAutor);
 	}
 
 }

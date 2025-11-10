@@ -59,9 +59,15 @@ public class AuthenticationService implements Authentication{
 
     // Check if user is admin or same client as sent mail
     public Boolean checkRestrictedPerm(String token, String mail){
+        DebugService.log("Conferindo se usuario logado tem privilégios restritos...\n"+
+                         "(É um administrador ou é dono da informação.)");
         UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
 
         if (usuarioLogado == null) {return false;}
+
+        if(debug){
+            DebugService.log("Email usuario logado:" + usuarioLogado.getUser() + " Email passado:" + mail);
+        }
 
         boolean isAdmin = usuarioLogado.getUserPerm() == 1;
         boolean isOwner = usuarioLogado.getUserPerm() == 0 &&
@@ -74,6 +80,7 @@ public class AuthenticationService implements Authentication{
 
     // Check only if user is adm
     public Boolean checkAdminPerm(String token){
+        DebugService.log("Conferindo se usuario logado tem privilégios de administrador...");
         UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
 
         if (usuarioLogado == null) {return false;}
@@ -87,6 +94,7 @@ public class AuthenticationService implements Authentication{
 
     // Check if user is only logged in
     public Boolean checkLoginPerm(String token){
+        DebugService.log("Conferindo está logado...");
         UsuariosLogados usuarioLogado = this.buscaUsuarioLogado(token);
 
         if (usuarioLogado == null) {return false;}
@@ -193,6 +201,22 @@ public class AuthenticationService implements Authentication{
     }
 
     // METHODS FOR DEBUG ONLY:
+    public void _addDebugAuth() {
+        if(!debug){RetornoApi.errorNotFound();}
+        UsuariosLogados newUser; // Objeto que vai ser adicionado a array de usuarios logados
+
+        DebugService.log("Added a test authenticated user.");
+
+        newUser = new UsuariosLogados(
+            "debug",
+            "debug",
+            1,
+            java.time.LocalDateTime.now()
+        );
+
+        this.usuariosLogados.add(newUser);
+    }
+
     public RetornoApi listarLogins() {
         if(debug){
             return RetornoApi.sucess("", usuariosLogados);

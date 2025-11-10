@@ -72,51 +72,53 @@ public class ClienteController {
 	}
 
 	@PostMapping("/alterar-senha")
-	public RetornoApi alterarSenha(@RequestHeader("token") String token, @RequestBody Cliente clienteData) {
+	public RetornoApi alterarSenha(@Nullable @RequestHeader("token") String token, @RequestBody Cliente clienteData) {
 		DebugService.log("Chamado endpoint alterarSenha");
 		return clienteServices.trocarSenhaCliente(token, clienteData.getSenha());
 	}
 
 	@PostMapping("/alterar-email")
-	public RetornoApi alterarEmail(@RequestHeader("token") String token, @RequestBody Cliente clienteData) {
+	public RetornoApi alterarEmail(@Nullable @RequestHeader("token") String token, @RequestBody Cliente clienteData) {
 		DebugService.log("Chamado endpoint alterarEmail");
 		return clienteServices.trocarEmailCliente(token, clienteData.getEmail());
 	}
 
 	// CRUD METHODS
  	@PostMapping("/novo")
-	public RetornoApi novoCliente(@RequestBody Cliente body) {
+	public RetornoApi novoCliente(@Nullable @RequestHeader("token") String token, @RequestBody Cliente body) {
 		DebugService.log("Chamado endpoint novoCliente");
 		return clienteServices.novoCliente(body);
 	}
 
 	@GetMapping("/{id}/busca")
-	public RetornoApi buscaCliente(@PathVariable("id") String idParam){
+	public RetornoApi buscaCliente(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam){
 		int idCliente = Integer.parseInt(idParam);
-		return clienteServices.buscaCliente(idCliente);
+		return clienteServices.buscaCliente(token, idCliente);
 	}
 	@GetMapping("/lista")
-	public RetornoApi listaCliente(@Nullable @RequestBody Cliente body){
-		return clienteServices.listaClientes(body);
+	public RetornoApi listaCliente(@Nullable @RequestHeader("token") String token, @Nullable @RequestBody Cliente body){
+		return clienteServices.listaClientes(token, body);
 	}
 	@PostMapping("/{id}/atualizar")
-	public RetornoApi atualizarCliente(@PathVariable("id") String idParam, @RequestBody Cliente body){
+	public RetornoApi atualizarCliente(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam, @RequestBody Cliente body){
 		int idCliente = Integer.parseInt(idParam);
-		return clienteServices.atualizarCliente(idCliente, body);
+		return clienteServices.atualizarCliente(token, idCliente, body);
 	}
 	@PostMapping("/{id}/inativar")
-	public RetornoApi inativarCliente(@PathVariable("id") String idParam){
+	public RetornoApi inativarCliente(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam){
 		int idCliente = Integer.parseInt(idParam);
-		return clienteServices.inativarCliente(idCliente);
+		return clienteServices.inativarCliente(token, idCliente);
 	}
 	@PostMapping("/{id}/ativar")
-	public RetornoApi ativarCliente(@PathVariable("id") String idParam){
+	public RetornoApi ativarCliente(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam){
 		int idCliente = Integer.parseInt(idParam);
-		return clienteServices.ativarCliente(idCliente);
+		return clienteServices.ativarCliente(token, idCliente);
 	}
-	@PostMapping("/{id}/deletar")
-	public RetornoApi deletarCliente(@PathVariable("id") String idParam){
-		int idCliente = Integer.parseInt(idParam);
-		return clienteServices.deletarCliente(idCliente);
-	}
+
+	// analisar
+	// @PostMapping("/{id}/deletar")
+	// public RetornoApi deletarCliente(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam){
+	// 	int idCliente = Integer.parseInt(idParam);
+	// 	return clienteServices.deletarCliente(token, idCliente);
+	// }
 }

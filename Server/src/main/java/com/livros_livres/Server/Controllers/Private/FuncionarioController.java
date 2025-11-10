@@ -44,7 +44,7 @@ public class FuncionarioController {
 	@PostMapping("/novo")
 	public Funcionario novoFuncionario(@RequestHeader("token") String token, @RequestBody Funcionario body){
 		DebugService.log("Chamado endpoint novoFuncionario!");
-		return funcionarioService.salvarFuncionario(body);
+		return funcionarioService.salvarFuncionario(token, body);
 	}
 
 	@PostMapping("/novo-cliente")

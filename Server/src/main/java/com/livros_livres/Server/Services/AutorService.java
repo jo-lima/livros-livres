@@ -3,18 +3,24 @@ package com.livros_livres.Server.Services;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.livros_livres.Server.Registers.Livros.Autor;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
+import com.livros_livres.Server.Registers.Server.UsuariosLogados;
 import com.livros_livres.Server.Repository.AutorRepo;
+
+import io.micrometer.common.lang.NonNull;
 
 @Service // Classe de serviço
 public class AutorService {
 
     @Autowired // Automaticamente monta e importa a classe que faz a conexão da tabela do autor no bd
 	private AutorRepo autorRepo;
+    @Autowired
+    private AuthenticationService authService;
 
     public Autor buscaAutorById( Integer idAutor ){
         Optional<Autor> buscaAutor;
@@ -79,16 +85,20 @@ public class AutorService {
     }
 
     // Chama o método da classe repository que salva os dados de um Autor para o banco.
-    public RetornoApi novoAutor( Autor autorData ){
+    public RetornoApi novoAutor(String token, Autor autorData ){
+
+        if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
         autorData.setAtivo(true);
         autorRepo.save(autorData);
         return RetornoApi.sucess("Autor criado com sucesso!", autorData);
     }
 
     // Edita a coluna "ativo" de um autor para fazer sua inativação. (excluão lógica).
-    public RetornoApi atualizarAutor( Integer idAutor, Autor autorData){
+    public RetornoApi atualizarAutor(String token, Integer idAutor, Autor autorData){
         Optional<Autor> buscaAutor;
         Autor autor;
+
+        if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
 
         buscaAutor = autorRepo.findById(idAutor);
         if(!buscaAutor.isPresent()) {
@@ -117,7 +127,9 @@ public class AutorService {
     }
 
     // Chama o método da classe repository que deleta um Autor no banco (excluão física).
-    public RetornoApi deletarAutor( Integer idAutor ){
+    public RetornoApi deletarAutor(String token, Integer idAutor){
+        if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
+
         Optional<Autor> buscaAutor;
 
         buscaAutor = autorRepo.findById(idAutor);
@@ -130,7 +142,9 @@ public class AutorService {
     }
 
     // Edita a coluna "ativo" de um autor para fazer sua inativação. (excluão lógica).
-    public RetornoApi inativarAutor( Integer idAutor ){
+    public RetornoApi inativarAutor(String token, Integer idAutor ){
+        if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
+
         Optional<Autor> buscaAutor;
         Autor autor;
 
@@ -152,7 +166,9 @@ public class AutorService {
     }
 
     // Edita a coluna "ativo" de um autor para fazer sua ativação.
-    public RetornoApi ativarAutor( Integer idAutor ){
+    public RetornoApi ativarAutor(String token, Integer idAutor ){
+        if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
+
         Optional<Autor> buscaAutor;
         Autor autor;
 

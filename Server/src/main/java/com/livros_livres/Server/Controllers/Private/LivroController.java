@@ -60,7 +60,7 @@ public class LivroController{
     }
 
     @PostMapping("/estoque/{id}/adicionar")
-    public RetornoApi adicionarLivroEstoque(@PathVariable("id") String idParam, @RequestParam Integer quantidade){
+    public RetornoApi adicionarLivroEstoque(@PathVariable("id") String idParam, @Nullable @RequestParam Integer quantidade){
         int idLivro = Integer.parseInt(idParam);
         return livroService.adicionarLivroEstoque(idLivro, quantidade);
     }
@@ -68,6 +68,12 @@ public class LivroController{
     @PostMapping("/estoque/{id}/remover")
     public RetornoApi removerLivroEstoque(@PathVariable("id") String idParam, @Nullable @RequestParam Integer quantidade){
         int idLivro = Integer.parseInt(idParam);
-        return livroService.adicionarLivroEstoque(idLivro, quantidade);
+        return livroService.removerLivroEstoque(idLivro, quantidade);
+    }
+
+    @PostMapping("/estoque/{id}/alterar")
+    public RetornoApi alterarEstoqueLivro(@PathVariable("id") String idParam, @RequestParam Integer quantidade){
+        int idLivro = Integer.parseInt(idParam);
+        return livroService.alterarEstoqueLivro(idLivro, quantidade);
     }
 }

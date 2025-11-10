@@ -2,10 +2,12 @@ package com.livros_livres.Server.Services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.livros_livres.Server.Registers.Livros.Autor;
 import com.livros_livres.Server.Registers.Livros.Livro;
 import com.livros_livres.Server.Registers.RequestBody.LivroRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
@@ -22,10 +24,12 @@ public class LivroService{
     private AuthenticationService authService;
 
     private boolean checkIsbnUnique(String isbn) {
+        DebugService.log("Checking if isbn " + isbn + " is unique.");
         // Pesquisa por códigos isbn
         Optional<Livro> buscaLivro = null;
-        // livroRepo.findById(isbn);
-        if (buscaLivro == null) {return false;}
+        buscaLivro = livroRepo.findOneByIsbn(isbn);
+
+        if (buscaLivro.isPresent()) {return false;}
         return true;
     }
 
@@ -95,8 +99,11 @@ public class LivroService{
     public RetornoApi novoLivro(String token, LivroRequest livroData){
         if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
 
+        DebugService.log("Started novo livro.");
+
         Livro novoLivro = new Livro();
         Livro salvoLivro;
+        Autor buscaAutor;
         // get autor by id (change into another request type?)
         // paginas cannot be <= 1
         if (
@@ -113,7 +120,16 @@ public class LivroService{
         }
 
         // TODO: Check if autor exists
-        novoLivro.setAutor(autorService.buscaAutorById(livroData.getAutorId()));
+        if (livroData.getAutorId()!=null){
+            buscaAutor = autorService.buscaAutorById(livroData.getAutorId());
+
+            if(buscaAutor == null){
+                return RetornoApi.errorBadRequest("Autor não existe para o ID passado.");
+            }
+
+            novoLivro.setAutor(buscaAutor);
+        }
+
         novoLivro.setAtivo(true);
 
         novoLivro.setNome(livroData.getNome());

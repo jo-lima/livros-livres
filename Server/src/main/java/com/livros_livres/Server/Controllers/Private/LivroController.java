@@ -27,7 +27,7 @@ public class LivroController{
     }
 
     @PostMapping("/novo")
-    public RetornoApi novoLivro(@RequestHeader("token") String token, @RequestBody LivroRequest body){
+    public RetornoApi novoLivro(@Nullable @RequestHeader("token") String token, @RequestBody LivroRequest body){
         return livroService.novoLivro(token, body);
     }
 
@@ -43,38 +43,38 @@ public class LivroController{
     }
 
     @PostMapping("/{id}/atualizar")
-    public RetornoApi atualizarLivro(@RequestHeader("token") String token, @PathVariable("id") String idParam, @RequestBody Livro body){
+    public RetornoApi atualizarLivro(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam, @RequestBody Livro body){
         int idLivro = Integer.parseInt(idParam);
         return livroService.atualizarLivro(token, idLivro, body);
     }
 
     @PostMapping("/{id}/inativar")
-    public RetornoApi inativarLivro(@RequestHeader("token") String token, @PathVariable("id") String idParam){
+    public RetornoApi inativarLivro(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam){
         int idLivro = Integer.parseInt(idParam);
         return livroService.inativarLivro(token, idLivro);
     }
 
     @PostMapping("/{id}/ativar")
-    public RetornoApi ativarLivro(@RequestHeader("token") String token, @PathVariable("id") String idParam){
+    public RetornoApi ativarLivro(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam){
         int idLivro = Integer.parseInt(idParam);
         return livroService.ativarLivro(token, idLivro);
     }
 
     @PostMapping("/estoque/{id}/adicionar")
-    public RetornoApi adicionarLivroEstoque(@PathVariable("id") String idParam, @Nullable @RequestParam Integer quantidade){
+    public RetornoApi adicionarLivroEstoque(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam, @Nullable @RequestParam Integer quantidade){
         int idLivro = Integer.parseInt(idParam);
-        return livroService.adicionarLivroEstoque(idLivro, quantidade);
+        return livroService.adicionarLivroEstoque(token, idLivro, quantidade);
     }
 
     @PostMapping("/estoque/{id}/remover")
-    public RetornoApi removerLivroEstoque(@PathVariable("id") String idParam, @Nullable @RequestParam Integer quantidade){
+    public RetornoApi removerLivroEstoque(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam, @Nullable @RequestParam Integer quantidade){
         int idLivro = Integer.parseInt(idParam);
-        return livroService.removerLivroEstoque(idLivro, quantidade);
+        return livroService.removerLivroEstoque(token, idLivro, quantidade);
     }
 
     @PostMapping("/estoque/{id}/alterar")
-    public RetornoApi alterarEstoqueLivro(@PathVariable("id") String idParam, @RequestParam Integer quantidade){
+    public RetornoApi alterarEstoqueLivro(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam, @RequestParam Integer quantidade){
         int idLivro = Integer.parseInt(idParam);
-        return livroService.alterarEstoqueLivro(idLivro, quantidade);
+        return livroService.alterarEstoqueLivro(token, idLivro, quantidade);
     }
 }

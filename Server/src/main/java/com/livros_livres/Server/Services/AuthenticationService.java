@@ -65,6 +65,10 @@ public class AuthenticationService implements Authentication{
 
         if (usuarioLogado == null) {return false;}
 
+        if(debug){
+            DebugService.log("Email usuario logado:" + usuarioLogado.getUser() + " Email passado:" + mail);
+        }
+
         boolean isAdmin = usuarioLogado.getUserPerm() == 1;
         boolean isOwner = usuarioLogado.getUserPerm() == 0 &&
                           usuarioLogado.getUser().equals(mail);

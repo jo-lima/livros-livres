@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.livros_livres.Server.Services.VariaveisHtml;
+import com.livros_livres.Server.ServerApplication;
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
 import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
@@ -16,9 +18,13 @@ import com.livros_livres.Server.Registers.Usuarios.Cliente;
 import com.livros_livres.Server.Repository.ClienteRepo;
 
 import io.micrometer.common.lang.NonNull;
+import jakarta.security.auth.message.config.ServerAuthConfig;
 
 @Service
 public class ClienteService {
+
+    @Value("${livrosLivres.debug}") // Getting value from application.properties
+    private boolean debug;
 
     @Autowired // Automaticamente monta e importa a classe que faz a conexão da tabela do cliente no bd
 	private ClienteRepo clienteRepo;
@@ -50,27 +56,26 @@ public class ClienteService {
         return cliente.get();
     }
 
-    public Cliente buscaClienteById(Integer idCliente){
-        Optional<Cliente> buscaCliente;
-
-        buscaCliente = clienteRepo.findById(idCliente);
-        if(!buscaCliente.isPresent()){
-            return null;
-        }
-        return buscaCliente.get();
-    }
-
-    public RetornoApi buscaCliente(Integer idCliente){
+    public RetornoApi buscaCliente(String token, Integer idCliente){
         Optional<Cliente> buscaCliente;
 
         buscaCliente = clienteRepo.findById(idCliente);
         if(!buscaCliente.isPresent()){
             return RetornoApi.errorNotFound("Nenhum cliente encontrado");
         }
-        return RetornoApi.sucess("",buscaCliente);
+        if(!authService.checkRestrictedPerm(token, buscaCliente.get().getEmail())){
+            if(debug){
+                return RetornoApi.errorBadRequest("[DEBUG ONLY] Cliente encontrado mas você não possui os privilégios necessários para acessa-lo!");
+            }
+            return RetornoApi.errorNotFound("Nenhum cliente encontrado");
+        }
+
+        return RetornoApi.sucess("Cliente encontrado!",buscaCliente);
     }
 
-    public RetornoApi listaClientes(){
+    public RetornoApi listaClientes(String token){
+        if(!authService.checkAdminPerm(token)){return RetornoApi.errorForbidden();}
+
         List<Cliente> buscaCliente;
 
         buscaCliente = clienteRepo.findAll();
@@ -81,11 +86,13 @@ public class ClienteService {
         return RetornoApi.sucess("",buscaCliente);
     }
 
-    public RetornoApi listaClientes(Cliente clienteData){
+    public RetornoApi listaClientes(String token, Cliente clienteData){
+        if(!authService.checkAdminPerm(token)){return RetornoApi.errorForbidden();}
+
         List<Cliente> listaCliente;
         String clienteAtivo = null;
 
-        if(clienteData==null){
+        if(clienteData==null) {
             listaCliente = clienteRepo.findAll();
         }
         else{
@@ -111,17 +118,11 @@ public class ClienteService {
         Optional<Cliente> buscaCliente;
         Cliente cliente;
 
-        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
-        if(usuarioLogado == null || (usuarioLogado.getUserPerm() == 0 &&
-        clienteData.getEmail() != usuarioLogado.getUser()))
-        {
-            return RetornoApi.errorForbidden();
-        }
-
         buscaCliente = clienteRepo.findById(idCliente);
 
+        if(!authService.checkRestrictedPerm(token, buscaCliente.get().getEmail())){return RetornoApi.errorForbidden();}
         if(!buscaCliente.isPresent()){
-            return RetornoApi.errorNotFound("Nenhum aturo encontrado");
+            return RetornoApi.errorNotFound("Nenhum cliente encontrado");
         }
         if(clienteData.getAtivo() != null){
             return RetornoApi.errorBadRequest("Campo ativo alterado apenas no endpoint de inativar ou ativar.");
@@ -176,12 +177,9 @@ public class ClienteService {
         Optional<Cliente> buscaCliente;
         Cliente cliente;
 
-        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
-        if(usuarioLogado.getUserPerm() != 1){
-            return RetornoApi.errorForbidden();
-        }
-
         buscaCliente = clienteRepo.findById(idCliente);
+
+        if(!authService.checkRestrictedPerm(token, buscaCliente.get().getEmail())){return RetornoApi.errorForbidden();}
 
         if(!buscaCliente.isPresent()){
             return RetornoApi.errorNotFound("Nenhum cliente encontrado");
@@ -202,10 +200,7 @@ public class ClienteService {
         Optional<Cliente> buscaCliente;
         Cliente cliente;
 
-        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
-        if(usuarioLogado.getUserPerm() != 1){
-            return RetornoApi.errorForbidden();
-        }
+        if(!authService.checkAdminPerm(token)){return RetornoApi.errorForbidden();}
 
         buscaCliente = clienteRepo.findById(idCliente);
 

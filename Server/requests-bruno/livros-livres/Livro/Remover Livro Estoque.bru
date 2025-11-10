@@ -5,13 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:6969/livro/estoque/:id/remover?quantidade=11
+  url: http://localhost:6969/livro/estoque/:id/remover?quantidade=1
   body: none
   auth: inherit
 }
 
 params:query {
-  quantidade: 11
+  quantidade: 1
 }
 
 params:path {
@@ -19,7 +19,7 @@ params:path {
 }
 
 headers {
-  token: 
+  token: debug
 }
 
 settings {

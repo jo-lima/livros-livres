@@ -223,6 +223,9 @@ public class LivroService{
 
         return RetornoApi.sucess("Adicionado " + quantidade.toString() + " a quantidade de livros no estoque.", livro);
     }
+    public RetornoApi adicionarLivroEstoque(String token, Integer idLivro) {
+        return removerLivroEstoque(token, idLivro, 1);
+    }
 
     public RetornoApi removerLivroEstoque(String token, Integer idLivro, Integer quantidade){
         if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
@@ -244,6 +247,11 @@ public class LivroService{
 
         return RetornoApi.sucess("Removido " + quantidade.toString() + " a quantidade de livros no estoque.", livro);
     }
+    public RetornoApi removerLivroEstoque(String token, Integer idLivro) {
+        DebugService.log("Removendo um a quantidade de livros...");
+        return removerLivroEstoque(token, idLivro, 1);
+    }
+
 
     public RetornoApi alterarEstoqueLivro(String token, Integer idLivro, Integer quantidade){
         if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }

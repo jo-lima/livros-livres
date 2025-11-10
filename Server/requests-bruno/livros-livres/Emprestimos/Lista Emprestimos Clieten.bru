@@ -1,0 +1,29 @@
+meta {
+  name: Lista Emprestimos Clieten
+  type: http
+  seq: 9
+}
+
+get {
+  url: http://localhost:6969/emprestimo/lista/cliente/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 3
+}
+
+headers {
+  token: HjJk#u8xWDetE$0nDreM8v$3Rb@f9P5e
+}
+
+body:json {
+  {
+    "emprestimoStatus":"ACEITO"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

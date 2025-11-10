@@ -2,6 +2,7 @@ package com.livros_livres.Server.Registers.Emprestimos;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.livros_livres.Server.Registers.Livros.Livro;
 import com.livros_livres.Server.Registers.Usuarios.Cliente;
 
@@ -25,6 +26,7 @@ public class Emprestimo {
 
     @ManyToOne
     @JoinColumn(name="idUsuario")
+    @JsonIgnoreProperties({"emprestimos"})
     private Cliente cliente;
 
     @Column(name="Ativo", nullable = false)

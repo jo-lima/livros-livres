@@ -11,6 +11,7 @@ class DashboardLivro extends DashboardBase {
     this.initialize();
   }
 
+  // Renderiza os livros na tabela
   async renderBooks(booksData) {
     // TODO - Lidar
     if (booksData.statusCode == 404) {
@@ -18,10 +19,8 @@ class DashboardLivro extends DashboardBase {
       return;
     }
 
-    // Limpa a grid antes de renderizar
     this.booksTableElement.innerHTML = "";
 
-    // Loopa pelos livros
     booksData.body.forEach(book => {
       let buttonHtml;
 
@@ -87,27 +86,18 @@ class DashboardLivro extends DashboardBase {
 
   // Enviar formulário da criação de livro
   async submitNewBookForm(event) {
-    // Evitando o submit do form
     event.preventDefault();
 
-    // Capturando campos do formulário
     const body = this.formDataObject(this.newBookForm);
-
     const response = await this.createBook(body);
 
     this.displayMessage(response);
-
-    // Limpando formulário
     this.cleanForm(this.newBookForm)
-
-    // Fechar pop-up
     this.hidePopUp();
-
-    // Atualizando a listagem
     this.listRenderBooks();
   }
 
-  // Ações
+  // Ações individuais dos livros
   async handleBookActions(event) {
     const target = event.target.closest(".dashboard__action-button");
 
@@ -126,6 +116,7 @@ class DashboardLivro extends DashboardBase {
     }
   }
 
+  // Aplicando os EventListeners
   async setUpBookListeners() {
     document.querySelector("#new-book-button").addEventListener("click", () => this.showPopUp(".dashboard__popup--new-book"));
     document.querySelector("#new-book-submit").addEventListener("click", async (event) => this.submitNewBookForm(event));
@@ -140,6 +131,7 @@ class DashboardLivro extends DashboardBase {
     });
   }
 
+  // Inicialização
   initialize() {
     this.listRenderBooks();
     this.getAllAuthors().then(json => this.renderAuthorsList(json.body));

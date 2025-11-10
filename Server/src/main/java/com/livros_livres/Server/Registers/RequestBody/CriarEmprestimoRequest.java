@@ -1,5 +1,6 @@
 package com.livros_livres.Server.Registers.RequestBody;
 
+import io.micrometer.common.lang.NonNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,9 @@ import lombok.Setter;
 @Setter
 public class CriarEmprestimoRequest {
 
+    @NonNull
     private Integer livroId;
+    @NonNull
     private Integer clienteId;
 
 }

@@ -1,11 +1,11 @@
 meta {
-  name: Inativar Livro
+  name: Adicionar Livro Estoque
   type: http
-  seq: 3
+  seq: 8
 }
 
 post {
-  url: http://localhost:6969/livro/:id/inativar
+  url: http://localhost:6969/livro/estoque/:id/adicionar
   body: none
   auth: inherit
 }
@@ -15,7 +15,7 @@ params:path {
 }
 
 headers {
-  token: debug
+  token: 
 }
 
 settings {

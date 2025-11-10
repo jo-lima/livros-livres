@@ -25,7 +25,8 @@ public class FuncionarioService {
     @Autowired
     ClienteService clienteService;
 
-    public Funcionario salvarFuncionario( Funcionario funcionarioData ){
+    public Funcionario salvarFuncionario( String token, Funcionario funcionarioData ){
+        if(!authService.checkAdminPerm(token)){ return null; }
         return funcionarioRepo.save(funcionarioData);
     }
 
@@ -63,8 +64,7 @@ public class FuncionarioService {
 
     public RetornoApi criaNovoCliente(String token, Cliente clienteData) {
         // Checks user permissions
-        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
-        if(usuarioLogado == null || usuarioLogado.getUserPerm() != 1){return RetornoApi.errorForbidden();}
+        if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
 
         String senhaTmp = authService.tokenGenerator(16, true);
         UsuariosAuth userCreatedAuth;

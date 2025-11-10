@@ -14,6 +14,7 @@ import com.livros_livres.Server.Registers.Emprestimos.Emprestimo;
 import com.livros_livres.Server.Registers.Emprestimos.EmprestimoStatus;
 import com.livros_livres.Server.Registers.Livros.Livro;
 import com.livros_livres.Server.Registers.Usuarios.Cliente;
+import com.livros_livres.Server.Repository.ClienteRepo;
 import com.livros_livres.Server.Repository.EmprestimoRepo;
 
 @Service
@@ -21,6 +22,8 @@ public class EmprestimoService {
 
     @Autowired
     EmprestimoRepo emprestimoRepo;
+    @Autowired
+    ClienteRepo clienteRepo;
     @Autowired
     AuthenticationService authService;
     @Autowired
@@ -144,7 +147,7 @@ public class EmprestimoService {
         if(usuarioLogado == null || usuarioLogado.getUserPerm() != 1 ){return RetornoApi.errorForbidden();}
 
         Livro livroPedido = livroService.buscaLivroById(pedidoEmprestimo.getLivroId());
-        Cliente cliente = clienteService.buscaClienteById(pedidoEmprestimo.getClienteId());
+        Cliente cliente = clienteRepo.findById(pedidoEmprestimo.getClienteId()).get();
 
         if(livroPedido.getEstoque() <= 0 || livroPedido.getAtivo() != true) {return RetornoApi.errorBadRequest("Este livro não possui disponibilidade no estoque!");}
 

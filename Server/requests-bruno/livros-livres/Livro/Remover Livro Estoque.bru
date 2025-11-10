@@ -1,0 +1,27 @@
+meta {
+  name: Remover Livro Estoque
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:6969/livro/estoque/:id/remover?quantidade=11
+  body: none
+  auth: inherit
+}
+
+params:query {
+  quantidade: 11
+}
+
+params:path {
+  id: 1
+}
+
+headers {
+  token: 
+}
+
+settings {
+  encodeUrl: true
+}

@@ -10,12 +10,15 @@ get {
   auth: inherit
 }
 
+headers {
+  token: debug
+}
+
 body:json {
   {
       "cpf": null,
       "nome": null,
       "email": null,
-      "senha": null,
       "endereco": null,
       "telefone": null
   }

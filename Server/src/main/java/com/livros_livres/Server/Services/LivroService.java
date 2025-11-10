@@ -85,19 +85,14 @@ public class LivroService{
     }
 
     public RetornoApi novoLivro(String token, LivroRequest livroData){
+        if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
+
         Livro novoLivro = new Livro();
 
-        UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
-        if(usuarioLogado.getUserPerm() != 1){
-            return RetornoApi.errorForbidden();
-        }
-
-        // get autor by id (change into another request type?)
-        // paginas cannot be <= 1
         if (
             livroData.getNome() == null ||
             livroData.getGenero() == null ||
-            livroData.getPaginas() <= 0 ||
+            livroData.getPaginas() <= 0 || // TODO: Change this
             livroData.getIsbn() == null
         ) {
             return RetornoApi.errorBadRequest("Insira os valores requeridos para criação do livro.");

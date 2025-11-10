@@ -27,9 +27,9 @@ public class LivroController{
     }
 
     @PostMapping("/novo")
-    public RetornoApi novoLivro(@RequestHeader("token") String token, @RequestBody Livro body){
-            return livroService.novoLivro(token, body);
-        }
+    public RetornoApi novoLivro(@RequestHeader("token") String token, @RequestBody LivroRequest body){
+        return livroService.novoLivro(token, body);
+    }
 
     @GetMapping("/{id}/busca")
     public RetornoApi buscaLivro(@PathVariable("id") String idParam){

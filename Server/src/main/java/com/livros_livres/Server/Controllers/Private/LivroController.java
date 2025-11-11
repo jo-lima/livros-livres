@@ -43,7 +43,7 @@ public class LivroController{
     }
 
     @PostMapping("/{id}/atualizar")
-    public RetornoApi atualizarLivro(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam, @RequestBody Livro body){
+    public RetornoApi atualizarLivro(@Nullable @RequestHeader("token") String token, @PathVariable("id") String idParam, @RequestBody LivroRequest body){
         int idLivro = Integer.parseInt(idParam);
         return livroService.atualizarLivro(token, idLivro, body);
     }

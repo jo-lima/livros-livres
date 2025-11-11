@@ -28,6 +28,9 @@ public class Autor {
     @Column(name="Citacao")
     private String citacao;
 
+    @Column(name="Imagem")
+    private String imagem;
+
     // @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
     @OneToMany(mappedBy="autor")
     @JsonIgnoreProperties("autor")
@@ -38,10 +41,11 @@ public class Autor {
 
     public Autor() {}
 
-    public Autor(Collection<Livro> livros, String nome, String descricao, String citacao, Boolean ativo){
+    public Autor(Collection<Livro> livros, String nome, String descricao, String imagem, String citacao, Boolean ativo){
         this.livros = livros;
         this.nome = nome;
         this.descricao = descricao;
+        this.imagem = imagem;
         this.citacao = citacao;
         this.ativo = ativo;
     }

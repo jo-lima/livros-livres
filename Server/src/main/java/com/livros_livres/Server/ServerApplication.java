@@ -9,12 +9,14 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.livros_livres.Server.Services.AuthenticationService;
 
+@EnableScheduling
+@EntityScan("com.livros_livres.Server.*")
 @EnableJpaRepositories("com.livros_livres.Server.*")
 @ComponentScan(basePackages = { "com.livros_livres.Server.*" })
-@EntityScan("com.livros_livres.Server.*")
 @SpringBootApplication()
 public class ServerApplication {
 

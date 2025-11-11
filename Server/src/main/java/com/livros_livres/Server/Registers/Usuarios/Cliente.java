@@ -27,10 +27,15 @@ public class Cliente extends Usuario {
 
     @Column(name="Endereco")
     private String endereco;
+
     @Column(name="Telefone")
     private String telefone;
+
     @Column(name="Email", unique = true, nullable=false)
     private String email;
+
+    @Column(name="Imagem")
+    private String imagem;
 
     public Cliente() {
         super();

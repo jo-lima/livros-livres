@@ -20,6 +20,19 @@ class DashboardBase {
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
+        "token":"debug"
+      },
+    });
+
+    return await response.json();
+  }
+
+  async sendGetRequest(url, body) {
+    const response = await fetch(url, {
+      method: "GET",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
       },
     });
 
@@ -139,6 +152,14 @@ class DashboardBase {
     const response = await fetch(`http://${this.SERVER_URL}/livro/${id}/busca`);
 
     return await response.json();
+  }
+
+  // Empréstimos
+  async getAllEmprestimos() {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/emprestimo/lista`,
+      {}
+    );
   }
 
   // Mensagem

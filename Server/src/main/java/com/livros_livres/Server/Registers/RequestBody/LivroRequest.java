@@ -16,6 +16,7 @@ public class LivroRequest {
     private Integer paginas;
     private String isbn;
     private String descricao;
+    private String imagem;
     private Integer estoque;
     private String editora;
     private LocalDate dataPublicacao;
@@ -25,7 +26,7 @@ public class LivroRequest {
     public LivroRequest() {}
 
     public LivroRequest( Integer idLivro, Integer autorId, String nome, String genero, Integer paginas, String isbn, String descricao,
-                  Integer estoque, String editora, LocalDate dataPublicacao, Boolean ativo ) {
+                  String imagem, Integer estoque, String editora, LocalDate dataPublicacao, Boolean ativo ) {
 
         this.idLivro = idLivro;
         this.autorId = autorId;
@@ -34,6 +35,7 @@ public class LivroRequest {
         this.paginas = paginas;
         this.isbn = isbn;
         this.descricao = descricao;
+        this.imagem = imagem;
         this.estoque = estoque;
         this.editora = editora;
         this.dataPublicacao = dataPublicacao;

@@ -5,9 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:6969/livro/estoque/:id/adicionar
+  url: http://localhost:6969/livro/estoque/:id/adicionar?quantidade=15
   body: none
   auth: inherit
+}
+
+params:query {
+  quantidade: 15
 }
 
 params:path {

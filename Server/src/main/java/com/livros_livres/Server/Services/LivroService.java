@@ -119,7 +119,6 @@ public class LivroService{
             return RetornoApi.errorBadRequest("ISBN deve ser único.");
         }
 
-        // TODO: Check if autor exists
         if (livroData.getAutorId()!=null){
             buscaAutor = autorService.buscaAutorById(livroData.getAutorId());
 
@@ -151,8 +150,9 @@ public class LivroService{
         return RetornoApi.sucess("Livro cadastrado com sucesso", salvoLivro);
     }
 
-    public RetornoApi atualizarLivro(String token, Integer idLivro, Livro livroData){
+    public RetornoApi atualizarLivro(String token, Integer idLivro, LivroRequest livroData){
         Optional<Livro> buscaLivro;
+        Autor buscaAutor;
         Livro livro;
 
         if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
@@ -171,13 +171,10 @@ public class LivroService{
         if(livroData.getNome() != null) {
             livro.setNome(livroData.getNome());
         }
-        if(livroData.getAutor() != null) {
-            livro.setAutor(livroData.getAutor());
-        }
         if(livroData.getGenero() != null){
             livro.setGenero(livroData.getGenero());
         }
-        if(livroData.getPaginas() != 0){
+        if(livroData.getPaginas() != null){
             livro.setPaginas(livroData.getPaginas());
         }
         if(livroData.getIsbn() != null){
@@ -186,7 +183,10 @@ public class LivroService{
         if(livroData.getDescricao()!= null){
             livro.setDescricao(livroData.getDescricao());
         }
-        if(livroData.getEstoque() != 0){
+        if(livroData.getImagem()!= null){
+            livro.setImagem(livroData.getImagem());
+        }
+        if(livroData.getEstoque() != null){
             livro.setEstoque(livroData.getEstoque());
         }
         if(livroData.getEditora()!= null){
@@ -198,7 +198,17 @@ public class LivroService{
         if(livroData.getAtivo()!= null){
             livro.setAtivo(livroData.getAtivo());
         }
-        // TODO: Atualizar autor
+
+        if (livroData.getAutorId()!=null){
+            buscaAutor = autorService.buscaAutorById(livroData.getAutorId());
+
+            if(buscaAutor == null){
+                return RetornoApi.errorBadRequest("Autor não existe para o ID passado.");
+            }
+
+            livro.setAutor(buscaAutor);
+        }
+
         livroRepo.save(livro);
         return RetornoApi.sucess("Autor atualizado com sucesso!", livro);
     }
@@ -213,7 +223,7 @@ public class LivroService{
 
         buscaLivro = livroRepo.findById(idLivro);
 
-        if(!buscaLivro.isPresent() && quantidade != 0){
+        if(!buscaLivro.isPresent() && quantidade != null){
             return RetornoApi.errorNotFound("Nenhum livro encontrado.");
         }
 

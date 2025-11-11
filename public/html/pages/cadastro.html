@@ -20,11 +20,17 @@
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐕</text></svg>"
     />
     <link rel="stylesheet" href="/public/css/main.css" />
-     <link rel="stylesheet" href="../../css/pages/cadastro.css">
+     <link rel="stylesheet" href="../../css/pages/cadastro.css"/>
+     <link rel="stylesheet" href="../../css/components/nav.css"/>
+     <link rel="stylesheet" href="../../css/components/footer.css"/>
     <title>Acervo</title>
   </head>
-  <body background="/public/images/login/fundo de cachorrinho.jpg">
-
+<body>
+<nav class="main-nav dashboard__nav">
+      <a href="/public/html/index.html" class="main-nav__link">inicio</a>
+      <a href="/public/html/pages/acervo.html" class="main-nav__link">acervo</a>
+      <a href="www.google.com" class="main-nav__link">entrar</a>
+    </nav>
 
 <div class="div-page__register-user">
   <main class="main__register-user">
@@ -34,29 +40,36 @@
         <div class="div-main__register-user">
           <form class="form__register-user">
             <div class="div-box__password-email">
-                <p class="header__register-user">Nome</p>
-                <input class="form-box__register-user" type="email" name="user_email" placeholder="Insira seu nome completo">
-            </div>
-            <div class="div-box__password-email">
                 <p class="header__register-user">E-mail</p>
-                <input class="form-box__register-user" type="email" name="user_email" placeholder="Insira seu email">
+                <input class="form-box__register-user form-box__register-user--email" type="email" name="user_email" placeholder="Insira seu email">
             </div>
+            
+            <div class="div-box__password-email">
+                <p class="header__register-user">Nome</p>
+                <input class="form-box__register-user form-box__register-user--name" type="email" name="user_email" placeholder="Insira seu nome completo">
+            </div>
+            
+
             <div class="div-box__password-email">
                 <p class="header__register-user">CPF</p>
-                <input class="form-box__register-user" type="email" name="user_email" placeholder="Insira seu CPF">
+                <input class="form-box__register-user form-box__register-user--cpf" type="email" name="user_email" placeholder="Insira seu CPF">
             </div>
+
             <div class="div-box__password-email">
                 <p class="header__register-user">Endereço</p>
-                <input class="form-box__register-user" type="email" name="user_email" placeholder="Insira seu endereço">
+                <input class="form-box__register-user form-box__register-user--address" type="email" name="user_email" placeholder="Insira seu endereço">
             </div>
+
             <div class="div-box__password-email">
                 <p class="header__register-user">Telefone</p>
-                <input class="form-box__register-user" type="email" name="user_email" placeholder="Insira seu telefone">
+                <input class="form-box__register-user form-box__register-user--tel" type="email" name="user_email" placeholder="Insira seu telefone">
             </div>
+
             <div class="div-box__password-email">
                 <p class="header__register-user">Senha</p>
-                <input class="form-box__register-user" type="email" name="user_email" placeholder="Crie uma senha">
+                <input class="form-box__register-user form-box__register-user--email" type="email" name="user_email" placeholder="Crie uma senha">
             </div>
+
           </form>
         </div>
       <input class="button__register-user" type="submit" value="Cadastrar">

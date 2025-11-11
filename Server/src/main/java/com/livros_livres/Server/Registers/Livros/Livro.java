@@ -40,8 +40,8 @@ public class Livro {
     @Column(name="Descricao")
     private String descricao;
 
-    // @Column(name="Avaliacao")
-    // private double avaliacao;
+    @Column(name="Imagem")
+    private String imagem;
 
     @Column(name="Estoque")
     private int estoque;
@@ -58,13 +58,14 @@ public class Livro {
     public Livro() {}
 
     public Livro( Autor autor, String nome, String genero, Integer paginas, String isbn, String descricao,
-                  Integer estoque, String editora, LocalDate dataPublicacao, Boolean ativo ) {
+                  String imagem, Integer estoque, String editora, LocalDate dataPublicacao, Boolean ativo ) {
         this.autor = autor;
         this.nome = nome;
         this.genero = genero;
         this.paginas = paginas;
         this.isbn = isbn;
         this.descricao = descricao;
+        this.imagem = imagem;
         this.estoque = estoque;
         this.editora = editora;
         this.dataPublicacao = dataPublicacao;

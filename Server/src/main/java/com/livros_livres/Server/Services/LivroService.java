@@ -137,6 +137,7 @@ public class LivroService{
         novoLivro.setPaginas(livroData.getPaginas());
         novoLivro.setIsbn(livroData.getIsbn());
         novoLivro.setDescricao(livroData.getDescricao());
+        novoLivro.setImagem(livroData.getImagem());
         novoLivro.setEditora(livroData.getEditora());
         novoLivro.setDataPublicacao(livroData.getDataPublicacao());
 

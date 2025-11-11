@@ -90,7 +90,7 @@ html{
 .button__register-user:hover{
     background-color: white;
     color: var(--text-color--green--regular);
-    border: 1px solid var(--text-color--green--regular);;
+    border: 1px solid var(--text-color--green--regular);
 }
 .form__register-user{
     width: 100%;

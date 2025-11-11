@@ -1,0 +1,23 @@
+meta {
+  name: Adicionar Livro Estoque
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:6969/livro/estoque/:id/adicionar
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+headers {
+  token: debug
+}
+
+settings {
+  encodeUrl: true
+}

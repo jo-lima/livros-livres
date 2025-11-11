@@ -1,0 +1,29 @@
+meta {
+  name: Adiar Emprestimo
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:6969/emprestimo/:id/adiar
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 7
+}
+
+headers {
+  token: debug
+}
+
+body:json {
+  {
+    "dataEstendidaDevolucao":"2025-11-30"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

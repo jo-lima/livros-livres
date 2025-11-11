@@ -101,11 +101,38 @@ class DashboardBase {
   }
 
   // Livros
+  async createBook(body) {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/livro/novo`,
+      body
+    );
+  }
+
   async getAllBooks() {
     return await this.sendPostRequest(
       `http://${this.SERVER_URL}/livro/lista`,
       {}
     );
+  }
+
+  // Ativar/Desativar autor
+  async changeBookStatus(id, status) {
+    const response = await fetch(
+      `http://${this.SERVER_URL}/livro/${id}/${status}`,
+      {
+        method: "POST",
+      }
+    );
+
+    return await response.json();
+  }
+
+  async disableBook(id) {
+    return await this.changeBookStatus(id, "inativar");
+  }
+
+  async enableBook(id) {
+    return await this.changeBookStatus(id, "ativar");
   }
 
   async getBook(id) {

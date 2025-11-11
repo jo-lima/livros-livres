@@ -1,12 +1,14 @@
 package com.livros_livres.Server.Services;
 
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.livros_livres.Server.Registers.RequestBody.AuthRequest;
@@ -200,6 +202,17 @@ public class AuthenticationService implements Authentication{
         }
         return null;
     }
+
+    @Scheduled(cron = "0 */1 * ? * *")
+    private void deletaSolicitacaoAutenticacaoExpirada() {
+        DebugService.log("Removendo solicitações de autenticação com + de 5 minutos.");
+        for (UsuariosAuth u : usuariosAuths) {
+            if (u != null && LocalDateTime.now().isBefore(u.getDataTokenGerado().plusMinutes(5))) {
+                this.deletaSolicitacaoAutenticacao(u);
+            }
+        }
+    }
+
 
     // METHODS FOR DEBUG ONLY:
     public void _addDebugAuth() {

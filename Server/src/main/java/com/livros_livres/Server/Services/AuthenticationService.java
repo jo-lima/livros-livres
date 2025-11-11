@@ -203,13 +203,14 @@ public class AuthenticationService implements Authentication{
         return null;
     }
 
-    @Scheduled(cron = "0 */1 * ? * *")
+    @Scheduled(cron = "0 */5 * ? * *")
     private void deletaSolicitacaoAutenticacaoExpirada() {
         DebugService.log("Removendo solicitações de autenticação com + de 5 minutos.");
-        for (UsuariosAuth u : usuariosAuths) {
-            if (u != null && LocalDateTime.now().isBefore(u.getDataTokenGerado().plusMinutes(5))) {
-                this.deletaSolicitacaoAutenticacao(u);
-            }
+        LocalDateTime now = LocalDateTime.now();
+        synchronized (usuariosAuths) {
+            usuariosAuths.removeIf(u ->
+                u != null && now.isAfter(u.getDataTokenGerado().plusMinutes(5))
+            );
         }
     }
 

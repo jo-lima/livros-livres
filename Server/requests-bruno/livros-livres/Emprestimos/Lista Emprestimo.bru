@@ -1,0 +1,25 @@
+meta {
+  name: Lista Emprestimo
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://localhost:6969/emprestimo/lista
+  body: json
+  auth: inherit
+}
+
+headers {
+  token: debug
+}
+
+body:json {
+  {
+    "emprestimoStatus":null
+  }
+}
+
+settings {
+  encodeUrl: true
+}

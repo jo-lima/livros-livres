@@ -1,0 +1,30 @@
+meta {
+  name: Cancelar Emprestimo
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:6969/emprestimo/:id/cancelar
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 3
+}
+
+headers {
+  token: debug
+}
+
+body:json {
+  {
+    "livroId":1,
+    "clienteId":3
+  }
+}
+
+settings {
+  encodeUrl: true
+}

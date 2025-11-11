@@ -1,0 +1,27 @@
+meta {
+  name: Novo Pedido
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:6969/emprestimo/criar-pedido
+  body: json
+  auth: inherit
+}
+
+headers {
+  token: PXkMPQNJcrNPmV5B3xGmUHXm6Pl40M26
+}
+
+body:json {
+  {
+    "livroId":1,
+    "clienteId":3,
+    "dataPrevistaDevolucao":"2025-11-10"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

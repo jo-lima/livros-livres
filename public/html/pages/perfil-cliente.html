@@ -24,316 +24,169 @@
   </head>
   <body>
     <nav class="main-nav">
-      <a href="/public/html/index.html" class="main-nav__link">inicio</a>
-      <a href="/public/html/pages/acervo.html" class="main-nav__link">acervo</a>
-      <a href="www.google.com" class="main-nav__link">entrar</a>
+      <a href="/public/html/index.html">inicio</a>
+      <a href="/public/html/index.html">acervo</a>
+      <a href="/public/html/index.html">entrar</a>
     </nav>
-    <section class="section__profile-info">
-      <div class="container profile-info__container">
-        <div class="profile-info__profile-picture"></div>
-        <div class="profile-data__container">
-          <h2 class="profile-data__heading">Informações do Perfil:</h2>
-          <div class="profile-data__fields">
-            <p class="profile-data__field">
-              Nome: <span class="profile-data__field--name">Caio Polonio</span>
-            </p>
-            <p class="profile-data__field">
-              Email:
-              <span class="profile-data__field--email"
-                >caiopolonio@gmail.com</span
-              >
-            </p>
-            <p class="profile-data__field">
-              Senha:
-              <span class="profile-data__field--password">******</span>
-            </p>
-            <p class="profile-data__field">
-              Data de Nascimento:
-              <span class="profile-data__field--birthdate">d/mm/aaaa</span>
-            </p>
-          </div>
-          <button class="profile-data__edit-button button">Editar</button>
+    <div class="profile-content">
+      <section class="profile-info-tab">
+        <div class="profile-info-tab__pfp">
+          <img src="/public/images/perfil-cliente/porra-cara-nao-sei-velho.jpg" alt="#">
         </div>
-      </div>
-    </section>
-    <section class="section__loans">
-      <div class="container loans__container">
-        <div class="loans__pendencies">
-          <h2 class="loans__heading">Pendências</h2>
-          <div class="pendency">
-            <p class="pendency__book-title">Pequeno Principe</p>
-            <div class="pendency__date-container">
-              <p class="pendency__date-heading">Data Coleta:</p>
-              <p class="pendency__date">dd/mm/aaaa</p>
-            </div>
-            <div class="pendency__date-container">
-              <p class="pendency__date-heading">Data de Devolução:</p>
-              <p class="pendency__date">dd/mm/aaaa</p>
-            </div>
-            <button class="pendency__details-button button">Detalhes</button>
+        <div class="profile-info-tab__perfil-data">
+          <h2 class="perfil-data__title">Informações do Perfil:</h1>
+          <p class="perfil-data__nome">Nome: Caio Polonio</p>
+          <p class="perfil-data__email">Email: caiopolonio@gmail.com</p>
+          <p class="perfil-data__senha">senha: *****</p>
+          <p class="perfil-data__data-nascimento">Data de Nascimento: dd/mm/aaaa</p>
+          <div class="perfil-data__editar-infos">
+            <button class="editar-infos__button">Editar</button>
           </div>
-          <div class="pendency">
-            <p class="pendency__book-title">Senhor dos Anéis</p>
-            <div class="pendency__date-container">
-              <p class="pendency__date-heading">Data Coleta:</p>
-              <p class="pendency__date">dd/mm/aaaa</p>
-            </div>
-            <div class="pendency__date-container">
-              <p class="pendency__date-heading">Data de Devolução:</p>
-              <p class="pendency__date">dd/mm/aaaa</p>
-            </div>
-            <button class="pendency__details-button button">Detalhes</button>
-          </div>
+        </div>
+      </section>
+      <hr>
+      <section class="emprestimos-tab">
+        <div class="emprestimos-tab__titles">
+          <h2 class="titles__pendencias-title">Pendencias:</h2>
+          <h2 class="titles__livro-atual-title">Livro Atual:</h2>
+        </div>
+        <div class="emprestimos-tab__content">
+          <div class="content__pendencias-list">
+            <div class="pendencias-list__pendencias">
+              <div class="pendencias__pendencia">
+                <p class="pendencia__nome">Livro Pequeno Principe:</p>
+                <div class="pendencia__data-coleta pendencia__data">
+                  <p class="data-coleta__title">Data Coleta:</p>
+                  <p class="data-coleta__info">dd/mm/aaaa</p>
+                </div>
+                <div class="pendencia__data-devolucao pendencia__data">
+                  <p class="data-devolucao__title">Data de Devolução:</p>
+                  <p class="data-devolucao__info">dd/mm/aaaa</p>
+                </div>
+                <div class="pendencia__detalhar-pendencia">
+                  <button class="detalhar-pendencia__button">Detalhes</button>
+                </div>
+              </div>
 
-          <p class="pendency__message">Sem mais pendencias :^)</p>
-        </div>
+              <hr>
 
-        <div class="loans__current-book">
-          <h2 class="loans__heading">Livro Atual</h2>
-          <div class="loans__current-book-container">
-            <div class="current-book__book">
-              <div class="current-book__book-cover">
-                <img src="/public/images/acervo/pequeno-principe.jpg" alt="#" />
-              </div>
-              <div class="current-book__book-info">
-                <a
-                  href="/public/html/pages/livro.html"
-                  class="current-book__book-title"
-                  >Pequeno Príncipe</a
-                >
-                <a href="autor.html" class="current-book__book-author"
-                  >Luca Maia</a
-                >
-              </div>
-            </div>
-            <div class="current-book__details">
-              <div class="current-book__info">
-                <div class="current-book__info-item">
-                  <p class="current-book__info-label">Data Limite Devolução:</p>
-                  <p class="current-book__info-value">dd/mm/aaaa</p>
+              <div class="pendencias__pendencia">
+                <p class="pendencia__livro_name">Livro Pequeno Principe:</p>
+                <div class="pendencia__data-coleta pendencia__data">
+                  <p class="data-coleta__title">Data Coleta:</p>
+                  <p class="data-coleta__info">dd/mm/aaaa</p>
                 </div>
-                <div class="current-book__info-item">
-                  <p class="current-book__info-label">
-                    Dias até limite da devolução:
-                  </p>
-                  <p class="current-book__info-value">XX Dias</p>
-                </div>
-                <div class="current-book__info-item">
-                  <p class="current-book__info-label">Data Coleta:</p>
-                  <p class="current-book__info-value">dd/mm/aaaa</p>
-                </div>
-                <div class="current-book__info-item">
-                  <p class="current-book__info-label">Descrição:</p>
-                  <p class="current-book__info-value">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Animi doloremque quasi perferendis amet assumenda
-                    consequatur quas, harum quaerat? Dignissimos dolorum magni
-                    quibusdam velit itaque aliquid eum quis atque minus
-                    consequuntur?
-                  </p>
+                <div class="pendencia__detalhar-pendencia">
+                  <button class="detalhar-pendencia__button">Detalhes</button>
                 </div>
               </div>
-              <div class="current-book__buttons">
-                <button
-                  class="current-book__button button current-book__button--extend"
-                >
-                  Prorrogar
-                </button>
-                <button
-                  class="current-book__button button current-book__button--cancel"
-                >
-                  Cancelar Solicitação
-                </button>
+
+              <hr>
+
+              <div class="pendencias__fim-pendencias">
+                <p class="fim-pendencias__aviso">Sem mais pendencias :^)</p>
+              </div>
+
+            </div>
+          </div>
+          <div class="content__pendencia-atual">
+            <div class="pendencia-atual__info-visual">
+              <div class="info-visual__livro-capa">
+                <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+              </div>
+              <div class="info-visual__livro_identity">
+                <p class="livro_identity__titulo">Titulo Livro</p>
+                <p class="livro_identity__autor">Autor Livro</p>
+              </div>
+            </div>
+
+            <div class="pendencia-atual__info-descritiva">
+              <div class="info-descritiva__data">
+
+                <div class="data__data-limite data__item">
+                  <span class="data-limite_title">Data Limite Devolução:</span>
+                  <span class="data-limite__info item__info">dd/mm/aaaa</span>
+                </div>
+
+                <div class="data__data-limite data__item">
+                  <span class="data-limite__title">Dias até limite da devolução:</span>
+                  <span class="data-limite__info item__info">XX Dias</span>
+                </div>
+
+                <div class="data__data-coleta data__item">
+                  <span class="data-coleta__title">Data Coleta:</span>
+                  <span class="data-coleta__info item__info">dd/mm/aaaa</span>
+                </div>
+                <p class="data__item">Descrição: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi doloremque quasi perferendis amet assumenda consequatur quas, harum quaerat? Dignissimos dolorum magni quibusdam velit itaque aliquid eum quis atque minus consequuntur?</p>
+              </div>
+
+              <div class="info-descritiva__acoes">
+                <button class="acoes__prorrogar">Prorrogar</button>
+                <button class="acoes__cancelar">Cancelar Solicitação</button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <hr>
+      <section class="historico-tab">
+        <h2 class="historico-tab__title">Histórico:</h2>
+        <div class="hitorico-tab__livros-grid">
+          <div class="livros-grid__livro">
+            <div class="livro__info-visual">
+              <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+            </div>
+            <div class="livro__info-descritiva">
+              <p class="info-descritiva__titulo">Titulo Livro</p>
+              <p class="info-descritiva__autor">Nome Autor</p>
+              <div class="info-descritiva__emprestado-em info-descritiva__data">
+                <p class="emprestado-em__title">Emprestado em:</p>
+                <p class="emprestado-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+              <div class="info-descritiva__devolvido-em info-descritiva__data">
+                <p class="devolvido-em__title">Devolvido em:</p>
+                <p class="devolvido-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+            </div>
+          </div>
+          <div class="livros-grid__livro">
+            <div class="livro__info-visual">
+              <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+            </div>
+            <div class="livro__info-descritiva">
+              <p class="info-descritiva__titulo">Titulo Livro</p>
+              <p class="info-descritiva__autor">Nome Autor</p>
+              <div class="info-descritiva__emprestado-em info-descritiva__data">
+                <p class="emprestado-em__title">Emprestado em:</p>
+                <p class="emprestado-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+              <div class="info-descritiva__devolvido-em info-descritiva__data">
+                <p class="devolvido-em__title">Devolvido em:</p>
+                <p class="devolvido-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+            </div>
+          </div>
+          <div class="livros-grid__livro">
+            <div class="livro__info-visual">
+              <img src="/public/images/acervo/pequeno-principe.jpg" alt="#">
+            </div>
+            <div class="livro__info-descritiva">
+              <p class="info-descritiva__titulo">Titulo Livro</p>
+              <p class="info-descritiva__autor">Nome Autor</p>
+              <div class="info-descritiva__emprestado-em info-descritiva__data">
+                <p class="emprestado-em__title">Emprestado em:</p>
+                <p class="emprestado-em__info info-descritiva__info">dd/mm/aaaa</p>
+              </div>
+              <div class="info-descritiva__devolvido-em info-descritiva__data">
+                <p class="devolvido-em__title">Devolvido em:</p>
+                <p class="devolvido-em__info info-descritiva__info">dd/mm/aaaa</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <section class="section__history">
-      <h2 class="history__heading text--center">Histórico</h2>
-      <div class="container history__container">
-        <div class="history__book">
-          <div class="history__book-image-container">
-            <img
-              src="/public/images/acervo/pequeno-principe.jpg"
-              alt=""
-              class="history__book-image"
-            />
-          </div>
-          <div class="history__book-info">
-            <a href="/public/html/pages/livro.html" class="history__book-title"
-              >Pequeno Príncipe</a
-            >
-            <a href="autor.html" class="history__book-author">Luca Maia</a>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-          </div>
-        </div>
-        <div class="history__book">
-          <div class="history__book-image-container">
-            <img
-              src="/public/images/acervo/pequeno-principe.jpg"
-              alt=""
-              class="history__book-image"
-            />
-          </div>
-          <div class="history__book-info">
-            <a href="/public/html/pages/livro.html" class="history__book-title"
-              >Pequeno Príncipe</a
-            >
-            <a href="autor.html" class="history__book-author">Luca Maia</a>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-          </div>
-        </div>
-        <div class="history__book">
-          <div class="history__book-image-container">
-            <img
-              src="/public/images/acervo/pequeno-principe.jpg"
-              alt=""
-              class="history__book-image"
-            />
-          </div>
-          <div class="history__book-info">
-            <a href="/public/html/pages/livro.html" class="history__book-title"
-              >Pequeno Príncipe</a
-            >
-            <a href="autor.html" class="history__book-author">Luca Maia</a>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-          </div>
-        </div>
-        <div class="history__book">
-          <div class="history__book-image-container">
-            <img
-              src="/public/images/acervo/pequeno-principe.jpg"
-              alt=""
-              class="history__book-image"
-            />
-          </div>
-          <div class="history__book-info">
-            <a href="/public/html/pages/livro.html" class="history__book-title"
-              >Pequeno Príncipe</a
-            >
-            <a href="autor.html" class="history__book-author">Luca Maia</a>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-          </div>
-        </div>
-        <div class="history__book">
-          <div class="history__book-image-container">
-            <img
-              src="/public/images/acervo/pequeno-principe.jpg"
-              alt=""
-              class="history__book-image"
-            />
-          </div>
-          <div class="history__book-info">
-            <a href="/public/html/pages/livro.html" class="history__book-title"
-              >Pequeno Príncipe</a
-            >
-            <a href="autor.html" class="history__book-author">Luca Maia</a>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-          </div>
-        </div>
-        <div class="history__book">
-          <div class="history__book-image-container">
-            <img
-              src="/public/images/acervo/pequeno-principe.jpg"
-              alt=""
-              class="history__book-image"
-            />
-          </div>
-          <div class="history__book-info">
-            <a href="/public/html/pages/livro.html" class="history__book-title"
-              >Pequeno Príncipe</a
-            >
-            <a href="autor.html" class="history__book-author">Luca Maia</a>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-            <div class="history_date">
-              <p class="history__label">Emprestado em:</p>
-              <p class="history__value">dd/mm/aaaa</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <footer class="main-footer">
-      <div class="container main-footer-container">
-        <div class="main-footer__logo-container">
-          <p class="main-footer__logo">Livros <br />Livres</p>
-          <p class="main-footer__copyright">
-            © 2025 por Livros Livres. Todos os direitos reservados. Nenhuma
-            parte deste website pode ser reproduzida ou transmitida de qualquer
-            forma ou por qualquer meio sem permissão por escrito do autor.
-          </p>
-        </div>
-        <div class="main-footer__links">
-          <div class="main-footer__links-list-container">
-            <p class="main_footer__links-list-heading">Links úteis:</p>
-            <ul class="main-footer__links-list">
-              <li><a href="#">Início</a></li>
-              <li><a href="pages/acervo.html">Acervo</a></li>
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Registro</a></li>
-              <li><a href="#">Sobre nós</a></li>
-            </ul>
-          </div>
-          <div class="main-footer__links-list-container">
-            <p class="main_footer__links-list-heading">Etc:</p>
-            <ul class="main-footer__links-list">
-              <li><a href="#">Início</a></li>
-              <li><a href="#">Acervo</a></li>
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Registro</a></li>
-              <li><a href="#">Sobre nós</a></li>
-            </ul>
-          </div>
-        </div>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d228.54454876337607!2d-46.6426572964564!3d-23.578756919738453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce593b911ffa91%3A0xf567a7d20f956b1d!2sPara%C3%ADso%20dos%20Salgados!5e0!3m2!1spt-BR!2sbr!4v1759109137795!5m2!1spt-BR!2sbr"
-          style="border: 0"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          class="main-footer__map"
-        ></iframe>
-      </div>
-    </footer>
+      </section>
+    </div>
   </body>
 </html>

@@ -71,13 +71,13 @@ public class EmprestimoController {
 		return emprestimoService.adiarEmprestimo(token, idEmprestimo, body);
     }
 
-	@GetMapping("/lista")
+	@PostMapping("/lista")
 	// unicos campos aceitos sao idCliente, idLivro e status
 	public RetornoApi listarEmprestimos(@Nullable @RequestHeader String token, @RequestBody EmprestimoSearchRequest body){
 		return emprestimoService.listaEmprestimo(token, body);
     }
 
-	@GetMapping("/lista/cliente/{id}")
+	@PostMapping("/lista/cliente/{id}")
 	public RetornoApi listarEmprestimos(@Nullable @RequestHeader String token, @PathVariable("id") String idParam, @Nullable @RequestBody EmprestimoSearchRequest body){
 		int idCliente = Integer.parseInt(idParam);
 		if(body==null){body = new EmprestimoSearchRequest();} // TODO: dirty fix...

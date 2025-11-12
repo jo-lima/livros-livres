@@ -45,8 +45,8 @@ class DashboardBase extends Base {
   }
 
   // Métodos úteis
-  today(){
-    return new Date().toJSON().slice(0,10).replace(/-/g,'/');;
+  today() {
+    return new Date().toJSON().slice(0, 10).replace(/-/g, "/");
   }
 
   cleanForm(form) {

@@ -144,6 +144,28 @@ class Base {
       body
     );
   }
+
+  async changeClientStatus(id, status) {
+    const response = await fetch(
+      `http://${this.SERVER_URL}/cliente/${id}/${status}`,
+      {
+        method: "POST",
+        headers: {
+          token: this.DEBUG_TOKEN,
+        },
+      }
+    );
+
+    return await response.json();
+  }
+
+  async disableClient(id) {
+    return await this.changeClientStatus(id, "inativar");
+  }
+
+  async enableClient(id) {
+    return await this.changeClientStatus(id, "ativar");
+  }
 }
 
 export default Base;

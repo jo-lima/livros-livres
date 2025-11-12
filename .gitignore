@@ -1,6 +1,3 @@
-.vscode/settings.json
-./vscode/launch.json
-./vscode/*
-.vscode/*
-/.vscode/
-start.sh
+.env
+Server/src/main/resources/application.properties
+server-runner.sh

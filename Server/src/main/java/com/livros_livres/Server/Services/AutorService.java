@@ -119,6 +119,9 @@ public class AutorService {
         if (autorData.getCitacao() != null) {
             autor.setCitacao(autorData.getCitacao());
         }
+        if (autorData.getImagem() != null) {
+            autor.setImagem(autorData.getImagem());
+        }
 
         autorRepo.save(autor);
 

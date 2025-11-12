@@ -5,22 +5,24 @@
 Simply host a webserver at [public/](public/).
 
 ## Back-end
-
-### Requirements:
-
-- MySql (or MariaDB, it is compatible to both)
-- VsCode (used only for running with the ambient variables. You may run with other methods if have thoose configured)
-- Latest Java version (Currently on XX)
+### Requisitos:
+- MySql ou MariaDB
+- JDK mais recente (atualmente a 21)
 - Maven
 
-### Configuring the project (first time only):
+### Configurando as Dependencias:
+### MySQL
+Para configurar incialmente o MySQL ou MariaDB, primeiro é preciso executar o comando no terminal para fazer a configuração incial. Esse comando se chama mariadb_secure_instalation ou mysql_secure_instalation. Ambos se comportam da mesma forma. (Caso esteja no linux deve rodar como sudo)
+Neste arquivo voce deve colocar que SIM (y) você quer configurar uma senha. A senha não precisa ser necessáriametne boa, mas deve ser secreta.
+Depois de configurar a senha voce pode dar enter e deixar as configurações padrão.
 
-The enviromnent variables are located on [.vscode/launch.json](.vscode/launch.json), at the "env" entry. If you are not running on vscode you may configure thoose variables in another form in your IDE or when building the project.
-If on vscode: You'll probably don't need to change anything besides the database name, user and password.
-When switching from dev to prod on "ACTIVE_PROFILE" the only changes are the server port that it listens to and some debug APIs are disabled.
+Após isso é preciso rodar o server e criar a database. (Rodar o servidor é preciso para toda vez que vai rodar o projeto, mas criar a databse somenten desta vez.).
+A database pode ter qualquer nome, mas eu recomendo criar como livrosLivres que é o padrão.
 
-### Running the project:
 
-You can run the project by compiling the file at [Server/src/main/java/com/livros_livres/Server/ServerApplication.java](Server/src/main/java/com/livros_livres/Server/ServerApplication.java).
-To run the file on vscode install the "Java" extension and click on "Run Java" with that file opened. (I tried with Code Runner and it did not worked).
-The first time you'll run the project it will download all dependencies with Maven, that you need to have installed before. Otherwise it will throw an error.
+### Configurando o Projeto:
+Após baixar as dependencias listadas e clonar o projeto, deve-se abrir o arquivo [.env](.env) para configurar as variáveis de ambiente. Lá você coloca a senha do banco e o nome da database.
+
+
+### Rodando o projeto:
+Simplesmente execute o server-runner.sh, caso no windows, tente rodar pelo git bash (que vem por padrão junto com o git).

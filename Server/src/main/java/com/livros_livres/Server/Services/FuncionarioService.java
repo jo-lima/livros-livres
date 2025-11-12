@@ -12,18 +12,21 @@ import com.livros_livres.Server.Registers.Server.UsuariosLogados;
 import com.livros_livres.Server.Registers.Usuarios.Cliente;
 import com.livros_livres.Server.Registers.Usuarios.Funcionario;
 import com.livros_livres.Server.Repository.FuncionarioRepo;
+import com.livros_livres.Server.Repository.ClienteRepo;
 
 @Service
 public class FuncionarioService {
 
-	@Autowired
-	private FuncionarioRepo funcionarioRepo;
     @Autowired
-	private AuthenticationService authService;
+    private FuncionarioRepo funcionarioRepo;
     @Autowired
-	private MailService mailService;
+    private AuthenticationService authService;
     @Autowired
-    ClienteService clienteService;
+    private MailService mailService;
+    @Autowired
+    private ClienteRepo clienteRepo;
+    @Autowired
+    private ClienteService clienteService;
 
     public Funcionario salvarFuncionario( String token, Funcionario funcionarioData ){
         if(!authService.checkAdminPerm(token)){ return null; }
@@ -65,13 +68,16 @@ public class FuncionarioService {
     public RetornoApi criaNovoCliente(String token, Cliente clienteData) {
         // Checks user permissions
         if(!authService.checkAdminPerm(token)){ return RetornoApi.errorForbidden(); }
+        if(clienteService.buscaClienteEmail(clienteData.getEmail()) != null) {return RetornoApi.errorBadRequest("Email do cliente já cadastrado no sistema!");}
 
         String senhaTmp = authService.tokenGenerator(16, true);
         UsuariosAuth userCreatedAuth;
 
         clienteData.setSenha(senhaTmp);
+        clienteData.setAtivo(true);
 
-        clienteService.novoCliente(clienteData);
+        clienteRepo.save(clienteData);
+
         userCreatedAuth = authService.criarSolicitacaoAutenticacao(clienteData.getEmail());
 
         mailService.sendMail("Olá! Sua conta do livros livres foi criada por um de nossos funcionários.\n"+

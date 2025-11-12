@@ -170,7 +170,7 @@ class DashboardAutor extends DashboardBase {
 
   // Listando e renderizando autores
   async listRenderAuthors() {
-    await this.getAllAuthors().then((json) => {
+    this.getAllAuthors().then((json) => {
       this.renderAllAuthors(json);
       this.updateCards(json);
     });

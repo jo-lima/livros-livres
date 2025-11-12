@@ -126,6 +126,24 @@ class Base {
 
     return await response.json();
   }
+
+  // Cliente
+  async getAllClients() {
+    const response = await fetch(`http://${this.SERVER_URL}/cliente/lista`, {
+      headers: {
+        token: this.DEBUG_TOKEN,
+      },
+    });
+
+    return await response.json();
+  }
+
+  async createClient(body) {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/funcionario/novo-cliente`,
+      body
+    );
+  }
 }
 
 export default Base;

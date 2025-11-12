@@ -221,7 +221,6 @@ public class ClienteService {
     private Cliente alterarEmailCliente(Cliente cliente, String novoEmail) {
         if(cliente == null || novoEmail == null) { return null; }
 
-
         cliente.setEmail(novoEmail);
         clienteRepo.save(cliente);
 

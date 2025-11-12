@@ -3,6 +3,7 @@ package com.livros_livres.Server.Registers.Server;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.livros_livres.Server.Services.DebugService;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,11 +27,13 @@ public class RetornoApi {
     };
 
     private RetornoApi(Integer statusCode, String message, Object body){
+        DebugService.log("RetornoAPI: " + message);
         this.statusCode=statusCode;
         this.message=message;
         this.body=Optional.ofNullable(body);
     }
     private RetornoApi(Integer statusCode, String message){
+        DebugService.log("> RetornoAPI: " + message);
         this.statusCode=statusCode;
         this.message=message;
         this.body=Optional.empty();

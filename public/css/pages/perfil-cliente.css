@@ -93,6 +93,7 @@ hr {
 .pendencias-list__pendencias {
     background-color: #D4A373;
     color: black;
+    border-radius: 5px;
     padding: 15px;
     height: 95%;
     flex: 1.5;

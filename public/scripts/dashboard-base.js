@@ -32,6 +32,7 @@ class DashboardBase {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "token":"debug"
       },
     });
 
@@ -198,6 +199,10 @@ class DashboardBase {
   }
 
   // Métodos úteis
+  today(){
+    return new Date().toJSON().slice(0,10).replace(/-/g,'/');;
+  }
+
   cleanForm(form) {
     const inputs = form.querySelectorAll("input, textarea, select");
     inputs.forEach((input) => (input.value = ""));

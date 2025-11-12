@@ -87,7 +87,7 @@
 
 .library-books__book-image {
   height: 100%;
-  background-color: var(--text-color--green--light);
+  background-size: cover;
 }
 
 /* Informações */

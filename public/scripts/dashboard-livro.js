@@ -177,6 +177,8 @@ class DashboardLivro extends DashboardBase {
         response.body.estoque;
       document.querySelector(".dashboard__popup-input--publisher").value =
         response.body.editora;
+      document.querySelector(".dashboard__popup-input--image").value =
+        response.body.imagem;
       document.querySelector(".dashboard__popup-input--date").value =
         response.body.dataPublicacao;
 

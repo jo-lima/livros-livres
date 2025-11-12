@@ -9,6 +9,8 @@ class Livro extends Base {
     this.bookAuthorElement = document.querySelector(".book__author-name");
     this.bookDescriptionElement = document.querySelector(".book__description");
     this.loadingOverlayElement = document.querySelector(".loading-overlay");
+    this.bookImageElement = document.querySelector(".book__image");
+    this.bookAuthorImageElement = document.querySelector(".book__author-image");
 
     // Execução
     this.initialize();
@@ -22,6 +24,8 @@ class Livro extends Base {
     this.bookNameElement.textContent = bookData.nome;
     this.bookAuthorElement.textContent = bookData.autor.nome;
     this.bookDescriptionElement.textContent = bookData.descricao;
+    this.bookImageElement.style.backgroundImage = `url("${bookData.imagem}")`;
+    this.bookAuthorImageElement.style.backgroundImage = `url("${bookData.autor.imagem}")`;
 
     this.bookAuthorElement.setAttribute(
       "href",

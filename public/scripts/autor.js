@@ -8,6 +8,7 @@ class Autor extends Base {
     this.authorNameElement = document.querySelector(".author-name");
     this.authorDescriptionElement = document.querySelector(".author-biography");
     this.authorQuoteElement = document.querySelector(".author-quote");
+    this.authorImageElement = document.querySelector(".author-image");
     this.loadingOverlayElement = document.querySelector(".loading-overlay");
 
     // Execução
@@ -23,6 +24,7 @@ class Autor extends Base {
     this.authorNameElement.textContent = authorData.nome;
     this.authorDescriptionElement.textContent = authorData.descricao;
     this.authorQuoteElement.textContent = authorData.citacao;
+    this.authorImageElement.style.backgroundImage = `url("${authorData.imagem}")`;
 
     // Esconder tela de loading
     setTimeout(() => {

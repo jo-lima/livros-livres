@@ -22,7 +22,11 @@ class Acervo extends Base {
           <a href="./livro.html?id=${
             book.idLivro
           }" class="library-books__book-image-link">
-          <div class="library-books__book-image"></div>
+          <div class="library-books__book-image"
+            style="
+                background-image: url('${book.imagem}');
+              ">
+          </div>
           </a>
           <div class="library-books__book-information-container text--center">
           <p class="library-books__book-title">${book.nome}</p>

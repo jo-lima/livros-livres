@@ -142,6 +142,8 @@ class DashboardAutor extends DashboardBase {
         response.body.citacao;
       document.querySelector(".dashboard__popup-input--description").value =
         response.body.descricao;
+      document.querySelector(".dashboard__popup-input--image").value =
+        response.body.imagem;
 
       this.editAuthorSubmit.dataset.idAuthor = rowId; // Linkando o ID do autor da linha com o botão de submit - ta meio feio gente desculpa :c
       this.showPopUp(".dashboard__popup--edit-author");

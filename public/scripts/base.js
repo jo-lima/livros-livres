@@ -1,6 +1,6 @@
 class Base {
   SERVER_URL = "localhost:6969";
-  DEBUG_TOKEN = 'debug';
+  DEBUG_TOKEN = "debug";
 
   // Base dos requests
   async sendPostRequest(url, body) {
@@ -9,7 +9,7 @@ class Base {
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
-        "token": this.DEBUG_TOKEN
+        token: this.DEBUG_TOKEN,
       },
     });
 
@@ -18,15 +18,21 @@ class Base {
 
   // Request do autor
   async getAllAuthors() {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/lista`, {})
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/lista`);
   }
 
   async createAuthor(body) {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/novo`, body);
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/autor/novo`,
+      body
+    );
   }
 
   async editAuthor(id, body) {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/${id}/atualizar`, body);
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/autor/${id}/atualizar`,
+      body
+    );
   }
 
   async disableAuthor(id) {
@@ -43,8 +49,8 @@ class Base {
       {
         method: "POST",
         headers: {
-          'token': this.DEBUG_TOKEN
-        }
+          token: this.DEBUG_TOKEN,
+        },
       }
     );
 
@@ -53,10 +59,11 @@ class Base {
 
   async getAuthor(id) {
     const response = await fetch(
-      `http://${this.SERVER_URL}/autor/${id}/busca`, {
+      `http://${this.SERVER_URL}/autor/${id}/busca`,
+      {
         headers: {
-          'token': this.DEBUG_TOKEN
-        }
+          token: this.DEBUG_TOKEN,
+        },
       }
     );
 
@@ -65,15 +72,24 @@ class Base {
 
   // Requests do livro
   async createBook(body) {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/novo`, body);
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/livro/novo`,
+      body
+    );
   }
 
-  async editBook(id, body){
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/${id}/atualizar`, body);
+  async editBook(id, body) {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/livro/${id}/atualizar`,
+      body
+    );
   }
 
   async getAllBooks() {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/lista`, {});
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/livro/lista`,
+      {}
+    );
   }
 
   async disableBook(id) {
@@ -90,8 +106,8 @@ class Base {
       {
         method: "POST",
         headers: {
-          'token': this.DEBUG_TOKEN
-        }
+          token: this.DEBUG_TOKEN,
+        },
       }
     );
 
@@ -99,12 +115,17 @@ class Base {
   }
 
   async getBook(id) {
-    const response = await fetch(`http://${this.SERVER_URL}/livro/${id}/busca`, {
-      headers: {
-        'token': this.DEBUG_TOKEN
+    const response = await fetch(
+      `http://${this.SERVER_URL}/livro/${id}/busca`,
+      {
+        headers: {
+          token: this.DEBUG_TOKEN,
+        },
       }
-    });
+    );
 
     return await response.json();
   }
 }
+
+export default Base;

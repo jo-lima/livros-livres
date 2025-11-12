@@ -1,5 +1,9 @@
-class DashboardBase {
+import Base from "./base.js";
+
+class DashboardBase extends Base {
   constructor() {
+    super();
+
     // Pop-up
     this.popUpOverlay = document.querySelector(".dashboard__popup-overlay");
 
@@ -68,3 +72,5 @@ class DashboardBase {
       );
   }
 }
+
+export default DashboardBase;

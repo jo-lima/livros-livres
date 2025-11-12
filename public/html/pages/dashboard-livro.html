@@ -20,6 +20,7 @@
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐕</text></svg>"
     />
     <link rel="stylesheet" href="/public/css/main.css" />
+    <script defer type="module" src="../../scripts/dashboard-livro.js"></script>
     <title>Dashboard | Livros</title>
   </head>
   <body class="dashboard__body">
@@ -35,6 +36,9 @@
         >
         <a href="dashboard-autor.html" class="dashboard__tab text--center"
           >Autores</a
+        >
+        <a href="dashboard-cliente.html" class="dashboard__tab text--center"
+          >Clientes</a
         >
       </nav>
       <div class="dashboard__content">
@@ -190,17 +194,28 @@
         <form class="dashboard__popup-form" id="edit-book-form">
           <div>
             <label class="dashboard__popup-label">Nome do livro</label>
-            <input class="dashboard__popup-input dashboard__popup-input--name" type="text" name="nome" />
+            <input
+              class="dashboard__popup-input dashboard__popup-input--name"
+              type="text"
+              name="nome"
+            />
           </div>
 
           <div>
             <label class="dashboard__popup-label">Autor</label>
-            <select class="dashboard-authors-list dashboard__popup-input--author" name="autorId"></select>
+            <select
+              class="dashboard-authors-list dashboard__popup-input--author"
+              name="autorId"
+            ></select>
           </div>
 
           <div>
             <label class="dashboard__popup-label">Gênero</label>
-            <input class="dashboard__popup-input dashboard__popup-input--genre" type="text" name="genero" />
+            <input
+              class="dashboard__popup-input dashboard__popup-input--genre"
+              type="text"
+              name="genero"
+            />
           </div>
 
           <div>
@@ -214,7 +229,11 @@
 
           <div>
             <label class="dashboard__popup-label">ISBN</label>
-            <input class="dashboard__popup-input dashboard__popup-input--isbn" type="number" name="isbn" />
+            <input
+              class="dashboard__popup-input dashboard__popup-input--isbn"
+              type="number"
+              name="isbn"
+            />
           </div>
 
           <div>
@@ -236,7 +255,11 @@
 
           <div>
             <label class="dashboard__popup-label">Editora</label>
-            <input class="dashboard__popup-input dashboard__popup-input--publisher" type="text" name="editora" />
+            <input
+              class="dashboard__popup-input dashboard__popup-input--publisher"
+              type="text"
+              name="editora"
+            />
           </div>
 
           <div>
@@ -258,13 +281,10 @@
         </form>
       </div>
 
-
       <div class="dashboard__popup-overlay hidden"></div>
 
       <!-- Mensagem -->
       <div class="dashboard__message dashboard__message--hidden"></div>
     </section>
-    <script src="../../scripts/dashboard-base.js"></script>
-    <script src="../../scripts/dashboard-livro.js"></script>
   </body>
 </html>

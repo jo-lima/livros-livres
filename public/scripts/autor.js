@@ -1,36 +1,40 @@
-// Elementos
-const authorNameElement = document.querySelector(".author-name");
-const authorDescriptionElement = document.querySelector(".author-biography");
-const authorQuoteElement = document.querySelector(".author-quote");
-const loadingOverlayElement = document.querySelector(".loading-overlay");
+import Base from "./base.js";
 
-// Capturando o ID do autor
-const params = new URLSearchParams(document.location.search);
-const id = params.get("id");
+class Autor extends Base {
+  constructor() {
+    super();
 
-// Request do autor
-async function getAuthor() {
-  const response = await fetch(`http://localhost:6969/autor/${id}/busca`, {
-    method: "GET",
-  });
+    // Elementos
+    this.authorNameElement = document.querySelector(".author-name");
+    this.authorDescriptionElement = document.querySelector(".author-biography");
+    this.authorQuoteElement = document.querySelector(".author-quote");
+    this.loadingOverlayElement = document.querySelector(".loading-overlay");
 
-  return await response.json();
+    // Execução
+    this.initialize();
+  }
+
+  getAuthorIdByUrl() {
+    return new URLSearchParams(document.location.search).get("id");
+  }
+
+  renderAuthor(authorData) {
+    // Atualizando os campos do autor
+    this.authorNameElement.textContent = authorData.nome;
+    this.authorDescriptionElement.textContent = authorData.descricao;
+    this.authorQuoteElement.textContent = authorData.citacao;
+
+    // Esconder tela de loading
+    setTimeout(() => {
+      this.loadingOverlayElement.classList.add("hidden");
+    }, 300);
+  }
+
+  async initialize() {
+    this.getAuthor(this.getAuthorIdByUrl()).then((json) => {
+      this.renderAuthor(json.body);
+    });
+  }
 }
 
-// Renderizar
-function renderAuthor(json) {
-  // Atualizando os campos do autor
-  authorNameElement.textContent = json.nome;
-  authorDescriptionElement.textContent = json.descricao;
-  authorQuoteElement.textContent = json.citacao;
-
-  // Esconder tela de loading
-  setTimeout(() => {
-    loadingOverlayElement.classList.add("hidden");
-  }, 300);
-}
-
-// Execução
-getAuthor(id).then((json) => {
-  renderAuthor(json.body);
-});
+const autor = new Autor();

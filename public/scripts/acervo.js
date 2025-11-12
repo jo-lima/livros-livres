@@ -1,54 +1,50 @@
-// Elementos
-const booksGrid = document.querySelector(".library-books__grid");
+import Base from "./base.js";
 
-// Headers
-const headers = {
-  "Content-Type": "application/json",
-};
+class Acervo extends Base {
+  constructor() {
+    super();
 
-// Request do livro
-async function listAllBooks() {
-  const response = await fetch(`http://localhost:6969/livro/lista`, {
-    method: "POST",
-    body: "{}", // Lista por todos os livros
-    headers: headers,
-  });
+    // Elementos
+    this.booksGrid = document.querySelector(".library-books__grid");
 
-  return await response.json();
+    // Execução
+    this.initialize();
+  }
+
+  renderAllBooks(booksData) {
+    // Apaga o conteúdo do acervo
+    this.booksGrid.innerHTML = "";
+
+    // Loopa a array de livros
+    booksData.body.forEach((book) => {
+      const bookHtml = `
+        <div class="library-books__book">
+          <a href="./livro.html?id=${
+            book.idLivro
+          }" class="library-books__book-image-link">
+          <div class="library-books__book-image"></div>
+          </a>
+          <div class="library-books__book-information-container text--center">
+          <p class="library-books__book-title">${book.nome}</p>
+          <a href="autor.html?id=${
+            book.autor.idAutor
+          }" class="library-books__book-author">${book.autor.nome}</a>
+          <p class="library-books__book-year">${
+            book.dataPublicacao.split("-")[0]
+          }</p>
+          </div>
+        </div>`;
+
+      // Insere na grid
+      this.booksGrid.insertAdjacentHTML("beforeend", bookHtml);
+    });
+  }
+
+  async initialize() {
+    this.getAllBooks().then((json) => {
+      this.renderAllBooks(json);
+    });
+  }
 }
 
-// Renderizar livros
-function renderBooks(json) {
-  // Apaga o conteúdo do acervo
-  booksGrid.innerHTML = "";
-
-  // Loopa a array de livros
-  json.forEach((book) => {
-    const bookHtml = `
-    <div class="library-books__book">
-        <a href="./livro.html?id=${
-          book.idLivro
-        }" class="library-books__book-image-link">
-            <div class="library-books__book-image"></div>
-        </a>
-        <div class="library-books__book-information-container text--center">
-            <p class="library-books__book-title">${book.nome}</p>
-            <a href="autor.html?id=${
-              book.autor.idAutor
-            }" class="library-books__book-author">${book.autor.nome}</a>
-            <p class="library-books__book-year">${
-              book.dataPublicacao.split("-")[0]
-            }</p>
-        </div>
-    </div>
-    `;
-
-    // Insere na grid
-    booksGrid.insertAdjacentHTML("beforeend", bookHtml);
-  });
-}
-
-// Execução
-listAllBooks().then((json) => {
-  renderBooks(json.body);
-});
+const acervo = new Acervo();

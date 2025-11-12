@@ -5,7 +5,6 @@
 Simply host a webserver at [public/](public/).
 
 ## Back-end
-
 ### Requisitos:
 - MySql ou MariaDB
 - JDK mais recente (atualmente a 21)

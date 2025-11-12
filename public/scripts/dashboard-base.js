@@ -1,7 +1,9 @@
-class DashboardBase {
-  SERVER_URL = "localhost:6969";
+import Base from "./base.js";
 
+class DashboardBase extends Base {
   constructor() {
+    super();
+
     // Pop-up
     this.popUpOverlay = document.querySelector(".dashboard__popup-overlay");
 
@@ -11,162 +13,6 @@ class DashboardBase {
 
     // Setup dos EventListeners
     this.setUpListeners();
-  }
-
-  // Requests
-  async sendPostRequest(url, body) {
-    const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-        "token":"debug"
-      },
-    });
-
-    return await response.json();
-  }
-
-  async sendGetRequest(url, body) {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "token":"debug"
-      },
-    });
-
-    return await response.json();
-  }
-
-  // Autor
-  async createAuthor(body) {
-    const default_body = {
-      nome: "",
-      descricao: "",
-      citacao: "",
-    };
-
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/novo`, {
-      ...default_body,
-      ...body,
-    });
-  }
-
-  // Editar autor
-  async editAuthor(id, body) {
-    const default_body = {
-      nome: "",
-      descricao: "",
-      citacao: "",
-    };
-
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/autor/${id}/atualizar`,
-      {
-        ...default_body,
-        ...body,
-      }
-    );
-  }
-
-  // Ativar/Desativar autor
-  async changeAuthorStatus(id, status) {
-    const response = await fetch(
-      `http://${this.SERVER_URL}/autor/${id}/${status}`,
-      {
-        method: "POST",
-      }
-    );
-
-    return await response.json();
-  }
-
-  async disableAuthor(id) {
-    return await this.changeAuthorStatus(id, "inativar");
-  }
-
-  async enableAuthor(id) {
-    return await this.changeAuthorStatus(id, "ativar");
-  }
-
-  async getAllAuthors() {
-    const response = await fetch(`http://${this.SERVER_URL}/autor/lista`, {
-      method: "POST",
-      body: JSON.stringify({
-        nome: "",
-        descricao: "",
-        citacao: "",
-        ativo: null,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    return await response.json();
-  }
-
-  async getAuthor(id) {
-    const response = await fetch(`http://${this.SERVER_URL}/autor/${id}/busca`);
-
-    return await response.json();
-  }
-
-  // Livros
-  async createBook(body) {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/livro/novo`,
-      body
-    );
-  }
-
-  async getAllBooks() {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/livro/lista`,
-      {}
-    );
-  }
-
-  // Ativar/Desativar autor
-  async changeBookStatus(id, status) {
-    const response = await fetch(
-      `http://${this.SERVER_URL}/livro/${id}/${status}`,
-      {
-        method: "POST",
-      }
-    );
-
-    return await response.json();
-  }
-
-  async disableBook(id) {
-    return await this.changeBookStatus(id, "inativar");
-  }
-
-  async enableBook(id) {
-    return await this.changeBookStatus(id, "ativar");
-  }
-
-  async getBook(id) {
-    const response = await fetch(`http://${this.SERVER_URL}/livro/${id}/busca`);
-
-    return await response.json();
-  }
-
-  // Empréstimos
-  async getAllEmprestimos() {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/emprestimo/lista`,
-      {}
-    );
-  }
-
-  async getEmprestimoById(id) {
-    return await this.sendGetRequest(
-      `http://${this.SERVER_URL}/emprestimo/${id}/busca`,
-      {}
-    );
   }
 
   // Mensagem
@@ -230,3 +76,5 @@ class DashboardBase {
       );
   }
 }
+
+export default DashboardBase;

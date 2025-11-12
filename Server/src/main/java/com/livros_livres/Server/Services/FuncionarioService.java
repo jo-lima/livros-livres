@@ -17,12 +17,12 @@ import com.livros_livres.Server.Repository.ClienteRepo;
 @Service
 public class FuncionarioService {
 
-	@Autowired
-	private FuncionarioRepo funcionarioRepo;
     @Autowired
-	private AuthenticationService authService;
+    private FuncionarioRepo funcionarioRepo;
     @Autowired
-	private MailService mailService;
+    private AuthenticationService authService;
+    @Autowired
+    private MailService mailService;
     @Autowired
     private ClienteRepo clienteRepo;
     @Autowired

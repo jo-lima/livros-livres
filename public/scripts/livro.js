@@ -1,50 +1,61 @@
-// Elementos
-const bookNameElement = document.querySelector(".book__title");
-const bookAuthorElement = document.querySelector(".book__author-name");
-const bookDescriptionElement = document.querySelector(".book__description");
-const loadingOverlayElement = document.querySelector(".loading-overlay");
+import Base from "./base.js";
 
-// Capturando o ID do livro
-const params = new URLSearchParams(document.location.search);
-const id = params.get("id");
+class Livro extends Base {
+  constructor() {
+    super();
 
-// Request do livro
-async function getBook(id) {
-  const response = await fetch(`http://localhost:6969/livro/${id}/busca`, {
-    method: "GET",
-  });
+    // Elementos
+    this.bookNameElement = document.querySelector(".book__title");
+    this.bookAuthorElement = document.querySelector(".book__author-name");
+    this.bookDescriptionElement = document.querySelector(".book__description");
+    this.loadingOverlayElement = document.querySelector(".loading-overlay");
+    this.bookImageElement = document.querySelector(".book__image");
+    this.bookAuthorImageElement = document.querySelector(".book__author-image");
 
-  return await response.json();
-}
-
-// Renderizando o livro
-function renderBook(json) {
-  bookNameElement.textContent = json.nome;
-  bookAuthorElement.textContent = json.autor.nome;
-  bookDescriptionElement.textContent = json.descricao;
-
-  bookAuthorElement.setAttribute("href", `autor.html?id=${json.autor.idAutor}`);
-
-  // Detalhes
-  const details = [
-    ["genre", json.genero],
-    ["pages", json.paginas],
-    ["isbn", json.isbn],
-    ["publisher", json.editora],
-    ["date", json.dataPublicacao],
-  ];
-
-  for (const detail of details) {
-    document.querySelector(`.book__detail--${detail[0]}`).textContent =
-      detail[1];
+    // Execução
+    this.initialize();
   }
 
-  setTimeout(() => {
-    loadingOverlayElement.classList.add("hidden");
-  }, 400);
+  getBookIdByUrl() {
+    return new URLSearchParams(document.location.search).get("id");
+  }
+
+  renderBook(bookData) {
+    this.bookNameElement.textContent = bookData.nome;
+    this.bookAuthorElement.textContent = bookData.autor.nome;
+    this.bookDescriptionElement.textContent = bookData.descricao;
+    this.bookImageElement.style.backgroundImage = `url("${bookData.imagem}")`;
+    this.bookAuthorImageElement.style.backgroundImage = `url("${bookData.autor.imagem}")`;
+
+    this.bookAuthorElement.setAttribute(
+      "href",
+      `autor.html?id=${bookData.autor.idAutor}`
+    );
+
+    // Detalhes
+    const details = [
+      ["genre", bookData.genero],
+      ["pages", bookData.paginas],
+      ["isbn", bookData.isbn],
+      ["publisher", bookData.editora],
+      ["date", bookData.dataPublicacao],
+    ];
+
+    for (const detail of details) {
+      document.querySelector(`.book__detail--${detail[0]}`).textContent =
+        detail[1];
+    }
+
+    setTimeout(() => {
+      this.loadingOverlayElement.classList.add("hidden");
+    }, 400);
+  }
+
+  async initialize() {
+    this.getBook(this.getBookIdByUrl()).then((json) => {
+      this.renderBook(json.body);
+    });
+  }
 }
 
-// Execução
-getBook(id).then((json) => {
-  renderBook(json.body);
-});
+const livro = new Livro();

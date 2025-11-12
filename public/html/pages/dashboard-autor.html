@@ -20,6 +20,7 @@
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐕</text></svg>"
     />
     <link rel="stylesheet" href="/public/css/main.css" />
+    <script type="module" src="../../scripts/dashboard-autor.js"></script>
     <title>Dashboard | Autores</title>
   </head>
   <body class="dashboard__body">
@@ -32,6 +33,7 @@
       <nav class="dashboard__tabs">
         <a href="dashboard-livro.html" class="dashboard__tab">Livros</a>
         <a href="#" class="dashboard__tab dashboard__tab--active">Autores</a>
+        <a href="dashboard-cliente.html" class="dashboard__tab">Clientes</a>
       </nav>
       <div class="dashboard__content">
         <h1 class="font--secondary dashboard__heading">Autores</h1>
@@ -101,6 +103,10 @@
             <label class="dashboard__popup-label">Descrição</label>
             <textarea name="descricao"></textarea>
           </div>
+          <div>
+            <label class="dashboard__popup-label">URL da imagem</label>
+            <input class="dashboard__popup-input" type="text" name="imagem" />
+          </div>
           <button
             type="submit"
             class="button dashboard__popup-submit"
@@ -152,6 +158,14 @@
               class="dashboard__popup-input--description"
             ></textarea>
           </div>
+          <div>
+            <label class="dashboard__popup-label">URL da imagem</label>
+            <input
+              class="dashboard__popup-input dashboard__popup-input--image"
+              type="text"
+              name="imagem"
+            />
+          </div>
           <button
             type="submit"
             class="button dashboard__popup-submit"
@@ -166,7 +180,5 @@
       <!-- Mensagem -->
       <div class="dashboard__message dashboard__message--hidden"></div>
     </section>
-    <script src="../../scripts/dashboard-base.js"></script>
-    <script src="../../scripts/dashboard-autor.js"></script>
   </body>
 </html>

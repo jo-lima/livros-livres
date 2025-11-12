@@ -1,4 +1,4 @@
-package com.livros_livres.Server.Configs;   
+package com.livros_livres.Server.Configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

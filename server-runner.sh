@@ -1,1 +1,1 @@
-set -a; source .env; set +a; mvn spring-boot:run -f ./Server/
+set -a; source ./.env; set +a; mvn spring-boot:run -f ./Server/

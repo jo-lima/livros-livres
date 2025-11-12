@@ -1,18 +1,22 @@
 
 // probably will change, using dashboardbase for now.
-class PerfilCliente extends DashboardBase {
+class ClientProfile extends DashboardBase {
   constructor() {
     super();
 
     // Elementos
     this.pendingList = document.querySelector(".pendencias-list__pendencias");
+    this.pendingDetailDescritive = document.querySelector("info-descritiva__data");
+    this.pendingDetailVisual = document.querySelector("pendencia-atual__info-visual");
+    this.currentPending = 0; // trocar para valor dinamico
 
+    this.pendingDetailsButtons = document.querySelectorAll(".detalhar-pendencia__button");
     // Execução
     this.initialize();
   }
 
-  // Renderiza os livros na tabela
-  async renderPending(pendingData) {
+  // Renderiza lista de pendencias na esquerda
+  async renderPendingList(pendingData) {
     // this.displayMessage(pendingData);
 
     this.pendingList.innerHTML = "";
@@ -37,7 +41,12 @@ class PerfilCliente extends DashboardBase {
             <p class="data-devolucao__info">${loan.dataPrevistaDevolucao}</p>
         </div>
         <div class="pendencia__detalhar-pendencia">
-            <button class="detalhar-pendencia__button">Detalhes</button>
+            <button 
+              class="detalhar-pendencia__button" 
+              dataset-emprestimoId=${loan.idEmprestimo}
+            >
+            Detalhes
+            </button>
         </div>
         </div>`;
 
@@ -48,18 +57,43 @@ class PerfilCliente extends DashboardBase {
     this.pendingList.insertAdjacentHTML("beforeend", semPendencias);
   }
 
+  async renderPendingDetails(pendingData){
+    console.log(pendingData);
+  }
+
+  async handleCurrentPending(event){
+    console.log('oiee')
+    const target = event.target.closest(".dashboard__action-button");
+
+    if (target == null) return;
+
+    this.currentPending = event.dataset.emprestimoId;
+  }
+
+// Aplicando os EventListeners
+  async setUpProfileListeners() {
+    console.log(this.pendingDetailsButtons, "asd")
+    this.pendingDetailsButtons.forEach((btn) => {
+      btn.addEventListener("click", async (event) => console.log("asda"));
+      console.log(btn);
+    }) 
+  }
+
 // Renderizar e atualizar os cards
   async listRenderPendences() {
     this.getAllEmprestimos().then((json) => {
-        console.log(json)
-      this.renderPending(json);
+      this.renderPendingList(json);
+    });
+    this.getEmprestimoById(this.currentPending).then((json) => {
+      this.renderPendingDetails(json);
     });
   }
 
   // Inicialização
   initialize() {
-    this.listRenderPendences()
+    this.listRenderPendences();
+    this.setUpProfileListeners();
   }
 }
 
-const perfilCliente = new PerfilCliente();
+const clientProfile = new ClientProfile();

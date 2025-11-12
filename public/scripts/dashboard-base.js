@@ -30,7 +30,6 @@ class DashboardBase {
   async sendGetRequest(url, body) {
     const response = await fetch(url, {
       method: "GET",
-      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
       },
@@ -158,6 +157,13 @@ class DashboardBase {
   async getAllEmprestimos() {
     return await this.sendPostRequest(
       `http://${this.SERVER_URL}/emprestimo/lista`,
+      {}
+    );
+  }
+
+  async getEmprestimoById(id) {
+    return await this.sendGetRequest(
+      `http://${this.SERVER_URL}/emprestimo/${id}/busca`,
       {}
     );
   }

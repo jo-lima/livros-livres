@@ -106,7 +106,7 @@
 
           <div>
             <label class="dashboard__popup-label">Autor</label>
-            <select id="authors-list" name="autorId"></select>
+            <select class="dashboard-authors-list" name="autorId"></select>
           </div>
 
           <div>
@@ -168,6 +168,96 @@
           </button>
         </form>
       </div>
+
+      <div class="dashboard__popup dashboard__popup--edit-book hidden">
+        <div class="dashboard__popup-close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
+        <p class="dashboard__popup-heading font--secondary">Editar Livro</p>
+        <form class="dashboard__popup-form" id="edit-book-form">
+          <div>
+            <label class="dashboard__popup-label">Nome do livro</label>
+            <input class="dashboard__popup-input dashboard__popup-input--name" type="text" name="nome" />
+          </div>
+
+          <div>
+            <label class="dashboard__popup-label">Autor</label>
+            <select class="dashboard-authors-list dashboard__popup-input--author" name="autorId"></select>
+          </div>
+
+          <div>
+            <label class="dashboard__popup-label">Gênero</label>
+            <input class="dashboard__popup-input dashboard__popup-input--genre" type="text" name="genero" />
+          </div>
+
+          <div>
+            <label class="dashboard__popup-label">Páginas</label>
+            <input
+              class="dashboard__popup-input dashboard__popup-input--pages"
+              type="number"
+              name="paginas"
+            />
+          </div>
+
+          <div>
+            <label class="dashboard__popup-label">ISBN</label>
+            <input class="dashboard__popup-input dashboard__popup-input--isbn" type="number" name="isbn" />
+          </div>
+
+          <div>
+            <label class="dashboard__popup-label">Descrição</label>
+            <textarea
+              class="dashboard__popup-input dashboard__popup-input--description"
+              name="descricao"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="dashboard__popup-label">Estoque</label>
+            <input
+              class="dashboard__popup-input dashboard__popup-input--stock"
+              type="number"
+              name="estoque"
+            />
+          </div>
+
+          <div>
+            <label class="dashboard__popup-label">Editora</label>
+            <input class="dashboard__popup-input dashboard__popup-input--publisher" type="text" name="editora" />
+          </div>
+
+          <div>
+            <label class="dashboard__popup-label">Data de publicação</label>
+            <input
+              class="dashboard__popup-input dashboard__popup-input--date"
+              type="date"
+              name="dataPublicacao"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="button dashboard__popup-submit"
+            id="edit-book-submit"
+          >
+            Enviar
+          </button>
+        </form>
+      </div>
+
 
       <div class="dashboard__popup-overlay hidden"></div>
 

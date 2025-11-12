@@ -1,5 +1,6 @@
 class DashboardBase {
   SERVER_URL = "localhost:6969";
+  DEBUG_TOKEN = 'debug';
 
   constructor() {
     // Pop-up
@@ -20,6 +21,7 @@ class DashboardBase {
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
+        "token": this.DEBUG_TOKEN
       },
     });
 
@@ -28,33 +30,12 @@ class DashboardBase {
 
   // Autor
   async createAuthor(body) {
-    const default_body = {
-      nome: "",
-      descricao: "",
-      citacao: "",
-    };
-
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/novo`, {
-      ...default_body,
-      ...body,
-    });
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/novo`, body);
   }
 
   // Editar autor
   async editAuthor(id, body) {
-    const default_body = {
-      nome: "",
-      descricao: "",
-      citacao: "",
-    };
-
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/autor/${id}/atualizar`,
-      {
-        ...default_body,
-        ...body,
-      }
-    );
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/${id}/atualizar`, body);
   }
 
   // Ativar/Desativar autor
@@ -63,6 +44,9 @@ class DashboardBase {
       `http://${this.SERVER_URL}/autor/${id}/${status}`,
       {
         method: "POST",
+        headers: {
+          'token': this.DEBUG_TOKEN
+        }
       }
     );
 
@@ -88,6 +72,7 @@ class DashboardBase {
       }),
       headers: {
         "Content-Type": "application/json",
+        "token": this.DEBUG_TOKEN
       },
     });
 
@@ -95,7 +80,11 @@ class DashboardBase {
   }
 
   async getAuthor(id) {
-    const response = await fetch(`http://${this.SERVER_URL}/autor/${id}/busca`);
+    const response = await fetch(`http://${this.SERVER_URL}/autor/${id}/busca`, {
+      headers: {
+        'token': this.DEBUG_TOKEN
+      }
+    });
 
     return await response.json();
   }
@@ -106,6 +95,10 @@ class DashboardBase {
       `http://${this.SERVER_URL}/livro/novo`,
       body
     );
+  }
+
+  async editBook(id, body){
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/${id}/atualizar`, body);
   }
 
   async getAllBooks() {
@@ -121,6 +114,9 @@ class DashboardBase {
       `http://${this.SERVER_URL}/livro/${id}/${status}`,
       {
         method: "POST",
+        headers: {
+                  'token': this.DEBUG_TOKEN
+        }
       }
     );
 
@@ -136,7 +132,11 @@ class DashboardBase {
   }
 
   async getBook(id) {
-    const response = await fetch(`http://${this.SERVER_URL}/livro/${id}/busca`);
+    const response = await fetch(`http://${this.SERVER_URL}/livro/${id}/busca`, {
+      headers: {
+        'token': this.DEBUG_TOKEN
+      }
+    });
 
     return await response.json();
   }

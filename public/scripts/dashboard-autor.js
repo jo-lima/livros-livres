@@ -136,8 +136,8 @@ class DashboardAutor extends DashboardBase {
   setUpAuthorListeners() {
     document.querySelector("#new-author-button").addEventListener("click", () => this.showPopUp(".dashboard__popup--new-author"));
     document.querySelector("#new-author-submit").addEventListener("click", event => this.submitNewAuthorForm(event));
-    this.editAuthorSubmit.addEventListener("click", event => this.submitEditAuthorForm(event));
     this.authorsTableElement.addEventListener("click", event => this.handleAuthorActions(event));
+    this.editAuthorSubmit.addEventListener("click", event => this.submitEditAuthorForm(event));
   }
 
   // Listando e renderizando autores

@@ -45,6 +45,16 @@ class ClientProfile extends DashboardBase {
     this.initialize();
   }
 
+  // -- FUNCOES GERAIS --
+  async setCurrentPending(loanId) {
+    this.currentLoanId = loanId;
+    document.querySelectorAll(".pendencias__pendencia").forEach(pendencia => {
+      pendencia.classList = "pendencias__pendencia";
+    });
+    document.querySelector(`#pendencia-${this.currentLoanId}`).classList.add("selecionada");
+  }
+
+  // -- RENDERS --
   // Renderiza lista de pendencias na esquerda
   renderPendencyList(loanData) {
     this.pendingList.innerHTML = "";
@@ -97,7 +107,7 @@ class ClientProfile extends DashboardBase {
     return item;
   }
 
-  // -- GENERATING LOAN DETAILS --
+  // Renderiza o detalhamento do empréstimo selecionado.
   generateLoanDetailsActions(loanData){
     const canDelay = loanData.dataEstendidaDevolucao == null && loanData.dataColeta != null;
     const canCancel = loanData.dataColeta == null;
@@ -189,14 +199,6 @@ class ClientProfile extends DashboardBase {
 
   }
 
-  async setCurrentPending(loanId) {
-    this.currentLoanId = loanId;
-    document.querySelectorAll(".pendencias__pendencia").forEach(pendencia => {
-      pendencia.classList = "pendencias__pendencia";
-    });
-    document.querySelector(`#pendencia-${this.currentLoanId}`).classList.add("selecionada");
-  }
-
   // -- FUNÇÕES DOS BOTÕES --
 
   // 'Detalhes'
@@ -216,6 +218,15 @@ class ClientProfile extends DashboardBase {
     this.showPopUp(".dashboard__popup--cancelar-pendencia")
   }
 
+  // 'Prorrogar'
+  async handleDelayLoan(event){
+    const target = event.target.closest(".acoes__prorrogar");
+    if (target == null) return;
+
+    document.getElementById("popUpDataDevolucao").value=this.currentLoanValue.body.dataPrevistaDevolucao
+    this.showPopUp(".dashboard__popup--prorrogar-pendencia")
+  }
+
   // Submit 'Cancelar'
   async submitCancelLoan(event){
     event.preventDefault();
@@ -230,16 +241,7 @@ class ClientProfile extends DashboardBase {
     this.listRenderPendences();
   }
 
-  // 'Prorrogar'
-  async handleDelayLoan(event){
-    const target = event.target.closest(".acoes__prorrogar");
-    if (target == null) return;
-
-    document.getElementById("popUpDataDevolucao").value=this.currentLoanValue.body.dataPrevistaDevolucao
-    this.showPopUp(".dashboard__popup--prorrogar-pendencia")
-  }
-
-  // Submit 'prorogar'
+  // Submit 'Prorogar'
   async submitDeleyLoan(event){
     event.preventDefault();
 

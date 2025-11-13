@@ -83,22 +83,11 @@
         </div>
       </div>
 
-      <!-- Pop-Up -->
-      <div class="dashboard__popup dashboard__popup--new-client hidden">
+      <!-- Novo cliente -->
+      <div class="dashboard__popup hidden" id="new-client-form-popup">
         <div class="dashboard__popup-close">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18 18 6M6 6l12 12"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
         </div>
         <p class="dashboard__popup-heading font--secondary">Novo cliente</p>
@@ -117,19 +106,11 @@
           </div>
           <div>
             <label class="dashboard__popup-label">Endereço</label>
-            <input
-              class="dashboard__popup-input"
-              type="email"
-              name="endereco"
-            />
+            <input class="dashboard__popup-input" type="email" name="endereco" />
           </div>
           <div>
             <label class="dashboard__popup-label">Telefone</label>
-            <input
-              class="dashboard__popup-input"
-              type="email"
-              name="telefone"
-            />
+            <input class="dashboard__popup-input" type="email" name="telefone" />
           </div>
 
           <div>
@@ -137,89 +118,46 @@
             <input class="dashboard__popup-input" type="email" name="imagem" />
           </div>
 
-          <button
-            type="submit"
-            class="button dashboard__popup-submit"
-            id="new-client-submit"
-          >
+          <button type="submit" class="button dashboard__popup-submit" id="new-client-submit">
             Enviar
           </button>
         </form>
       </div>
 
-      <div class="dashboard__popup dashboard__popup--edit-client hidden">
+      <!-- Novo cliente -->
+      <div class="dashboard__popup hidden" id="edit-client-form-popup">
         <div class="dashboard__popup-close">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18 18 6M6 6l12 12"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
           </svg>
         </div>
         <p class="dashboard__popup-heading font--secondary">Editar cliente</p>
         <form class="dashboard__popup-form" id="edit-client-form">
           <div>
             <label class="dashboard__popup-label">CPF do cliente</label>
-            <input
-              class="dashboard__popup-input dashboard__popup-input--cpf"
-              type="text"
-              name="cpf"
-            />
+            <input class="dashboard__popup-input" type="text" name="cpf"/>
           </div>
           <div>
             <label class="dashboard__popup-label">Nome do cliente</label>
-            <input
-              class="dashboard__popup-input dashboard__popup-input--name"
-              type="text"
-              name="nome"
-            />
+            <input class="dashboard__popup-input" type="text" name="nome"/>
           </div>
           <div>
             <label class="dashboard__popup-label">Email</label>
-            <input
-              class="dashboard__popup-input dashboard__popup-input--email"
-              type="email"
-              name="email"
-            />
+            <input class="dashboard__popup-input" type="email" name="email"/>
           </div>
           <div>
             <label class="dashboard__popup-label">Endereço</label>
-            <input
-              class="dashboard__popup-input dashboard__popup-input--adress"
-              type="email"
-              name="endereco"
-            />
+            <input class="dashboard__popup-input" type="email" name="endereco"/>
           </div>
           <div>
             <label class="dashboard__popup-label">Telefone</label>
-            <input
-              class="dashboard__popup-input dashboard__popup-input--phone"
-              type="email"
-              name="telefone"
-            />
+            <input class="dashboard__popup-input" type="email" name="telefone"/>
           </div>
-
           <div>
             <label class="dashboard__popup-label">URL da imagem</label>
-            <input
-              class="dashboard__popup-input dashboard__popup-input--image"
-              type="email"
-              name="imagem"
-            />
+            <input class="dashboard__popup-input" type="email" name="imagem"/>
           </div>
-          <button
-            type="submit"
-            class="button dashboard__popup-submit"
-            id="edit-client-submit"
-          >
+          <button type="submit" class="button dashboard__popup-submit" id="edit-client-submit">
             Enviar
           </button>
         </form>

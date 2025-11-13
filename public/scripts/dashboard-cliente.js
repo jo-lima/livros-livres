@@ -5,10 +5,12 @@ class DashboardCliente extends DashboardBase {
     super();
 
     // Elementos
-    this.clientsTableElement = document.querySelector(
-      ".dashboard__table--clients tbody"
-    );
+    this.clientsTableElement = document.querySelector(".dashboard__table--clients tbody");
+    // Novo cliente
     this.newClientForm = document.querySelector("#new-client-form");
+    this.newClientButton = document.querySelector("#new-client-button");
+    this.newClientSubmit = document.querySelector("#new-client-submit");
+    // Editar cliente
     this.editClientSubmit = document.querySelector("#edit-client-submit");
     this.editClientForm = document.querySelector("#edit-client-form");
 
@@ -134,42 +136,18 @@ class DashboardCliente extends DashboardBase {
     if (target.classList.contains("edit-client-button")) {
       const response = await this.getClient(rowId);
 
-      document.querySelector(".dashboard__popup-input--cpf").value =
-        response.body.cpf;
-      document.querySelector(".dashboard__popup-input--name").value =
-        response.body.nome;
-      document.querySelector(".dashboard__popup-input--email").value =
-        response.body.email;
-      document.querySelector(".dashboard__popup-input--adress").value =
-        response.body.endereco;
-      document.querySelector(".dashboard__popup-input--phone").value =
-        response.body.telefone;
-      document.querySelector(".dashboard__popup-input--image").value =
-        response.body.imagem;
+      this.editClientForm.querySelectorAll('input').forEach(field => field.value = response.body[field.name]);
 
       this.editClientSubmit.dataset.idClient = rowId;
-      this.showPopUp(".dashboard__popup--edit-client");
+      this.showPopUp("#edit-client-form-popup");
     }
   }
 
   setUpClientListeners() {
-    document
-      .querySelector("#new-client-button")
-      .addEventListener("click", () =>
-        this.showPopUp(".dashboard__popup--new-client")
-      );
-
-    document
-      .querySelector("#new-client-submit")
-      .addEventListener("click", (event) => this.submitNewClientForm(event));
-
-    this.clientsTableElement.addEventListener("click", (event) =>
-      this.handleClientActions(event)
-    );
-
-    this.editClientSubmit.addEventListener("click", (event) =>
-      this.submitEditClientForm(event)
-    );
+    this.newClientButton.addEventListener("click", () => this.showPopUp("#new-client-form-popup"));
+    this.editClientSubmit.addEventListener("click", event => this.submitNewClientForm(event));
+    this.clientsTableElement.addEventListener("click", event => this.handleClientActions(event));
+    this.editClientSubmit.addEventListener("click", event =>this.submitEditClientForm(event));
   }
 
   async listRenderClients() {

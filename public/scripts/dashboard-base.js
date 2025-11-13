@@ -18,11 +18,9 @@ class DashboardBase extends Base {
   // Mensagem
   displayMessage(json) {
     this.messageElement.textContent = json.message;
-    this.messageElement.style.backgroundColor =
-      json.statusCode == 200 ? "var(--text-color--green--regular)" : "red";
+    this.messageElement.style.backgroundColor = json.statusCode == 200 ? "var(--text-color--green--regular)" : "red";
 
-    if (this.messageElement.classList.contains("dashboard__message--hidden"))
-      this.messageElement.classList.remove("dashboard__message--hidden");
+    if (this.messageElement.classList.contains("dashboard__message--hidden")) this.messageElement.classList.remove("dashboard__message--hidden");
 
     // Para o timeout anterior
     this.messageTimer && clearTimeout(this.messageTimer);

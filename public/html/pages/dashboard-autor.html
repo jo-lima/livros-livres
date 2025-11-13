@@ -71,22 +71,11 @@
         </div>
       </div>
 
-      <!-- Pop-Up -->
-      <div class="dashboard__popup dashboard__popup--new-author hidden">
+      <!-- Novo autor -->
+      <div class="dashboard__popup hidden" id="new-author-form-popup">
         <div class="dashboard__popup-close">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18 18 6M6 6l12 12"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
         </div>
         <p class="dashboard__popup-heading font--secondary">Novo autor</p>
@@ -107,74 +96,45 @@
             <label class="dashboard__popup-label">URL da imagem</label>
             <input class="dashboard__popup-input" type="text" name="imagem" />
           </div>
-          <button
-            type="submit"
-            class="button dashboard__popup-submit"
-            id="new-author-submit"
-          >
+          <button type="submit" class="button dashboard__popup-submit" id="new-author-submit">
             Enviar
           </button>
         </form>
       </div>
-      <div class="dashboard__popup dashboard__popup--edit-author hidden">
+
+      <!-- Editar autor -->
+      <div class="dashboard__popup hidden" id="edit-author-form-popup">
         <div class="dashboard__popup-close">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="size-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18 18 6M6 6l12 12"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
         </div>
         <p class="dashboard__popup-heading font--secondary">Editar autor</p>
         <form class="dashboard__popup-form" id="edit-author-form">
           <div>
             <label class="dashboard__popup-label">Nome do autor</label>
-            <input
-              class="dashboard__popup-input dashboard__popup-input--name"
-              type="text"
-              name="nome"
+            <input class="dashboard__popup-input" type="text" name="nome"
             />
           </div>
           <div>
             <label class="dashboard__popup-label">Citação</label>
-            <input
-              class="dashboard__popup-input dashboard__popup-input--quote"
-              type="text"
-              name="citacao"
-            />
+            <input class="dashboard__popup-input" type="text" name="citacao" />
           </div>
           <div>
             <label class="dashboard__popup-label">Descrição</label>
-            <textarea
-              name="descricao"
-              class="dashboard__popup-input--description"
-            ></textarea>
+            <textarea name="descricao"></textarea>
           </div>
           <div>
             <label class="dashboard__popup-label">URL da imagem</label>
-            <input
-              class="dashboard__popup-input dashboard__popup-input--image"
-              type="text"
-              name="imagem"
+            <input class="dashboard__popup-input" type="text" name="imagem"
             />
           </div>
-          <button
-            type="submit"
-            class="button dashboard__popup-submit"
-            id="edit-author-submit"
-          >
+          <button type="submit" class="button dashboard__popup-submit" id="edit-author-submit" >
             Enviar
           </button>
         </form>
       </div>
+
       <div class="dashboard__popup-overlay hidden"></div>
 
       <!-- Mensagem -->

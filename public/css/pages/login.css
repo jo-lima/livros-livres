@@ -1,0 +1,103 @@
+html{
+    background-image: url("../../images/general/plano-de-fundo-do-livro-xfix8ihv6dmfjzyu-redimensionado-para-1447x1194.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-login-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    flex-wrap: wrap;
+    width: 60%;
+    background-color: white;
+    border-radius: 25px;
+    padding: 50px;
+    margin: 50px auto;
+}
+
+.user-form h1{
+    color: #F09618;
+}
+
+.image-login {
+    flex: 1 1;
+    display: flex;
+    justify-content: center;
+}
+
+.image-login img {
+    max-width: 100%;
+    height: auto;
+}
+
+.login-form {
+    flex: 1 1;
+    display: flex;
+    justify-content: center;
+}
+
+.user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.log {
+    width: 90%;
+    max-width: 400px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.log input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 25px;
+    box-sizing: border-box;
+    background-color: #F09618;
+    opacity: 49%;
+}
+.dashboard__message {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background-color: var(--text-color--green--regular);
+  padding: 16px 24px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.4s ease;
+}
+
+.dashboard__message--hidden {
+  transform: translateX(150%);
+  opacity: 0;
+}
+#btnLogin {
+    width: 40%;
+    max-width: 200px;
+    padding: 10px;
+    margin: 20px auto;
+    display: block;
+    background-color: var(--text-color--green--regular);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.forgot-pwd{
+    font-size: 13px;
+    margin: 5px;
+    text-align: right;
+}
+
+.have-account{
+    font-size: 13px;
+    text-align: left;
+    display: flex;
+}

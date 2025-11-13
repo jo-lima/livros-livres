@@ -5,15 +5,13 @@ class DashboardLivro extends DashboardBase {
     super();
 
     // Elementos
-    this.booksTableElement = document.querySelector(
-      ".dashboard__table--books tbody"
-    );
-    this.authorsListElement = document.querySelectorAll(
-      ".dashboard-authors-list"
-    );
+    this.booksTableElement = document.querySelector(".dashboard__table--books tbody");
+    this.authorsListElement = document.querySelectorAll(".dashboard-authors-list");
+    // Novo livro
     this.newBookForm = document.querySelector("#new-book-form");
+    this.newBookButton = document.querySelector("#new-book-button");
+    // Editar livro    
     this.editBookForm = document.querySelector("#edit-book-form");
-    this.editBookSubmit = document.querySelector("#edit-book-submit");
 
     // Execução
     this.initialize();
@@ -84,12 +82,10 @@ class DashboardLivro extends DashboardBase {
     }
 
     // Livros disponíveis
-    document.querySelector(".dashboard__card--books-amount").textContent =
-      booksData.body.length;
+    document.querySelector(".dashboard__card--books-amount").textContent = booksData.body.length;
 
     // Livros em estoque - Soma todos os book.estoque em um só valor
-    document.querySelector(".dashboard__card--books-stock").textContent =
-      booksData.body.reduce((acc, book) => acc + book.estoque, 0);
+    document.querySelector(".dashboard__card--books-stock").textContent = booksData.body.reduce((acc, book) => acc + book.estoque, 0);
   }
 
   // Populando lista de autores
@@ -99,9 +95,7 @@ class DashboardLivro extends DashboardBase {
     authorsData.forEach((author) => {
       const authorHtml = `<option value="${author.idAutor}">${author.nome}</option>`;
 
-      this.authorsListElement.forEach((list) => {
-        list.insertAdjacentHTML("beforeend", authorHtml);
-      });
+      this.authorsListElement.forEach(list => list.insertAdjacentHTML("beforeend", authorHtml));
     });
   }
 
@@ -123,10 +117,7 @@ class DashboardLivro extends DashboardBase {
     event.preventDefault();
 
     const body = this.formDataObject(this.editBookForm);
-    const response = await this.editBook(
-      this.editBookSubmit.dataset.idLivro,
-      body
-    );
+    const response = await this.editBook(this.editBookForm.dataset.idLivro, body);
 
     this.displayMessage(response);
     this.cleanForm(this.editBookForm);
@@ -145,13 +136,8 @@ class DashboardLivro extends DashboardBase {
     let json;
 
     // Inativar/Ativar livro
-    if (
-      target.classList.contains("disable-book-button") ||
-      target.classList.contains("enable-book-button")
-    ) {
-      json = target.classList.contains("disable-book-button")
-        ? await this.disableBook(rowId)
-        : await this.enableBook(rowId);
+    if (target.classList.contains("disable-book-button") || target.classList.contains("enable-book-button")) {
+      json = target.classList.contains("disable-book-button") ? await this.disableBook(rowId) : await this.enableBook(rowId);
 
       this.listRenderBooks();
       this.displayMessage(json);
@@ -161,50 +147,23 @@ class DashboardLivro extends DashboardBase {
     if (target.classList.contains("edit-book-button")) {
       const response = await this.getBook(rowId);
 
-      document.querySelector(".dashboard__popup-input--name").value =
-        response.body.nome;
-      document.querySelector(".dashboard__popup-input--author").value =
-        response.body.autor.idAutor;
-      document.querySelector(".dashboard__popup-input--genre").value =
-        response.body.genero;
-      document.querySelector(".dashboard__popup-input--pages").value =
-        response.body.paginas;
-      document.querySelector(".dashboard__popup-input--isbn").value =
-        response.body.isbn;
-      document.querySelector(".dashboard__popup-input--description").value =
-        response.body.descricao;
-      document.querySelector(".dashboard__popup-input--stock").value =
-        response.body.estoque;
-      document.querySelector(".dashboard__popup-input--publisher").value =
-        response.body.editora;
-      document.querySelector(".dashboard__popup-input--image").value =
-        response.body.imagem;
-      document.querySelector(".dashboard__popup-input--date").value =
-        response.body.dataPublicacao;
+      this.editBookForm.querySelectorAll('input, textarea').forEach(field => field.value = response.body[field.name]);
 
-      this.editBookSubmit.dataset.idLivro = rowId; // Linkando o ID do autor da linha com o botão de submit - ta meio feio gente desculpa :c
-      this.showPopUp(".dashboard__popup--edit-book");
+      this.editBookForm.querySelector('select[name="autorId"]').value = response.body.autor.idAutor;
+
+      this.editBookForm.dataset.idLivro = rowId;
+      this.showPopUp("#edit-book-form-popup");
     }
   }
 
   // Aplicando os EventListeners
   async setUpBookListeners() {
-    document
-      .querySelector("#new-book-button")
-      .addEventListener("click", () =>
-        this.showPopUp(".dashboard__popup--new-book")
-      );
-    document
-      .querySelector("#new-book-submit")
-      .addEventListener("click", async (event) =>
-        this.submitNewBookForm(event)
-      );
-    this.booksTableElement.addEventListener("click", async (event) =>
-      this.handleBookActions(event)
-    );
-    this.editBookSubmit.addEventListener("click", async (event) =>
-      this.submitEditBookForm(event)
-    );
+    this.booksTableElement.addEventListener("click", async event => this.handleBookActions(event));
+    // Novo livro
+    this.newBookButton.addEventListener("click", () => this.showPopUp("#new-book-form-popup"));
+    this.newBookForm.addEventListener("submit", async event => this.submitNewBookForm(event));
+    // Editar autor
+    this.editBookForm.addEventListener("submit", async event => this.submitEditBookForm(event));
   }
 
   // Renderizar e atualizar os cards
@@ -218,7 +177,7 @@ class DashboardLivro extends DashboardBase {
   // Inicialização
   initialize() {
     this.listRenderBooks();
-    this.getAllAuthors().then((json) => this.renderAuthorsList(json.body));
+    this.getAllAuthors().then(json => this.renderAuthorsList(json.body));
     this.setUpBookListeners();
   }
 }

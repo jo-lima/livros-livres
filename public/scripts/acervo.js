@@ -1,4 +1,6 @@
 import Base from "./base.js";
+const token = document.cookie;
+console.log(token);
 
 class Acervo extends Base {
   constructor() {

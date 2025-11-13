@@ -41,11 +41,9 @@ btnRegisterSubmit.addEventListener("click", async(event)=>{
     const responseCode = await createCliente(cpf, clientname, emailConfirm ,passwd, address, tel)
     console.log(responseCode)
     if(responseCode.statusCode === 200){
-        window.location.replace('/public/html/pages/acervo.html')
-        const message = responseCode.message
-
-        const message2 = response['message'];
-console.log(message2);
-
+        base.displayMessage(responseCode)
+        window.location.replace('public\html\pages\login.html')
+  }else{
+    base.displayMessage(responseCode)
   }
 })

@@ -1,11 +1,13 @@
 package com.livros_livres.Server.Services;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.livros_livres.Server.Registers.RequestBody.CriarEmprestimoRequest;
@@ -233,6 +235,28 @@ public class EmprestimoService {
         emprestimoCriado = emprestimoRepo.save(buscaEmprestimo);
 
         return RetornoApi.sucess("Pedido de empréstimo cancelado com sucesso.", emprestimoCriado);
+    }
+    @Scheduled(cron = "0 0 0 * * *") // todos os dias à meia-noite
+    private void cancelaPedidosValidade(){
+        DebugService.log("Cancelando pedidos com + de 3 dias de validade...");
+        Integer days = 3;
+        LocalDate limiteData = LocalDate.now().plusDays(days);
+
+        List<Emprestimo> listaEmprestimos = emprestimoRepo.findAll();
+
+        synchronized (listaEmprestimos) {
+            for (Emprestimo emprestimo : listaEmprestimos) {
+                if(
+                emprestimo.getStatus() == EmprestimoStatus.PEDIDO &&
+                emprestimo.getDataSolicitacaoEmprestimo().isBefore(limiteData)
+                ) {
+                    // i don't like that but I'm lazy........
+                    // Best way would be have a cron job defaul user and login they in some momment and have its
+                    // token as a global variable or something... TODO
+                    cancelarEmprestimo("debug", emprestimo.getIdEmprestimo());
+                }
+            }
+        }
     }
 
     public RetornoApi finalizarEmprestimo(String token, Integer idEmprestimo) {

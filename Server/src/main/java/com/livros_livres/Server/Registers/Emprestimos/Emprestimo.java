@@ -35,17 +35,21 @@ public class Emprestimo {
     @Column(name="Data_SolicitacaoEmprestimo")
     private LocalDate dataSolicitacaoEmprestimo;
 
-    @Column(name="Data_Coleta")
-    private LocalDate dataColeta;
-
     @Column(name="Data_PrevistaDevolucao")
     private LocalDate dataPrevistaDevolucao;
+
+    @Column(name="Data_Coleta")
+    private LocalDate dataColeta;
 
     @Column(name="Data_EstendidaDevolucao")
     private LocalDate dataEstendidaDevolucao;
 
     @Column(name="Data_Devolucao")
     private LocalDate dataDevolucao;
+
+    @Column(name="Data_Cancelamento")
+    private LocalDate dataCancelamento;
+
 
     @Column(name="Status")
     @Enumerated(EnumType.STRING)

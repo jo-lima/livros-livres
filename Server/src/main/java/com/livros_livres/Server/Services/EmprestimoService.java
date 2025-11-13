@@ -227,6 +227,7 @@ public class EmprestimoService {
 
         buscaEmprestimo.setDataColeta(null);
         buscaEmprestimo.setDataDevolucao(null);
+        buscaEmprestimo.setDataCancelamento(LocalDate.now());
         buscaEmprestimo.setStatus(EmprestimoStatus.CANCELADO);
 
         emprestimoCriado = emprestimoRepo.save(buscaEmprestimo);
@@ -279,6 +280,7 @@ public class EmprestimoService {
         if(emprestimoData.getAtivo() != null) { emprestimo.setAtivo(emprestimoData.getAtivo()); }
         if(emprestimoData.getDataSolicitacaoEmprestimo() != null) {emprestimo.setDataSolicitacaoEmprestimo(emprestimoData.getDataSolicitacaoEmprestimo());}
         if(emprestimoData.getDataColeta() != null) {emprestimo.setDataColeta(emprestimoData.getDataColeta());}
+        if(emprestimoData.getDataCancelamento() != null) {emprestimo.setDataCancelamento(emprestimoData.getDataCancelamento());}
         if(emprestimoData.getDataPrevistaDevolucao() != null) {emprestimo.setDataPrevistaDevolucao(emprestimoData.getDataPrevistaDevolucao());}
         if(emprestimoData.getDataEstendidaDevolucao() != null) {emprestimo.setDataEstendidaDevolucao(emprestimoData.getDataEstendidaDevolucao());}
         if(emprestimoData.getDataDevolucao() != null) {emprestimo.setDataDevolucao(emprestimoData.getDataDevolucao());}

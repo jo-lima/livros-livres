@@ -19,8 +19,8 @@ class ClientProfile extends DashboardBase {
 
     // Variaveis global
     this.clientId = 1; // valor mocado
-    this.currentPendingId = 0; // ID da pendencia atual, nos detalhes
-    this.currentPendingValue; // Objeto da pendencia atual
+    this.currentLoanId = 0; // ID da pendencia atual, nos detalhes
+    this.currentLoanValue; // Objeto da pendencia atual
 
     this.emprestimoStatus = Object.freeze({
       PEDIDO:              "PEDIDO",
@@ -46,7 +46,7 @@ class ClientProfile extends DashboardBase {
   }
 
   // Renderiza lista de pendencias na esquerda
-  renderPendingList(pendingData) {
+  renderPendencyList(loanData) {
     this.pendingList.innerHTML = "";
 
     const semPendencias = `
@@ -55,8 +55,8 @@ class ClientProfile extends DashboardBase {
       </div>
     `
 
-    if(pendingData!=undefined && pendingData.length > 0){
-      pendingData.forEach(loan => {
+    if(loanData!=undefined && loanData.length > 0){
+      loanData.forEach(loan => {
         const pendingLoanHtml = `
           <div class="pendencias__pendencia" id="pendencia-${loan.idEmprestimo}">
           <p class="pendencia__nome">${loan.livro.nome}:</p>
@@ -87,7 +87,7 @@ class ClientProfile extends DashboardBase {
     this.pendingList.insertAdjacentHTML("beforeend", '<hr style="border: none; margin:15px;">');
   }
 
-  generatePendingDescriptionItem(title, info){
+  generateLoanDescriptionItem(title, info){
     const item = `
       <div class="data__item">
         <span>${title}</span>
@@ -97,90 +97,104 @@ class ClientProfile extends DashboardBase {
     return item;
   }
 
-  renderPendingDetails(pendingData){
-    if(pendingData == null){
-      // Oculta a parte de "livro atual"
+  // -- GENERATING LOAN DETAILS --
+  generateLoanDetailsActions(loanData){
+    const canDelay = loanData.dataEstendidaDevolucao == null && loanData.dataColeta != null;
+    const canCancel = loanData.dataColeta == null;
+
+    if (!canDelay && !canCancel) {
+      return '</div></div>';
+    }
+
+    let actions = '</div><div class="info-descritiva__acoes">';
+
+    if (canDelay) {
+      actions += '<button class="acoes__prorrogar">Prorrogar</button>';
+    }
+
+    if (canCancel) {
+      actions += '<button class="acoes__cancelar">Cancelar Solicitação</button>';
+    }
+
+    return actions + '</div></div>';
+  }
+
+  generateLoanDetailsItens(loanData){
+    let loanDetailsItens = "";
+
+    // Append infos only of value returned is not null
+    const infoItems = [
+      { title: "Data Solicitação:", value: loanData.dataSolicitacaoEmprestimo },
+      { title: "Data Coleta:", value: loanData.dataColeta },
+      { title: `Data ${loanData.dataEstendidaDevolucao != null ? "Inicial" : ""} de Devolução:`, value: loanData.dataPrevistaDevolucao },
+      { title: "Data de Devolução Estendida:", value: loanData.dataEstendidaDevolucao },
+      { title: "Data Devolução:", value: loanData.dataDevolucao }
+    ];
+    infoItems.forEach(item => {
+      if (item.value != null) {
+      loanDetailsItens += this.generateLoanDescriptionItem(item.title, item.value);
+      }
+    });
+
+    loanDetailsItens += `<p class="data__item">Descrição: ${loanData.livro.descricao}</p>`
+
+    return loanDetailsItens;
+  }
+
+  generateLoanDetailVisual(loanData){
+    let loanDetailVisual = "";
+    loanDetailVisual += `
+      <div class="pendencia-atual__info-visual">
+        <div class="info-visual__livro-capa">
+          <img src="${loanData.livro.imagem}" alt="Foto Livro">
+        </div>
+        <div class="info-visual__livro_identity">
+          <p class="livro_identity__titulo">${loanData.livro.nome}</p>
+          <p class="livro_identity__autor">${loanData.livro.autor.nome}</p>
+        </div>
+      </div>
+    `;
+    return loanDetailVisual;
+  }
+
+  renderLoanDetails(loanData){
+    // Oculta a parte de "livro atual" caso nao tenha nenhuma pendencia.
+    if(loanData == null){
       document.querySelector(".titles__livro-atual-title").style.display = "none"
       document.querySelector(".content__pendencia-atual").style.display = "none"
       return
     }
 
-    let detailsElmnts = "";
-
-    detailsElmnts += `
+    // start generating code
+    let detailsElmnts = `
       <div class="pendencia-atual__info-descritiva">
         <div class="info-descritiva__data">
 
           <div class="data__status-emprestimo data__item">
             <span class="status-emprestimo_title">Status do Empréstimo:</span>
-            <span class="status-emprestimo__info item__info">${pendingData.status}</span>
+            <span class="status-emprestimo__info item__info">${loanData.status}</span>
           </div>
 
           <hr>
       `;
 
-    const infoItems = [
-      { title: "Data Solicitação:", value: pendingData.dataSolicitacaoEmprestimo },
-      { title: "Data Coleta:", value: pendingData.dataColeta },
-      { title: `Data ${pendingData.dataEstendidaDevolucao != null ? "Inicial" : ""} de Devolução:`, value: pendingData.dataPrevistaDevolucao },
-      { title: "Data de Devolução Estendida:", value: pendingData.dataEstendidaDevolucao },
-      { title: "Data Devolução:", value: pendingData.dataDevolucao }
-    ];
-
-    infoItems.forEach(item => {
-      if (item.value != null) {
-      detailsElmnts += this.generatePendingDescriptionItem(item.title, item.value);
-      }
-    });
-
-      detailsElmnts += `<p class="data__item">Descrição: ${pendingData.livro.descricao}</p>`
-
-      // end of details div start of acoes div
-      detailsElmnts += `
-        </div>
-
-        <div class="info-descritiva__acoes">
-      `
-      // pode prorrogar
-      if(pendingData.dataEstendidaDevolucao == null && pendingData.dataColeta != null) {
-        detailsElmnts += `<button class="acoes__prorrogar">Prorrogar</button>`
-      }
-      // pode cancelar
-      if(pendingData.dataColeta == null) {
-        detailsElmnts += `<button class="acoes__cancelar">Cancelar Solicitação</button>`
-
-      }
-      // ending acoes div
-      detailsElmnts+= `
-        </div>
-
-      </div>
-    `;
-
+    // generate info lists of info
+    detailsElmnts += this.generateLoanDetailsItens(loanData);
+    // generate bottom buttons if needed.
+    detailsElmnts += this.generateLoanDetailsActions(loanData);
     this.loanDetailRight.innerHTML = detailsElmnts;
 
-    const pendingVisualDetails = `
-      <div class="pendencia-atual__info-visual">
-        <div class="info-visual__livro-capa">
-          <img src="${pendingData.livro.imagem}" alt="Foto Livro">
-        </div>
-        <div class="info-visual__livro_identity">
-          <p class="livro_identity__titulo">${pendingData.livro.nome}</p>
-          <p class="livro_identity__autor">${pendingData.livro.autor.nome}</p>
-        </div>
-      </div>
-    `;
-
-    this.loanDetailLeft.innerHTML = pendingVisualDetails;
+    const loanVisualDetails = this.generateLoanDetailVisual(loanData);
+    this.loanDetailLeft.innerHTML = loanVisualDetails;
 
   }
 
   async setCurrentPending(loanId) {
-    this.currentPendingId = loanId;
+    this.currentLoanId = loanId;
     document.querySelectorAll(".pendencias__pendencia").forEach(pendencia => {
       pendencia.classList = "pendencias__pendencia";
     });
-    document.querySelector(`#pendencia-${this.currentPendingId}`).classList.add("selecionada");
+    document.querySelector(`#pendencia-${this.currentLoanId}`).classList.add("selecionada");
   }
 
   // -- FUNÇÕES DOS BOTÕES --
@@ -207,7 +221,7 @@ class ClientProfile extends DashboardBase {
     event.preventDefault();
 
     const body = this.formDataObject(this.cancelPendingForm);
-    const response = await this.postCancelarEmprestimo(this.currentPendingId);
+    const response = await this.postCancelarEmprestimo(this.currentLoanId);
 
     this.displayMessage(response);
 
@@ -221,7 +235,7 @@ class ClientProfile extends DashboardBase {
     const target = event.target.closest(".acoes__prorrogar");
     if (target == null) return;
 
-    document.getElementById("popUpDataDevolucao").value=this.currentPendingValue.body.dataPrevistaDevolucao
+    document.getElementById("popUpDataDevolucao").value=this.currentLoanValue.body.dataPrevistaDevolucao
     this.showPopUp(".dashboard__popup--prorrogar-pendencia")
   }
 
@@ -230,7 +244,7 @@ class ClientProfile extends DashboardBase {
     event.preventDefault();
 
     const body = this.formDataObject(this.delayLoanForm);
-    const response = await this.postAdiarEmprestimo(this.currentPendingId, body.dataEstendidaDevolucao);
+    const response = await this.postAdiarEmprestimo(this.currentLoanId, body.dataEstendidaDevolucao);
 
     this.displayMessage(response);
 
@@ -254,9 +268,9 @@ class ClientProfile extends DashboardBase {
 
 // Renderizar e atualizar elementos em tempo real
   async listRenderPendences() {
-    this.getEmprestimoById(this.currentPendingId).then((json) => {
-      this.currentPendingValue = json;
-      this.renderPendingDetails(this.currentPendingValue.body);
+    this.getEmprestimoById(this.currentLoanId).then((json) => {
+      this.currentLoanValue = json;
+      this.renderLoanDetails(this.currentLoanValue.body);
 
       this.delayButton = document.querySelector(".acoes__prorrogar");
       if(this.delayButton != null) {
@@ -285,15 +299,15 @@ class ClientProfile extends DashboardBase {
         return historyStatus.includes(i.status);
       });
 
-      this.renderPendingList(this.pendenciesList);
+      this.renderPendencyList(this.pendenciesList);
       this.setUpProfileListeners();
 
       if(this.pendenciesList.length > 0) {
         this.setCurrentPending(this.pendenciesList[0].idEmprestimo);
       }
 
-      this.getEmprestimoById(this.currentPendingId).then((json) => {
-        this.renderPendingDetails(json.body);
+      this.getEmprestimoById(this.currentLoanId).then((json) => {
+        this.renderLoanDetails(json.body);
       });
 
       this.listRenderPendences();

@@ -21,7 +21,7 @@ class DashboardLivro extends DashboardBase {
   renderBooks(booksData) {
     this.booksTableElement.innerHTML = "";
 
-    booksData.body.forEach((book) => {
+    booksData.body.forEach(book => {
       let buttonHtml;
 
       if (book.ativo) {
@@ -78,7 +78,7 @@ class DashboardLivro extends DashboardBase {
 
   // Populando lista de autores
   renderAuthorsList(authorsData) {
-    if (authorsData.statusCode == 404) return
+    if (authorsData.statusCode != 200) return;
 
     this.authorsListElement.innerHTML = "";
 

@@ -46,8 +46,20 @@ class Acervo extends Base {
     });
   }
 
+  renderNoErrorMessage(){
+    const errorMessage = document.createElement('div')
+    errorMessage.classList.add('library-books__error-message')
+    errorMessage.innerHTML = `<p>Nenhum livro encontrado</p>`
+    this.booksGrid.append(errorMessage)
+  }
+
   async initialize() {
     this.getAllBooks().then((json) => {
+      if (json.statusCode == 404) {
+        this.renderNoErrorMessage();
+        return
+      }
+
       this.renderAllBooks(json);
     });
   }

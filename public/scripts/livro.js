@@ -27,10 +27,7 @@ class Livro extends Base {
     this.bookImageElement.style.backgroundImage = `url("${bookData.imagem}")`;
     this.bookAuthorImageElement.style.backgroundImage = `url("${bookData.autor.imagem}")`;
 
-    this.bookAuthorElement.setAttribute(
-      "href",
-      `autor.html?id=${bookData.autor.idAutor}`
-    );
+    this.bookAuthorElement.setAttribute("href", `autor.html?id=${bookData.autor.idAutor}`);
 
     // Detalhes
     const details = [
@@ -41,20 +38,13 @@ class Livro extends Base {
       ["date", bookData.dataPublicacao],
     ];
 
-    for (const detail of details) {
-      document.querySelector(`.book__detail--${detail[0]}`).textContent =
-        detail[1];
-    }
+    for (const detail of details) document.querySelector(`.book__detail--${detail[0]}`).textContent = detail[1];
 
-    setTimeout(() => {
-      this.loadingOverlayElement.classList.add("hidden");
-    }, 400);
+    setTimeout(() => this.loadingOverlayElement.classList.add("hidden"), 400)
   }
 
   async initialize() {
-    this.getBook(this.getBookIdByUrl()).then((json) => {
-      this.renderBook(json.body);
-    });
+    this.getBook(this.getBookIdByUrl()).then(json => this.renderBook(json.body));
   }
 }
 

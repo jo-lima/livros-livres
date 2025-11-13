@@ -18,12 +18,6 @@ class DashboardAutor extends DashboardBase {
 
   // Renderiza os autores na tabela
   renderAllAuthors(authorsData) {
-    // TODO - Lidar
-    if (authorsData.statusCode == 404) {
-      this.displayMessage(authorsData);
-      return;
-    }
-
     this.authorsTableElement.innerHTML = "";
 
     authorsData.body.forEach((author) => {
@@ -70,12 +64,6 @@ class DashboardAutor extends DashboardBase {
 
   // Atualizando os cards
   updateCards(authorsData) {
-    // TODO - Lidar
-    if (authorsData.statusCode == 404) {
-      this.displayMessage(authorsData);
-      return;
-    }
-
     // Autores registrados
     document.querySelector(".dashboard__card--authors-amount").textContent = authorsData.body.length;
   }
@@ -147,6 +135,11 @@ class DashboardAutor extends DashboardBase {
   // Listando e renderizando autores
   async listRenderAuthors() {
     this.getAllAuthors().then((json) => {
+      if (json.statusCode == 404) {
+        this.displayMessage(json);
+        return;
+      }
+
       this.renderAllAuthors(json);
       this.updateCards(json);
     });

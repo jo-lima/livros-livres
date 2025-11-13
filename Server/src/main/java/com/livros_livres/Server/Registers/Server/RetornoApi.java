@@ -76,6 +76,10 @@ public class RetornoApi {
         return new RetornoApi(403, "Você não possui os privilégios necessários para acessar esta api.");
     }
 
+    public static RetornoApi errorForbidden(String message){
+        return new RetornoApi(403, message);
+    }
+
     public static RetornoApi errorInternal(){
         return new RetornoApi(500, "Ocorreu um erro interno não mapeado.");
     }

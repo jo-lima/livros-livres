@@ -130,6 +130,11 @@ public class ClienteService {
 
         cliente = buscaCliente.get();
 
+        if(clienteData.getEmail() != null){
+            if(!authService.checkAdminPerm(token)){return RetornoApi.errorForbidden("Clientes devem alterar seu email pelo endpoint de alteração de email.");}
+            cliente.setEmail(clienteData.getEmail());
+        }
+
         if(clienteData.getNome() != null){
             cliente.setNome(clienteData.getNome());
         }
@@ -144,6 +149,10 @@ public class ClienteService {
 
         if(clienteData.getEndereco() != null){
             cliente.setEndereco(clienteData.getEndereco());
+        }
+
+        if(clienteData.getImagem() != null){
+            cliente.setImagem(clienteData.getImagem());
         }
 
         if(clienteData.getSenha() != null){

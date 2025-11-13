@@ -16,6 +16,18 @@ class Base {
     return await response.json();
   }
 
+  async sendGetRequest(url) {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: this.DEBUG_TOKEN,
+      },
+    });
+
+    return await response.json();
+  }
+
   // Request do autor
   async getAllAuthors() {
     return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/lista`);
@@ -164,6 +176,40 @@ class Base {
 
   async enableClient(id) {
     return await this.changeClientStatus(id, "ativar");
+  }
+
+  // Empréstimos
+  async getAllEmprestimos() {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/emprestimo/lista`,
+      {}
+    );
+  }
+
+  async getAllEmprestimosByClientId(id, status) {
+    if (status === ""){status = null}
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/emprestimo/lista/cliente/${id}`,
+      {
+        "emprestimoStatus":status
+      }
+    );
+  }
+
+  async getEmprestimoById(id) {
+    return await this.sendGetRequest(
+      `http://${this.SERVER_URL}/emprestimo/${id}/busca`,
+      {}
+    );
+  }
+
+  async postAdiarEmprestimo(id, dataEstendidaDevolucao) {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/emprestimo/${id}/adiar`,
+      {
+        "dataEstendidaDevolucao":dataEstendidaDevolucao
+      }
+    );
   }
 }
 

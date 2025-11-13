@@ -1,3 +1,5 @@
+import Base from "./base.js";
+import DashboardBase from "./dashboard-base.js";
 
 // probably will change, using dashboardbase for now.
 class ClientProfile extends DashboardBase {
@@ -8,7 +10,17 @@ class ClientProfile extends DashboardBase {
     this.pendingList = document.querySelector(".pendencias-list__pendencias");
     this.pendingDetailDescritive = document.querySelector(".pendencia-atual__info-descritiva");
     this.pendingDetailVisual = document.querySelector(".pendencia-atual__info-visual");
-    this.currentPending = 1; // trocar para valor dinamico
+
+    this.delayPendingForm = document.querySelector("#deley-pendencia");
+
+    this.delayButton = document.querySelector(".acoes__prorrogar");
+
+    this.clientId = 1; // valor mocado
+    this.currentPending;
+    this.currentPendingValue;
+
+    this.pendenciesList;
+    this.historyList;
     // Execução
     this.initialize();
   }
@@ -48,7 +60,11 @@ class ClientProfile extends DashboardBase {
           </div>`;
 
         this.pendingList.insertAdjacentHTML("beforeend", pendingLoanHtml);
-        this.pendingList.insertAdjacentHTML("beforeend", "<hr>");
+        if (loan !== pendingData[pendingData.length - 1]) {
+          this.pendingList.insertAdjacentHTML("beforeend", "<hr>");
+        } else {
+          this.pendingList.insertAdjacentHTML("beforeend", '<hr style="border: none; margin:15px;">');
+        }
       });
     } else {
       this.pendingList.insertAdjacentHTML("beforeend", semPendencias);
@@ -59,36 +75,70 @@ class ClientProfile extends DashboardBase {
 
   }
 
+  generatePendingDescriptionItem(title, info){
+    const item = `
+      <div class="data__item">
+        <span>${title}</span>
+        <span class="item__info">${info}</span>
+      </div>
+    `;
+    return item;
+  }
+
   renderPendingDetails(pendingData){
-    console.log(pendingData, "asd");
-    const pendingDescritiveDetails = `
+    let detailsElmnts = "";
+
+    detailsElmnts += `
       <div class="pendencia-atual__info-descritiva">
         <div class="info-descritiva__data">
 
-          <div class="data__data-limite data__item">
-            <span class="data-limite_title">Data Limite Devolução:</span>
-            <span class="data-limite__info item__info">${pendingData.dataPrevistaDevolucao}</span>
+          <div class="data__status-emprestimo data__item">
+            <span class="status-emprestimo_title">Status do Empréstimo:</span>
+            <span class="status-emprestimo__info item__info">${pendingData.status}</span>
           </div>
 
-          <div class="data__data-limite data__item">
-            <span class="data-limite__title">Dias até limite da devolução:</span>
-            <span class="data-limite__info item__info">XX Dias</span>
-          </div>
+          <hr>
+      `;
 
-          <div class="data__data-coleta data__item">
-            <span class="data-coleta__title">Data Coleta:</span>
-            <span class="data-coleta__info item__info">${pendingData.dataColeta}</span>
-          </div>
-          <p class="data__item">Descrição: ${pendingData.livro.descricao}</p>
+    const infoItems = [
+      { title: "Data Solicitação:", value: pendingData.dataSolicitacaoEmprestimo },
+      { title: "Data Coleta:", value: pendingData.dataColeta },
+      { title: `Data ${pendingData.dataEstendidaDevolucao != null ? "Inicial" : ""} de Devolução:`, value: pendingData.dataPrevistaDevolucao },
+      { title: "Data de Devolução Estendida:", value: pendingData.dataEstendidaDevolucao },
+      { title: "Data Devolução:", value: pendingData.dataDevolucao }
+    ];
+
+    infoItems.forEach(item => {
+      if (item.value != null) {
+      detailsElmnts += this.generatePendingDescriptionItem(item.title, item.value);
+      }
+    });
+
+      detailsElmnts += `<p class="data__item">Descrição: ${pendingData.livro.descricao}</p>`
+
+      // end of details div start of acoes div
+      detailsElmnts += `
         </div>
 
         <div class="info-descritiva__acoes">
-          <button class="acoes__prorrogar">Prorrogar</button>
-          <button class="acoes__cancelar">Cancelar Solicitação</button>
+      `
+      // pode prorrogar
+      if(pendingData.dataEstendidaDevolucao == null && pendingData.dataColeta != null) {
+        detailsElmnts += `<button class="acoes__prorrogar">Prorrogar</button>`
+      }
+      // pode cancelar
+      if(pendingData.dataColeta == null) {
+        detailsElmnts += `<button class="acoes__cancelar">Cancelar Solicitação</button>`
+
+      }
+      // ending acoes div
+      detailsElmnts+= `
         </div>
 
       </div>
     `;
+
+    this.pendingDetailDescritive.innerHTML = detailsElmnts;
 
     const pendingVisualDetails = `
       <div class="pendencia-atual__info-visual">
@@ -103,7 +153,7 @@ class ClientProfile extends DashboardBase {
     `;
 
     this.pendingDetailVisual.innerHTML = pendingVisualDetails;
-    this.pendingDetailDescritive.innerHTML = pendingDescritiveDetails;
+
   }
 
   async handleCurrentPending(event){
@@ -114,35 +164,73 @@ class ClientProfile extends DashboardBase {
     this.listRenderPendences()
   }
 
+  async handleDelayPending(event){
+    const target = event.target.closest(".acoes__prorrogar");
+    if (target == null) return;
+
+    document.getElementById("popUpDataDevolucao").value=this.currentPendingValue.body.dataPrevistaDevolucao
+    this.showPopUp(".dashboard__popup--prorrogar-pendencia")
+  }
+
+  async submitDeleyPending(event){
+    event.preventDefault();
+
+    const body = this.formDataObject(this.delayPendingForm);
+    console.log(body)
+    const response = await this.postAdiarEmprestimo(this.currentPending, body.dataEstendidaDevolucao);
+
+    this.displayMessage(response);
+    console.log(response);
+
+    this.cleanForm(this.delayPendingForm);
+    this.hidePopUp();
+    this.listRenderPendences();
+  }
+
 // Aplicando os EventListeners
   async setUpProfileListeners() {
     const pendingDetailsButtons = document.querySelectorAll(".detalhar-pendencia__button");
+    const deleyLoanButton = document.querySelector("#deley-loan");
 
     pendingDetailsButtons.forEach((btn) => {
       btn.addEventListener("click", async (event) => {this.handleCurrentPending(event)});
     })
+    deleyLoanButton.addEventListener("click", async (event) => {this.submitDeleyPending(event)});
     console.log("Setup Listeners");
   }
 
 // Renderizar e atualizar elementos em tempo real
   async listRenderPendences() {
     this.getEmprestimoById(this.currentPending).then((json) => {
-      this.renderPendingDetails(json.body);
+      this.currentPendingValue = json;
+      this.renderPendingDetails(this.currentPendingValue.body);
+
+      this.delayButton = document.querySelector(".acoes__prorrogar");
+      if(this.delayButton != null) {
+        this.delayButton.addEventListener("click", async (event) => {this.handleDelayPending(event)});
+      }
     });
+
   }
 
   // Inicialização
   initialize() {
-    this.getAllEmprestimos().then((json) => {
+
+    this.getAllEmprestimosByClientId(this.clientId, "").then((json) => {
+      this.pendenciesList = json.body;
+
+      this.currentPending = this.pendenciesList[0].idEmprestimo
+
       this.renderPendingList(json.body);
       this.setUpProfileListeners();
-    }); // render pending objects
 
-    this.getEmprestimoById(this.currentPending).then((json) => {
-      this.renderPendingDetails(json.body);
+      this.getEmprestimoById(this.currentPending).then((json) => {
+        this.renderPendingDetails(json.body);
+      });
+
+      this.listRenderPendences();
     });
 
-    this.listRenderPendences();
   }
 }
 

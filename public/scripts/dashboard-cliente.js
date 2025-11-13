@@ -79,8 +79,7 @@ class DashboardCliente extends DashboardBase {
     }
 
     // Clientes registrados
-    document.querySelector(".dashboard__card--clients-amount").textContent =
-      clientData.body.length;
+    document.querySelector(".dashboard__card--clients-amount").textContent = clientData.body.length;
   }
 
   async submitNewClientForm(event) {
@@ -99,10 +98,7 @@ class DashboardCliente extends DashboardBase {
     event.preventDefault();
 
     const body = this.formDataObject(this.editClientForm);
-    const response = await this.editClient(
-      this.editClientSubmit.dataset.idClient,
-      body
-    );
+    const response = await this.editClient(this.editClientSubmit.dataset.idClient, body);
 
     this.displayMessage(response);
     this.cleanForm(this.editClientForm);
@@ -120,13 +116,8 @@ class DashboardCliente extends DashboardBase {
     let json;
 
     // Inativar/Ativar autor
-    if (
-      target.classList.contains("disable-client-button") ||
-      target.classList.contains("enable-client-button")
-    ) {
-      json = target.classList.contains("disable-client-button")
-        ? await this.disableClient(rowId)
-        : await this.enableClient(rowId);
+    if (target.classList.contains("disable-client-button") || target.classList.contains("enable-client-button")) {
+      json = target.classList.contains("disable-client-button") ? await this.disableClient(rowId) : await this.enableClient(rowId);
 
       this.displayMessage(json);
       this.listRenderClients();
@@ -151,7 +142,7 @@ class DashboardCliente extends DashboardBase {
   }
 
   async listRenderClients() {
-    this.getAllClients().then((json) => {
+    this.getAllClients().then(json => {
       this.renderAllClients(json);
       this.updateCards(json);
     });

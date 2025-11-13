@@ -9,10 +9,8 @@ class DashboardAutor extends DashboardBase {
     // Novo autor
     this.newAuthorForm = document.querySelector("#new-author-form");
     this.newAuthorButton = document.querySelector("#new-author-button");
-    this.newAuthorSubmit = document.querySelector("#new-author-submit");
     // Editar autor
     this.editAuthorForm = document.querySelector("#edit-author-form");
-    this.editAuthorSubmit = document.querySelector("#edit-author-submit");
 
     // Execução
     this.initialize();
@@ -100,7 +98,7 @@ class DashboardAutor extends DashboardBase {
     event.preventDefault();
 
     const body = this.formDataObject(this.editAuthorForm);
-    const response = await this.editAuthor(this.editAuthorSubmit.dataset.idAuthor, body);
+    const response = await this.editAuthor(this.editAuthorForm.dataset.idAuthor, body);
 
     this.displayMessage(response);
     this.cleanForm(this.editAuthorForm);
@@ -131,17 +129,19 @@ class DashboardAutor extends DashboardBase {
 
       this.editAuthorForm.querySelectorAll('input, textarea').forEach(field => field.value = response.body[field.name]);
 
-      this.editAuthorSubmit.dataset.idAuthor = rowId;
+      this.editAuthorForm.dataset.idAuthor = rowId;
       this.showPopUp("#edit-author-form-popup");
     }
   }
 
   // Aplicando os EventListeners
   setUpAuthorListeners() {
-    this.newAuthorButton.addEventListener("click", () => this.showPopUp("#new-author-form-popup"));
-    this.newAuthorSubmit.addEventListener("click", (event) => this.submitNewAuthorForm(event));
     this.authorsTableElement.addEventListener("click", event => this.handleAuthorActions(event));
-    this.editAuthorSubmit.addEventListener("click", event => this.submitEditAuthorForm(event));
+    // Novo autor
+    this.newAuthorButton.addEventListener("click", () => this.showPopUp("#new-author-form-popup"));
+    this.newAuthorForm.addEventListener("submit", event => this.submitNewAuthorForm(event));
+    // Editar autor
+    this.editAuthorForm.addEventListener("submit", event => this.submitEditAuthorForm(event));
   }
 
   // Listando e renderizando autores

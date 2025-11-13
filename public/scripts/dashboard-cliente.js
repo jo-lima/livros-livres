@@ -9,9 +9,7 @@ class DashboardCliente extends DashboardBase {
     // Novo cliente
     this.newClientForm = document.querySelector("#new-client-form");
     this.newClientButton = document.querySelector("#new-client-button");
-    this.newClientSubmit = document.querySelector("#new-client-submit");
     // Editar cliente
-    this.editClientSubmit = document.querySelector("#edit-client-submit");
     this.editClientForm = document.querySelector("#edit-client-form");
 
     // Execução
@@ -98,7 +96,7 @@ class DashboardCliente extends DashboardBase {
     event.preventDefault();
 
     const body = this.formDataObject(this.editClientForm);
-    const response = await this.editClient(this.editClientSubmit.dataset.idClient, body);
+    const response = await this.editClient(this.editClientForm.dataset.idClient, body);
 
     this.displayMessage(response);
     this.cleanForm(this.editClientForm);
@@ -129,16 +127,18 @@ class DashboardCliente extends DashboardBase {
 
       this.editClientForm.querySelectorAll('input').forEach(field => field.value = response.body[field.name]);
 
-      this.editClientSubmit.dataset.idClient = rowId;
+      this.editClientForm.dataset.idClient = rowId;
       this.showPopUp("#edit-client-form-popup");
     }
   }
 
   setUpClientListeners() {
-    this.newClientButton.addEventListener("click", () => this.showPopUp("#new-client-form-popup"));
-    this.editClientSubmit.addEventListener("click", event => this.submitNewClientForm(event));
     this.clientsTableElement.addEventListener("click", event => this.handleClientActions(event));
-    this.editClientSubmit.addEventListener("click", event =>this.submitEditClientForm(event));
+    // Novo cliente
+    this.newClientForm.addEventListener("submit", event => this.submitNewClientForm(event));
+    this.newClientButton.addEventListener("click", () => this.showPopUp("#new-client-form-popup"));
+    // Editar cliente
+    this.editClientForm.addEventListener("submit", event =>this.submitEditClientForm(event));
   }
 
   async listRenderClients() {

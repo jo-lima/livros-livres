@@ -10,10 +10,8 @@ class DashboardLivro extends DashboardBase {
     // Novo livro
     this.newBookForm = document.querySelector("#new-book-form");
     this.newBookButton = document.querySelector("#new-book-button");
-    this.newBookSubmit = document.querySelector("#new-book-submit");
     // Editar livro    
     this.editBookForm = document.querySelector("#edit-book-form");
-    this.editBookSubmit = document.querySelector("#edit-book-submit");
 
     // Execução
     this.initialize();
@@ -119,7 +117,7 @@ class DashboardLivro extends DashboardBase {
     event.preventDefault();
 
     const body = this.formDataObject(this.editBookForm);
-    const response = await this.editBook(this.editBookSubmit.dataset.idLivro, body);
+    const response = await this.editBook(this.editBookForm.dataset.idLivro, body);
 
     this.displayMessage(response);
     this.cleanForm(this.editBookForm);
@@ -149,21 +147,23 @@ class DashboardLivro extends DashboardBase {
     if (target.classList.contains("edit-book-button")) {
       const response = await this.getBook(rowId);
 
-      this.editBookForm.querySelectorAll('input, textarea').forEach(field => field.value = response.body[field.name])
+      this.editBookForm.querySelectorAll('input, textarea').forEach(field => field.value = response.body[field.name]);
 
       this.editBookForm.querySelector('select[name="autorId"]').value = response.body.autor.idAutor;
 
-      this.editBookSubmit.dataset.idLivro = rowId; // Linkando o ID do autor da linha com o botão de submit - ta meio feio gente desculpa :c
+      this.editBookForm.dataset.idLivro = rowId;
       this.showPopUp("#edit-book-form-popup");
     }
   }
 
   // Aplicando os EventListeners
   async setUpBookListeners() {
-    this.newBookButton.addEventListener("click", () => this.showPopUp("#new-book-form-popup") );
-    this.newBookSubmit.addEventListener("click", async (event) =>this.submitNewBookForm(event));
-    this.booksTableElement.addEventListener("click", async (event) => this.handleBookActions(event));
-    this.editBookSubmit.addEventListener("click", async (event) => this.submitEditBookForm(event));
+    this.booksTableElement.addEventListener("click", async event => this.handleBookActions(event));
+    // Novo livro
+    this.newBookButton.addEventListener("click", () => this.showPopUp("#new-book-form-popup"));
+    this.newBookForm.addEventListener("submit", async event => this.submitNewBookForm(event));
+    // Editar autor
+    this.editBookForm.addEventListener("submit", async event => this.submitEditBookForm(event));
   }
 
   // Renderizar e atualizar os cards
@@ -177,7 +177,7 @@ class DashboardLivro extends DashboardBase {
   // Inicialização
   initialize() {
     this.listRenderBooks();
-    this.getAllAuthors().then((json) => this.renderAuthorsList(json.body));
+    this.getAllAuthors().then(json => this.renderAuthorsList(json.body));
     this.setUpBookListeners();
   }
 }

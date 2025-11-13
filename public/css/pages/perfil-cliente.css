@@ -167,6 +167,10 @@ hr {
     font-weight: bold;
 }
 
+.data__status-emprestimo{
+    font-size: larger;
+}
+
 .info-descritiva__acoes {
     float: right;
 }

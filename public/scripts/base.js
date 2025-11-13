@@ -128,6 +128,18 @@ class Base {
   }
 
   // Cliente
+  async getClient(id) {
+    const response = await fetch(
+      `http://${this.SERVER_URL}/cliente/${id}/busca`,
+      {
+        headers: {
+          token: this.DEBUG_TOKEN,
+        },
+      }
+    );
+
+    return await response.json();
+  }
   async getAllClients() {
     const response = await fetch(`http://${this.SERVER_URL}/cliente/lista`, {
       headers: {
@@ -165,6 +177,13 @@ class Base {
 
   async enableClient(id) {
     return await this.changeClientStatus(id, "ativar");
+  }
+
+  async editClient(id, body) {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/cliente/${id}/atualizar`,
+      body
+    );
   }
 }
 

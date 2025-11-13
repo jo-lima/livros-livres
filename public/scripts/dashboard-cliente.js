@@ -9,6 +9,8 @@ class DashboardCliente extends DashboardBase {
       ".dashboard__table--clients tbody"
     );
     this.newClientForm = document.querySelector("#new-client-form");
+    this.editClientSubmit = document.querySelector("#edit-client-submit");
+    this.editClientForm = document.querySelector("#edit-client-form");
 
     // Execução
     this.initialize();
@@ -91,6 +93,21 @@ class DashboardCliente extends DashboardBase {
     this.listRenderClients();
   }
 
+  async submitEditClientForm(event) {
+    event.preventDefault();
+
+    const body = this.formDataObject(this.editClientForm);
+    const response = await this.editClient(
+      this.editClientSubmit.dataset.idClient,
+      body
+    );
+
+    this.displayMessage(response);
+    this.cleanForm(this.editClientForm);
+    this.hidePopUp();
+    this.listRenderClients();
+  }
+
   async handleClientActions(event) {
     const target = event.target.closest(".dashboard__action-button");
 
@@ -112,6 +129,27 @@ class DashboardCliente extends DashboardBase {
       this.displayMessage(json);
       this.listRenderClients();
     }
+
+    // Exibir formulário para editar cliente
+    if (target.classList.contains("edit-client-button")) {
+      const response = await this.getClient(rowId);
+
+      document.querySelector(".dashboard__popup-input--cpf").value =
+        response.body.cpf;
+      document.querySelector(".dashboard__popup-input--name").value =
+        response.body.nome;
+      document.querySelector(".dashboard__popup-input--email").value =
+        response.body.email;
+      document.querySelector(".dashboard__popup-input--adress").value =
+        response.body.endereco;
+      document.querySelector(".dashboard__popup-input--phone").value =
+        response.body.telefone;
+      document.querySelector(".dashboard__popup-input--image").value =
+        response.body.imagem;
+
+      this.editClientSubmit.dataset.idClient = rowId;
+      this.showPopUp(".dashboard__popup--edit-client");
+    }
   }
 
   setUpClientListeners() {
@@ -127,6 +165,10 @@ class DashboardCliente extends DashboardBase {
 
     this.clientsTableElement.addEventListener("click", (event) =>
       this.handleClientActions(event)
+    );
+
+    this.editClientSubmit.addEventListener("click", (event) =>
+      this.submitEditClientForm(event)
     );
   }
 

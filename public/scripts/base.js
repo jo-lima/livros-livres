@@ -180,6 +180,13 @@ class Base {
     );
   }
 
+  // Clientes
+  async getClienteById(id){
+    return await this.sendGetRequest(
+      `http://${this.SERVER_URL}/cliente/${id}/busca`
+    )
+  }
+
 }
 
 export default Base;

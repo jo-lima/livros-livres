@@ -7,18 +7,26 @@ class ClientProfile extends DashboardBase {
     super();
 
     // Elementos HTML
+    // Info Perfil // Lista de pendencia // histórico
+    this.profileInfo = document.querySelector(".profile-info-tab__perfil-data")
     this.pendingList = document.querySelector(".pendencias-list__pendencias");
+    this.historyGrid = document.querySelector(".hitorico-tab__livros-grid");
+
+    // Detalhes da pendencia
     this.loanDetailRight = document.querySelector(".pendencia-atual__info-descritiva");
     this.loanDetailLeft = document.querySelector(".pendencia-atual__info-visual");
 
+    // Formularios do popup
     this.delayLoanForm = document.querySelector("#delay-loan-form");
     this.cancelPendingForm = document.querySelector("#cancel-loan-form");
 
+    // Botões de ação estáticos
     this.delayButton = document.querySelector(".acoes__prorrogar");
     this.delayButton = document.querySelector(".acoes__cancelar");
 
     // Variaveis global
     this.clientId = 1; // valor mocado
+    this.clientValue;
     this.currentLoanId = 0; // ID da pendencia atual, nos detalhes
     this.currentLoanValue; // Objeto da pendencia atual
 
@@ -55,8 +63,41 @@ class ClientProfile extends DashboardBase {
   }
 
   // -- RENDERS --
+  // Renderiza o "Informações do Perfil"
+  renderProfileInfo(){
+    const clientInfo = this.clientValue;
+    let pfpImage = "/public/images/perfil-cliente/porra-cara-nao-sei-velho.jpg";
+
+    const infoList = [
+      {title: "Nome", value: clientInfo.nome},
+      {title: "Email", value: clientInfo.email},
+      {title: "CPF", value: clientInfo.cpf},
+      {title: "Telefone", value: clientInfo.telefone},
+    ]
+    const editBtn = `
+      <div class="perfil-data__editar-infos">
+        <button class="editar-infos__button">Editar</button>
+      </div>
+    `;
+
+    if(clientInfo.imagem != null){
+      pfpImage = clientInfo.imagem;
+    }
+
+    document.querySelector("#profile-info-pfp").src = pfpImage;
+
+    infoList.forEach(info => {
+      const finalP = `<p>${info.title}: ${info.value}</p>`
+      if(info.value != null){
+        this.profileInfo.insertAdjacentHTML("beforeend", finalP)
+      }
+    });
+
+    this.profileInfo.insertAdjacentHTML("beforeend", editBtn)
+  }
+
   // Renderiza lista de pendencias na esquerda
-  renderPendencyList(loanData) {
+  renderPendencyList() {
     this.pendingList.innerHTML = "";
 
     const semPendencias = `
@@ -65,8 +106,8 @@ class ClientProfile extends DashboardBase {
       </div>
     `
 
-    if(loanData!=undefined && loanData.length > 0){
-      loanData.forEach(loan => {
+    if(this.pendenciesList!=undefined && this.pendenciesList.length > 0){
+      this.pendenciesList.forEach(loan => {
         const pendingLoanHtml = `
           <div class="pendencias__pendencia" id="pendencia-${loan.idEmprestimo}">
           <p class="pendencia__nome">${loan.livro.nome}:</p>
@@ -108,25 +149,36 @@ class ClientProfile extends DashboardBase {
   }
 
   // Renderiza o detalhamento do empréstimo selecionado.
-  generateLoanDetailsActions(loanData){
-    const canDelay = loanData.dataEstendidaDevolucao == null && loanData.dataColeta != null;
-    const canCancel = loanData.dataColeta == null;
-
-    if (!canDelay && !canCancel) {
-      return '</div></div>';
+  renderLoanDetails(loanData){
+    // Oculta a parte de "livro atual" caso nao tenha nenhuma pendencia.
+    if(loanData == null){
+      document.querySelector(".titles__livro-atual-title").style.display = "none"
+      document.querySelector(".content__pendencia-atual").style.display = "none"
+      return
     }
 
-    let actions = '</div><div class="info-descritiva__acoes">';
+    // start generating code
+    let detailsElmnts = `
+      <div class="pendencia-atual__info-descritiva">
+        <div class="info-descritiva__data">
 
-    if (canDelay) {
-      actions += '<button class="acoes__prorrogar">Prorrogar</button>';
-    }
+          <div class="data__status-emprestimo data__item">
+            <span class="status-emprestimo_title">Status do Empréstimo:</span>
+            <span class="status-emprestimo__info item__info">${loanData.status}</span>
+          </div>
 
-    if (canCancel) {
-      actions += '<button class="acoes__cancelar">Cancelar Solicitação</button>';
-    }
+          <hr>
+      `;
 
-    return actions + '</div></div>';
+    // generate info lists of info
+    detailsElmnts += this.generateLoanDetailsItens(loanData);
+    // generate bottom buttons if needed.
+    detailsElmnts += this.generateLoanDetailsActions(loanData);
+    this.loanDetailRight.innerHTML = detailsElmnts;
+
+    const loanVisualDetails = this.generateLoanDetailVisual(loanData);
+    this.loanDetailLeft.innerHTML = loanVisualDetails;
+
   }
 
   generateLoanDetailsItens(loanData){
@@ -167,36 +219,58 @@ class ClientProfile extends DashboardBase {
     return loanDetailVisual;
   }
 
-  renderLoanDetails(loanData){
-    // Oculta a parte de "livro atual" caso nao tenha nenhuma pendencia.
-    if(loanData == null){
-      document.querySelector(".titles__livro-atual-title").style.display = "none"
-      document.querySelector(".content__pendencia-atual").style.display = "none"
-      return
+  generateLoanDetailsActions(loanData){
+    const canDelay = loanData.dataEstendidaDevolucao == null && loanData.dataColeta != null;
+    const canCancel = loanData.dataColeta == null;
+
+    if (!canDelay && !canCancel) {
+      return '</div></div>';
     }
 
-    // start generating code
-    let detailsElmnts = `
-      <div class="pendencia-atual__info-descritiva">
-        <div class="info-descritiva__data">
+    let actions = '</div><div class="info-descritiva__acoes">';
 
-          <div class="data__status-emprestimo data__item">
-            <span class="status-emprestimo_title">Status do Empréstimo:</span>
-            <span class="status-emprestimo__info item__info">${loanData.status}</span>
+    if (canDelay) {
+      actions += '<button class="acoes__prorrogar">Prorrogar</button>';
+    }
+
+    if (canCancel) {
+      actions += '<button class="acoes__cancelar">Cancelar Solicitação</button>';
+    }
+
+    return actions + '</div></div>';
+  }
+
+  // Renderiza o Histórico
+  renderHistory(){
+    this.historyGrid.innerHTML = "";
+
+    this.historyList.forEach(loan => {
+    const historyEntry = `
+          <div class="livros-grid__livro">
+            <div class="livro__info-visual">
+              <img src="${loan.livro.imagem}" alt="#">
+            </div>
+            <div class="livro__info-descritiva">
+              <p class="info-descritiva__titulo">${loan.livro.nome}</p>
+              <p class="info-descritiva__autor">${loan.livro.autor.nome}</p>
+              <div class="info-descritiva__emprestado-em info-descritiva__data">
+                <p class="emprestado-em__title">Status do empréstimo:</p>
+                <p class="emprestado-em__info info-descritiva__info">${loan.status}</p>
+              </div>
+              <div class="info-descritiva__emprestado-em info-descritiva__data">
+                <p class="emprestado-em__title">Emprestado em:</p>
+                <p class="emprestado-em__info info-descritiva__info">${loan.dataColeta}</p>
+              </div>
+              <div class="info-descritiva__devolvido-em info-descritiva__data">
+                <p class="devolvido-em__title">Devolvido em:</p>
+                <p class="devolvido-em__info info-descritiva__info">${loan.dataDevolucao}</p>
+              </div>
+            </div>
           </div>
+    `;
 
-          <hr>
-      `;
-
-    // generate info lists of info
-    detailsElmnts += this.generateLoanDetailsItens(loanData);
-    // generate bottom buttons if needed.
-    detailsElmnts += this.generateLoanDetailsActions(loanData);
-    this.loanDetailRight.innerHTML = detailsElmnts;
-
-    const loanVisualDetails = this.generateLoanDetailVisual(loanData);
-    this.loanDetailLeft.innerHTML = loanVisualDetails;
-
+      this.historyGrid.insertAdjacentHTML("beforeend", historyEntry);
+    });
   }
 
   // -- FUNÇÕES DOS BOTÕES --
@@ -205,6 +279,7 @@ class ClientProfile extends DashboardBase {
   async handleCurrentPending(event){
     const target = event.target.closest(".detalhar-pendencia__button");
     if (target == null) return;
+    console.log(target.dataset.emprestimoId);
 
     this.setCurrentPending(target.dataset.emprestimoId);
     this.listRenderPendences();
@@ -301,7 +376,13 @@ class ClientProfile extends DashboardBase {
         return historyStatus.includes(i.status);
       });
 
-      this.renderPendencyList(this.pendenciesList);
+      this.getClienteById(this.clientId).then((json) => {
+        this.clientValue = json.body;
+        this.renderProfileInfo();
+      });
+
+      this.renderPendencyList();
+      this.renderHistory();
       this.setUpProfileListeners();
 
       if(this.pendenciesList.length > 0) {

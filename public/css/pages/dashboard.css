@@ -1,0 +1,247 @@
+/* Container */
+.dashboard__body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard__container {
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sobrescrevendo a margem da nav */
+.main-nav.dashboard__nav {
+  margin-bottom: 0;
+}
+
+/* Abas */
+.dashboard__tabs {
+  border-right: 2px solid #eee;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 9%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.dashboard__tab:link,
+.dashboard__tab:visited {
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  color: var(--text-color--gray--dark);
+  padding: 14px 0;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.dashboard__tab:hover,
+.dashboard__tab:active {
+  background-color: #eee;
+}
+
+.dashboard__tab.dashboard__tab--active {
+  background-color: var(--text-color--green--regular);
+  color: #fff;
+}
+
+/* Conteúdo */
+.dashboard__content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.dashboard__heading {
+  text-transform: uppercase;
+  color: var(--text-color--gray--dark);
+  font-size: 46px;
+  margin-bottom: 24px;
+}
+
+.dashboard__subheading {
+  font-size: 32px;
+}
+
+/* Cards */
+.dashboard__cards {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 36px;
+  margin-top: 16px;
+}
+
+.dashboard__card {
+  border: 1px solid #eee;
+  width: 200px;
+  aspect-ratio: 1.5/1;
+  padding: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid var(--text-color--green--regular);
+}
+
+.dashboard__card-label {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.dashboard__card-value {
+  font-size: 36px;
+}
+
+/* Tabela */
+.dashboard__table-container {
+  flex: 1;
+  overflow: scroll;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.dashboard__table {
+  border-collapse: collapse;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  width: 100%;
+}
+
+/* Cabeçalho */
+.dashboard__table thead {
+  background-color: var(--text-color--green--regular);
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: left;
+}
+
+.dashboard__table th,
+.dashboard__table td {
+  padding: 16px 10px;
+  padding-right: 42px;
+}
+
+/* Outros estilos */
+.dashboard__table tbody tr:nth-child(even) {
+  background-color: #eee;
+}
+
+.dashboard__table tbody tr:nth-child(odd):hover {
+  background-color: #f8f8f8;
+}
+
+.dashboard__table tbody tr:nth-child(even):hover {
+  background-color: #ebebeb;
+}
+
+/* Botões */
+.dashboard__buttons-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  justify-content: space-between;
+}
+.dashboard__buttons {
+  border: none;
+}
+
+.dashboard__button {
+  background-color: var(--text-color--green--regular);
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+}
+
+/* Pop-up */
+.dashboard__popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 8;
+}
+
+.dashboard__popup {
+  /* Estilo */
+  text-align: center;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 28px 32px;
+  /* Posição */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+}
+
+.dashboard__popup-heading {
+  font-size: 32px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--text-color--gray--dark);
+  margin-bottom: 32px;
+}
+
+.dashboard__popup-label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.dashboard__popup-input {
+  margin-bottom: 20px;
+}
+
+.dashboard__popup-submit {
+  margin-top: 36px;
+  background-color: var(--text-color--green--regular);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+}
+
+.dashboard__popup-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 18px;
+  cursor: pointer;
+}
+
+/* Mensagem */
+.dashboard__message {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background-color: var(--text-color--green--regular);
+  padding: 16px 24px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.4s ease;
+}
+
+.dashboard__message--hidden {
+  transform: translateX(150%);
+  opacity: 0;
+}
+
+/* Ações */
+.dashboard__action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dashboard__action-button {
+  width: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}

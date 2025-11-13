@@ -1,12 +1,13 @@
+
 hr {
     margin: 30px 0px;
     background-color: none;
-    border: solid 0.1px white;
+    border: solid 0.1px #CCD6AE;
 }
 
 .profile-content {
     padding: 20px 10%;
-    background-color: #CCD6AE;
+    /* background-color: var(--text-color--gray--light); */
 }
 
 /* PROFILE INFO TAB */
@@ -16,19 +17,18 @@ hr {
 
 /* ESQUERDA */
 .profile-info-tab__pfp {
-    /* Tamanho */
-    flex-basis: 30%;
+    flex: 1.5;
     margin: auto;
     max-width: 100%;
     border: solid 3px black;
     border-radius: 100%;
     aspect-ratio: 1/1;
+}
+.profile-info-tab__pfp img {
     width: 100%;
-    position: relative;
-
-    /* Imagem */
-    background-image: url('/public/images/perfil-cliente/porra-cara-nao-sei-velho.jpg');
-    background-size: cover;
+    border: solid 4px #E9EDC9;
+    border-radius: 100%;
+    aspect-ratio: 1/1;
 }
 
 /* Direita */
@@ -42,15 +42,12 @@ hr {
     border: solid 5px #E9EDC9;
     border-radius: 5px;
 }
-
 .perfil-data__title {
     margin-bottom: 7px;
 }
-
 .profile-info-tab__perfil-data p {
     margin-bottom: 15px;
 }
-
 /* ultimo campo, pra deixar o editar do ladinho. */
 .perfil-data__data-nascimento {
     margin: 0px;
@@ -96,10 +93,12 @@ hr {
 .pendencias-list__pendencias {
     background-color: #D4A373;
     color: black;
+    border-radius: 5px;
     padding: 15px;
     height: 95%;
     flex: 1.5;
     max-width: 100%;
+    height: 100%;
 }
 
 .pendencia__data {
@@ -134,11 +133,17 @@ hr {
     margin-left: 30px;
     flex: 3;
     flex-grow: 5;
+    max-height: 450px;
+    background-color: #FAEDCD;
+    border: solid 5px #E9EDC9;
+    border-radius: 5px;
+    padding: 15px;
 }
 
 /* ESQUERDA */
 .pendencia-atual__info-visual {
     flex: 1;
+    margin: auto;
 }
 .info-visual__livro-capa img {
     width: 100%;
@@ -160,6 +165,10 @@ hr {
 }
 .item__info {
     font-weight: bold;
+}
+
+.data__status-emprestimo{
+    font-size: larger;
 }
 
 .info-descritiva__acoes {

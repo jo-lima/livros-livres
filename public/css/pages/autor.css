@@ -1,0 +1,122 @@
+.author-content {
+  display: flex;
+  gap: 24px;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 64px;
+  align-items: center;
+}
+
+.author-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.author-image {
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  width: 95%;
+  max-width: 300px;
+  margin: 0 auto;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.author-information-container {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 70%;
+}
+
+.author-name {
+  font-family: "Playfair Display", serif;
+  font-size: 48px;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.author-quote {
+  border-left: 2px solid var(--text-color--gray--light);
+  padding-left: 24px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.author-biography {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.works-section {
+  width: 100%;
+  padding: 64px 0;
+  background-color: #f8f8f8;
+  border-top: 1px solid #eee;
+}
+
+.works-container-inner {
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: "Playfair Display", serif;
+  font-size: 32px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #000;
+}
+
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.book-list-item {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.book-list-item:hover {
+  transform: translateY(-5px);
+}
+
+.book-list-item__image {
+  aspect-ratio: 1/1.5;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.book-list-item__title {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}

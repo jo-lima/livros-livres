@@ -1,0 +1,49 @@
+/* Textura */
+.paper-overlay {
+  background-image: url("../../images/general/paper-texture.jpg");
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  mix-blend-mode: difference;
+  opacity: 0.27;
+  pointer-events: none;
+}
+
+/* Container */
+.container {
+  margin: 0 auto;
+  max-width: 95%;
+}
+
+/* Textos */
+.text--center {
+  text-align: center;
+}
+
+.text-color--orange {
+  color: orange;
+}
+
+/* Fontes */
+.font--secondary {
+  font-family: "Playfair Display";
+}
+
+/* Botões */
+.button {
+  display: inline-block;
+  cursor: pointer;
+}
+
+/*  */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #eee;
+  transition: all 0.2s ease;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}

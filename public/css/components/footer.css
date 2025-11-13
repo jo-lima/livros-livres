@@ -1,42 +1,45 @@
-/* === CONTAINER === */
+/* Container */
 .main-footer {
-  display: flex;
-  background-color: #b9c29b;
-  padding: 64px 128px;
-  justify-content: space-between;
+  background-color: var(--text-color--green--light);
 }
 
-/* === PARTE DO LOGO === */
-.main-foter__logo-container {
+.main-footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 64px 0px;
+}
+
+/* Logo */
+.main-footer__logo-container {
   flex-basis: 35%;
 }
 
-.main-footer-logo {
+.main-footer__logo {
   font-size: 64px;
   font-weight: 800;
-  line-height: 1;
+  line-height: 0.9;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 24px;
 }
 
 .main-footer__copyright {
   font-size: 12px;
 }
 
-/* === PARTE DOS LINKS === */
-.main-footer-links {
+/* Área dos links */
+.main-footer__links {
   display: flex;
   font-size: 18px;
   gap: 64px;
 }
 
-.main_footer_links-list-heading {
+.main_footer__links-list-heading {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 6px;
 }
 
-.main-footer-links-list {
+.main-footer__links-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -44,19 +47,19 @@
   margin-left: 4px;
 }
 
-.main-footer-links-list a:link,
-.main-footer-links-list a:visited {
+.main-footer__links-list a:link,
+.main-footer__links-list a:visited {
   color: rgb(120, 120, 217);
   font-size: 16px;
 }
 
-.main-footer-links-list a:hover,
-.main-footer-links-list a:active {
+.main-footer__links-list a:hover,
+.main-footer__links-list a:active {
   color: rgb(86, 86, 157);
 }
 
-/* === PARTE DOS LINKS === */
+/* Mapa */
 .main-footer__map {
   aspect-ratio: 1/1;
-  width: 250px;
+  width: 180px;
 }

@@ -1,5 +1,7 @@
 # Running the project
+
 ## Front-end
+
 Simply host a webserver at [public/](public/).
 
 ## Back-end

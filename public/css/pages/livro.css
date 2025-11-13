@@ -1,88 +1,87 @@
 /* Conteúdo */
-.book-content {
+.section__book {
   display: flex;
-  gap: 24px;
-  width: 95%;
-  margin: 0 auto;
+  gap: 32px;
+  margin-bottom: 64px;
 }
 
 /* Imagem */
-
-.book-image-container {
+.book__image-container {
   flex: 1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.book-image {
+.book__image {
   aspect-ratio: 1/1.5;
-  width: 95%;
-  margin: 0 auto;
-  background-color: rgb(74, 194, 104);
+  background-size: cover;
 }
-/* nome data pub generto pagina descricao estque editora isbn */
-/* Detalhes  */ /* Completamente diferente de informações */
-.book-details {
+
+/* Informações */
+.book__information-container {
+  flex-basis: 70%;
+}
+
+.book__title {
+  font-size: 64px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--text-color--gray--dark);
+}
+
+/* Autor */
+.book__author {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.book__author-image {
+  aspect-ratio: 1/1;
+  width: 36px;
+  background-size: cover;
+  border-radius: 100%;
+}
+
+.book__author-name:link,
+.book__author-name:visited {
+  color: var(--text-color--gray--dark);
+  transition: all ease 0.2s;
+}
+
+.book__author-name:hover,
+.book__author-name:active {
+  color: var(--text-color--gray--light);
+}
+
+/* Descrição */
+.book__description {
+  line-height: 1.4;
+  /* mudar */
+  margin-bottom: 200px;
+}
+
+/* Detalhes */
+.book__details {
   display: flex;
   justify-content: center;
   gap: 64px;
 }
-
-.book-details__heading {
-  text-align: center;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-
-.book-detail {
+.book__detail {
   display: flex;
-  flex-direction: column;
   align-items: center;
-}
-
-.book-detail__icon {
-}
-
-
-.book-detail__type {
-}
-
-.book-detail__value {
-}
-
-/* Informações */
-.book-information-container {
-  display: flex;
+  justify-content: center;
   flex-direction: column;
-  justify-content: space-between;
-  flex-basis: 70%;
 }
-
-.book-title {
-  font-size: 36px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-/* Autor */
-.book-author {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 64px;
-}
-
-.book-author__image {
+.book__detail-icon {
+  width: 32px;
   aspect-ratio: 1/1;
-  width: 35px;
-  background-color: blueviolet;
-  border-radius: 100%;
+  margin-bottom: 4px;
 }
-
-.book-author__name {
-  /*  */
+.book__detail-label {
+  font-weight: bold;
+  margin-bottom: 4px;
 }
-
-/* Descricao */
-.book-description {
-  margin-bottom: auto;
+.book__detail-value {
 }

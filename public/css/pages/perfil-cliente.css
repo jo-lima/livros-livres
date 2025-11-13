@@ -120,6 +120,17 @@ hr {
     cursor: pointer;
 }
 
+.pendencias__pendencia {
+    padding: 5px;
+    padding-bottom: 30px;
+    margin-bottom: -15px;
+}
+
+.pendencias__pendencia.selecionada {
+    border: 3px solid #CCD6AE;
+    border-radius: 5px;
+}
+
 .pendencias__fim-pendencias {
     margin: 25px;
 }

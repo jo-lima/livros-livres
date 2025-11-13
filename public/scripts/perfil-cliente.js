@@ -39,7 +39,7 @@ class ClientProfile extends DashboardBase {
     if(pendingData!=undefined){
       pendingData.forEach(loan => {
         const pendingLoanHtml = `
-          <div class="pendencias__pendencia">
+          <div class="pendencias__pendencia" id="pendencia-${loan.idEmprestimo}">
           <p class="pendencia__nome">${loan.livro.nome}:</p>
           <div class="pendencia__data-coleta pendencia__data">
               <p class="data-coleta__title">Data Prevista de Coleta:</p>
@@ -161,7 +161,11 @@ class ClientProfile extends DashboardBase {
     if (target == null) return;
 
     this.currentPending = target.dataset.emprestimoId;
-    this.listRenderPendences()
+    document.querySelectorAll(".pendencias__pendencia").forEach(pendencia => {
+      pendencia.classList = "pendencias__pendencia";
+    });
+    document.querySelector(`#pendencia-${target.dataset.emprestimoId}`).classList.add("selecionada");
+    this.listRenderPendences();
   }
 
   async handleDelayPending(event){

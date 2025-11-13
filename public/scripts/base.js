@@ -211,6 +211,21 @@ class Base {
       }
     );
   }
+
+  async postCancelarEmprestimo(id) {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/emprestimo/${id}/cancelar`,
+      {}
+    );
+  }
+
+  // Clientes
+  async getClienteById(id){
+    return await this.sendGetRequest(
+      `http://${this.SERVER_URL}/cliente/${id}/busca`
+    )
+  }
+
 }
 
 export default Base;

@@ -111,12 +111,21 @@ public class EmprestimoService {
         // -- VALIDATIONS --
         UsuariosLogados usuarioLogado = authService.buscaUsuarioLogado(token);
         if(usuarioLogado == null || usuarioLogado.getUserPerm() != 0 ){return RetornoApi.errorForbidden();}
-
         if(
             pedidoEmprestimo.getDataPrevistaDevolucao()==null ||
             pedidoEmprestimo.getClienteId()==null ||
             pedidoEmprestimo.getLivroId()==null
         ) { return RetornoApi.errorBadRequest("Por favor insira os valores do cliente, livro, e data de devolução.");}
+
+        Livro livroPedido = livroService.buscaLivroById(pedidoEmprestimo.getLivroId());
+        Cliente cliente = clienteService.buscaClienteEmail(usuarioLogado.getUser());
+
+        if(cliente == null) {return RetornoApi.errorBadRequest("Não encontrado cliente para o id passado.");}
+        if(livroPedido == null) {return RetornoApi.errorBadRequest("Não encontrado livro para o id passado.");}
+
+        if(cliente.getClienteId() != pedidoEmprestimo.getClienteId()) {return RetornoApi.errorForbidden();}
+        // if(cliente.getEmprestimos().size() > 3) {return RetornoApi.errorBadRequest("Usuário ja possui 3 empréstimos ativos!");} // TODO: retorna todos os emprestimos, deveria ser todos ativos.
+        if(livroPedido.getEstoque() <= 0 || livroPedido.getAtivo() != true) {return RetornoApi.errorBadRequest("Este livro não possui disponibilidade no estoque!");}
 
         if(
             pedidoEmprestimo.getDataPrevistaDevolucao().isBefore(LocalDate.now())
@@ -124,13 +133,6 @@ public class EmprestimoService {
         if(
             pedidoEmprestimo.getDataPrevistaDevolucao().isAfter(LocalDate.now().plusMonths(3))
         ) { return RetornoApi.errorBadRequest("Data de devolução muito absurda");}
-
-        Livro livroPedido = livroService.buscaLivroById(pedidoEmprestimo.getLivroId());
-        Cliente cliente = clienteService.buscaClienteEmail(usuarioLogado.getUser());
-
-        // TODO: Validação confere se usuário tem +3 pedidos feitos
-        if(cliente.getClienteId() != pedidoEmprestimo.getClienteId()) {return RetornoApi.errorForbidden();}
-        if(livroPedido.getEstoque() <= 0 || livroPedido.getAtivo() != true) {return RetornoApi.errorBadRequest("Este livro não possui disponibilidade no estoque!");}
 
         // -- METHOD LOGIC --
         Emprestimo newEmprestimo = new Emprestimo();
@@ -189,6 +191,9 @@ public class EmprestimoService {
 
         Livro livroPedido = livroService.buscaLivroById(pedidoEmprestimo.getLivroId());
         Cliente cliente = clienteRepo.findById(pedidoEmprestimo.getClienteId()).get();
+
+        if(cliente == null) {return RetornoApi.errorBadRequest("Não encontrado cliente para o id passado.");}
+        if(livroPedido == null) {return RetornoApi.errorBadRequest("Não encontrado livro para o id passado.");}
 
         if(livroPedido.getEstoque() <= 0 || livroPedido.getAtivo() != true) {return RetornoApi.errorBadRequest("Este livro não possui disponibilidade no estoque!");}
 

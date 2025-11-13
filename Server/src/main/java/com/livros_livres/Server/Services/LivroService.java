@@ -109,7 +109,7 @@ public class LivroService{
         if (
             livroData.getNome() == null ||
             livroData.getGenero() == null ||
-            livroData.getPaginas() <= 0 || // TODO: Change this
+            livroData.getPaginas() == null ||
             // livroData.getEstoque() == 0  ||
             livroData.getIsbn() == null
         ) {

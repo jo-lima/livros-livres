@@ -8,12 +8,14 @@ class ClientProfile extends DashboardBase {
 
     // Elementos HTML
     this.pendingList = document.querySelector(".pendencias-list__pendencias");
-    this.pendingDetailDescritive = document.querySelector(".pendencia-atual__info-descritiva");
-    this.pendingDetailVisual = document.querySelector(".pendencia-atual__info-visual");
+    this.loanDetailRight = document.querySelector(".pendencia-atual__info-descritiva");
+    this.loanDetailLeft = document.querySelector(".pendencia-atual__info-visual");
 
-    this.delayPendingForm = document.querySelector("#deley-pendencia");
+    this.delayLoanForm = document.querySelector("#delay-loan-form");
+    this.cancelPendingForm = document.querySelector("#cancel-loan-form");
 
     this.delayButton = document.querySelector(".acoes__prorrogar");
+    this.delayButton = document.querySelector(".acoes__cancelar");
 
     // Variaveis global
     this.clientId = 1; // valor mocado
@@ -155,7 +157,7 @@ class ClientProfile extends DashboardBase {
       </div>
     `;
 
-    this.pendingDetailDescritive.innerHTML = detailsElmnts;
+    this.loanDetailRight.innerHTML = detailsElmnts;
 
     const pendingVisualDetails = `
       <div class="pendencia-atual__info-visual">
@@ -169,7 +171,7 @@ class ClientProfile extends DashboardBase {
       </div>
     `;
 
-    this.pendingDetailVisual.innerHTML = pendingVisualDetails;
+    this.loanDetailLeft.innerHTML = pendingVisualDetails;
 
   }
 
@@ -181,6 +183,9 @@ class ClientProfile extends DashboardBase {
     document.querySelector(`#pendencia-${this.currentPendingId}`).classList.add("selecionada");
   }
 
+  // -- FUNÇÕES DOS BOTÕES --
+
+  // 'Detalhes'
   async handleCurrentPending(event){
     const target = event.target.closest(".detalhar-pendencia__button");
     if (target == null) return;
@@ -189,7 +194,30 @@ class ClientProfile extends DashboardBase {
     this.listRenderPendences();
   }
 
-  async handleDelayPending(event){
+  // 'Cancelar'
+  async handleCancelLoan(event){
+    const target = event.target.closest(".acoes__cancelar");
+    if (target == null) return;
+
+    this.showPopUp(".dashboard__popup--cancelar-pendencia")
+  }
+
+  // Submit 'Cancelar'
+  async submitCancelLoan(event){
+    event.preventDefault();
+
+    const body = this.formDataObject(this.cancelPendingForm);
+    const response = await this.postCancelarEmprestimo(this.currentPendingId);
+
+    this.displayMessage(response);
+
+    this.cleanForm(this.cancelPendingForm);
+    this.hidePopUp();
+    this.listRenderPendences();
+  }
+
+  // 'Prorrogar'
+  async handleDelayLoan(event){
     const target = event.target.closest(".acoes__prorrogar");
     if (target == null) return;
 
@@ -197,15 +225,16 @@ class ClientProfile extends DashboardBase {
     this.showPopUp(".dashboard__popup--prorrogar-pendencia")
   }
 
-  async submitDeleyPending(event){
+  // Submit 'prorogar'
+  async submitDeleyLoan(event){
     event.preventDefault();
 
-    const body = this.formDataObject(this.delayPendingForm);
+    const body = this.formDataObject(this.delayLoanForm);
     const response = await this.postAdiarEmprestimo(this.currentPendingId, body.dataEstendidaDevolucao);
 
     this.displayMessage(response);
 
-    this.cleanForm(this.delayPendingForm);
+    this.cleanForm(this.delayLoanForm);
     this.hidePopUp();
     this.listRenderPendences();
   }
@@ -213,12 +242,14 @@ class ClientProfile extends DashboardBase {
 // Aplicando os EventListeners
   async setUpProfileListeners() {
     const pendingDetailsButtons = document.querySelectorAll(".detalhar-pendencia__button");
-    const deleyLoanButton = document.querySelector("#deley-loan");
+    const deleyLoanButton = document.querySelector("#submit-delay-loan");
+    const cancelLoanButton = document.querySelector("#submit-cancel-loan");
 
     pendingDetailsButtons.forEach((btn) => {
       btn.addEventListener("click", async (event) => {this.handleCurrentPending(event)});
     })
-    deleyLoanButton.addEventListener("click", async (event) => {this.submitDeleyPending(event)});
+    deleyLoanButton.addEventListener("click", async (event) => {this.submitDeleyLoan(event)});
+    cancelLoanButton.addEventListener("click", async (event) => {this.submitCancelLoan(event)});
   }
 
 // Renderizar e atualizar elementos em tempo real
@@ -229,7 +260,11 @@ class ClientProfile extends DashboardBase {
 
       this.delayButton = document.querySelector(".acoes__prorrogar");
       if(this.delayButton != null) {
-        this.delayButton.addEventListener("click", async (event) => {this.handleDelayPending(event)});
+        this.delayButton.addEventListener("click", async (event) => {this.handleDelayLoan(event)});
+      }
+      this.cancelButton = document.querySelector(".acoes__cancelar");
+      if(this.cancelButton != null) {
+        this.cancelButton.addEventListener("click", async (event) => {this.handleCancelLoan(event)});
       }
     });
 
@@ -247,7 +282,7 @@ class ClientProfile extends DashboardBase {
       });
 
       this.historyList = allEmprestimos.filter(function (i,n){
-        return i.status.includes(historyStatus);
+        return historyStatus.includes(i.status);
       });
 
       this.renderPendingList(this.pendenciesList);

@@ -74,7 +74,7 @@
             </div>
           </div>
 
-          <!-- popup -->
+          <!-- popup prorrogar -->
           <div class="dashboard__popup dashboard__popup--prorrogar-pendencia hidden">
             <div class="dashboard__popup-close">
               <svg
@@ -93,7 +93,7 @@
               </svg>
             </div>
                 <p class="dashboard__popup-heading font--secondary">Prorrogar Devolução do Empréstimo?</p>
-            <form class="dashboard__popup-form" id="deley-pendencia">
+            <form class="dashboard__popup-form" id="delay-loan-form">
 
               <div>
                 <label class="dashboard__popup-label">Antiga data de devolução:</label>
@@ -118,7 +118,38 @@
               <button
                 type="submit"
                 class="button dashboard__popup-submit"
-                id="deley-loan"
+                id="submit-delay-loan"
+              >
+                Confirmar
+              </button>
+            </form>
+          </div>
+
+          <!-- popup cancelar -->
+          <div class="dashboard__popup dashboard__popup--cancelar-pendencia hidden">
+            <div class="dashboard__popup-close">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+                <p class="dashboard__popup-heading font--secondary">Cancelar Pedido de Empréstimo?</p>
+            <form class="dashboard__popup-form" id="cancel-loan-form">
+
+              <button
+                type="submit"
+                class="button dashboard__popup-submit"
+                id="submit-cancel-loan"
               >
                 Confirmar
               </button>

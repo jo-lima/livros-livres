@@ -173,6 +173,13 @@ class Base {
     );
   }
 
+  async postCancelarEmprestimo(id) {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/emprestimo/${id}/cancelar`,
+      {}
+    );
+  }
+
 }
 
 export default Base;

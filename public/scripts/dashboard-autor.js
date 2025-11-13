@@ -5,12 +5,12 @@ class DashboardAutor extends DashboardBase {
     super();
 
     // Elementos
-    this.authorsTableElement = document.querySelector(
-      ".dashboard__table--authors tbody"
-    );
+    this.authorsTableElement = document.querySelector(".dashboard__table--authors tbody");
+    // Novo autor
     this.newAuthorForm = document.querySelector("#new-author-form");
+    this.newAuthorButton = document.querySelector("#new-author-button");
+    // Editar autor
     this.editAuthorForm = document.querySelector("#edit-author-form");
-    this.editAuthorSubmit = document.querySelector("#edit-author-submit");
 
     // Execução
     this.initialize();
@@ -77,8 +77,7 @@ class DashboardAutor extends DashboardBase {
     }
 
     // Autores registrados
-    document.querySelector(".dashboard__card--authors-amount").textContent =
-      authorsData.body.length;
+    document.querySelector(".dashboard__card--authors-amount").textContent = authorsData.body.length;
   }
 
   // Enviar formulário de criação de autor
@@ -99,10 +98,7 @@ class DashboardAutor extends DashboardBase {
     event.preventDefault();
 
     const body = this.formDataObject(this.editAuthorForm);
-    const response = await this.editAuthor(
-      this.editAuthorSubmit.dataset.idAuthor,
-      body
-    );
+    const response = await this.editAuthor(this.editAuthorForm.dataset.idAuthor, body);
 
     this.displayMessage(response);
     this.cleanForm(this.editAuthorForm);
@@ -120,13 +116,8 @@ class DashboardAutor extends DashboardBase {
     let json;
 
     // Inativar/Ativar autor
-    if (
-      target.classList.contains("disable-author-button") ||
-      target.classList.contains("enable-author-button")
-    ) {
-      json = target.classList.contains("disable-author-button")
-        ? await this.disableAuthor(rowId)
-        : await this.enableAuthor(rowId);
+    if (target.classList.contains("disable-author-button") || target.classList.contains("enable-author-button")) {
+      json = target.classList.contains("disable-author-button") ? await this.disableAuthor(rowId) : await this.enableAuthor(rowId);
 
       this.displayMessage(json);
       this.listRenderAuthors();
@@ -136,41 +127,26 @@ class DashboardAutor extends DashboardBase {
     if (target.classList.contains("edit-author-button")) {
       const response = await this.getAuthor(rowId);
 
-      document.querySelector(".dashboard__popup-input--name").value =
-        response.body.nome;
-      document.querySelector(".dashboard__popup-input--quote").value =
-        response.body.citacao;
-      document.querySelector(".dashboard__popup-input--description").value =
-        response.body.descricao;
-      document.querySelector(".dashboard__popup-input--image").value =
-        response.body.imagem;
+      this.editAuthorForm.querySelectorAll('input, textarea').forEach(field => field.value = response.body[field.name]);
 
-      this.editAuthorSubmit.dataset.idAuthor = rowId; // Linkando o ID do autor da linha com o botão de submit - ta meio feio gente desculpa :c
-      this.showPopUp(".dashboard__popup--edit-author");
+      this.editAuthorForm.dataset.idAuthor = rowId;
+      this.showPopUp("#edit-author-form-popup");
     }
   }
 
   // Aplicando os EventListeners
   setUpAuthorListeners() {
-    document
-      .querySelector("#new-author-button")
-      .addEventListener("click", () =>
-        this.showPopUp(".dashboard__popup--new-author")
-      );
-    document
-      .querySelector("#new-author-submit")
-      .addEventListener("click", (event) => this.submitNewAuthorForm(event));
-    this.authorsTableElement.addEventListener("click", (event) =>
-      this.handleAuthorActions(event)
-    );
-    this.editAuthorSubmit.addEventListener("click", (event) =>
-      this.submitEditAuthorForm(event)
-    );
+    this.authorsTableElement.addEventListener("click", event => this.handleAuthorActions(event));
+    // Novo autor
+    this.newAuthorButton.addEventListener("click", () => this.showPopUp("#new-author-form-popup"));
+    this.newAuthorForm.addEventListener("submit", event => this.submitNewAuthorForm(event));
+    // Editar autor
+    this.editAuthorForm.addEventListener("submit", event => this.submitEditAuthorForm(event));
   }
 
   // Listando e renderizando autores
   async listRenderAuthors() {
-    await this.getAllAuthors().then((json) => {
+    this.getAllAuthors().then((json) => {
       this.renderAllAuthors(json);
       this.updateCards(json);
     });

@@ -34,25 +34,24 @@ class Base {
   }
 
   async createAuthor(body) {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/autor/novo`,
-      body
-    );
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/novo`, body);
   }
 
   async editAuthor(id, body) {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/autor/${id}/atualizar`,
-      body
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/${id}/atualizar`, body);
+  }
+
+  async getAuthor(id) {
+    const response = await fetch(
+      `http://${this.SERVER_URL}/autor/${id}/busca`,
+      {
+        headers: {
+          token: this.DEBUG_TOKEN,
+        },
+      }
     );
-  }
 
-  async disableAuthor(id) {
-    return await this.changeAuthorStatus(id, "inativar");
-  }
-
-  async enableAuthor(id) {
-    return await this.changeAuthorStatus(id, "ativar");
+    return await response.json();
   }
 
   async changeAuthorStatus(id, status) {
@@ -69,9 +68,30 @@ class Base {
     return await response.json();
   }
 
-  async getAuthor(id) {
+  async disableAuthor(id) {
+    return await this.changeAuthorStatus(id, "inativar");
+  }
+
+  async enableAuthor(id) {
+    return await this.changeAuthorStatus(id, "ativar");
+  }
+
+  // Requests do livro
+  async createBook(body) {
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/novo`, body);
+  }
+
+  async editBook(id, body) {
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/${id}/atualizar`, body);
+  }
+
+  async getAllBooks() {
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/lista`, {});
+  }
+
+  async getBook(id) {
     const response = await fetch(
-      `http://${this.SERVER_URL}/autor/${id}/busca`,
+      `http://${this.SERVER_URL}/livro/${id}/busca`,
       {
         headers: {
           token: this.DEBUG_TOKEN,
@@ -80,36 +100,6 @@ class Base {
     );
 
     return await response.json();
-  }
-
-  // Requests do livro
-  async createBook(body) {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/livro/novo`,
-      body
-    );
-  }
-
-  async editBook(id, body) {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/livro/${id}/atualizar`,
-      body
-    );
-  }
-
-  async getAllBooks() {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/livro/lista`,
-      {}
-    );
-  }
-
-  async disableBook(id) {
-    return await this.changeBookStatus(id, "inativar");
-  }
-
-  async enableBook(id) {
-    return await this.changeBookStatus(id, "ativar");
   }
 
   async changeBookStatus(id, status) {
@@ -126,9 +116,26 @@ class Base {
     return await response.json();
   }
 
-  async getBook(id) {
+  async disableBook(id) {
+    return await this.changeBookStatus(id, "inativar");
+  }
+
+  async enableBook(id) {
+    return await this.changeBookStatus(id, "ativar");
+  }
+
+  // Cliente
+  async createClient(body) {
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/funcionario/novo-cliente`, body);
+  }
+
+  async editClient(id, body) {
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/cliente/${id}/atualizar`, body);
+  }
+
+  async getClient(id) {
     const response = await fetch(
-      `http://${this.SERVER_URL}/livro/${id}/busca`,
+      `http://${this.SERVER_URL}/cliente/${id}/busca`,
       {
         headers: {
           token: this.DEBUG_TOKEN,
@@ -137,6 +144,38 @@ class Base {
     );
 
     return await response.json();
+  }
+
+  async getAllClients() {
+    const response = await fetch(`http://${this.SERVER_URL}/cliente/lista`, {
+      headers: {
+        token: this.DEBUG_TOKEN,
+      },
+    });
+
+    return await response.json();
+  }
+
+  async changeClientStatus(id, status) {
+    const response = await fetch(
+      `http://${this.SERVER_URL}/cliente/${id}/${status}`,
+      {
+        method: "POST",
+        headers: {
+          token: this.DEBUG_TOKEN,
+        },
+      }
+    );
+
+    return await response.json();
+  }
+
+  async disableClient(id) {
+    return await this.changeClientStatus(id, "inativar");
+  }
+
+  async enableClient(id) {
+    return await this.changeClientStatus(id, "ativar");
   }
 
   // Empréstimos
@@ -171,6 +210,20 @@ class Base {
         "dataEstendidaDevolucao":dataEstendidaDevolucao
       }
     );
+  }
+
+  async postCancelarEmprestimo(id) {
+    return await this.sendPostRequest(
+      `http://${this.SERVER_URL}/emprestimo/${id}/cancelar`,
+      {}
+    );
+  }
+
+  // Clientes
+  async getClienteById(id){
+    return await this.sendGetRequest(
+      `http://${this.SERVER_URL}/cliente/${id}/busca`
+    )
   }
 
 }

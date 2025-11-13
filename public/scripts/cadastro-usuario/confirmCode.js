@@ -49,6 +49,7 @@ btnHiddenEmail.addEventListener("click", async (event) => {
     const responseCode = await confirmCodeEmail(email, codigo)
     console.log(responseCode)
     if(responseCode.statusCode === 200){
+        base.displayMessage(responseCode)
         //guardar variavel para conseguir pegar em outra pagina
         sessionStorage.setItem("emailConfirmado", email);
         //manda pra outra pagina
@@ -56,6 +57,8 @@ btnHiddenEmail.addEventListener("click", async (event) => {
         window.location.replace('/public/html/pages/cadastro/cadastro_emailconfirmado.html')
         // emailInput.disabled = true;
         console.log(responseCode);
+    }else{
+      base.displayMessage(responseCode)
     }
 }
 });

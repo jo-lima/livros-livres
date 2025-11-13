@@ -6,7 +6,7 @@ class ClientProfile extends DashboardBase {
   constructor() {
     super();
 
-    // Elementos
+    // Elementos HTML
     this.pendingList = document.querySelector(".pendencias-list__pendencias");
     this.pendingDetailDescritive = document.querySelector(".pendencia-atual__info-descritiva");
     this.pendingDetailVisual = document.querySelector(".pendencia-atual__info-visual");
@@ -15,20 +15,36 @@ class ClientProfile extends DashboardBase {
 
     this.delayButton = document.querySelector(".acoes__prorrogar");
 
+    // Variaveis global
     this.clientId = 1; // valor mocado
-    this.currentPending;
-    this.currentPendingValue;
+    this.currentPendingId = 0; // ID da pendencia atual, nos detalhes
+    this.currentPendingValue; // Objeto da pendencia atual
 
-    this.pendenciesList;
-    this.historyList;
+    this.emprestimoStatus = Object.freeze({
+      PEDIDO:              "PEDIDO",
+      ACEITO:              "ACEITO",
+      CRIADO:              "CRIADO",
+      ADIADO:              "ADIADO",
+      CANCELADO:           "CANCELADO",
+      FINALIZADO:          "FINALIZADO",
+      FINALIZADO_ATRASADO: "FINALIZADO_ATRASADO"
+    });
+
+    this.historyStatus = [
+      this.emprestimoStatus.CANCELADO,
+      this.emprestimoStatus.FINALIZADO,
+      this.emprestimoStatus.FINALIZADO_ATRASADO,
+    ];
+
+    this.pendenciesList; // Lista de emprestimos pendentes, nao finalizados
+    this.historyList; // Lista de empresitmos finalizados, no historico
+
     // Execução
     this.initialize();
   }
 
   // Renderiza lista de pendencias na esquerda
   renderPendingList(pendingData) {
-    // this.displayMessage(pendingData);
-
     this.pendingList.innerHTML = "";
 
     const semPendencias = `
@@ -36,7 +52,8 @@ class ClientProfile extends DashboardBase {
         <p class="fim-pendencias__aviso">Sem mais pendencias :^)</p>
       </div>
     `
-    if(pendingData!=undefined){
+
+    if(pendingData!=undefined && pendingData.length > 0){
       pendingData.forEach(loan => {
         const pendingLoanHtml = `
           <div class="pendencias__pendencia" id="pendencia-${loan.idEmprestimo}">
@@ -60,19 +77,12 @@ class ClientProfile extends DashboardBase {
           </div>`;
 
         this.pendingList.insertAdjacentHTML("beforeend", pendingLoanHtml);
-        if (loan !== pendingData[pendingData.length - 1]) {
-          this.pendingList.insertAdjacentHTML("beforeend", "<hr>");
-        } else {
-          this.pendingList.insertAdjacentHTML("beforeend", '<hr style="border: none; margin:15px;">');
-        }
+        this.pendingList.insertAdjacentHTML("beforeend", "<hr>");
       });
-    } else {
-      this.pendingList.insertAdjacentHTML("beforeend", semPendencias);
-      this.pendingList.insertAdjacentHTML("beforeend", "<hr>");
     }
 
-    console.log("Render Pending List")
-
+    this.pendingList.insertAdjacentHTML("beforeend", semPendencias);
+    this.pendingList.insertAdjacentHTML("beforeend", '<hr style="border: none; margin:15px;">');
   }
 
   generatePendingDescriptionItem(title, info){
@@ -86,6 +96,13 @@ class ClientProfile extends DashboardBase {
   }
 
   renderPendingDetails(pendingData){
+    if(pendingData == null){
+      // Oculta a parte de "livro atual"
+      document.querySelector(".titles__livro-atual-title").style.display = "none"
+      document.querySelector(".content__pendencia-atual").style.display = "none"
+      return
+    }
+
     let detailsElmnts = "";
 
     detailsElmnts += `
@@ -156,15 +173,19 @@ class ClientProfile extends DashboardBase {
 
   }
 
+  async setCurrentPending(loanId) {
+    this.currentPendingId = loanId;
+    document.querySelectorAll(".pendencias__pendencia").forEach(pendencia => {
+      pendencia.classList = "pendencias__pendencia";
+    });
+    document.querySelector(`#pendencia-${this.currentPendingId}`).classList.add("selecionada");
+  }
+
   async handleCurrentPending(event){
     const target = event.target.closest(".detalhar-pendencia__button");
     if (target == null) return;
 
-    this.currentPending = target.dataset.emprestimoId;
-    document.querySelectorAll(".pendencias__pendencia").forEach(pendencia => {
-      pendencia.classList = "pendencias__pendencia";
-    });
-    document.querySelector(`#pendencia-${target.dataset.emprestimoId}`).classList.add("selecionada");
+    this.setCurrentPending(target.dataset.emprestimoId);
     this.listRenderPendences();
   }
 
@@ -180,11 +201,9 @@ class ClientProfile extends DashboardBase {
     event.preventDefault();
 
     const body = this.formDataObject(this.delayPendingForm);
-    console.log(body)
-    const response = await this.postAdiarEmprestimo(this.currentPending, body.dataEstendidaDevolucao);
+    const response = await this.postAdiarEmprestimo(this.currentPendingId, body.dataEstendidaDevolucao);
 
     this.displayMessage(response);
-    console.log(response);
 
     this.cleanForm(this.delayPendingForm);
     this.hidePopUp();
@@ -200,12 +219,11 @@ class ClientProfile extends DashboardBase {
       btn.addEventListener("click", async (event) => {this.handleCurrentPending(event)});
     })
     deleyLoanButton.addEventListener("click", async (event) => {this.submitDeleyPending(event)});
-    console.log("Setup Listeners");
   }
 
 // Renderizar e atualizar elementos em tempo real
   async listRenderPendences() {
-    this.getEmprestimoById(this.currentPending).then((json) => {
+    this.getEmprestimoById(this.currentPendingId).then((json) => {
       this.currentPendingValue = json;
       this.renderPendingDetails(this.currentPendingValue.body);
 
@@ -219,16 +237,27 @@ class ClientProfile extends DashboardBase {
 
   // Inicialização
   initialize() {
+    const historyStatus = this.historyStatus;
 
     this.getAllEmprestimosByClientId(this.clientId, "").then((json) => {
-      this.pendenciesList = json.body;
+      let allEmprestimos = json.body;
 
-      this.currentPending = this.pendenciesList[0].idEmprestimo
+      this.pendenciesList = allEmprestimos.filter(function (i,n){
+        return !historyStatus.includes(i.status);
+      });
 
-      this.renderPendingList(json.body);
+      this.historyList = allEmprestimos.filter(function (i,n){
+        return i.status.includes(historyStatus);
+      });
+
+      this.renderPendingList(this.pendenciesList);
       this.setUpProfileListeners();
 
-      this.getEmprestimoById(this.currentPending).then((json) => {
+      if(this.pendenciesList.length > 0) {
+        this.setCurrentPending(this.pendenciesList[0].idEmprestimo);
+      }
+
+      this.getEmprestimoById(this.currentPendingId).then((json) => {
         this.renderPendingDetails(json.body);
       });
 

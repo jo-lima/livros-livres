@@ -23,7 +23,7 @@
      <link rel="stylesheet" href="../../../css/pages/cadastro.css">
     <link rel="stylesheet" href="../../css/components/nav.css"/>
      <!-- <link rel="stylesheet" href="../../css/components/footer.css"/> -->
-    <title>Acervo</title>
+    <title>Recuperar senha</title>
   </head>
   <body>
     <nav class="main-nav dashboard__nav">
@@ -38,7 +38,7 @@
     <section class="section__register-user">
       <img src="/public/images/login/cachorro_leitor.png" alt="">
       <!-- <h1 class="h1__register-user">DADOS DE CADASTRO</h1> -->
-      <h2 class="h2__register-user">Para continuarmos com o cadastro precisamos verificar seu e-mail</h2>
+      <h2 class="h2__register-user">Por favor informe seu e-mail para enviarmos o código para alteração de senha</h2>
         <div class="div-main__register-user">
           <form class="form__register-user">
             
@@ -49,8 +49,13 @@
         </div>
 
         <div class="div-box__confirm-email hidden">
-                <p class="header__register-user">Código de confirmação</p>
-                <input class="form-box__register-user form-box__register-user--confirmcode" name="confirm_email" placeholder="Insira o código">
+                <p class="header__register-user">Código para alteração</p>
+                <input class="form-box__register-user form-box__register-user--confirmcode" type="text" name="confirm_email" placeholder="Insira o código">
+        </div>
+
+        <div class="div-box__pwd-email hidden">
+                <p class="header__register-user">Nova senha</p>
+                <input class="form-box__register-user form-box__register-user--newPwd" type="text"name="new_pwd" placeholder="Insira a nova senha">
         </div>
 
       <input class="button__register-user" type="submit" value="Confirmar e-mail">
@@ -60,8 +65,7 @@
     </section>
   </main>
 </div>
-
-        <script src="../../../scripts/cadastro-usuario/confirmCode.js"></script>
+        <script src="../../../scripts/login-usuario/forgotpwd.js"></script>
     
   </body>
 </html>

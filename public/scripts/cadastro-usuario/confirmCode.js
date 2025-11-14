@@ -22,7 +22,7 @@ async function confirmCodeEmail(email, codigo) {
     return await response.json(); 
 }
 
-const btnHiddenEmail = document.querySelector('.button__register-user');
+const btnSubmitForm = document.querySelector('.form__register-user');
 const codeEmail = document.querySelector('.div-box__confirm-email');
 const wrongEmail = document.querySelector(".register-user__wrong-email");
 const emailInput = document.querySelector('.form-box__register-user--emailinput');
@@ -31,7 +31,7 @@ const codigoInput = document.querySelector('.form-box__register-user--confirmcod
 
 //displayMessage(json);
 let emailconfirmado = false;
-btnHiddenEmail.addEventListener("click", async (event) => {
+btnSubmitForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const email = emailInput.value.trim();
   const codigo = codigoInput.value.trim();
@@ -49,13 +49,8 @@ btnHiddenEmail.addEventListener("click", async (event) => {
     const responseCode = await confirmCodeEmail(email, codigo)
     console.log(responseCode)
     if(responseCode.statusCode === 200){
-        base.displayMessage(responseCode)
-        //guardar variavel para conseguir pegar em outra pagina
         sessionStorage.setItem("emailConfirmado", email);
-        //manda pra outra pagina
-        //replace nao deixa voltar pra pagina anterior (no caso essa) seria util? deixa ele voltar?
         window.location.replace('/public/html/pages/cadastro/cadastro_emailconfirmado.html')
-        // emailInput.disabled = true;
         console.log(responseCode);
     }else{
       base.displayMessage(responseCode)

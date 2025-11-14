@@ -1,8 +1,8 @@
-import Base from "./base.js";
+import Requests from "./requests.js";
 const token = document.cookie;
 console.log(token);
 
-class Acervo extends Base {
+class Acervo extends Requests {
   constructor() {
     super();
 
@@ -46,8 +46,20 @@ class Acervo extends Base {
     });
   }
 
+  renderNoErrorMessage(){
+    const errorMessage = document.createElement('div')
+    errorMessage.classList.add('library-books__error-message')
+    errorMessage.innerHTML = `<p>Nenhum livro encontrado</p>`
+    this.booksGrid.append(errorMessage)
+  }
+
   async initialize() {
     this.getAllBooks().then((json) => {
+      if (json.statusCode == 404) {
+        this.renderNoErrorMessage();
+        return
+      }
+
       this.renderAllBooks(json);
     });
   }

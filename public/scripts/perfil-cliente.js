@@ -1,8 +1,7 @@
 import Base from "./base.js";
-import DashboardBase from "./dashboard-base.js";
 
 // probably will change, using dashboardbase for now.
-class ClientProfile extends DashboardBase {
+class ClientProfile extends Base {
   constructor() {
     super();
 

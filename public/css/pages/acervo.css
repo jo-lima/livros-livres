@@ -58,6 +58,7 @@
   column-gap: 36px;
   row-gap: 24px;
   margin-bottom: 40px;
+  position: relative;
 }
 
 /* Livro */
@@ -153,4 +154,14 @@
 .library-books__page--active:hover {
   background-color: var(--text-color--green--light);
   color: var(--text-color--gray--dark);
+}
+
+/* Mensagem de erro caso nenhum livro */
+.library-books__error-message {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  width: 100%;
 }

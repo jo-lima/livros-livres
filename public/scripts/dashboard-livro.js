@@ -1,6 +1,6 @@
-import DashboardBase from "../scripts/dashboard-base.js";
+import Base from "./base.js";
 
-class DashboardLivro extends DashboardBase {
+class DashboardLivro extends Base {
   constructor() {
     super();
 
@@ -18,16 +18,10 @@ class DashboardLivro extends DashboardBase {
   }
 
   // Renderiza os livros na tabela
-  async renderBooks(booksData) {
-    // TODO - Lidar
-    if (booksData.statusCode == 404) {
-      this.displayMessage(booksData);
-      return;
-    }
-
+  renderBooks(booksData) {
     this.booksTableElement.innerHTML = "";
 
-    booksData.body.forEach((book) => {
+    booksData.body.forEach(book => {
       let buttonHtml;
 
       if (book.ativo) {
@@ -74,13 +68,7 @@ class DashboardLivro extends DashboardBase {
   }
 
   // Atualizando os cards
-  async updateCards(booksData) {
-    // TODO - Lidar
-    if (booksData.statusCode == 404) {
-      this.displayMessage(booksData);
-      return;
-    }
-
+  updateCards(booksData) {
     // Livros disponíveis
     document.querySelector(".dashboard__card--books-amount").textContent = booksData.body.length;
 
@@ -90,9 +78,11 @@ class DashboardLivro extends DashboardBase {
 
   // Populando lista de autores
   renderAuthorsList(authorsData) {
+    if (authorsData.statusCode != 200) return;
+
     this.authorsListElement.innerHTML = "";
 
-    authorsData.forEach((author) => {
+    authorsData.body.forEach((author) => {
       const authorHtml = `<option value="${author.idAutor}">${author.nome}</option>`;
 
       this.authorsListElement.forEach(list => list.insertAdjacentHTML("beforeend", authorHtml));
@@ -157,7 +147,7 @@ class DashboardLivro extends DashboardBase {
   }
 
   // Aplicando os EventListeners
-  async setUpBookListeners() {
+  setUpBookListeners() {
     this.booksTableElement.addEventListener("click", async event => this.handleBookActions(event));
     // Novo livro
     this.newBookButton.addEventListener("click", () => this.showPopUp("#new-book-form-popup"));
@@ -169,6 +159,11 @@ class DashboardLivro extends DashboardBase {
   // Renderizar e atualizar os cards
   async listRenderBooks() {
     this.getAllBooks().then((json) => {
+      if (json.statusCode == 404) {
+        this.displayMessage(json);
+        return;
+      }
+
       this.updateCards(json);
       this.renderBooks(json);
     });
@@ -177,7 +172,7 @@ class DashboardLivro extends DashboardBase {
   // Inicialização
   initialize() {
     this.listRenderBooks();
-    this.getAllAuthors().then(json => this.renderAuthorsList(json.body));
+    this.getAllAuthors().then(json => this.renderAuthorsList(json));
     this.setUpBookListeners();
   }
 }

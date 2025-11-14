@@ -1,6 +1,6 @@
-import DashboardBase from "../scripts/dashboard-base.js";
+import Base from "./base.js";
 
-class DashboardCliente extends DashboardBase {
+class DashboardCliente extends Base {
   constructor() {
     super();
 
@@ -17,12 +17,6 @@ class DashboardCliente extends DashboardBase {
   }
 
   renderAllClients(clientData) {
-    // TODO - Lidar
-    if (clientData.statusCode == 404) {
-      this.displayMessage(clientData);
-      return;
-    }
-
     this.clientsTableElement.innerHTML = "";
 
     clientData.body.forEach((client) => {
@@ -70,12 +64,6 @@ class DashboardCliente extends DashboardBase {
   }
 
   updateCards(clientData) {
-    // TODO - Lidar
-    if (clientData.statusCode == 404) {
-      this.displayMessage(clientData);
-      return;
-    }
-
     // Clientes registrados
     document.querySelector(".dashboard__card--clients-amount").textContent = clientData.body.length;
   }
@@ -143,6 +131,11 @@ class DashboardCliente extends DashboardBase {
 
   async listRenderClients() {
     this.getAllClients().then(json => {
+    if (json.statusCode == 404) {
+      this.displayMessage(json);
+      return;
+    }
+      
       this.renderAllClients(json);
       this.updateCards(json);
     });

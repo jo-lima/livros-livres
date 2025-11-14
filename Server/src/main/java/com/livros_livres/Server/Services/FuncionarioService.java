@@ -62,7 +62,7 @@ public class FuncionarioService {
         // Caso não tenha sido adicionado, retorna que nao encontrou combinacao email x senha.
         if (loggedInUser == null) { return RetornoApi.errorLoginNotFound();}
 
-        return RetornoApi.sucess("Usuário autenticado e logado com sucesso!", loggedInUser);
+        return RetornoApi.sucess("Usuário autenticado e logado com sucesso!", java.util.Map.of("usuario", loggedInUser));
     }
 
     public RetornoApi criaNovoCliente(String token, Cliente clienteData) {

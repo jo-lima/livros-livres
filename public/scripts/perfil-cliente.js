@@ -245,7 +245,7 @@ class ClientProfile extends DashboardBase {
     this.historyGrid.innerHTML = "";
 
     this.historyList.forEach(loan => {
-    const historyEntry = `
+    let historyEntry = `
           <div class="livros-grid__livro">
             <div class="livro__info-visual">
               <img src="${loan.livro.imagem}" alt="#">
@@ -253,24 +253,61 @@ class ClientProfile extends DashboardBase {
             <div class="livro__info-descritiva">
               <p class="info-descritiva__titulo">${loan.livro.nome}</p>
               <p class="info-descritiva__autor">${loan.livro.autor.nome}</p>
-              <div class="info-descritiva__emprestado-em info-descritiva__data">
-                <p class="emprestado-em__title">Status do empréstimo:</p>
-                <p class="emprestado-em__info info-descritiva__info">${loan.status}</p>
-              </div>
-              <div class="info-descritiva__emprestado-em info-descritiva__data">
-                <p class="emprestado-em__title">Emprestado em:</p>
-                <p class="emprestado-em__info info-descritiva__info">${loan.dataColeta}</p>
-              </div>
-              <div class="info-descritiva__devolvido-em info-descritiva__data">
-                <p class="devolvido-em__title">Devolvido em:</p>
-                <p class="devolvido-em__info info-descritiva__info">${loan.dataDevolucao}</p>
+
+              ${this.generateHistoryEntryInfo(loan)}
+
               </div>
             </div>
-          </div>
-    `;
+      `;
 
       this.historyGrid.insertAdjacentHTML("beforeend", historyEntry);
     });
+  }
+
+  generateHistoryEntryInfo(loanData){
+
+    let historyEntryInfo = "";
+
+    let infoItems = [
+      { title: "Status do Empréstimo", value: loanData.status }
+    ];
+
+    if(loanData.status == this.emprestimoStatus.CANCELADO){
+      infoItems.push(
+        { title: "Data Solicitação", value: loanData.dataSolicitacaoEmprestimo },
+        { title: "Data Cancelamento", value: loanData.dataCancelamento }
+      );
+    }
+    else if(
+      loanData.status == this.emprestimoStatus.FINALIZADO ||
+      loanData.status == this.emprestimoStatus.FINALIZADO_ATRASADO
+    ){
+      infoItems.push(
+        { title: "Data de Coleta", value: loanData.dataColeta },
+        { title: "Data de Devolução", value: loanData.dataDevolucao },
+        { title: "Data Prevista de Devolução", value: loanData.dataPrevistaDevolucao },
+        { title: "Data Prevista Estendida de Devolução", value: loanData.dataEstendidaDevolucao }
+      );
+    }
+
+    infoItems.forEach(item => {
+      if (item.value != null) {
+        historyEntryInfo += this.generateHistoryEntryInfoItem(item.title, item.value);
+      }
+    });
+
+    return historyEntryInfo;
+  }
+
+  generateHistoryEntryInfoItem(title, value){
+
+    let infoItem = `
+      <div class="info-descritiva__emprestado-em info-descritiva__data">
+        <p class="emprestado-em__title">${title}:</p>
+        <p class="emprestado-em__info info-descritiva__info">${value}</p>
+      </div>
+    `
+    return infoItem;
   }
 
   // -- FUNÇÕES DOS BOTÕES --

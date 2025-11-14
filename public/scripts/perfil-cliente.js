@@ -445,6 +445,11 @@ class ClientProfile extends Base {
     this.editClientForm.dataset.idClient = this.clientId;
 
     this.getAllEmprestimosByClientId(this.clientId, "").then((json) => {
+
+      if(json.statusCode != 200) {
+        document.querySelector(".profile-content").innerHTML = "<h1>Você não tem permissão para acessar esta página!</h1>"
+      }
+
       let allEmprestimos = json.body;
 
       this.pendenciesList = allEmprestimos.filter(function (i,n){

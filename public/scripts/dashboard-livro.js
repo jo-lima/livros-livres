@@ -1,6 +1,6 @@
-import DashboardBase from "../scripts/dashboard-base.js";
+import Base from "./base.js";
 
-class DashboardLivro extends DashboardBase {
+class DashboardLivro extends Base {
   constructor() {
     super();
 

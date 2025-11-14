@@ -1,6 +1,6 @@
-import Base from "./base.js";
+import Requests from "./requests.js";
 
-class Livro extends Base {
+class Livro extends Requests {
   constructor() {
     super();
 

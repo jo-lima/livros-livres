@@ -1,8 +1,8 @@
-import Base from "./base.js";
+import Requests from "./requests.js";
 const token = document.cookie;
 console.log(token);
 
-class Acervo extends Base {
+class Acervo extends Requests {
   constructor() {
     super();
 

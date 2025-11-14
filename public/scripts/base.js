@@ -1,231 +1,78 @@
-class Base {
-  SERVER_URL = "localhost:6969";
-  DEBUG_TOKEN = "debug";
+import Requests from "./requests.js";
 
-  // Base dos requests
-  async sendPostRequest(url, body) {
-    const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-        token: this.DEBUG_TOKEN,
-      },
+class Base extends Requests {
+  constructor() {
+    super();
+
+    // Pop-up
+    this.popUpOverlay = document.querySelector(".dashboard__popup-overlay");
+
+    // Mensagem
+    this.messageElement = document.querySelector(".dashboard__message");
+    this.messageTimer;
+
+    // Setup dos EventListeners
+    this.setUpListeners();
+  }
+
+  // Mensagem
+  displayMessage(json) {
+    this.messageElement.textContent = json.message;
+    this.messageElement.style.backgroundColor = json.statusCode == 200 ? "var(--text-color--green--regular)" : "red";
+
+    if (this.messageElement.classList.contains("dashboard__message--hidden")) this.messageElement.classList.remove("dashboard__message--hidden");
+
+    // Para o timeout anterior
+    this.messageTimer && clearTimeout(this.messageTimer);
+
+    this.messageTimer = setTimeout(() => {
+      this.messageElement.classList.add("dashboard__message--hidden");
+    }, 4000);
+  }
+
+  // Pop-Up
+  showPopUp(popUpClass) {
+    document.querySelector(popUpClass).classList.remove("hidden");
+    this.popUpOverlay.classList.remove("hidden");
+  }
+
+  hidePopUp() {
+    const popUps = document.querySelectorAll(".dashboard__popup");
+    popUps.forEach((popUp) => popUp.classList.add("hidden"));
+    this.popUpOverlay.classList.add("hidden");
+  }
+
+  // Métodos úteis
+  today() {
+    return new Date().toJSON().slice(0, 10).replace(/-/g, "/");
+  }
+
+  cleanForm(form) {
+    const inputs = form.querySelectorAll("input, textarea, select");
+    inputs.forEach((input) => (input.value = ""));
+  }
+
+  formDataObject(form) {
+    const data = {};
+    new FormData(form).forEach((value, key) => (data[key] = value));
+    return data;
+  }
+
+  // Setup dos EventListeners
+  setUpListeners() {
+    // Fechar pop-up no espaço de fora
+    this.popUpOverlay.addEventListener("click", (event) => {
+      if (!event.target.classList.contains("dashboard__popup-overlay")) return;
+      this.hidePopUp();
     });
 
-    return await response.json();
+    // Fechar pop-up no botão 'X'
+    document
+      .querySelectorAll(".dashboard__popup-close")
+      .forEach((button) =>
+        button.addEventListener("click", () => this.hidePopUp())
+      );
   }
-
-  async sendGetRequest(url) {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        token: this.DEBUG_TOKEN,
-      },
-    });
-
-    return await response.json();
-  }
-
-  // Request do autor
-  async getAllAuthors() {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/lista`);
-  }
-
-  async createAuthor(body) {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/novo`, body);
-  }
-
-  async editAuthor(id, body) {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/autor/${id}/atualizar`, body);
-  }
-
-  async getAuthor(id) {
-    const response = await fetch(
-      `http://${this.SERVER_URL}/autor/${id}/busca`,
-      {
-        headers: {
-          token: this.DEBUG_TOKEN,
-        },
-      }
-    );
-
-    return await response.json();
-  }
-
-  async changeAuthorStatus(id, status) {
-    const response = await fetch(
-      `http://${this.SERVER_URL}/autor/${id}/${status}`,
-      {
-        method: "POST",
-        headers: {
-          token: this.DEBUG_TOKEN,
-        },
-      }
-    );
-
-    return await response.json();
-  }
-
-  async disableAuthor(id) {
-    return await this.changeAuthorStatus(id, "inativar");
-  }
-
-  async enableAuthor(id) {
-    return await this.changeAuthorStatus(id, "ativar");
-  }
-
-  // Requests do livro
-  async createBook(body) {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/novo`, body);
-  }
-
-  async editBook(id, body) {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/${id}/atualizar`, body);
-  }
-
-  async getAllBooks() {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/livro/lista`, {});
-  }
-
-  async getBook(id) {
-    const response = await fetch(
-      `http://${this.SERVER_URL}/livro/${id}/busca`,
-      {
-        headers: {
-          token: this.DEBUG_TOKEN,
-        },
-      }
-    );
-
-    return await response.json();
-  }
-
-  async changeBookStatus(id, status) {
-    const response = await fetch(
-      `http://${this.SERVER_URL}/livro/${id}/${status}`,
-      {
-        method: "POST",
-        headers: {
-          token: this.DEBUG_TOKEN,
-        },
-      }
-    );
-
-    return await response.json();
-  }
-
-  async disableBook(id) {
-    return await this.changeBookStatus(id, "inativar");
-  }
-
-  async enableBook(id) {
-    return await this.changeBookStatus(id, "ativar");
-  }
-
-  // Cliente
-  async createClient(body) {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/funcionario/novo-cliente`, body);
-  }
-
-  async editClient(id, body) {
-    return await this.sendPostRequest(`http://${this.SERVER_URL}/cliente/${id}/atualizar`, body);
-  }
-
-  async getClient(id) {
-    const response = await fetch(
-      `http://${this.SERVER_URL}/cliente/${id}/busca`,
-      {
-        headers: {
-          token: this.DEBUG_TOKEN,
-        },
-      }
-    );
-
-    return await response.json();
-  }
-
-  async getAllClients() {
-    const response = await fetch(`http://${this.SERVER_URL}/cliente/lista`, {
-      headers: {
-        token: this.DEBUG_TOKEN,
-      },
-    });
-
-    return await response.json();
-  }
-
-  async changeClientStatus(id, status) {
-    const response = await fetch(
-      `http://${this.SERVER_URL}/cliente/${id}/${status}`,
-      {
-        method: "POST",
-        headers: {
-          token: this.DEBUG_TOKEN,
-        },
-      }
-    );
-
-    return await response.json();
-  }
-
-  async disableClient(id) {
-    return await this.changeClientStatus(id, "inativar");
-  }
-
-  async enableClient(id) {
-    return await this.changeClientStatus(id, "ativar");
-  }
-
-  // Empréstimos
-  async getAllEmprestimos() {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/emprestimo/lista`,
-      {}
-    );
-  }
-
-  async getAllEmprestimosByClientId(id, status) {
-    if (status === ""){status = null}
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/emprestimo/lista/cliente/${id}`,
-      {
-        "emprestimoStatus":status
-      }
-    );
-  }
-
-  async getEmprestimoById(id) {
-    return await this.sendGetRequest(
-      `http://${this.SERVER_URL}/emprestimo/${id}/busca`,
-      {}
-    );
-  }
-
-  async postAdiarEmprestimo(id, dataEstendidaDevolucao) {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/emprestimo/${id}/adiar`,
-      {
-        "dataEstendidaDevolucao":dataEstendidaDevolucao
-      }
-    );
-  }
-
-  async postCancelarEmprestimo(id) {
-    return await this.sendPostRequest(
-      `http://${this.SERVER_URL}/emprestimo/${id}/cancelar`,
-      {}
-    );
-  }
-
-  // Clientes
-  async getClienteById(id){
-    return await this.sendGetRequest(
-      `http://${this.SERVER_URL}/cliente/${id}/busca`
-    )
-  }
-
 }
 
 export default Base;

@@ -17,12 +17,14 @@ class ClientProfile extends DashboardBase {
     this.loanDetailLeft = document.querySelector(".pendencia-atual__info-visual");
 
     // Formularios do popup
+    this.editClientForm = document.querySelector("#edit-client-form");
     this.delayLoanForm = document.querySelector("#delay-loan-form");
     this.cancelPendingForm = document.querySelector("#cancel-loan-form");
 
     // Botões de ação estáticos
     this.delayButton = document.querySelector(".acoes__prorrogar");
-    this.delayButton = document.querySelector(".acoes__cancelar");
+    this.cancelButton = document.querySelector(".acoes__cancelar");
+    this.editProfileButton = document.querySelector(".editar-infos__button");
 
     // Variaveis global
     this.clientId = 1; // valor mocado
@@ -67,6 +69,8 @@ class ClientProfile extends DashboardBase {
   renderProfileInfo(){
     const clientInfo = this.clientValue;
     let pfpImage = "/public/images/perfil-cliente/porra-cara-nao-sei-velho.jpg";
+
+    this.profileInfo.innerHTML = `<h2 class="perfil-data__title">Informações do Perfil:</h1>`;
 
     const infoList = [
       {title: "Nome", value: clientInfo.nome},
@@ -322,6 +326,16 @@ class ClientProfile extends DashboardBase {
     this.listRenderPendences();
   }
 
+  // 'Editar Cliente'
+  async handleEditClient(event){
+    const target = event.target.closest(".editar-infos__button");
+    if (target == null) return;
+
+    this.editClientForm.querySelectorAll('input').forEach(field => field.value = this.clientValue[field.name]);
+
+    this.showPopUp("#edit-client-form-popup")
+  }
+
   // 'Cancelar'
   async handleCancelLoan(event){
     const target = event.target.closest(".acoes__cancelar");
@@ -337,6 +351,19 @@ class ClientProfile extends DashboardBase {
 
     document.getElementById("popUpDataDevolucao").value=this.currentLoanValue.body.dataPrevistaDevolucao
     this.showPopUp(".dashboard__popup--prorrogar-pendencia")
+  }
+
+  // Submit 'Editar Cliente'
+  async submitEditClientForm(event) {
+    event.preventDefault();
+
+    const body = this.formDataObject(this.editClientForm);
+    const response = await this.editClient(this.editClientForm.dataset.idClient, body);
+
+    this.displayMessage(response);
+    this.cleanForm(this.editClientForm);
+    this.hidePopUp();
+    this.listRenderPendences();
   }
 
   // Submit 'Cancelar'
@@ -367,7 +394,7 @@ class ClientProfile extends DashboardBase {
     this.listRenderPendences();
   }
 
-// Aplicando os EventListeners
+  // Aplicando os EventListeners
   async setUpProfileListeners() {
     const pendingDetailsButtons = document.querySelectorAll(".detalhar-pendencia__button");
     const deleyLoanButton = document.querySelector("#submit-delay-loan");
@@ -378,10 +405,18 @@ class ClientProfile extends DashboardBase {
     })
     deleyLoanButton.addEventListener("click", async (event) => {this.submitDeleyLoan(event)});
     cancelLoanButton.addEventListener("click", async (event) => {this.submitCancelLoan(event)});
+
+    this.editClientForm.addEventListener("submit", async (event) => {this.submitEditClientForm(event)})
   }
 
 // Renderizar e atualizar elementos em tempo real
   async listRenderPendences() {
+
+    this.getClienteById(this.clientId).then((json) => {
+      this.clientValue = json.body;
+      this.renderProfileInfo();
+    });
+
     this.getEmprestimoById(this.currentLoanId).then((json) => {
       this.currentLoanValue = json;
       this.renderLoanDetails(this.currentLoanValue.body);
@@ -390,9 +425,15 @@ class ClientProfile extends DashboardBase {
       if(this.delayButton != null) {
         this.delayButton.addEventListener("click", async (event) => {this.handleDelayLoan(event)});
       }
+
       this.cancelButton = document.querySelector(".acoes__cancelar");
       if(this.cancelButton != null) {
         this.cancelButton.addEventListener("click", async (event) => {this.handleCancelLoan(event)});
+      }
+
+      this.editProfileButton = document.querySelector(".editar-infos__button");
+      if(this.editProfileButton != null) {
+        this.editProfileButton.addEventListener("click", async (event) => {this.handleEditClient(event)});
       }
     });
 
@@ -401,6 +442,8 @@ class ClientProfile extends DashboardBase {
   // Inicialização
   initialize() {
     const historyStatus = this.historyStatus;
+
+    this.editClientForm.dataset.idClient = this.clientId;
 
     this.getAllEmprestimosByClientId(this.clientId, "").then((json) => {
       let allEmprestimos = json.body;

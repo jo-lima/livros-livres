@@ -67,6 +67,41 @@
             </div>
           </div>
 
+          <!-- popup editar perfil -->
+          <div class="dashboard__popup hidden" id="edit-client-form-popup">
+            <div class="dashboard__popup-close">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+              </svg>
+            </div>
+            <p class="dashboard__popup-heading font--secondary">Editar cliente</p>
+            <form class="dashboard__popup-form" id="edit-client-form" >
+              <div>
+                <label class="dashboard__popup-label">CPF do cliente</label>
+                <input class="dashboard__popup-input" type="text" name="cpf" required/>
+              </div>
+              <div>
+                <label class="dashboard__popup-label">Nome do cliente</label>
+                <input class="dashboard__popup-input" type="text" name="nome" required/>
+              </div>
+              <div>
+                <label class="dashboard__popup-label">Endereço</label>
+                <input class="dashboard__popup-input" type="text" name="endereco" required/>
+              </div>
+              <div>
+                <label class="dashboard__popup-label">Telefone</label>
+                <input class="dashboard__popup-input" type="tel" name="telefone" required/>
+              </div>
+              <div>
+                <label class="dashboard__popup-label">URL da imagem</label>
+                <input class="dashboard__popup-input" type="text" name="imagem" required/>
+              </div>
+              <button type="submit" class="button dashboard__popup-submit">
+                Enviar
+              </button>
+            </form>
+          </div>
+
           <!-- popup prorrogar -->
           <div class="dashboard__popup dashboard__popup--prorrogar-pendencia hidden">
             <div class="dashboard__popup-close">

@@ -10,7 +10,6 @@ class Autor extends Requests {
     this.authorQuoteElement = document.querySelector(".author-quote");
     this.authorImageElement = document.querySelector(".author-image");
     this.loadingOverlayElement = document.querySelector(".loading-overlay");
-    this.authorBooksList = document.querySelector(".author-book-list")
 
     // Execução
     this.initialize();
@@ -18,26 +17,6 @@ class Autor extends Requests {
 
   getAuthorIdByUrl() {
     return new URLSearchParams(document.location.search).get("id");
-  }
-
-  renderAuthorBooks(authorData){
-    this.authorBooksList.innerHTML = ""
-
-    authorData.livros.forEach(book => {
-      const bookHtml = `
-      <a href="./livro.html?id=${book.idLivro}" class="book-list-item">
-        <div
-          class="book-list-item__image"
-          style="
-            background-image: url('${book.imagem}');
-          "
-        ></div>
-        <p class="book-list-item__title">${book.nome}</p>
-      </a>
-      `
-
-      this.authorBooksList.insertAdjacentHTML("beforeend", bookHtml)
-    });
   }
 
   renderAuthor(authorData) {
@@ -56,7 +35,6 @@ class Autor extends Requests {
   async initialize() {
     this.getAuthor(this.getAuthorIdByUrl()).then((json) => {
       this.renderAuthor(json.body);
-      this.renderAuthorBooks(json.body)
     });
   }
 }

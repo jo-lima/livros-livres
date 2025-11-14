@@ -67,7 +67,7 @@ class ClientProfile extends Base {
   // Renderiza o "Informações do Perfil"
   renderProfileInfo(){
     const clientInfo = this.clientValue;
-    let pfpImage = "/public/images/perfil-cliente/porra-cara-nao-sei-velho.jpg";
+    let pfpImage = "/public/images/perfil-cliente/defaultPic.png";
 
     this.profileInfo.innerHTML = `<h2 class="perfil-data__title">Informações do Perfil:</h1>`;
 
@@ -83,7 +83,7 @@ class ClientProfile extends Base {
       </div>
     `;
 
-    if(clientInfo.imagem != null){
+    if(clientInfo.imagem != null && clientInfo.imagem != ""){
       pfpImage = clientInfo.imagem;
     }
 
@@ -247,11 +247,16 @@ class ClientProfile extends Base {
   renderHistory(){
     this.historyGrid.innerHTML = "";
 
+    if(this.historyList.length <= 0){
+      this.historyGrid.innerHTML = "<h2>Sem empréstimos no histórico :^P</h2>";
+      return;
+    }
+
     this.historyList.forEach(loan => {
     let historyEntry = `
           <div class="livros-grid__livro">
             <div class="livro__info-visual">
-              <img src="${loan.livro.imagem}" alt="#">
+              <img src="${loan.livro.imagem}" alt="">
             </div>
             <div class="livro__info-descritiva">
               <p class="info-descritiva__titulo">${loan.livro.nome}</p>
@@ -412,6 +417,12 @@ class ClientProfile extends Base {
     this.getClienteById(this.clientId).then((json) => {
       this.clientValue = json.body;
       this.renderProfileInfo();
+
+      this.editProfileButton = document.querySelector(".editar-infos__button");
+      if(this.editProfileButton != null) {
+        this.editProfileButton.addEventListener("click", async (event) => {this.handleEditClient(event)});
+      }
+
     });
 
     this.getEmprestimoById(this.currentLoanId).then((json) => {
@@ -428,10 +439,6 @@ class ClientProfile extends Base {
         this.cancelButton.addEventListener("click", async (event) => {this.handleCancelLoan(event)});
       }
 
-      this.editProfileButton = document.querySelector(".editar-infos__button");
-      if(this.editProfileButton != null) {
-        this.editProfileButton.addEventListener("click", async (event) => {this.handleEditClient(event)});
-      }
     });
 
   }

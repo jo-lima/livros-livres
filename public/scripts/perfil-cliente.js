@@ -26,7 +26,7 @@ class ClientProfile extends Base {
     this.editProfileButton = document.querySelector(".editar-infos__button");
 
     // Variaveis global
-    this.clientId = 1; // valor mocado
+    this.clientId = document.cookie.split('userId=')[1]?.split(';')[0];
     this.clientValue;
     this.currentLoanId = 0; // ID da pendencia atual, nos detalhes
     this.currentLoanValue; // Objeto da pendencia atual
@@ -319,8 +319,6 @@ class ClientProfile extends Base {
   async handleCurrentPending(event){
     const target = event.target.closest(".detalhar-pendencia__button");
     if (target == null) return;
-    console.log(target.dataset.emprestimoId);
-
     this.setCurrentPending(target.dataset.emprestimoId);
     this.listRenderPendences();
   }
@@ -448,6 +446,7 @@ class ClientProfile extends Base {
 
       if(json.statusCode != 200) {
         document.querySelector(".profile-content").innerHTML = "<h1>Você não tem permissão para acessar esta página!</h1>"
+        return
       }
 
       let allEmprestimos = json.body;

@@ -1,6 +1,7 @@
 class Requests {
   SERVER_URL = "localhost:6969";
   DEBUG_TOKEN = "debug";
+  USER_TOKEN = document.cookie.split('tokenUser=')[1]?.split(';')[0];
 
   // Base dos requests
   async sendPostRequest(url, body) {
@@ -9,7 +10,7 @@ class Requests {
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
-        token: this.DEBUG_TOKEN,
+        token: this.USER_TOKEN,
       },
     });
 
@@ -21,7 +22,7 @@ class Requests {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        token: this.DEBUG_TOKEN,
+        token: this.USER_TOKEN,
       },
     });
 

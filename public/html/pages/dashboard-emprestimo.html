@@ -21,7 +21,7 @@
     />
     <link rel="stylesheet" href="/public/css/main.css" />
     <script defer type="module" src="../../scripts/dashboard-emprestimo.js"></script>
-    <title>Dashboard | Emprestimos</title>
+    <title>Dashboard | Empréstimos</title>
   </head>
   <body class="dashboard__body">
     <nav class="main-nav dashboard__nav">
@@ -41,26 +41,38 @@
           >Clientes</a
         >
         <a href="#" class="dashboard__tab text--center dashboard__tab--active"
-          >Emprestimos</a
+          >Empréstimos</a
         >
       </nav>
       <div class="dashboard__content">
-        <h1 class="font--secondary dashboard__heading">Emprestimos</h1>
+        <h1 class="font--secondary dashboard__heading">Empréstimos</h1>
         <h2 class="dashboard__subheading">Informações gerais</h2>
         <div class="dashboard__cards">
           <div class="dashboard__card text--center">
-            <p class="dashboard__card-label">Emprestimos ativos</p>
+            <p class="dashboard__card-label">Empréstimos ativos</p>
+            <p class="dashboard__card-value dashboard__card--active-loans-amount">
+              0
+            </p>
+          </div>
+          <div class="dashboard__card text--center">
+            <p class="dashboard__card-label">Empréstimos realizados</p>
             <p class="dashboard__card-value dashboard__card--loans-amount">
               0
             </p>
           </div>
         </div>
         <div class="dashboard__buttons-container">
-          <h2 class="dashboard__subheading">Emprestimos ativos</h2>
+          <h2 class="dashboard__subheading">Empréstimos ativos</h2>
           <div class="dashboard__buttons">
             <button class="button dashboard__button" id="new-loan-button">
-              Novo emprestimo
+              Novo empréstimo
             </button>
+          </div>
+        </div>
+        <div class="dashboard__table-filters">
+          <div>
+            <label for="show-completed-loans">Mostrar finalizados?</label>
+            <input type="checkbox" name="mostrarInativos" id="show-completed-loans">
           </div>
         </div>
         <div class="dashboard__table-container">

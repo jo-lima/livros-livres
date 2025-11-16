@@ -126,6 +126,7 @@
 .dashboard__table td {
   padding: 16px 10px;
   padding-right: 42px;
+  position: relative;
 }
 
 /* Outros estilos */
@@ -294,4 +295,36 @@
 .dashboard__dropdown-action:hover{
   background-color: var(--text-color--green--regular);
   color: #fff;
+}
+
+/* Estilos específicos dos status */
+.dashboard__loan-extended{
+  cursor: pointer;
+}
+.dashboard__loan-extended::before{
+  content: '*';
+  /* font-size: 12px; */
+}
+
+.dashboard__loan-extended::after{
+  content: 'Esse empréstimo foi adiado';
+  position: absolute;
+  top: -5px;
+  right: -15px;
+  padding: 3px 6px;
+  background-color: #e9bb47;
+  font-size: 10px;
+  color: #fff;
+  opacity: 0;
+  transition: all 0.2 ease;
+}
+
+.dashboard__loan-extended:hover::after{
+  opacity: 1;
+}
+
+
+/* Filtros */
+.dashboard__table-filters{
+margin-bottom: 6px;
 }

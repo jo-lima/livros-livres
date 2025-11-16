@@ -14,6 +14,12 @@ class DashboardEmprestimo extends Base {
     // Adiar empréstimo
     this.delayLoanForm = document.querySelector("#delay-loan-form");
 
+    // Filtros
+    document.querySelector("#show-completed-loans").checked = false
+    this.filters = {
+      'showCompleted': false
+    }
+
     // Execução
     this.initialize();
   }
@@ -48,18 +54,19 @@ class DashboardEmprestimo extends Base {
     this.loansTableElement.innerHTML = '';
 
     loansData.body.forEach(loan => {
+      if (!this.filters.showCompleted && loan.status == 'FINALIZADO') return
       const actionsHtml = ``
 
       const loanHtml = `
-        <tr data-id="${loan.idEmprestimo}" class="${loan.status == 'FINALIZADO' ? 'dashboard__loan--inactive' : ''}">
+        <tr data-id="${loan.idEmprestimo}" class="">
           <td>${loan.livro.nome}</td>
           <td>${loan.cliente.nome}</td>
           <td>${loan.cliente.cpf}</td>
           <td>${loan.ativo == true ? "Ativo" : "Inativo"}</td>
           <td>${loan.dataSolicitacaoEmprestimo}</td>
-          <td>${loan.dataColeta}</td>
-          <td>${loan.dataPrevistaDevolucao}</td>
-          <td class="${loan.dataCancelamento == null ? 'text--center' : ''}">${loan.dataCancelamento == null ? "-" : loan.dataCancelamento}</td>
+          <td>${loan.dataColeta ? loan.dataColeta : '-'}</td>
+          <td class="${loan.dataEstendidaDevolucao ? 'dashboard__loan-extended' : ''}">${loan.dataEstendidaDevolucao || loan.dataPrevistaDevolucao}</td>
+          <td class="${loan.dataCancelamento == null ? 'text--center' : ''}">${loan.dataCancelamento ? loan.dataCancelamento : ''}</td>
           <td>${loan.status}</td>
           <td class="dashboard__loan-actions-cell">
             <button class="dashboard__action-button dashboard__action-open-dropdown">
@@ -83,11 +90,18 @@ class DashboardEmprestimo extends Base {
   updateCards(loansData){
     // Empréstimos totais
     document.querySelector(".dashboard__card--loans-amount").textContent = loansData.body.length
+
+    // Empréstimos ativos
+    document.querySelector(".dashboard__card--active-loans-amount").textContent = loansData.body.filter(loan => loan.status != 'FINALIZADO').length
   }
 
   // Renderizar tudo
   async renderPage(){
     await this.getAllEmprestimos().then(json => {
+      if (json.statusCode == 404) {
+        this.displayMessage(json);
+        return;
+      }
       this.renderAllLoans(json)
       this.updateCards(json)
     })
@@ -162,6 +176,12 @@ class DashboardEmprestimo extends Base {
     }
   }
 
+  async handleShowCompletedFilter(event){
+    this.filters.showCompleted = event.target.checked ? true : false
+
+    await this.renderPage()
+  }
+
   // Execução
   setupLoansListeners(){
     this.loansTableElement.addEventListener("click", event => this.handleLoanActions(event))
@@ -170,6 +190,8 @@ class DashboardEmprestimo extends Base {
     this.newLoanForm.addEventListener("submit", event => this.submitNewLoanForm(event))
     // Adiar empréstimo
     this.delayLoanForm.addEventListener("submit", event => this.submitDelayLoanForm(event))
+    // Filtros
+    document.querySelector("#show-completed-loans").addEventListener('change', event => this.handleShowCompletedFilter(event))
   }
 
   async initialize(){

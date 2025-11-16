@@ -5,8 +5,39 @@ class DashboardEmprestimo extends Base {
     super()
     // Elementos
     this.loansTableElement = document.querySelector(".dashboard__table--loans tbody");
+    // Novo empréstimo
+    this.newLoanButton = document.querySelector("#new-loan-button")
+    this.booksListElement = document.querySelector("#dashboard-books-list")
+    this.clientsListElement = document.querySelector("#dashboard-clients-list")
+    this.newLoanForm = document.querySelector("#new-loan-form")
 
+    // Execução
     this.initialize()
+  }
+
+  // Renderizando as listas
+  renderBooksList(booksData) {
+    if (booksData.statusCode != 200) return;
+
+    this.booksListElement.innerHTML = "";
+
+    booksData.body.forEach(book => {
+      const bookHtml = `<option value="${book.idLivro}">${book.nome}</option>`;
+
+      this.booksListElement.insertAdjacentHTML("beforeend", bookHtml);
+    });
+  }
+
+  renderClientsList(clientsData) {
+    if (clientsData.statusCode != 200) return;
+
+    this.clientsListElement.innerHTML = "";
+
+    clientsData.body.forEach(client => {
+      const clientHtml = `<option value="${client.clienteId}">${client.nome} - ${client.cpf}</option>`;
+
+      this.clientsListElement.insertAdjacentHTML("beforeend", clientHtml);
+    });
   }
 
   renderAllLoans(loansData){
@@ -32,14 +63,41 @@ class DashboardEmprestimo extends Base {
   }
 
   updateCards(loansData){
+    // Empréstimos totais
     document.querySelector(".dashboard__card--loans-amount").textContent = loansData.body.length
   }
 
-  async initialize(){
+  // Ações
+  async submitNewLoanForm(event){
+    event.preventDefault();
+
+    const body = this.formDataObject(this.newLoanForm);
+    const response = await this.createEmprestimo(body);
+
+    this.displayMessage(response);
+    this.cleanForm(this.newLoanForm);
+    this.hidePopUp();
+    this.lintRenderLoans();
+  }
+
+  async lintRenderLoans(){
     this.getAllEmprestimos().then(json => {
       this.renderAllLoans(json)
       this.updateCards(json)
     })
+  }
+
+  setupLoansListeners(){
+    // Novo empréstimo
+    this.newLoanButton.addEventListener("click", () => this.showPopUp("#new-loan-form-popup"))
+    this.newLoanForm.addEventListener("submit", event => this.submitNewLoanForm(event))
+  }
+
+  async initialize(){
+    await this.lintRenderLoans();
+    await this.getAllBooks().then(json => this.renderBooksList(json))
+    await this.getAllClients().then(json => this.renderClientsList(json))
+    this.setupLoansListeners();
   }
 }
 

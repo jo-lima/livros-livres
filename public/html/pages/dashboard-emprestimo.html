@@ -83,39 +83,28 @@
         </div>
       </div>
 
-      <!-- Novo cliente -->
-      <div class="dashboard__popup hidden" id="">
+      <!-- Novo empréstimo -->
+      <div class="dashboard__popup hidden" id="new-loan-form-popup">
         <div class="dashboard__popup-close">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
         </div>
-        <p class="dashboard__popup-heading font--secondary">Novo cliente</p>
-        <form class="dashboard__popup-form" id="new-client-form">
+        <p class="dashboard__popup-heading font--secondary">Novo empréstimo</p>
+        <form class="dashboard__popup-form" id="new-loan-form">
           <div>
-            <label class="dashboard__popup-label">CPF do cliente</label>
-            <input class="dashboard__popup-input" type="text" name="cpf" required/>
-          </div>
-          <div>
-            <label class="dashboard__popup-label">Nome do cliente</label>
-            <input class="dashboard__popup-input" type="text" name="nome" required/>
-          </div>
-          <div>
-            <label class="dashboard__popup-label">Email</label>
-            <input class="dashboard__popup-input" type="email" name="email" required/>
-          </div>
-          <div>
-            <label class="dashboard__popup-label">Endereço</label>
-            <input class="dashboard__popup-input" type="text" name="endereco" required/>
-          </div>
-          <div>
-            <label class="dashboard__popup-label">Telefone</label>
-            <input class="dashboard__popup-input" type="tel" name="telefone" required/>
+            <label class="dashboard__popup-label">Livro</label>
+            <select class="dashboard-list" id="dashboard-books-list" name="livroId" required></select>
           </div>
 
           <div>
-            <label class="dashboard__popup-label">URL da imagem</label>
-            <input class="dashboard__popup-input" type="text" name="imagem" required/>
+            <label class="dashboard__popup-label">Cliente</label>
+            <select class="dashboard-list" id="dashboard-clients-list" name="clienteId" required></select>
+          </div>
+
+          <div>
+            <label class="dashboard__popup-label">Devolução prevista</label>
+            <input class="dashboard__popup-input" type="date" name="dataPrevistaDevolucao" required/>
           </div>
 
           <button type="submit" class="button dashboard__popup-submit">

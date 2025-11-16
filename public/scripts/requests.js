@@ -194,6 +194,11 @@ class Requests {
     return await this.sendPostRequest(`http://${this.SERVER_URL}/emprestimo/${id}/cancelar`, {});
   }
 
+  async createEmprestimo(body){
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/emprestimo/criar-emprestimo`, body)
+
+  }
+
   // Clientes
   async getClienteById(id){
     return await this.sendGetRequest(`http://${this.SERVER_URL}/cliente/${id}/busca`)

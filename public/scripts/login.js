@@ -1,6 +1,8 @@
+// import Base from "./dashboard-base.js";
 
+// const base = new Base();
 
-const btnLogin = document.querySelector('#btnLogin');
+const btnLogin = document.querySelector('.user-form');
 const input_email = document.querySelector('.login_email');
 const input_senha = document.querySelector('.login_senha');
 
@@ -18,7 +20,7 @@ async function loginUser(usuario,senha) {
 }
 
 
-btnLogin.addEventListener("click", async (event) =>{
+btnLogin.addEventListener("submit", async (event) =>{
     event.preventDefault();
 
     const email = input_email.value.trim();
@@ -36,7 +38,7 @@ btnLogin.addEventListener("click", async (event) =>{
         document.cookie = `userId=${userId}; path=/;`;
         window.location.href = ('/public/html/pages/acervo.html')
     }else{
-        console.log(responseCode)
+        base.displayMessage(responseCode)
     }
 })
 

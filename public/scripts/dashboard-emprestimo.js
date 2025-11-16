@@ -44,17 +44,29 @@ class DashboardEmprestimo extends Base {
     this.loansTableElement.innerHTML = '';
 
     loansData.body.forEach(loan => {
+      const actionsHtml = ``
+
       const loanHtml = `
-        <tr data-id="${loan.idEmprestimo}">
+        <tr data-id="${loan.idEmprestimo}" class="${loan.status == 'FINALIZADO' ? 'dashboard__loan--inactive' : ''}">
           <td>${loan.livro.nome}</td>
           <td>${loan.cliente.nome}</td>
           <td>${loan.cliente.cpf}</td>
           <td>${loan.ativo == true ? "Ativo" : "Inativo"}</td>
           <td>${loan.dataSolicitacaoEmprestimo}</td>
           <td>${loan.dataColeta}</td>
-          <td>${loan.dataPrevistaDevolucao }</td>
+          <td>${loan.dataPrevistaDevolucao}</td>
           <td class="${loan.dataCancelamento == null ? 'text--center' : ''}">${loan.dataCancelamento == null ? "-" : loan.dataCancelamento}</td>
           <td>${loan.status}</td>
+          <td class="dashboard__loan-actions-cell">
+            <button class="dashboard__action-button">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            </button>
+            <div class="dashboard__actions-dropdown dashboard__actions-dropdown--hidden">
+              <div class="dashboard__action dashboard__action--confirm-pickup">Confirmar coleta</div>
+            </div>
+          </td>
         </tr>
       `
 
@@ -87,7 +99,20 @@ class DashboardEmprestimo extends Base {
     })
   }
 
+  handleLoanActions(event){
+    const target = event.target.closest(".dashboard__action-button");
+    if (target == null) return;
+    const rowId = target.closest("tr").dataset.id;
+    let json;
+
+    // Abrir menu de ações
+    const parentCell = target.closest('td')
+    document.querySelectorAll(".dashboard__actions-dropdown").forEach(menu => menu.classList.add("dashboard__actions-dropdown--hidden"))
+    parentCell.querySelector(".dashboard__actions-dropdown").classList.remove("dashboard__actions-dropdown--hidden")
+  }
+
   setupLoansListeners(){
+    this.loansTableElement.addEventListener("click", event => this.handleLoanActions(event))
     // Novo empréstimo
     this.newLoanButton.addEventListener("click", () => this.showPopUp("#new-loan-form-popup"))
     this.newLoanForm.addEventListener("submit", event => this.submitNewLoanForm(event))

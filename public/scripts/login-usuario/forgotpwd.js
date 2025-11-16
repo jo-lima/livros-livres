@@ -49,9 +49,21 @@ const pwdInput = document.querySelector('.form-box__register-user--newPwd')
 let emailconfirmado = false;
 let token = "";
 let email = ""
+
+const params = new URLSearchParams(document.location.search);
+const emailURL = params.get("email");
+
+
+if(emailURL){
+    emailInput.value = emailURL;
+    emailInput.disabled = true;
+    emailconfirmado = true;
+    codeEmail.classList.remove("hidden");
+}
+
 btnSubmitForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  email = emailInput.value.trim();
+  const email = emailURL || emailInput.value.trim();
   const codigo = codigoInput.value.trim();
   const senha = pwdInput.value.trim()
   
@@ -105,3 +117,4 @@ wrongEmail.addEventListener("click", async(event)=>{
 
 
 //Cadastro do cliente 
+// export default newPwd;

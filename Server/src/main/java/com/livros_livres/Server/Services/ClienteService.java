@@ -282,7 +282,7 @@ public class ClienteService {
         // Adiciona email na lista de emails a serem autenticados.
         newUser = authService.criarSolicitacaoAutenticacao(email);
         String htmlCodigo = VariaveisHtml.html_validarToken(newUser.getAuthToken());
-    retornoEmail =mailService.sendMail(htmlCodigo, "Verificação de email", email);
+        retornoEmail =mailService.sendMail(htmlCodigo, "Verificação de email", email);
         return retornoEmail;
 }
 

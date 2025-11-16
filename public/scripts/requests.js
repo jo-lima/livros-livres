@@ -1,11 +1,12 @@
 class Requests {
   SERVER_URL = "localhost:6969";
   DEBUG_TOKEN = "debug";
-  USER_TOKEN = document.cookie.split('userToken=')[1]?.split(';')[0];
-
+  // USER_TOKEN = document.cookie.split('userToken=')[1]?.split(';')[0];
+  USER_TOKEN = "debug";
 
   // Base dos requests
   async sendPostRequest(url, body) {
+    console.log('this.USER_TOKEN')
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(body),

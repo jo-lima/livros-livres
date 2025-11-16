@@ -85,3 +85,22 @@
 }
 .book__detail-value {
 }
+
+.book__loan_area {
+  height: 50%;
+  position: relative;
+}
+
+.loan_area__button {
+  position: absolute;
+  float: left;
+  bottom: 0;
+  right: 0;
+  border: none;
+  text-decoration: none;
+  background: yellow;
+  padding: 30px;
+  font-size: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+}

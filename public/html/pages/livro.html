@@ -30,6 +30,42 @@
       <a href="www.google.com" class="main-nav__link">entrar</a>
     </nav>
 
+      <!-- Pedir Emprestimo -->
+      <div class="dashboard__popup hidden" id="new-loan-form-popup">
+        <div class="dashboard__popup-close">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
+        <p class="dashboard__popup-heading font--secondary">Solicitar empréstimo do livro?</p>
+        <form class="dashboard__popup-form" id="new-loan-form">
+          <div>
+            <label class="dashboard__popup-label">Data de esperada de devolução*:</label>
+            <input class="dashboard__popup-input" type="date" name="dataDevolucao" required/>
+          </div>
+          <div>
+            <p class="dashboard__popup-label">*Data pode ser estendida futuramente.</p>
+            <br>
+            <p class="dashboard__popup-label">**Aviso: Após concluir seu pedido, é preciso ir coletar o livro na livraria LivrosLivres em até 3 dias corridos, ou seu empréstimo será automaticamente CANCELADO.</p>
+          </div>
+
+          <button type="submit" class="button dashboard__popup-submit">
+            Enviar
+          </button>
+        </form>
+      </div>
+
     <div class="container">
       <section class="section__book">
         <div class="book__image-container">
@@ -167,6 +203,13 @@
         </div>
       </section>
     </div>
+
+
+    <div class="dashboard__popup-overlay hidden"></div>
+
+    <!-- Mensagem -->
+    <div class="dashboard__message dashboard__message--hidden"></div>
+
     <footer class="main-footer">
       <div class="container main-footer-container">
         <div class="main-footer__logo-container">

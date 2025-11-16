@@ -189,6 +189,14 @@ class Requests {
     return await this.sendGetRequest(`http://${this.SERVER_URL}/emprestimo/${id}/busca`, {});
   }
 
+  async postSolicitarEmprestimo(livroId, clienteId, dataPrevistaDevolucao) {
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/emprestimo/criar-pedido`, {
+      "livroId":livroId,
+      "clienteId":clienteId,
+      "dataPrevistaDevolucao":dataPrevistaDevolucao
+    });
+  }
+
   async postAdiarEmprestimo(id, dataEstendidaDevolucao) {
     return await this.sendPostRequest(`http://${this.SERVER_URL}/emprestimo/${id}/adiar`, {"dataEstendidaDevolucao":dataEstendidaDevolucao});
   }

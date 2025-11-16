@@ -1,6 +1,6 @@
-import Requests from "./requests.js";
+import Base from "./base.js";
 
-class Livro extends Requests {
+class Livro extends Base {
   constructor() {
     super();
 
@@ -11,6 +11,10 @@ class Livro extends Requests {
     this.loadingOverlayElement = document.querySelector(".loading-overlay");
     this.bookImageElement = document.querySelector(".book__image");
     this.bookAuthorImageElement = document.querySelector(".book__author-image");
+    this.newBookLoanForm = document.querySelector("#new-loan-form");
+
+    this.clientId=1; // valor mocado
+    this.bookId = 0;
 
     // Execução
     this.initialize();
@@ -43,8 +47,36 @@ class Livro extends Requests {
     setTimeout(() => this.loadingOverlayElement.classList.add("hidden"), 400)
   }
 
+  // Submit 'Solicitar Emprestimo'
+  async submitSolicitarEmprestimoForm(event) {
+    event.preventDefault();
+
+    const body = this.formDataObject(this.newBookLoanForm);
+    const response = await this.postSolicitarEmprestimo(
+        this.bookId, 
+        this.clientId, 
+        body.dataDevolucao
+      );
+
+    console.log(response);
+
+    this.displayMessage(response);
+    this.cleanForm(this.newBookLoanForm);
+    this.hidePopUp();
+    this.getBook(this.bookId).then(json => this.renderBook(json.body));
+  }
+
+  async setUpBookListeners() {
+    document.querySelector(".loan_area__button").addEventListener("click", () => this.showPopUp("#new-loan-form-popup"));
+    this.newBookLoanForm.addEventListener("submit", async event => this.submitSolicitarEmprestimoForm(event));
+  }
+
   async initialize() {
-    this.getBook(this.getBookIdByUrl()).then(json => this.renderBook(json.body));
+
+    this.bookId = this.getBookIdByUrl();
+
+    this.getBook(this.bookId).then(json => this.renderBook(json.body));
+    this.setUpBookListeners()
   }
 }
 

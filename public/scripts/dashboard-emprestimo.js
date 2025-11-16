@@ -2,19 +2,20 @@ import Base from "./base.js";
 
 class DashboardEmprestimo extends Base {
   constructor(){
-    super()
+    super();
+
     // Elementos
     this.loansTableElement = document.querySelector(".dashboard__table--loans tbody");
     // Novo empréstimo
-    this.newLoanButton = document.querySelector("#new-loan-button")
-    this.booksListElement = document.querySelector("#dashboard-books-list")
-    this.clientsListElement = document.querySelector("#dashboard-clients-list")
-    this.newLoanForm = document.querySelector("#new-loan-form")
+    this.newLoanButton = document.querySelector("#new-loan-button");
+    this.booksListElement = document.querySelector("#dashboard-books-list");
+    this.clientsListElement = document.querySelector("#dashboard-clients-list");
+    this.newLoanForm = document.querySelector("#new-loan-form");
     // Adiar empréstimo
-    this.delayLoanForm = document.querySelector("#delay-loan-form")
+    this.delayLoanForm = document.querySelector("#delay-loan-form");
 
     // Execução
-    this.initialize()
+    this.initialize();
   }
 
   // Renderizando as listas
@@ -161,6 +162,7 @@ class DashboardEmprestimo extends Base {
     }
   }
 
+  // Execução
   setupLoansListeners(){
     this.loansTableElement.addEventListener("click", event => this.handleLoanActions(event))
     // Novo empréstimo

@@ -20,8 +20,8 @@
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐕</text></svg>"
     />
     <link rel="stylesheet" href="/public/css/main.css" />
-    <script defer type="module" src="../../scripts/dashboard-cliente.js"></script>
-    <title>Dashboard | Clientes</title>
+    <script defer type="module" src="../../scripts/dashboard-emprestimo.js"></script>
+    <title>Dashboard | Emprestimos</title>
   </head>
   <body class="dashboard__body">
     <nav class="main-nav dashboard__nav">
@@ -37,44 +37,45 @@
         <a href="dashboard-autor.html" class="dashboard__tab text--center"
           >Autores</a
         >
-        <a href="#" class="dashboard__tab text--center dashboard__tab--active"
+        <a href="dashboard-cliente.html" class="dashboard__tab text--center"
           >Clientes</a
         >
-        <a href="dashboard-emprestimo.html" class="dashboard__tab text--center"
+        <a href="#" class="dashboard__tab text--center dashboard__tab--active"
           >Emprestimos</a
         >
       </nav>
       <div class="dashboard__content">
-        <h1 class="font--secondary dashboard__heading">Clientes</h1>
+        <h1 class="font--secondary dashboard__heading">Emprestimos</h1>
         <h2 class="dashboard__subheading">Informações gerais</h2>
         <div class="dashboard__cards">
           <div class="dashboard__card text--center">
-            <p class="dashboard__card-label">Clientes cadastrados</p>
-            <p class="dashboard__card-value dashboard__card--clients-amount">
+            <p class="dashboard__card-label">Emprestimos ativos</p>
+            <p class="dashboard__card-value dashboard__card--loans-amount">
               0
             </p>
           </div>
         </div>
         <div class="dashboard__buttons-container">
-          <h2 class="dashboard__subheading">Clientes cadastrados</h2>
+          <h2 class="dashboard__subheading">Emprestimos ativos</h2>
           <div class="dashboard__buttons">
-            <button class="button dashboard__button" id="new-client-button">
-              Novo cliente
+            <button class="button dashboard__button" id="new-loan-button">
+              Novo emprestimo
             </button>
           </div>
         </div>
         <div class="dashboard__table-container">
-          <table class="dashboard__table dashboard__table--clients">
+          <table class="dashboard__table dashboard__table--loans">
             <thead>
               <tr>
+                <th>Livro</th>
+                <th>Cliente</th>
                 <th>CPF</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Endereço</th>
-                <th>Telefone</th>
-                <th>Senha</th>
+                <th>Ativo</th>
+                <th>Solicitacao</th>
+                <th>Coleta</th>
+                <th>Devolucao</th>
+                <th>Cancelamento</th>
                 <th>Status</th>
-                <th>Ações</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -83,7 +84,7 @@
       </div>
 
       <!-- Novo cliente -->
-      <div class="dashboard__popup hidden" id="new-client-form-popup">
+      <div class="dashboard__popup hidden" id="">
         <div class="dashboard__popup-close">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -117,45 +118,6 @@
             <input class="dashboard__popup-input" type="text" name="imagem" required/>
           </div>
 
-          <button type="submit" class="button dashboard__popup-submit">
-            Enviar
-          </button>
-        </form>
-      </div>
-
-      <!-- Editar cliente -->
-      <div class="dashboard__popup hidden" id="edit-client-form-popup">
-        <div class="dashboard__popup-close">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
-          </svg>
-        </div>
-        <p class="dashboard__popup-heading font--secondary">Editar cliente</p>
-        <form class="dashboard__popup-form" id="edit-client-form">
-          <div>
-            <label class="dashboard__popup-label">CPF do cliente</label>
-            <input class="dashboard__popup-input" type="text" name="cpf" required/>
-          </div>
-          <div>
-            <label class="dashboard__popup-label">Nome do cliente</label>
-            <input class="dashboard__popup-input" type="text" name="nome" required/>
-          </div>
-          <div>
-            <label class="dashboard__popup-label">Email</label>
-            <input class="dashboard__popup-input" type="email" name="email" required/>
-          </div>
-          <div>
-            <label class="dashboard__popup-label">Endereço</label>
-            <input class="dashboard__popup-input" type="text" name="endereco" required/>
-          </div>
-          <div>
-            <label class="dashboard__popup-label">Telefone</label>
-            <input class="dashboard__popup-input" type="tel" name="telefone" required/>
-          </div>
-          <div>
-            <label class="dashboard__popup-label">URL da imagem</label>
-            <input class="dashboard__popup-input" type="text" name="imagem" required/>
-          </div>
           <button type="submit" class="button dashboard__popup-submit">
             Enviar
           </button>

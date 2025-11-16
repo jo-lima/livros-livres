@@ -15,7 +15,6 @@ class DashboardEmprestimo extends Base {
 
     // Execução
     this.initialize()
-    this.setupLoansListeners();
   }
 
   // Renderizando as listas
@@ -43,6 +42,7 @@ class DashboardEmprestimo extends Base {
     });
   }
 
+  // Renderizando empréstimos e atualizando os cards
   renderAllLoans(loansData){
     this.loansTableElement.innerHTML = '';
 
@@ -84,7 +84,17 @@ class DashboardEmprestimo extends Base {
     document.querySelector(".dashboard__card--loans-amount").textContent = loansData.body.length
   }
 
-  // Ações
+  // Renderizar tudo
+  async renderPage(){
+    await this.getAllEmprestimos().then(json => {
+      this.renderAllLoans(json)
+      this.updateCards(json)
+    })
+    await this.getAllBooks().then(json => this.renderBooksList(json))
+    await this.getAllClients().then(json => this.renderClientsList(json))
+  }
+
+  // Novo empréstimo
   async submitNewLoanForm(event){
     event.preventDefault();
 
@@ -94,16 +104,10 @@ class DashboardEmprestimo extends Base {
     this.displayMessage(response);
     this.cleanForm(this.newLoanForm);
     this.hidePopUp();
-    this.lintRenderLoans();
+    this.renderPage();
   }
 
-  async lintRenderLoans(){
-    this.getAllEmprestimos().then(json => {
-      this.renderAllLoans(json)
-      this.updateCards(json)
-    })
-  }
-
+  // Adiar empréstimo
   async submitDelayLoanForm(event){
     event.preventDefault();
 
@@ -113,9 +117,10 @@ class DashboardEmprestimo extends Base {
     this.displayMessage(response);
     this.cleanForm(this.delayLoanForm);
     this.hidePopUp();
-    this.initialize();
+    this.renderPage();
   }
 
+  // Ações
   async handleLoanActions(event){
     const target = event.target.closest(".dashboard__dropdown-action") || event.target.closest(".dashboard__action-open-dropdown");
     if (target == null) return;
@@ -124,35 +129,35 @@ class DashboardEmprestimo extends Base {
 
     // Abrir menu de ações
     if (target.classList.contains('dashboard__action-open-dropdown')) {
-      document.querySelectorAll(".dashboard__actions-dropdown").forEach(menu => menu.classList.add("dashboard__actions-dropdown--hidden"))
-      target.closest('td').querySelector(".dashboard__actions-dropdown").classList.remove("dashboard__actions-dropdown--hidden")
+      document.querySelectorAll(".dashboard__actions-dropdown").forEach(menu => menu.classList.add("dashboard__actions-dropdown--hidden"));
+      target.closest('td').querySelector(".dashboard__actions-dropdown").classList.remove("dashboard__actions-dropdown--hidden");
     }
 
     // Confirmar coleta
     if (target.classList.contains('dashboard__dropdown-action--confirm-pickup')) {
-      json = await this.confirmEmprestimoColeta(rowId)
+      json = await this.confirmEmprestimoColeta(rowId);
 
-      this.displayMessage(json)
-      this.initialize()
+      this.displayMessage(json);
+      this.renderPage();
     }
 
     // Finalizar empréstimo
     if (target.classList.contains('dashboard__dropdown-action--cancel-loan')){
-      json = await this.finalizarEmprestimo(rowId)
+      json = await this.finalizarEmprestimo(rowId);
 
-      this.displayMessage(json)
-      this.initialize()
+      this.displayMessage(json);
+      this.renderPage();
     }
 
     // Adiar empréstimo
     if (target.classList.contains('dashboard__dropdown-action--delay-loan')){
-      const response = await this.getEmprestimoById(rowId)
+      const response = await this.getEmprestimoById(rowId);
 
-      document.querySelector("#delay-loan-form__current-date").textContent = response.body.dataPrevistaDevolucao
+      document.querySelector("#delay-loan-form__current-date").textContent = response.body.dataPrevistaDevolucao;
 
-      this.delayLoanForm.dataset.id = rowId
+      this.delayLoanForm.dataset.id = rowId;
 
-      this.showPopUp('#delay-loan-form-popup')
+      this.showPopUp('#delay-loan-form-popup');
     }
   }
 
@@ -166,9 +171,8 @@ class DashboardEmprestimo extends Base {
   }
 
   async initialize(){
-    await this.lintRenderLoans();
-    await this.getAllBooks().then(json => this.renderBooksList(json))
-    await this.getAllClients().then(json => this.renderClientsList(json))
+    await this.renderPage();
+    this.setupLoansListeners();
   }
 }
 

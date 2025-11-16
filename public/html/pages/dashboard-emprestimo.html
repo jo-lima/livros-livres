@@ -114,6 +114,29 @@
         </form>
       </div>
 
+      <!-- Adiar entrega -->
+      <div class="dashboard__popup hidden" id="delay-loan-form-popup">
+        <div class="dashboard__popup-close">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </div>
+        <p class="dashboard__popup-heading font--secondary">Novo empréstimo</p>
+        <form class="dashboard__popup-form" id="delay-loan-form">
+          <p>Data atual:</p>
+          <p id="delay-loan-form__current-date">2025-12-12</p>
+
+          <div>
+            <label class="dashboard__popup-label">Nova data</label>
+            <input class="dashboard__popup-input" type="date" name="dataEstendidaDevolucao" required/>
+          </div>
+
+          <button type="submit" class="button dashboard__popup-submit">
+            Enviar
+          </button>
+        </form>
+      </div>
+
       <div class="dashboard__popup-overlay hidden"></div>
 
       <!-- Mensagem -->

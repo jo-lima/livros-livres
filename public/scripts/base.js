@@ -54,6 +54,7 @@ class Base extends Requests {
 
   formDataObject(form) {
     const data = {};
+    console.log(form)
     new FormData(form).forEach((value, key) => (data[key] = value));
     return data;
   }

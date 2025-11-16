@@ -244,6 +244,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  
 }
 
 .dashboard__loan--inactive{
@@ -261,20 +262,31 @@
   bottom: 0;
   right: 0;
   background-color: #f3f0f6;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  font-size: 10px;
+  font-size: 12px;
   width: 100%;
   text-align: center;
   overflow-y: hidden;
   transition: all ease 0.2s;
 }
 
-.dashboard__action{
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-}
-
 .dashboard__actions-dropdown--hidden{
   transform: translateX(100%);
+}
+
+.dashboard__dropdown-action{
+  padding: 8px 4px;
+  border-bottom: 1px solid #5b5b5b;
+
+}
+
+.dashboard__dropdown-action:last-child{
+  border: none;
+}
+
+.dashboard__dropdown-action:hover{
+  background-color: #aaa;
+  color: #fff;
 }

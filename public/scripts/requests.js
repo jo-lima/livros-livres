@@ -199,6 +199,25 @@ class Requests {
 
   }
 
+  // Empréstimo funcionário
+  async confirmEmprestimoColeta(id){
+    const response = await fetch(
+      `http://${this.SERVER_URL}/emprestimo/${id}/aceitar-pedido`,
+      {
+        method: "POST",
+        headers: {
+          token: this.DEBUG_TOKEN,
+        },
+      }
+    );
+
+    return await response.json();
+  }
+
+  async finalizarEmprestimo(id){
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/emprestimo/${id}/finalizar`);
+  }
+
   // Clientes
   async getClienteById(id){
     return await this.sendGetRequest(`http://${this.SERVER_URL}/cliente/${id}/busca`)

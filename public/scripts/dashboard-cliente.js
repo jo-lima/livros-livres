@@ -130,12 +130,19 @@ class DashboardCliente extends Base {
   }
 
   async listRenderClients() {
+
+    // Caso usuario NAO esteja logado OU usuario NAO seja um cliente, nao deixa entrar
+    if(document.cookie.split('userToken=')[1]?.split(';')[0] == null || document.cookie.split('userId=')[1]?.split(';')[0] != null) {
+      document.querySelector(".dashboard__container").innerHTML = "<h1>Você não tem permissão para acessar esta página!</h1>"
+      return
+    }
+
     this.getAllClients().then(json => {
     if (json.statusCode == 404) {
       this.displayMessage(json);
       return;
     }
-      
+
       this.renderAllClients(json);
       this.updateCards(json);
     });

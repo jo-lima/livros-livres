@@ -36,6 +36,13 @@ class DashboardEmprestimo extends Base {
   }
 
   async initialize(){
+
+    // Caso usuario NAO esteja logado OU usuario NAO seja um cliente, nao deixa entrar
+    if(document.cookie.split('userToken=')[1]?.split(';')[0] == null || document.cookie.split('userId=')[1]?.split(';')[0] != null) {
+      document.querySelector(".dashboard__container").innerHTML = "<h1>Você não tem permissão para acessar esta página!</h1>"
+      return
+    }
+
     this.getAllEmprestimos().then(json => {
       this.renderAllLoans(json)
       this.updateCards(json)

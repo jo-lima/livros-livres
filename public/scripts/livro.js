@@ -13,8 +13,8 @@ class Livro extends Base {
     this.bookAuthorImageElement = document.querySelector(".book__author-image");
     this.newBookLoanForm = document.querySelector("#new-loan-form");
 
-    this.clientId=1; // valor mocado
-    this.bookId = 0;
+    this.clientId=document.cookie.split('userId=')[1]?.split(';')[0];; // valor mocado
+    this.bookId = this.getBookIdByUrl();
 
     // Execução
     this.initialize();

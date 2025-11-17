@@ -19,6 +19,18 @@ async function loginUser(usuario,senha) {
     return await response.json();
 }
 
+async function loginAdmin(usuario, senha) {
+    const response = await fetch("http://localhost:6969/funcionario/login", {
+      method: "POST",
+      body: JSON.stringify({ usuario, senha }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return await response.json();
+}
+
 
 btnLogin.addEventListener("submit", async (event) =>{
     event.preventDefault();
@@ -28,14 +40,15 @@ btnLogin.addEventListener("submit", async (event) =>{
 
     const responseCode = await loginUser(email, senha);
 
-    console.log(responseCode)
     if(responseCode.statusCode === 200){
         const token = responseCode.body.usuario.token;
         const userId = responseCode.body.cliente.clienteId;
+        const userType = "CLIENT";
         console.log(responseCode);
 
         document.cookie = `userToken=${token}; path=/;`;
         document.cookie = `userId=${userId}; path=/;`;
+        document.cookie = `userType=${userType}; path=/;`;
         window.location.href = ('/public/html/pages/acervo.html')
     }else{
         base.displayMessage(responseCode)

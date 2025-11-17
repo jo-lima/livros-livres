@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.livros_livres.Server.Services.VariaveisHtml;
 import com.livros_livres.Server.Registers.RequestBody.LoginRequest;
 import com.livros_livres.Server.Registers.Server.RetornoApi;
 import com.livros_livres.Server.Registers.Server.UsuariosAuth;
@@ -77,15 +78,12 @@ public class FuncionarioService {
         clienteData.setAtivo(true);
 
         clienteRepo.save(clienteData);
-
+        
         userCreatedAuth = authService.criarSolicitacaoAutenticacao(clienteData.getEmail());
 
-        mailService.sendMail("Olá! Sua conta do livros livres foi criada por um de nossos funcionários.\n"+
-                             "Aqui segue seu acesso <strong>TEMPORÁRIO</strong>: " + userCreatedAuth.getAuthToken() + "\n" +
-                             "Utilize-o para acessar sua conta por <strong>este link: http://example.com/primeiro-acesso</strong>",
-                            "Sua conta do Livros Livres foi criada com sucesso!", clienteData.getEmail());
-
-
-        return RetornoApi.sucess("Cliente cadastrado com sucesso!");
+        RetornoApi retornoEmail = null;
+        String htmlCodigo = VariaveisHtml.html_clienteCriadoFunc(userCreatedAuth.getAuthToken(), clienteData.getEmail());
+        retornoEmail = mailService.sendMail(htmlCodigo, "Verificação de email", clienteData.getEmail());
+        return RetornoApi.sucess("Cliente cadastrado com sucesso!", retornoEmail);
     }
 }

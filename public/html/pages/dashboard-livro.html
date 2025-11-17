@@ -24,10 +24,25 @@
     <title>Dashboard | Livros</title>
   </head>
   <body class="dashboard__body">
-    <nav class="main-nav dashboard__nav">
+    <nav class="main-nav">
       <a href="/public/html/index.html" class="main-nav__link">inicio</a>
-      <a href="/public/html/pages/acervo.html" class="main-nav__link">acervo</a>
-      <a href="www.google.com" class="main-nav__link">entrar</a>
+      <a
+        href="/public/html/pages/acervo.html"
+        class="main-nav__link main-nav__link--active"
+        >acervo</a
+      >
+      <a href="/public/html/pages/login.html" class="main-nav__link main-nav__link-default">entrar</a>
+      <a
+        href="/public/html/pages/login.html"
+        class="main-nav__link main-nav__link-default"
+        >Cadastrar</a
+      >
+      <a href="/public/html/pages/perfil-cliente.html" class="main-nav__link main-nav__link-user">Meu Perfil</a>
+      <a
+        href="/public/html/pages/dashboard-livro.html"
+        class="main-nav__link main-nav__link-admin"
+        >Dashboard</a
+      >
     </nav>
     <section class="dashboard__container">
       <nav class="dashboard__tabs">
@@ -153,7 +168,7 @@
 
           <div>
             <label class="dashboard__popup-label">Data de publicação</label>
-            <input class="dashboard__popup-input" type="date" name="dataPublicacao" required/> 
+            <input class="dashboard__popup-input" type="date" name="dataPublicacao" required/>
           </div>
 
           <button type="submit" class="button dashboard__popup-submit">

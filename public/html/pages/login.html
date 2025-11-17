@@ -25,13 +25,27 @@
       <link rel="stylesheet" href="/public/css/main.css" />
     <title>Login - Livros Livres</title>
   </head>
-  
+
   <body>
-  <nav class="main-nav dashboard__nav">
+  <nav class="main-nav">
     <a href="/public/html/index.html" class="main-nav__link">inicio</a>
-    <a href="/public/html/pages/acervo.html" class="main-nav__link">acervo</a>
-    <a href="www.google.com" class="main-nav__link">entrar</a>
-    <a href="/public/html/pages/cadastro/cadastro_email.html" class="main-nav__link">Cadastrar</a>
+    <a
+      href="/public/html/pages/acervo.html"
+      class="main-nav__link main-nav__link--active"
+      >acervo</a
+    >
+    <a href="/public/html/pages/login.html" class="main-nav__link main-nav__link-default">entrar</a>
+    <a
+      href="/public/html/pages/login.html"
+      class="main-nav__link main-nav__link-default"
+      >Cadastrar</a
+    >
+    <a href="/public/html/pages/perfil-cliente.html" class="main-nav__link main-nav__link-user">Meu Perfil</a>
+    <a
+      href="/public/html/pages/dashboard-livro.html"
+      class="main-nav__link main-nav__link-admin"
+      >Dashboard</a
+    >
   </nav>
   <div class="form-login-user">
     <div class="image-login">
@@ -55,13 +69,13 @@
             <div class="have-account">
               <a href="../pages/cadastro/cadastro_email.html">Não possui conta?</a>
         </div>
-        
-      </form>    
+
+      </form>
       <div class="dashboard__message dashboard__message--hidden"></div>
     </div>
-    
+
   </div>
-  <!-- 
+  <!--
     <footer class="main-footer">
       <div class="main-foter__logo-container">
         <div class="main-footer-logo">

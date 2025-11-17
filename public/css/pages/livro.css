@@ -94,14 +94,14 @@
   right: 0;
   border: none;
   text-decoration: none;
-  background-color: darkgoldenrod;
+  background-color: #D4A373;
   padding: 15px;
   font-size: 20px;
-  border: 1px solid black;
   border-radius: 5px;
   z-index: 98;
 }
 
 .loan_area__button:hover {
   cursor: pointer;
+  text-decoration: underline;
 }

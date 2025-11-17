@@ -47,8 +47,8 @@ class ClientProfile extends Base {
       this.emprestimoStatus.FINALIZADO_ATRASADO,
     ];
 
-    this.pendenciesList; // Lista de emprestimos pendentes, nao finalizados
-    this.historyList; // Lista de empresitmos finalizados, no historico
+    this.pendenciesList = []; // Lista de emprestimos pendentes, nao finalizados
+    this.historyList = []; // Lista de empresitmos finalizados, no historico
 
     // Execução
     this.initialize();
@@ -246,6 +246,8 @@ class ClientProfile extends Base {
   // Renderiza o Histórico
   renderHistory(){
     this.historyGrid.innerHTML = "";
+
+    if(this.historyList.length <= 0) {return}
 
     this.historyList.forEach(loan => {
     let historyEntry = `
@@ -452,13 +454,16 @@ class ClientProfile extends Base {
 
       let allEmprestimos = json.body;
 
-      this.pendenciesList = allEmprestimos.filter(function (i,n){
-        return !historyStatus.includes(i.status);
-      });
 
-      this.historyList = allEmprestimos.filter(function (i,n){
-        return historyStatus.includes(i.status);
-      });
+      if(allEmprestimos!=null){
+        this.pendenciesList = allEmprestimos.filter(function (i,n){
+          return !historyStatus.includes(i.status);
+        });
+
+        this.historyList = allEmprestimos.filter(function (i,n){
+          return historyStatus.includes(i.status);
+        });
+      }
 
       this.getClienteById(this.clientId).then((json) => {
         this.clientValue = json.body;

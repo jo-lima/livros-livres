@@ -1,6 +1,7 @@
 class Requests {
   SERVER_URL = "localhost:6969";
   DEBUG_TOKEN = "debug";
+  USER_TOKEN = document.cookie.split('userToken=')[1]?.split(';')[0];
 
   // Base dos requests
   async sendPostRequest(url, body) {
@@ -9,7 +10,7 @@ class Requests {
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
-        token: this.DEBUG_TOKEN,
+        token: this.USER_TOKEN,
       },
     });
 
@@ -21,7 +22,7 @@ class Requests {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        token: this.DEBUG_TOKEN,
+        token: this.USER_TOKEN,
       },
     });
 
@@ -60,7 +61,7 @@ class Requests {
       {
         method: "POST",
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );
@@ -94,7 +95,7 @@ class Requests {
       `http://${this.SERVER_URL}/livro/${id}/busca`,
       {
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );
@@ -108,7 +109,7 @@ class Requests {
       {
         method: "POST",
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );
@@ -138,7 +139,7 @@ class Requests {
       `http://${this.SERVER_URL}/cliente/${id}/busca`,
       {
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );
@@ -156,7 +157,7 @@ class Requests {
       {
         method: "POST",
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );
@@ -184,6 +185,14 @@ class Requests {
 
   async getEmprestimoById(id) {
     return await this.sendGetRequest(`http://${this.SERVER_URL}/emprestimo/${id}/busca`, {});
+  }
+
+  async postSolicitarEmprestimo(livroId, clienteId, dataPrevistaDevolucao) {
+    return await this.sendPostRequest(`http://${this.SERVER_URL}/emprestimo/criar-pedido`, {
+      "livroId":livroId,
+      "clienteId":clienteId,
+      "dataPrevistaDevolucao":dataPrevistaDevolucao
+    });
   }
 
   async postAdiarEmprestimo(id, dataEstendidaDevolucao) {

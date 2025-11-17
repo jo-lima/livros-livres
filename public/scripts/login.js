@@ -1,6 +1,8 @@
+// import Base from "./dashboard-base.js";
 
+// const base = new Base();
 
-const btnLogin = document.querySelector('#btnLogin');
+const btnLogin = document.querySelector('.user-form');
 const input_email = document.querySelector('.login_email');
 const input_senha = document.querySelector('.login_senha');
 
@@ -14,25 +16,29 @@ async function loginUser(usuario,senha) {
       },
     });
 
-    return await response.json(); 
+    return await response.json();
 }
 
 
-btnLogin.addEventListener("click", async (event) =>{
+btnLogin.addEventListener("submit", async (event) =>{
     event.preventDefault();
 
     const email = input_email.value.trim();
     const senha = input_senha.value.trim();
-    
+
     const responseCode = await loginUser(email, senha);
-    
+
     console.log(responseCode)
     if(responseCode.statusCode === 200){
-        const token = responseCode.body.token;
-        document.cookie = `tokenUser=${token}; path=/;`;
+        const token = responseCode.body.usuario.token;
+        const userId = responseCode.body.cliente.clienteId;
+        console.log(responseCode);
+
+        document.cookie = `userToken=${token}; path=/;`;
+        document.cookie = `userId=${userId}; path=/;`;
         window.location.href = ('/public/html/pages/acervo.html')
     }else{
-        console.log(responseCode)
+        base.displayMessage(responseCode)
     }
 })
 

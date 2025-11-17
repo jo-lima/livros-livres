@@ -1,4 +1,5 @@
 import Requests from "./requests.js";
+import "./nav-bar.js";
 
 class Base extends Requests {
   constructor() {

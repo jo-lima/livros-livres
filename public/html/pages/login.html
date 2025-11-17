@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/livros-livres-dev-front-end/public/css/components/footer.css" />
@@ -9,59 +9,74 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
       rel="stylesheet"
-    />
-    <link
+      />
+      <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
       rel="stylesheet"
-    />
-    <link
+      />
+      <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐕</text></svg>"
-    />
-    <link rel="stylesheet" href="../../css/pages/login.css">
-    <link rel="stylesheet" href="../../css/components/nav.css"/>
-    <link rel="stylesheet" href="/public/css/main.css" />
-    <title>Document</title>
-</head>
-<body>
-    <nav class="main-nav dashboard__nav">
-      <a href="/public/html/index.html" class="main-nav__link">inicio</a>
-      <a href="/public/html/pages/acervo.html" class="main-nav__link">acervo</a>
-      <a href="www.google.com" class="main-nav__link">entrar</a>
-      <a href="/public/html/pages/cadastro/cadastro_email.html" class="main-nav__link">Cadastrar</a>
-    </nav>
- <div class="form-login-user">
+      />
+      <link rel="stylesheet" href="../../css/pages/login.css">
+      <link rel="stylesheet" href="../../css/components/nav.css"/>
+      <link rel="stylesheet" href="/public/css/main.css" />
+    <title>Login - Livros Livres</title>
+  </head>
+
+  <body>
+  <nav class="main-nav">
+    <a href="/public/html/index.html" class="main-nav__link">inicio</a>
+    <a
+      href="/public/html/pages/acervo.html"
+      class="main-nav__link"
+      >acervo</a
+    >
+    <a href="/public/html/pages/login.html" class="main-nav__link main-nav__link-default">entrar</a>
+    <a
+      href="/public/html/pages/login.html"
+      class="main-nav__link main-nav__link-default"
+      >Cadastrar</a
+    >
+    <a href="/public/html/pages/perfil-cliente.html" class="main-nav__link main-nav__link-user">Meu Perfil</a>
+    <a
+      href="/public/html/pages/dashboard-livro.html"
+      class="main-nav__link main-nav__link-admin"
+      >Dashboard</a
+    >
+  </nav>
+  <div class="form-login-user">
     <div class="image-login">
-    <img src="../../../public/images/login/cachorro-login.png" alt="">
+      <img src="../../../public/images/login/cachorro-login.png" alt="">
     </div>
     <div class="login-form">
-    <form class="user-form" method="post">
-      <h1>LOGIN</h1>
+      <form class="user-form">
+        <h1>LOGIN</h1>
             <div class="log">
-                <p class="login-header">E-mail</p>
-                <input class="login_email"type="email" name="user_email">
+              <p class="login-header">E-mail</p>
+              <input class="login_email"type="email" name="user_email" required>
             </div>
             <div class="log">
                 <p class="login-header">Senha</p>
-                <input class="login_senha" type="password" name="user_pass">
+                <input class="login_senha" type="password" name="user_pass" required>
+              </div>
+              <div class="forgot-pwd">
+                <a href="/public/html/pages/login/login-forgotpwd.html">Esqueceu a senha?</a>
             </div>
-            <div class="forgot-pwd">
-              <a href=>Esqueceu a senha?</a>
-            </div>
-        <input id="btnLogin" type="button" value="Entrar">
-        <div class="have-account">
-          <a href="../pages/cadastro/cadastro_email.html">Não possui conta?</a>
+            <input id="btnLogin" type="submit" value="Entrar">
+            <div class="have-account">
+              <a href="../pages/cadastro/cadastro_email.html">Não possui conta?</a>
         </div>
 
-        </form>    
-        <div class="dashboard__message dashboard__message--hidden"></div>
+      </form>
+      <div class="dashboard__message dashboard__message--hidden"></div>
     </div>
-    
-    </div>
-  <!-- 
-<footer class="main-footer">
+
+  </div>
+  <!--
+    <footer class="main-footer">
       <div class="main-foter__logo-container">
         <div class="main-footer-logo">
           <p>Livros <br />Livres</p>
@@ -95,16 +110,17 @@
         </div>
       </div>
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d228.54454876337607!2d-46.6426572964564!3d-23.578756919738453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce593b911ffa91%3A0xf567a7d20f956b1d!2sPara%C3%ADso%20dos%20Salgados!5e0!3m2!1spt-BR!2sbr!4v1759109137795!5m2!1spt-BR!2sbr"
-        style="border: 0"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        class="main-footer__map"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d228.54454876337607!2d-46.6426572964564!3d-23.578756919738453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce593b911ffa91%3A0xf567a7d20f956b1d!2sPara%C3%ADso%20dos%20Salgados!5e0!3m2!1spt-BR!2sbr!4v1759109137795!5m2!1spt-BR!2sbr"
+      style="border: 0"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      class="main-footer__map"
       ></iframe>
     </footer>
     <div class="paper-overlay"></div>
     -->
-    <script src="../../scripts/login.js"></script>
-</body>
-</html>
+    <!-- <script src="../../scripts/login.js"></script> -->
+    <script type="module" src="../../scripts/login.js"></script>
+  </body>
+  </html>

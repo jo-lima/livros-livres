@@ -38,39 +38,40 @@
       <img src="/public/images/login/cachorro_leitor.png" alt="">
       <h1 class="h1__register-user">DADOS DE CADASTRO</h1>
         <div class="div-main__register-user">
+          
           <form class="form__register-user">
               <div class="div-box__password-email">
                   <p class="header__register-user">E-mail</p>
-                  <input class="form-box__register-user form-box__register-user--email" type="email" name="user_email" placeholder="Insira seu email">
+                  <input class="form-box__register-user form-box__register-user--email" type="email" name="user_email" placeholder="Insira seu email" required>
               </div>
             <div class="div-box__password-email">
                 <p class="header__register-user">Nome</p>
-                <input class="form-box__register-user form-box__register-user--name" type="text" name="user_name" placeholder="Insira seu nome completo">
+                <input class="form-box__register-user form-box__register-user--name" type="text" name="user_name" placeholder="Insira seu nome completo" required>
             </div>                    
 
             <div class="div-box__password-email">
                 <p class="header__register-user">CPF</p>
-                <input class="form-box__register-user form-box__register-user--cpf" type="number" name="user_cpf" placeholder="Insira seu CPF">
+                <input class="form-box__register-user form-box__register-user--cpf" type="text" name="user_cpf" placeholder="Insira seu CPF" inputmode="numeric" maxlength="11" required>
             </div>
 
             <div class="div-box__password-email">
                 <p class="header__register-user">Endereço</p>
-                <input class="form-box__register-user form-box__register-user--address" type="text" name="user_address" placeholder="Insira seu endereço">
+                <input class="form-box__register-user form-box__register-user--address" type="text" name="user_address" placeholder="Insira seu endereço" required>
             </div>
 
             <div class="div-box__password-email">
                 <p class="header__register-user">Telefone</p>
-                <input class="form-box__register-user form-box__register-user--tel" type="tel" name="user_telephone" placeholder="Insira seu telefone">
+                <input class="form-box__register-user form-box__register-user--tel" type="text" name="user_telephone" placeholder="Insira seu telefone" inputmode="tel" maxlength="11" required>
             </div>
 
             <div class="div-box__password-email">
                 <p class="header__register-user">Senha</p>
-                <input class="form-box__register-user form-box__register-user--passwd" type="password" name="user_pass" placeholder="Crie uma senha">
+                <input class="form-box__register-user form-box__register-user--passwd" type="password" name="user_pass" placeholder="Crie uma senha" required>
             </div>
 
+            <input class="button__confirm-user" type="submit" value="Cadastrar">
           </form>
         </div>
-      <input class="button__confirm-user" type="submit" value="Cadastrar">
     </section>
   </main>
 </div>

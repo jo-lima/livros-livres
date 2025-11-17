@@ -25,6 +25,8 @@ class Livro extends Base {
   }
 
   renderBook(bookData) {
+    const startLoanBtn = document.querySelector(".loan_area__button");
+
     this.bookNameElement.textContent = bookData.nome;
     this.bookAuthorElement.textContent = bookData.autor.nome;
     this.bookDescriptionElement.textContent = bookData.descricao;
@@ -32,6 +34,16 @@ class Livro extends Base {
     this.bookAuthorImageElement.style.backgroundImage = `url("${bookData.autor.imagem}")`;
 
     this.bookAuthorElement.setAttribute("href", `autor.html?id=${bookData.autor.idAutor}`);
+
+    // confere se o livro está disponível e
+    // se o usuario está logado
+    if(
+      document.cookie.split('userToken=')[1]?.split(';')[0] != null &&
+      bookData.ativo == true &&
+      bookData.estoque >= 1
+    ) {
+      startLoanBtn.style.display = "unset"
+    }
 
     // Detalhes
     const details = [
@@ -67,13 +79,6 @@ class Livro extends Base {
   }
 
   async setUpBookListeners() {
-    const startLoanBtn = document.querySelector(".loan_area__button");
-    if( // caso esteja logado
-      document.cookie.split('userToken=')[1]?.split(';')[0] != null
-    ) {
-      startLoanBtn.style.display = "unset"
-    }
-
     startLoanBtn.addEventListener("click", () => this.showPopUp("#new-loan-form-popup"));
     this.newBookLoanForm.addEventListener("submit", async event => this.submitSolicitarEmprestimoForm(event));
   }

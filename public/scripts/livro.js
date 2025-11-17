@@ -35,6 +35,7 @@ class Livro extends Base {
 
     // Detalhes
     const details = [
+      ["stock", bookData.estoque],
       ["genre", bookData.genero],
       ["pages", bookData.paginas],
       ["isbn", bookData.isbn],
@@ -53,12 +54,11 @@ class Livro extends Base {
 
     const body = this.formDataObject(this.newBookLoanForm);
     const response = await this.postSolicitarEmprestimo(
-        this.bookId, 
-        this.clientId, 
+        this.bookId,
+        this.clientId,
         body.dataDevolucao
       );
 
-    console.log(response);
 
     this.displayMessage(response);
     this.cleanForm(this.newBookLoanForm);
@@ -67,7 +67,14 @@ class Livro extends Base {
   }
 
   async setUpBookListeners() {
-    document.querySelector(".loan_area__button").addEventListener("click", () => this.showPopUp("#new-loan-form-popup"));
+    const startLoanBtn = document.querySelector(".loan_area__button");
+    if( // caso esteja logado
+      document.cookie.split('userToken=')[1]?.split(';')[0] != null
+    ) {
+      startLoanBtn.style.display = "unset"
+    }
+
+    startLoanBtn.addEventListener("click", () => this.showPopUp("#new-loan-form-popup"));
     this.newBookLoanForm.addEventListener("submit", async event => this.submitSolicitarEmprestimoForm(event));
   }
 

@@ -5,7 +5,6 @@ class Requests {
 
   // Base dos requests
   async sendPostRequest(url, body) {
-    console.log(this.USER_TOKEN)
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(body),
@@ -62,7 +61,7 @@ class Requests {
       {
         method: "POST",
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );
@@ -96,7 +95,7 @@ class Requests {
       `http://${this.SERVER_URL}/livro/${id}/busca`,
       {
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );
@@ -110,7 +109,7 @@ class Requests {
       {
         method: "POST",
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );
@@ -140,7 +139,7 @@ class Requests {
       `http://${this.SERVER_URL}/cliente/${id}/busca`,
       {
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );
@@ -158,7 +157,7 @@ class Requests {
       {
         method: "POST",
         headers: {
-          token: this.DEBUG_TOKEN,
+          token: this.USER_TOKEN,
         },
       }
     );

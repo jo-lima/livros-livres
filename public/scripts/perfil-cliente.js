@@ -412,6 +412,12 @@ class ClientProfile extends Base {
     this.getClienteById(this.clientId).then((json) => {
       this.clientValue = json.body;
       this.renderProfileInfo();
+
+      this.editProfileButton = document.querySelector(".editar-infos__button");
+      if(this.editProfileButton != null) {
+        this.editProfileButton.addEventListener("click", async (event) => {this.handleEditClient(event)});
+      }
+
     });
 
     this.getEmprestimoById(this.currentLoanId).then((json) => {
@@ -426,11 +432,6 @@ class ClientProfile extends Base {
       this.cancelButton = document.querySelector(".acoes__cancelar");
       if(this.cancelButton != null) {
         this.cancelButton.addEventListener("click", async (event) => {this.handleCancelLoan(event)});
-      }
-
-      this.editProfileButton = document.querySelector(".editar-infos__button");
-      if(this.editProfileButton != null) {
-        this.editProfileButton.addEventListener("click", async (event) => {this.handleEditClient(event)});
       }
     });
 

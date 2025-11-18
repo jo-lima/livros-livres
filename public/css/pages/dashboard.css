@@ -126,6 +126,7 @@
 .dashboard__table td {
   padding: 16px 10px;
   padding-right: 42px;
+  position: relative;
 }
 
 /* Outros estilos */
@@ -244,4 +245,86 @@
   background: none;
   border: none;
   cursor: pointer;
+  
+}
+
+.dashboard__loan--inactive{
+  color: #adadad;
+}
+
+/* Ações do dashboard de empréstimo */
+.dashboard__loan-actions-cell{
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Menu */
+.dashboard__actions-dropdown{
+  /* Posição */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  /* Display */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Estilos */
+  cursor: pointer;
+  background-color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  color: var(--text-color--gray--dark);
+  font-size: 12px;
+  text-align: center;
+  transition: all ease 0.2s;
+}
+
+.dashboard__actions-dropdown--hidden{
+  transform: translateX(100%);
+}
+
+/* Botões do menu */
+.dashboard__dropdown-action{
+  padding: 8px 4px;
+  border-bottom: 1px solid #cfcfcf;
+}
+
+.dashboard__dropdown-action:last-child{
+  border: none;
+}
+
+.dashboard__dropdown-action:hover{
+  background-color: var(--text-color--green--regular);
+  color: #fff;
+}
+
+/* Estilos específicos dos status */
+.dashboard__loan-extended{
+  cursor: pointer;
+}
+.dashboard__loan-extended::before{
+  content: '*';
+  /* font-size: 12px; */
+}
+
+.dashboard__loan-extended::after{
+  content: 'Esse empréstimo foi adiado';
+  position: absolute;
+  top: -5px;
+  right: -15px;
+  padding: 3px 6px;
+  background-color: #e9bb47;
+  font-size: 10px;
+  color: #fff;
+  opacity: 0;
+  transition: all 0.2 ease;
+}
+
+.dashboard__loan-extended:hover::after{
+  opacity: 1;
+}
+
+
+/* Filtros */
+.dashboard__table-filters{
+margin-bottom: 6px;
 }

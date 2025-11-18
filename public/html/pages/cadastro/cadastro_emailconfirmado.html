@@ -26,11 +26,26 @@
     <title>Acervo</title>
   </head>
  <body>
-  <nav class="main-nav dashboard__nav">
-      <a href="/public/html/index.html" class="main-nav__link">inicio</a>
-      <a href="/public/html/pages/acervo.html" class="main-nav__link">acervo</a>
-      <a href="www.google.com" class="main-nav__link">entrar</a>
-    </nav>
+  <nav class="main-nav">
+    <a href="/public/html/index.html" class="main-nav__link">inicio</a>
+    <a
+      href="/public/html/pages/acervo.html"
+      class="main-nav__link"
+      >acervo</a
+    >
+    <a href="/public/html/pages/login.html" class="main-nav__link main-nav__link-default">entrar</a>
+    <a
+      href="/public/html/pages/cadastro/cadastro_email.html"
+      class="main-nav__link main-nav__link-default"
+      >Cadastrar</a
+    >
+    <a href="/public/html/pages/perfil-cliente.html" class="main-nav__link main-nav__link-user">Meu Perfil</a>
+    <a
+      href="/public/html/pages/dashboard-livro.html"
+      class="main-nav__link main-nav__link-admin"
+      >Dashboard</a
+    >
+  </nav>
 
 <div class="div-page__register-user">
   <main class="main__register-user">
@@ -38,7 +53,7 @@
       <img src="/public/images/login/cachorro_leitor.png" alt="">
       <h1 class="h1__register-user">DADOS DE CADASTRO</h1>
         <div class="div-main__register-user">
-          
+
           <form class="form__register-user">
               <div class="div-box__password-email">
                   <p class="header__register-user">E-mail</p>
@@ -47,7 +62,7 @@
             <div class="div-box__password-email">
                 <p class="header__register-user">Nome</p>
                 <input class="form-box__register-user form-box__register-user--name" type="text" name="user_name" placeholder="Insira seu nome completo" required>
-            </div>                    
+            </div>
 
             <div class="div-box__password-email">
                 <p class="header__register-user">CPF</p>
@@ -75,6 +90,7 @@
     </section>
   </main>
 </div>
+<script src="/public/scripts/nav-bar.js"></script>
 <script src="../../../scripts/cadastro-usuario/registerClient.js"></script>
   </body>
 </html>

@@ -26,12 +26,26 @@
     <title>Recuperar senha</title>
   </head>
   <body>
-    <nav class="main-nav dashboard__nav">
-      <a href="/public/html/index.html" class="main-nav__link">inicio</a>
-      <a href="/public/html/pages/acervo.html" class="main-nav__link">acervo</a>
-      <a href="/public/html/pages/login.html" class="main-nav__link">entrar</a>
-      <a href="/public/html/pages/cadastro/cadastro_email.html" class="main-nav__link">Cadastrar</a>
-    </nav>
+  <nav class="main-nav">
+    <a href="/public/html/index.html" class="main-nav__link">inicio</a>
+    <a
+      href="/public/html/pages/acervo.html"
+      class="main-nav__link"
+      >acervo</a
+    >
+    <a href="/public/html/pages/login.html" class="main-nav__link main-nav__link-default">entrar</a>
+    <a
+      href="/public/html/pages/cadastro/cadastro_email.html"
+      class="main-nav__link main-nav__link-default"
+      >Cadastrar</a
+    >
+    <a href="/public/html/pages/perfil-cliente.html" class="main-nav__link main-nav__link-user">Meu Perfil</a>
+    <a
+      href="/public/html/pages/dashboard-livro.html"
+      class="main-nav__link main-nav__link-admin"
+      >Dashboard</a
+    >
+  </nav>
   <!-- <body background="/public/images/login/fundo de cachorrinho.jpg"> -->
 <div class="div-page__register-user">
   <main class="main__register-user">
@@ -41,7 +55,7 @@
       <h2 class="h2__register-user">Por favor informe seu e-mail para enviarmos o código para alteração de senha</h2>
         <div class="div-main__register-user">
           <form class="form__register-user">
-            
+
             <div class="div-box__email">
                 <p class="header__register-user">E-mail</p>
                 <input class="form-box__register-user form-box__register-user--emailinput" type="email" name="user_email" placeholder="Insira seu email" required>
@@ -59,13 +73,14 @@
         </div>
 
       <input class="button__register-user" type="submit" value="Confirmar e-mail">
-      
-      </form> 
+
+      </form>
       <div class="dashboard__message dashboard__message--hidden"></div>
     </section>
   </main>
 </div>
-        <script src="../../../scripts/login-usuario/forgotpwd.js"></script>
-    
+    <script src="/public/scripts/nav-bar.js"></script>
+    <script src="../../../scripts/login-usuario/forgotpwd.js"></script>
+
   </body>
 </html>

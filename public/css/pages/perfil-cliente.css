@@ -59,12 +59,15 @@ hr {
 }
 .editar-infos__button {
     padding: 5px 8px;
-    border: solid 1px black;
-    background-color: aqua;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    background-color: #D4A373;
     display: inline;
 }
 .editar-infos__button:hover {
     cursor: pointer;
+    text-decoration: underline;
 }
 
 /* SESSAO PENDENCIAS */
@@ -109,15 +112,16 @@ hr {
     float: right;
 }
 .detalhar-pendencia__button {
-    background-color: #CCD6AE;
-    border: solid 2px #267dff;
+    background-color: #FAEDCD;
+    border: none;
     font-weight: bold;
     border-radius: 5px;
-    padding: 1px 3px;
+    padding: 5px 8px;
     display: inline;
 }
 .detalhar-pendencia__button:hover {
     cursor: pointer;
+    text-decoration: underline;
 }
 
 .pendencias__pendencia {
@@ -187,12 +191,15 @@ hr {
 }
 .info-descritiva__acoes button {
     padding: 5px 8px;
-    border: solid 1px black;
-    background-color: aqua;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    background-color: #D4A373;
     display: inline;
 }
 .info-descritiva__acoes button:hover {
     cursor: pointer;
+    text-decoration: underline;
 }
 
 /* TAB DE HISTÓRICO */

@@ -6,17 +6,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
             "name": "ServerApplication",
             "request": "launch",
             "mainClass": "com.livros_livres.Server.ServerApplication",
-            "projectName": "Server",
-            "envFile": "${workspaceFolder}/.env"
+            "projectName": "Server"
         }
     ]
 }

@@ -4,6 +4,11 @@ class DashboardEmprestimo extends Base {
   constructor(){
     super();
 
+    if(document.cookie.split('userToken=')[1]?.split(';')[0] == null || document.cookie.split('userId=')[1]?.split(';')[0] != null) {
+      document.querySelector(".dashboard__container").innerHTML = "<h1>Você não tem permissão para acessar esta página!</h1>"
+      return
+    }
+
     // Elementos
     this.loansTableElement = document.querySelector(".dashboard__table--loans tbody");
     // Novo empréstimo

@@ -134,6 +134,13 @@ class DashboardAutor extends Base {
 
   // Listando e renderizando autores
   async listRenderAuthors() {
+
+    // Caso usuario NAO esteja logado OU usuario NAO seja um cliente, nao deixa entrar
+    if(document.cookie.split('userToken=')[1]?.split(';')[0] == null || document.cookie.split('userId=')[1]?.split(';')[0] != null) {
+      document.querySelector(".dashboard__container").innerHTML = "<h1>Você não tem permissão para acessar esta página!</h1>"
+      return
+    }
+
     this.getAllAuthors().then((json) => {
       if (json.statusCode == 404) {
         this.displayMessage(json);

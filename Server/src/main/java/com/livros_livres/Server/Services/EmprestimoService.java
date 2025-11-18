@@ -127,7 +127,8 @@ public class EmprestimoService {
 
         if(cliente.getClienteId() != pedidoEmprestimo.getClienteId()) {return RetornoApi.errorForbidden();}
         // if(cliente.getEmprestimos().size() > 3) {return RetornoApi.errorBadRequest("Usuário ja possui 3 empréstimos ativos!");} // TODO: retorna todos os emprestimos, deveria ser todos ativos.
-        if(livroPedido.getEstoque() <= 0 || livroPedido.getAtivo() != true) {return RetornoApi.errorBadRequest("Este livro não possui disponibilidade no estoque!");}
+        if(livroPedido.getEstoque() <= 0) {return RetornoApi.errorBadRequest("Este livro não possui disponibilidade no estoque!");}
+        if(livroPedido.getAtivo() != true) {return RetornoApi.errorBadRequest("Livro indisponível.");}
 
         if(
             pedidoEmprestimo.getDataPrevistaDevolucao().isBefore(LocalDate.now())

@@ -175,7 +175,7 @@
   border-radius: 6px;
   padding: 28px 32px;
   /* Posição */
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -208,7 +208,7 @@
 }
 
 .dashboard__popup-close {
-  position: absolute;
+  position: fixed;
   top: 6px;
   right: 6px;
   width: 18px;
@@ -217,7 +217,7 @@
 
 /* Mensagem */
 .dashboard__message {
-  position: absolute;
+  position: fixed;
   bottom: 16px;
   right: 16px;
   background-color: var(--text-color--green--regular);

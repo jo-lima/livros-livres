@@ -267,7 +267,8 @@ public class ClienteService {
         // Caso tenha falhado em logar o usuário
         if (loggedInUser == null) { return RetornoApi.errorLoginNotFound();}
 
-        return RetornoApi.sucess("Usuário autenticado e logado com sucesso!", loggedInUser);
+        return RetornoApi.sucess("Usuário autenticado e logado com sucesso!",
+            java.util.Map.of("usuario", loggedInUser, "cliente", buscaCliente));
     }
 
     // Envia um token para o email solicitado, com objetivo de, depois, conferir se o mesmo tem acesso a este email.
@@ -282,7 +283,7 @@ public class ClienteService {
         // Adiciona email na lista de emails a serem autenticados.
         newUser = authService.criarSolicitacaoAutenticacao(email);
         String htmlCodigo = VariaveisHtml.html_validarToken(newUser.getAuthToken());
-    retornoEmail =mailService.sendMail(htmlCodigo, "Verificação de email", email);
+        retornoEmail =mailService.sendMail(htmlCodigo, "Verificação de email", email);
         return retornoEmail;
 }
 

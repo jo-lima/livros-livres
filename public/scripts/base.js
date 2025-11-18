@@ -1,4 +1,5 @@
 import Requests from "./requests.js";
+import "./nav-bar.js";
 
 class Base extends Requests {
   constructor() {
@@ -10,6 +11,23 @@ class Base extends Requests {
     // Mensagem
     this.messageElement = document.querySelector(".dashboard__message");
     this.messageTimer;
+
+    // check logged in user type
+    this.userType = document.cookie.split('userType=')[1]?.split(';')[0];
+    if(this.userType == "CLIENT") {
+      // check if client still has permissions of itself
+      this.getClient(document.cookie.split('userId=')[1]?.split(';')[0]).then(json => {
+        if(json.statusCode != 200){
+          // clear all cokies
+          const cookies = document.cookie.split("; ");
+          for (let cookie of cookies) {
+              const name = cookie.split("=").shift();
+              document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+          }
+          location.reload();
+        }
+      })
+    }
 
     // Setup dos EventListeners
     this.setUpListeners();

@@ -22,13 +22,13 @@ public class Autor {
     @Column(name="Nome")
     private String nome;
 
-    @Column(name="Descricao")
+    @Column(name="Descricao", length = 2000)
     private String descricao;
 
     @Column(name="Citacao")
     private String citacao;
 
-    @Column(name="Imagem")
+    @Column(name="Imagem", length = 512)
     private String imagem;
 
     // @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)

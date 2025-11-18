@@ -31,11 +31,17 @@
         class="main-nav__link main-nav__link--active"
         >acervo</a
       >
-      <a href="/public/html/pages/login.html" class="main-nav__link">entrar</a>
+      <a href="/public/html/pages/login.html" class="main-nav__link main-nav__link-default">entrar</a>
       <a
         href="/public/html/pages/cadastro/cadastro_email.html"
-        class="main-nav__link"
+        class="main-nav__link main-nav__link-default"
         >Cadastrar</a
+      >
+      <a href="/public/html/pages/perfil-cliente.html" class="main-nav__link main-nav__link-user">Meu Perfil</a>
+      <a
+        href="/public/html/pages/dashboard-livro.html"
+        class="main-nav__link main-nav__link-admin"
+        >Dashboard</a
       >
     </nav>
     <div class="container">
@@ -43,44 +49,7 @@
         <section class="section__library-filters">
           <p class="library-filters__heading font--secondary">Filtros</p>
           <div class="library-filters__genres">
-            <div class="library-filters__genre">
-              <input
-                type="checkbox"
-                name=""
-                id=""
-                class="library-filters__genre-check"
-              />
-              <label for="" class="library-filters__genre-label">Drama</label>
-            </div>
-            <div class="library-filters__genre">
-              <input
-                type="checkbox"
-                name=""
-                id=""
-                class="library-filters__genre-check"
-              />
-              <label for="" class="library-filters__genre-label">Terror</label>
-            </div>
-            <div class="library-filters__genre">
-              <input
-                type="checkbox"
-                name=""
-                id=""
-                class="library-filters__genre-check"
-              />
-              <label for="" class="library-filters__genre-label">Ação</label>
-            </div>
-            <div class="library-filters__genre">
-              <input
-                type="checkbox"
-                name=""
-                id=""
-                class="library-filters__genre-check"
-              />
-              <label for="" class="library-filters__genre-label"
-                >Exotérico</label
-              >
-            </div>
+            
           </div>
         </section>
         <section class="section__library-books">
@@ -140,6 +109,7 @@
         ></iframe>
       </div>
     </footer>
+
     <!-- <div class="paper-overlay"></div> -->
   </body>
 </html>

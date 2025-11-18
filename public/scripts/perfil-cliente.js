@@ -26,7 +26,7 @@ class ClientProfile extends Base {
     this.editProfileButton = document.querySelector(".editar-infos__button");
 
     // Variaveis global
-    this.clientId = 1; // valor mocado
+    this.clientId = document.cookie.split('userId=')[1]?.split(';')[0];
     this.clientValue;
     this.currentLoanId = 0; // ID da pendencia atual, nos detalhes
     this.currentLoanValue; // Objeto da pendencia atual
@@ -47,8 +47,8 @@ class ClientProfile extends Base {
       this.emprestimoStatus.FINALIZADO_ATRASADO,
     ];
 
-    this.pendenciesList; // Lista de emprestimos pendentes, nao finalizados
-    this.historyList; // Lista de empresitmos finalizados, no historico
+    this.pendenciesList = []; // Lista de emprestimos pendentes, nao finalizados
+    this.historyList = []; // Lista de empresitmos finalizados, no historico
 
     // Execução
     this.initialize();
@@ -67,7 +67,7 @@ class ClientProfile extends Base {
   // Renderiza o "Informações do Perfil"
   renderProfileInfo(){
     const clientInfo = this.clientValue;
-    let pfpImage = "/public/images/perfil-cliente/porra-cara-nao-sei-velho.jpg";
+    let pfpImage = "/public/images/perfil-cliente/defaultPic.png";
 
     this.profileInfo.innerHTML = `<h2 class="perfil-data__title">Informações do Perfil:</h1>`;
 
@@ -247,6 +247,8 @@ class ClientProfile extends Base {
   renderHistory(){
     this.historyGrid.innerHTML = "";
 
+    if(this.historyList.length <= 0) {return}
+
     this.historyList.forEach(loan => {
     let historyEntry = `
           <div class="livros-grid__livro">
@@ -319,8 +321,6 @@ class ClientProfile extends Base {
   async handleCurrentPending(event){
     const target = event.target.closest(".detalhar-pendencia__button");
     if (target == null) return;
-    console.log(target.dataset.emprestimoId);
-
     this.setCurrentPending(target.dataset.emprestimoId);
     this.listRenderPendences();
   }
@@ -414,6 +414,12 @@ class ClientProfile extends Base {
     this.getClienteById(this.clientId).then((json) => {
       this.clientValue = json.body;
       this.renderProfileInfo();
+
+      this.editProfileButton = document.querySelector(".editar-infos__button");
+      if(this.editProfileButton != null) {
+        this.editProfileButton.addEventListener("click", async (event) => {this.handleEditClient(event)});
+      }
+
     });
 
     this.getEmprestimoById(this.currentLoanId).then((json) => {
@@ -429,11 +435,6 @@ class ClientProfile extends Base {
       if(this.cancelButton != null) {
         this.cancelButton.addEventListener("click", async (event) => {this.handleCancelLoan(event)});
       }
-
-      this.editProfileButton = document.querySelector(".editar-infos__button");
-      if(this.editProfileButton != null) {
-        this.editProfileButton.addEventListener("click", async (event) => {this.handleEditClient(event)});
-      }
     });
 
   }
@@ -445,15 +446,24 @@ class ClientProfile extends Base {
     this.editClientForm.dataset.idClient = this.clientId;
 
     this.getAllEmprestimosByClientId(this.clientId, "").then((json) => {
+
+      if(json.statusCode != 200) {
+        document.querySelector(".profile-content").innerHTML = "<h1>Você não tem permissão para acessar esta página!</h1>"
+        return
+      }
+
       let allEmprestimos = json.body;
 
-      this.pendenciesList = allEmprestimos.filter(function (i,n){
-        return !historyStatus.includes(i.status);
-      });
 
-      this.historyList = allEmprestimos.filter(function (i,n){
-        return historyStatus.includes(i.status);
-      });
+      if(allEmprestimos!=null){
+        this.pendenciesList = allEmprestimos.filter(function (i,n){
+          return !historyStatus.includes(i.status);
+        });
+
+        this.historyList = allEmprestimos.filter(function (i,n){
+          return historyStatus.includes(i.status);
+        });
+      }
 
       this.getClienteById(this.clientId).then((json) => {
         this.clientValue = json.body;

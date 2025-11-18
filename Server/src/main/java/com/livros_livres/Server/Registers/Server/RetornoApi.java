@@ -69,7 +69,7 @@ public class RetornoApi {
     }
 
     public static RetornoApi errorNotFound(String message){
-        return new RetornoApi(404, message);
+        return new RetornoApi(200, message);
     }
 
     public static RetornoApi errorForbidden(){

@@ -27,6 +27,18 @@ class Base extends Requests {
           location.reload();
         }
       })
+    } else if (this.userType == "FUNCIONARIO") {
+      this.getClient(1).then(json => {
+        if(json.statusCode != 200){
+          // clear all cokies
+          const cookies = document.cookie.split("; ");
+          for (let cookie of cookies) {
+              const name = cookie.split("=").shift();
+              document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+          }
+          location.reload();
+        }
+      })
     }
 
     // Setup dos EventListeners

@@ -12,10 +12,21 @@ html{
     width: 60%;
     background-color: white;
     border-radius: 25px;
-    padding: 50px;
-    margin: 50px auto;
+    padding: 30px;
+    margin: 0px auto;
 }
 
+.form-func-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    flex-wrap: wrap;
+    width: 60%;
+    background-color: white;
+    border-radius: 25px;
+    /* padding: 30px; */
+    margin: 0px auto;
+}
 .user-form h1{
     color: #F09618;
 }
@@ -49,8 +60,11 @@ html{
     max-width: 400px;
     text-align: left;
     font-weight: bold;
+    padding: 10px;
 }
-
+.log p{
+    padding-bottom: 10px;
+}
 .log input {
     width: 100%;
     padding: 10px;
@@ -99,5 +113,20 @@ html{
 .have-account{
     font-size: 13px;
     text-align: left;
+    display: flex;
+}
+
+.linkLogin{
+    display: flex;
+    justify-content: center;
+}
+.linkLoginFunc{
+    display: flex;
+    justify-content: center;
+    margin: 10%;
+}
+
+.h1Func{
+    justify-content: center;
     display: flex;
 }

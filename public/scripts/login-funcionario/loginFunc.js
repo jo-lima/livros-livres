@@ -25,14 +25,14 @@ btnLogin.addEventListener("submit", async (event) =>{
     const matricula = input_matricula.value.trim();
     const senha = input_senha.value.trim();
     
-    const responseCode = await loginUser(matricula, senha);
+    const responseCode = await loginFuncionario(matricula, senha);
     
     console.log(responseCode)
     if(responseCode.statusCode === 200){
         // base.displayMessage(responseCode)
-        const token = responseCode.body.token;
-        document.cookie = `tokenUser=${token}; path=/;`;
-        window.location.href = ('/public/html/pages/dashboard.html')
+        const userId = responseCode.body.token;
+        document.cookie = `userId=${userId}; path=/;`;
+        window.location.href = ('/public/html/pages/dashboard-autor.html')
     }else{
         base.displayMessage(responseCode)
     }

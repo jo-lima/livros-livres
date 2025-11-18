@@ -1,7 +1,5 @@
 import Requests from "./requests.js";
 import "./nav-bar.js";
-const token = document.cookie;
-console.log(token);
 
 class Acervo extends Requests {
   constructor() {

@@ -20,8 +20,8 @@
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐕</text></svg>"
       />
-      <link rel="stylesheet" href="../../css/pages/login.css">
-      <link rel="stylesheet" href="../../css/components/nav.css"/>
+      <link rel="stylesheet" href="../../../css/pages/login.css">
+      <link rel="stylesheet" href="../../../css/components/nav.css"/>
       <link rel="stylesheet" href="/public/css/main.css" />
     <title>Login - Livros Livres</title>
   </head>
@@ -36,7 +36,7 @@
     >
     <a href="/public/html/pages/login.html" class="main-nav__link main-nav__link-default">entrar</a>
     <a
-      href="/public/html/pages/cadastro/cadastro_email.html"
+      href="/public/html/pages/login.html"
       class="main-nav__link main-nav__link-default"
       >Cadastrar</a
     >
@@ -47,28 +47,23 @@
       >Dashboard</a
     >
   </nav>
-  <div class="form-login-user">
+  <h1 class="h1Func">Acesso funcionário</h1>
+  <div class="form-func-user">
     <div class="image-login">
-      <img src="../../../public/images/login/cachorro-login.png" alt="">
+      <img src="../../../images/login/cachorrosuperserio.png" alt="">
     </div>
     <div class="login-form">
       <form class="user-form">
         <h1>LOGIN</h1>
             <div class="log">
-              <p class="login-header">E-mail</p>
-              <input class="login_email"type="email" name="user_email" required>
+              <p class="login-header">Matrícula</p>
+              <input class="login_email"type="text" name="user_email" required>
             </div>
             <div class="log">
                 <p class="login-header">Senha</p>
                 <input class="login_senha" type="password" name="user_pass" required>
               </div>
-              <div class="forgot-pwd">
-                <a href="/public/html/pages/login/login-forgotpwd.html">Esqueceu a senha?</a>
-            </div>
             <input id="btnLogin" type="submit" value="Entrar">
-            <div class="have-account">
-              <a href="../pages/cadastro/cadastro_email.html">Não possui conta?</a>
-        </div>
 
       </form>
       <div class="dashboard__message dashboard__message--hidden"></div>
@@ -122,7 +117,7 @@
     <div class="paper-overlay"></div>
     -->
     <!-- <script src="../../scripts/login.js"></script> -->
-     <a class="linkLoginFunc"href="../pages/login/loginfuncionario.html">É um funcionário? Faça login aqui!</a>
-    <script type="module" src="../../scripts/login.js"></script>
+     <a class="linkLogin"href="../login.html">Não é um funcionário? Faça login aqui!</a>
+    <script type="module" src="../../../scripts/login-funcionario/loginFunc.js"></script>
   </body>
   </html>

@@ -67,7 +67,7 @@ class ClientProfile extends Base {
   // Renderiza o "Informações do Perfil"
   renderProfileInfo(){
     const clientInfo = this.clientValue;
-    let pfpImage = "/public/images/perfil-cliente/porra-cara-nao-sei-velho.jpg";
+    let pfpImage = "/public/images/perfil-cliente/defaultPic.png";
 
     this.profileInfo.innerHTML = `<h2 class="perfil-data__title">Informações do Perfil:</h1>`;
 

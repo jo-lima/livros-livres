@@ -37,10 +37,10 @@ public class Livro {
     @Column(name="ISBN", nullable=false, unique=true)
     private String isbn;
 
-    @Column(name="Descricao")
+    @Column(name="Descricao", length = 2000)
     private String descricao;
 
-    @Column(name="Imagem")
+    @Column(name="Imagem", length = 512)
     private String imagem;
 
     @Column(name="Estoque")

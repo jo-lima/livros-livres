@@ -34,7 +34,7 @@ public class Cliente extends Usuario {
     @Column(name="Email", unique = true, nullable=false)
     private String email;
 
-    @Column(name="Imagem")
+    @Column(name="Imagem", length = 1024)
     private String imagem;
 
     public Cliente() {

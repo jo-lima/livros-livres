@@ -1,5 +1,5 @@
 class Requests {
-  SERVER_URL = "localhost:6969";
+  SERVER_URL = "152.250.104.13:6969";
   DEBUG_TOKEN = "debug";
   USER_TOKEN = document.cookie.split('userToken=')[1]?.split(';')[0];
 

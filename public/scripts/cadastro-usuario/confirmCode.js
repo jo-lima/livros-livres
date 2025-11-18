@@ -1,5 +1,5 @@
 async function confirmEmail(email) {
-    const response = await fetch("http://localhost:6969/cliente/enviar-validacao-email", {
+    const response = await fetch("http://152.250.104.13:6969/cliente/enviar-validacao-email", {
       method: "POST",
       body: JSON.stringify({ email }),
       headers: {
@@ -11,7 +11,7 @@ async function confirmEmail(email) {
 }
 
 async function confirmCodeEmail(email, codigo) {
-    const response = await fetch("http://localhost:6969/cliente/verificar-validacao-email", {
+    const response = await fetch("http://152.250.104.13:6969/cliente/verificar-validacao-email", {
       method: "POST",
       body: JSON.stringify({ email, codigo}),
       headers: {

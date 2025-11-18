@@ -13,6 +13,9 @@ class Livro extends Base {
     this.bookAuthorImageElement = document.querySelector(".book__author-image");
     this.newBookLoanForm = document.querySelector("#new-loan-form");
 
+    this.startLoanBtn = document.querySelector(".loan_area__button");
+
+
     this.clientId=document.cookie.split('userId=')[1]?.split(';')[0];; // valor mocado
     this.bookId = this.getBookIdByUrl();
 
@@ -25,7 +28,6 @@ class Livro extends Base {
   }
 
   renderBook(bookData) {
-    const startLoanBtn = document.querySelector(".loan_area__button");
 
     this.bookNameElement.textContent = bookData.nome;
     this.bookAuthorElement.textContent = bookData.autor.nome;
@@ -42,7 +44,7 @@ class Livro extends Base {
       bookData.ativo == true &&
       bookData.estoque >= 1
     ) {
-      startLoanBtn.style.display = "unset"
+      this.startLoanBtn.style.display = "unset"
     }
 
     // Detalhes
@@ -79,7 +81,7 @@ class Livro extends Base {
   }
 
   async setUpBookListeners() {
-    startLoanBtn.addEventListener("click", () => this.showPopUp("#new-loan-form-popup"));
+    this.startLoanBtn.addEventListener("click", () => this.showPopUp("#new-loan-form-popup"));
     this.newBookLoanForm.addEventListener("submit", async event => this.submitSolicitarEmprestimoForm(event));
   }
 

@@ -16,7 +16,7 @@ async function loginFuncionario(usuario,senha) {
       },
     });
 
-    return await response.json(); 
+    return await response.json();
 }
 
 btnLogin.addEventListener("submit", async (event) =>{
@@ -24,14 +24,18 @@ btnLogin.addEventListener("submit", async (event) =>{
 
     const matricula = input_matricula.value.trim();
     const senha = input_senha.value.trim();
-    
+
     const responseCode = await loginFuncionario(matricula, senha);
-    
+
     console.log(responseCode)
     if(responseCode.statusCode === 200){
         // base.displayMessage(responseCode)
-        const userId = responseCode.body.token;
-        document.cookie = `userId=${userId}; path=/;`;
+        console.log(responseCode);
+
+        const userToken = responseCode.body.usuario.token; // TODO: ???????????? why usuario???????
+        const userType = "FUNCIONARIO";
+        document.cookie = `userToken=${userToken}; path=/;`;
+        document.cookie = `userType=${userType}; path=/;`;
         window.location.href = ('/public/html/pages/dashboard-autor.html')
     }else{
         base.displayMessage(responseCode)

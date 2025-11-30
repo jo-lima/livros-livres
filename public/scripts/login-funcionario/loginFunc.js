@@ -8,7 +8,7 @@ const input_senha = document.querySelector('.login_senha');
 
 
 async function loginFuncionario(usuario,senha) {
-    const response = await fetch("http://152.250.104.13:6969/funcionario/login", {
+    const response = await fetch("http://localhost:6969/funcionario/login", {
       method: "POST",
       body: JSON.stringify({ usuario, senha }),
       headers: {

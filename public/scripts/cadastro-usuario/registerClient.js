@@ -4,7 +4,7 @@ console.log(emailConfirm)
 
 
 async function createCliente(cpf, nome, email, senha, endereco,telefone) {
-    const response = await fetch("http://152.250.104.13:6969/cliente/novo", {
+    const response = await fetch("http://localhost:6969/cliente/novo", {
       method: "POST",
       body: JSON.stringify({cpf, nome, email, senha, endereco, telefone}),
       headers: {

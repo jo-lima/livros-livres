@@ -1,5 +1,5 @@
 async function confirmPwdEmail(email) {
-    const response = await fetch("http://152.250.104.13:6969/cliente/enviar-email-esqueci-senha", {
+    const response = await fetch("http://localhost:6969/cliente/enviar-email-esqueci-senha", {
       method: "POST",
       body: JSON.stringify({ email }),
       headers: {
@@ -11,7 +11,7 @@ async function confirmPwdEmail(email) {
 }
 
 async function confirmPwdCode(email, codigo) {
-    const response = await fetch("http://152.250.104.13:6969/cliente/validar-token-troca-senha", {
+    const response = await fetch("http://localhost:6969/cliente/validar-token-troca-senha", {
       method: "POST",
       body: JSON.stringify({ email, codigo}),
       headers: {
@@ -23,7 +23,7 @@ async function confirmPwdCode(email, codigo) {
 }
 
 async function newPwd(token,email, senha) {
-    const response = await fetch("http://152.250.104.13:6969/cliente/alterar-senha", {
+    const response = await fetch("http://localhost:6969/cliente/alterar-senha", {
       method: "POST",
       body: JSON.stringify({senha}),
       headers: {

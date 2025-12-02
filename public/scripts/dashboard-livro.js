@@ -78,7 +78,7 @@ class DashboardLivro extends Base {
 
   // Populando lista de autores
   renderAuthorsList(authorsData) {
-    if (authorsData.statusCode != 200) return;
+    if (authorsData.message == 'Nenhum autor encontrado.') return;
 
     this.authorsListElement.innerHTML = "";
 
@@ -160,7 +160,7 @@ class DashboardLivro extends Base {
   async listRenderBooks() {
 
     this.getAllBooks().then((json) => {
-      if (json.statusCode == 404) {
+      if (json.message == 'Nenhum livro encontrado') {
         this.displayMessage(json);
         return;
       }

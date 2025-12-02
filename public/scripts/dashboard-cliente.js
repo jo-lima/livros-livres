@@ -138,7 +138,7 @@ class DashboardCliente extends Base {
     }
 
     this.getAllClients().then(json => {
-    if (json.statusCode == 404) {
+    if (json.message == 'Nenhum cliente encontrado.') {
       this.displayMessage(json);
       return;
     }

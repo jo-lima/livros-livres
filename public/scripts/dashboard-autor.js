@@ -5,7 +5,9 @@ class DashboardAutor extends Base {
     super();
 
     // Elementos
-    this.authorsTableElement = document.querySelector(".dashboard__table--authors tbody");
+    this.authorsTableElement = document.querySelector(
+      ".dashboard__table--authors tbody"
+    );
     // Novo autor
     this.newAuthorForm = document.querySelector("#new-author-form");
     this.newAuthorButton = document.querySelector("#new-author-button");
@@ -65,7 +67,8 @@ class DashboardAutor extends Base {
   // Atualizando os cards
   updateCards(authorsData) {
     // Autores registrados
-    document.querySelector(".dashboard__card--authors-amount").textContent = authorsData.body.length;
+    document.querySelector(".dashboard__card--authors-amount").textContent =
+      authorsData.body.length;
   }
 
   // Enviar formulário de criação de autor
@@ -86,7 +89,10 @@ class DashboardAutor extends Base {
     event.preventDefault();
 
     const body = this.formDataObject(this.editAuthorForm);
-    const response = await this.editAuthor(this.editAuthorForm.dataset.idAuthor, body);
+    const response = await this.editAuthor(
+      this.editAuthorForm.dataset.idAuthor,
+      body
+    );
 
     this.displayMessage(response);
     this.cleanForm(this.editAuthorForm);
@@ -104,8 +110,13 @@ class DashboardAutor extends Base {
     let json;
 
     // Inativar/Ativar autor
-    if (target.classList.contains("disable-author-button") || target.classList.contains("enable-author-button")) {
-      json = target.classList.contains("disable-author-button") ? await this.disableAuthor(rowId) : await this.enableAuthor(rowId);
+    if (
+      target.classList.contains("disable-author-button") ||
+      target.classList.contains("enable-author-button")
+    ) {
+      json = target.classList.contains("disable-author-button")
+        ? await this.disableAuthor(rowId)
+        : await this.enableAuthor(rowId);
 
       this.displayMessage(json);
       this.listRenderAuthors();
@@ -115,7 +126,9 @@ class DashboardAutor extends Base {
     if (target.classList.contains("edit-author-button")) {
       const response = await this.getAuthor(rowId);
 
-      this.editAuthorForm.querySelectorAll('input, textarea').forEach(field => field.value = response.body[field.name]);
+      this.editAuthorForm
+        .querySelectorAll("input, textarea")
+        .forEach((field) => (field.value = response.body[field.name]));
 
       this.editAuthorForm.dataset.idAuthor = rowId;
       this.showPopUp("#edit-author-form-popup");
@@ -124,25 +137,36 @@ class DashboardAutor extends Base {
 
   // Aplicando os EventListeners
   setUpAuthorListeners() {
-    this.authorsTableElement.addEventListener("click", event => this.handleAuthorActions(event));
+    this.authorsTableElement.addEventListener("click", (event) =>
+      this.handleAuthorActions(event)
+    );
     // Novo autor
-    this.newAuthorButton.addEventListener("click", () => this.showPopUp("#new-author-form-popup"));
-    this.newAuthorForm.addEventListener("submit", event => this.submitNewAuthorForm(event));
+    this.newAuthorButton.addEventListener("click", () =>
+      this.showPopUp("#new-author-form-popup")
+    );
+    this.newAuthorForm.addEventListener("submit", (event) =>
+      this.submitNewAuthorForm(event)
+    );
     // Editar autor
-    this.editAuthorForm.addEventListener("submit", event => this.submitEditAuthorForm(event));
+    this.editAuthorForm.addEventListener("submit", (event) =>
+      this.submitEditAuthorForm(event)
+    );
   }
 
   // Listando e renderizando autores
   async listRenderAuthors() {
-
     // Caso usuario NAO esteja logado OU usuario NAO seja um cliente, nao deixa entrar
-    if(document.cookie.split('userToken=')[1]?.split(';')[0] == null || document.cookie.split('userId=')[1]?.split(';')[0] != null) {
-      document.querySelector(".dashboard__container").innerHTML = "<h1>Você não tem permissão para acessar esta página!</h1>"
-      return
+    if (
+      document.cookie.split("userToken=")[1]?.split(";")[0] == null ||
+      document.cookie.split("userId=")[1]?.split(";")[0] != null
+    ) {
+      document.querySelector(".dashboard__container").innerHTML =
+        "<h1>Você não tem permissão para acessar esta página!</h1>";
+      return;
     }
 
     this.getAllAuthors().then((json) => {
-      if (json.statusCode == 404) {
+      if (json.message === "Nenhum autor encontrado.") {
         this.displayMessage(json);
         return;
       }

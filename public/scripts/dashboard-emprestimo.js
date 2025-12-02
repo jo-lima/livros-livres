@@ -31,7 +31,7 @@ class DashboardEmprestimo extends Base {
 
   // Renderizando as listas
   renderBooksList(booksData) {
-    if (booksData.statusCode != 200) return;
+    if (booksData.message == 'Nenhum livro encontrado') return;
 
     this.booksListElement.innerHTML = "";
 
@@ -43,7 +43,7 @@ class DashboardEmprestimo extends Base {
   }
 
   renderClientsList(clientsData) {
-    if (clientsData.statusCode != 200) return;
+    if (clientsData.message == 'Nenhum cliente encontrado.') return;
 
     this.clientsListElement.innerHTML = "";
 
@@ -103,7 +103,7 @@ class DashboardEmprestimo extends Base {
   // Renderizar tudo
   async renderPage(){
     await this.getAllEmprestimos().then(json => {
-      if (json.statusCode == 404) {
+      if (json.message == 'Nenhum empréstimo encontrado.') {
         this.displayMessage(json);
         return;
       }

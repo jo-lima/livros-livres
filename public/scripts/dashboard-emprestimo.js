@@ -59,7 +59,7 @@ class DashboardEmprestimo extends Base {
     this.loansTableElement.innerHTML = '';
 
     loansData.body.forEach(loan => {
-      if (!this.filters.showCompleted && loan.status == 'FINALIZADO') return
+      if (!this.filters.showCompleted && (loan.status == 'FINALIZADO' || loan.status == 'FINALIZADO_ATRASADO' )) return
       const actionsHtml = ``
 
       const loanHtml = `
@@ -97,7 +97,7 @@ class DashboardEmprestimo extends Base {
     document.querySelector(".dashboard__card--loans-amount").textContent = loansData.body.length
 
     // Empréstimos ativos
-    document.querySelector(".dashboard__card--active-loans-amount").textContent = loansData.body.filter(loan => loan.status != 'FINALIZADO').length
+    document.querySelector(".dashboard__card--active-loans-amount").textContent = loansData.body.filter(loan => (loan.status == 'FINALIZADO' || loan.status == 'FINALIZADO_ATRASADO' )).length
   }
 
   // Renderizar tudo

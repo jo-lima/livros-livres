@@ -38,7 +38,7 @@ btnLogin.addEventListener("submit", async (event) =>{
         document.cookie = `userType=${userType}; path=/;`;
         window.location.href = ('/public/html/pages/dashboard-autor.html')
     }else{
-        base.displayMessage(responseCode)
+        // base.displayMessage(responseCode)
     }
 })
 

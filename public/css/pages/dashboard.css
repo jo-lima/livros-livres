@@ -276,6 +276,7 @@
   font-size: 12px;
   text-align: center;
   transition: all ease 0.2s;
+  z-index: 999;
 }
 
 .dashboard__actions-dropdown--hidden{

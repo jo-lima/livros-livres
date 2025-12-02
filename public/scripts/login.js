@@ -37,7 +37,7 @@ btnLogin.addEventListener("submit", async (event) =>{
 
     const email = input_email.value.trim();
     const senha = input_senha.value.trim();
-
+    console.log("asdas")
     const responseCode = await loginUser(email, senha);
 
     if(responseCode.statusCode === 200){
@@ -51,7 +51,7 @@ btnLogin.addEventListener("submit", async (event) =>{
         document.cookie = `userType=${userType}; path=/;`;
         window.location.href = ('/public/html/pages/acervo.html')
     }else{
-        base.displayMessage(responseCode)
+        // base.displayMessage(responseCode)
     }
 })
 

@@ -13,12 +13,11 @@ Como um usuário não cadastrado, é possível apenas visualizar os livros em es
 
 ### Fazendo o cadastro:
 Ao fazer o cadastro de um novo usuário no sistema é preciso fazer uma verificação do seu email, sistema usado também na funcionalidade de "esqueci minha senha".
-| Durante a verificação de email | Após verificação de email |
-|---|---|
-| ![verify-email-page](/readme-src/verify-email-page.png) | ![cadastro](/readme-src/cadastro.png) |
+| Durante a verificação de email | Após verificação de email | Email Recebido |
+|---|---| --- |
+| ![verify-email-page](/readme-src/verify-mail-page.png) | ![cadastro](/readme-src/cadastro.png) | ![verify-mail](/readme-src/verify-mail.png) |
 
-**Email recebido:**
-![verify-mail](/readme-src/verify-mail.png)
+
 
 ### Usuários logados:
 Ao logar-se como um usuário comum, é possível fazer o pedido de empréstimo de livros (que devem ser aprovador por um administrador), conferir seus empréstimos, visualizar o histórico de empréstimos, dentre outras.
